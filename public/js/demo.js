@@ -162,9 +162,9 @@ export async function renderDemo(root) {
         S.eventContext = null; ensureResult(); draw();
       };
       const current = S.topic || focus;
-      const topicSelect = h('label', { class: 'field' }, h('span', { class: 'lbl' }, 'อยากมูเรื่องอะไร'),
+      const topicSelect = h('label', { class: 'field' }, h('span', { class: 'lbl' }, 'เลือกเรื่องที่ต้องการมู'),
         h('select', { 'aria-label': 'อยากมูเรื่องอะไร', onchange: (e) => pick(e.target.value) },
-          S.wishes.length > 1 ? h('option', { value: 'ALL', selected: current === 'ALL' }, 'ทุกเรื่องที่เลือก') : null,
+          current === 'ALL' ? h('option', { value: 'ALL', selected: true, disabled: true }, '— เลือกเรื่อง —') : null,
           S.wishes.length ? h('optgroup', { label: 'เรื่องที่คุณเลือกไว้' }, S.wishes.map((w) => h('option', { value: w, selected: current === w }, wishName[w]))) : null,
           h('optgroup', { label: 'เรื่องอื่น ๆ (คำนวณใหม่เฉพาะเรื่องนั้น)' }, cat.wishes.filter((w) => !S.wishes.includes(w.id)).map((w) => h('option', { value: w.id, selected: current === w.id }, w.label)))));
       const list = focus === 'ALL' ? R.top5 : R.top5.filter((p) => p.matched_wish_ids.includes(focus));
@@ -184,8 +184,8 @@ export async function renderDemo(root) {
       }
       return h('div', { class: 'fade-in stack' }, title(4, 'เรื่องมูที่แนะนำสำหรับคุณ', 'จากข้อมูลที่คุณเลือก MUMU พบความเกี่ยวข้องเหล่านี้'), summary(R),
         h('div', { class: 'card stack' }, h('h3', {}, 'ความสนใจของคุณ'),
-          S.wishes.length > 1 ? h('div', { class: 'row' }, h('button', { type: 'button', class: 'btn sm' + (focus === 'ALL' && !S.topic ? ' primary' : ''), onclick: () => pick('ALL') }, 'ดูทุกเรื่องที่เลือก'), h('span', { class: 'small muted' }, 'หรือแตะการ์ดเพื่อโฟกัส 1 เรื่องในครั้งนี้')) : h('p', { class: 'small muted', style: 'margin:0' }, 'คุณเลือกไว้เรื่องเดียว ระบบใช้เรื่องนี้เป็นโฟกัสให้อัตโนมัติ'),
-          topicSelect, S.topic ? h('div', { class: 'callout info small' }, `กำลังดูเฉพาะเรื่อง "${wishName[S.topic]}" (คำนวณใหม่เฉพาะเรื่องนี้) การ์ดความสนใจเดิมของคุณยังอยู่ แตะการ์ดหรือ "ดูทุกเรื่องที่เลือก" เพื่อกลับ`) : null,
+          S.wishes.length > 1 ? h('p', { class: 'small muted', style: 'margin:0' }, 'เลือกได้ครั้งละ 1 เรื่อง แตะการ์ดหรือเลือกจากรายการ ยังไม่เลือกจะแสดงภาพรวมจากเรื่องที่คุณเลือกไว้') : h('p', { class: 'small muted', style: 'margin:0' }, 'คุณเลือกไว้เรื่องเดียว ระบบใช้เรื่องนี้เป็นโฟกัสให้อัตโนมัติ'),
+          topicSelect, S.topic ? h('div', { class: 'callout info small' }, `กำลังดูเฉพาะเรื่อง "${wishName[S.topic]}" (คำนวณใหม่เฉพาะเรื่องนี้) การ์ดความสนใจเดิมของคุณยังอยู่ แตะการ์ดเพื่อกลับ`) : null,
           h('div', { class: 'wish-grid', style: 'grid-template-columns:repeat(auto-fill,minmax(180px,1fr))' }, cards)),
         h('div', { class: 'card stack' }, h('h3', {}, '✨ คำแนะนำเบื้องต้นสำหรับคุณ'), preview,
           h('div', { class: 'callout info small' }, 'การเลือกโฟกัสเปลี่ยนแค่วิธีแสดงตัวอย่างนี้ ไม่เปลี่ยนคะแนนเครือข่าย อันดับ Top 5 หรือการจับคู่ทริป')),
@@ -325,15 +325,13 @@ export async function renderDemo(root) {
     window.scrollTo({ top: 0 });
   }
   function thanks(r) {
-    const several = S.wishes.length > 1;
     clear(dlg).append(h('div', { class: 'dlg-b stack', style: 'text-align:center;padding:26px 22px' },
       h('div', { style: 'font-size:46px' }, '💜'), h('h3', {}, 'ขอบคุณสำหรับความคิดเห็น'),
-      h('div', { class: r.saved ? 'callout ok' : 'callout warn' }, r.message),
-      h('p', { class: 'muted', style: 'margin:0' }, 'ข้อมูลโปรไฟล์ของคุณยังอยู่ จะไปต่อทางไหนดี?'),
-      h('button', { type: 'button', class: 'btn primary', onclick: () => startNewRound(several ? 4 : 2) }, several ? 'เลือกเรื่องที่จะมูต่อ (ขั้น 4)' : 'มูเรื่องอื่นต่อ (ขั้น 2)'),
-      several ? h('button', { type: 'button', class: 'btn', onclick: () => startNewRound(2) }, 'เปลี่ยนความสนใจ (ขั้น 2)') : null,
-      h('button', { type: 'button', class: 'btn', onclick: () => { dlg.close(); go(5); } }, 'กลับไปดูสถานที่ที่แนะนำ'),
-      h('button', { type: 'button', class: 'btn ghost', onclick: () => { dlg.close(); resetAll(); } }, 'เริ่มใหม่ทั้งหมด (ล้างวันเกิดด้วย)')));
+      h('div', { class: r.saved ? 'callout ok' : 'callout warn' }, r.saved ? 'บันทึกความคิดเห็นแล้ว' : r.message),
+      h('p', { class: 'muted', style: 'margin:0' }, 'ข้อมูลโปรไฟล์ของคุณยังอยู่ ไปต่อได้เลย'),
+      // step 04 lists all 10 wishes, so "another topic" is always step 04 (the profile in steps 01-03 stays)
+      h('button', { type: 'button', class: 'btn primary', onclick: () => startNewRound(4) }, 'มูเรื่องอื่นต่อ'),
+      h('button', { type: 'button', class: 'btn ghost', onclick: () => { dlg.close(); resetAll(); } }, 'กลับหน้าแรก (ล้างข้อมูลของฉัน)')));
   }
 
   function openFeedback(pre = {}) {
