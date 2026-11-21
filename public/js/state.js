@@ -7,6 +7,8 @@ export const S = {
   era: 'BE', d: '', m: '', y: '',
   wishes: [], groups: new Set(), deities: new Set(), places: new Set(),
   focus: 'ALL',                       // UI presentation state only (never sent to the model)
+  topic: null,                        // step 04 dropdown: a single wish outside the chosen ones (recomputes with that wish only)
+  eventContext: null,                 // set by "มูเรื่องนี้ต่อ": the event the user continues with into step 07
   result: null, resultKey: null, status: 'idle', error: null,
   picked: new Set(), service: null,
   lab: { profile: null, source: null, trace: null, key: null },
@@ -27,10 +29,13 @@ export function birthdateISO() {
   return `${yy}-${String(m).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
 }
 
+/** Wishes the engine is asked about now: the single topic picked in step 04 when it is outside the chosen ones, else the chosen wishes. */
+export const activeWishes = () => (S.topic ? [S.topic] : [...S.wishes]);
+
 /** The model's data contract: wish_ids, birthdate, exclusions. Nothing else goes to the engine. */
 export function profile() {
   return {
-    wish_ids: [...S.wishes], birthdate: birthdateISO() || null,
+    wish_ids: activeWishes(), birthdate: birthdateISO() || null,
     exclusions: { tradition_groups: [...S.groups], deity_ids: [...S.deities], place_ids: [...S.places] },
   };
 }
@@ -59,3 +64,21 @@ export async function ensureResult(force = false) {
 }
 
 export const hasProfile = () => S.wishes.length > 0;
+
+/* ------------------------------------------------------------------ calendar, follows and reminders */
+import { createStore, STORAGE_KEY } from './notify.js';
+import { bangkokToday, POLICY } from './calendar.js';
+
+function safeLocalStorage() {
+  try { const s = window.localStorage; s.setItem('__t', '1'); s.removeItem('__t'); return s; } catch { return null; }   // private mode / blocked
+}
+const realStore = createStore({ storage: safeLocalStorage(), key: STORAGE_KEY });
+const demoStore = createStore({ storage: null, demo: true });                 // isolated, in memory only, gone on reload
+
+/** Hidden demo clock. policy: INFO_ONLY (A) is the default; ALERT_WITH_LABEL (B) waits for expert approval and can be tried here. */
+export const CLOCK = { demo: false, date: null, policy: POLICY.INFO_ONLY };
+export const store = () => (CLOCK.demo ? demoStore : realStore);
+export const realUserStore = realStore;
+export const demoUserStore = demoStore;
+export const todayISO = () => (CLOCK.demo && CLOCK.date ? CLOCK.date : bangkokToday());
+export const catalogNames = { wish: {} };                                        // filled by demo.js after the catalog loads

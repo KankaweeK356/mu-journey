@@ -19,6 +19,7 @@ from pathlib import Path
 import networkx as nx
 
 import _engine as E
+import _calendar as CAL
 
 m = E.m
 EVENT_RANKING_VERSION = "EVENT_RANKING_V1"
@@ -51,13 +52,15 @@ def static_status(ev: dict) -> dict:
     if ctype == "weekly" or (ctype == "monthly" and "เสาร์แรก" in ev["date_or_recurrence"]):
         cal = "CALENDAR_DATE_VERIFIED"      # computable from a calendar rule
     elif is_lunar(ev):
-        cal = "NO_COMPUTABLE_DATE"          # upgraded in Stage 2 once the HKO conversion table is loaded
+        cal = "CALENDAR_DATE_VERIFIED"      # computed from the HKO Gregorian-Lunar table (2026-2027, no leap month)
     else:
         cal = "DATE_UNVERIFIED"             # a date typed in the sheet with no source URL
     return {"network": network, "calendar_date": cal, "event_schedule": "EVENT_SCHEDULE_UNVERIFIED"}
 
 
 STATIC = {e["event_id"]: static_status(e) for e in EVENTS}
+SCHEDULE = {e["event_id"]: CAL.schedule_for(e) for e in EVENTS}   # Layer B rule per event (same event_id on every occurrence)
+CROSSCHECK = {e["event_id"]: CAL.lunar_crosscheck(e, SCHEDULE[e["event_id"]]) for e in EVENTS}
 
 
 # ---------------------------------------------------------------- shared PPR context (same steps as get_rankings)
@@ -99,7 +102,8 @@ def score_events(profile: dict, events=None, ctx=None) -> dict:
     for ev in events:
         st = STATIC.get(ev["event_id"]) or static_status(ev)
         d, p = ev["deity_id"], ev["place_id"]
-        base = {"event_id": ev["event_id"], "event_name": ev["event_name_th"], "deity_id": d, "place_id": p, "static": st}
+        base = {"event_id": ev["event_id"], "event_name": ev["event_name_th"], "deity_id": d, "place_id": p, "static": st,
+                "date_text": ev["date_or_recurrence"], "schedule": SCHEDULE[ev["event_id"]]}
         if st["network"] != "GRAPH_VALID":
             excluded.append(dict(base, network_status=st["network"])); continue
         wishes, paths = _paths_for(ev, ctx)

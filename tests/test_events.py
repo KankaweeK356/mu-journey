@@ -47,7 +47,7 @@ class DataQA(unittest.TestCase):
         for v in EV.STATIC.values():
             self.assertEqual(v["event_schedule"], "EVENT_SCHEDULE_UNVERIFIED")
         self.assertEqual(EV.STATIC["E_LAKSHMI_WEEKLY"]["calendar_date"], "CALENDAR_DATE_VERIFIED")
-        self.assertEqual(EV.STATIC["E_CHINESE_MOON_NEW"]["calendar_date"], "NO_COMPUTABLE_DATE")
+        self.assertEqual(EV.STATIC["E_CHINESE_MOON_NEW"]["calendar_date"], "CALENDAR_DATE_VERIFIED")  # via the HKO table (Stage 2)
         self.assertEqual(EV.STATIC["E_BRAHMA_BIRTH_2569"]["calendar_date"], "DATE_UNVERIFIED")
 
 

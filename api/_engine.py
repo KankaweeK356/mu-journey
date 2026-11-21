@@ -195,6 +195,13 @@ def _event_block(profile: dict, full: bool = False) -> dict:
     if full:
         block["stability"] = EV.stability_from_rows(EV.score_events(profile, ctx=ctx)["eligible"])
         block["step05_check"] = all(abs(r["place_score"] - ctx["place_scores"].get(r["place_id"], -1)) < 1e-15 for r in block["eligible"])
+    as_of = profile.get("as_of")          # optional Layer B date (a calendar date only, never personal data)
+    if as_of:
+        import _calendar as CAL
+        block["display"] = CAL.display_layer(block["eligible"], as_of)
+    block["lunar_source"] = {k: v for k, v in EV.CAL.LUNAR.items() if k in (
+        "source_name", "source_url", "source_year", "provider", "attribution", "retrieved_at", "conversion_version", "covers",
+        "leap_month_in_range", "leap_month_check")}
     return block
 
 

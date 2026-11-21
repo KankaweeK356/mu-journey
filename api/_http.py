@@ -41,7 +41,10 @@ def query(h) -> dict:
 def profile_from(body: dict) -> dict:
     """Pick only the fields of the data contract. Date of birth is used in memory and never stored or logged."""
     exc = body.get("exclusions") or {}
-    return {
+    as_of = body.get("as_of")
+    if not (isinstance(as_of, str) and len(as_of) == 10 and as_of[4] == "-" and as_of[7] == "-"):
+        as_of = None                      # optional calendar date for the Layer B display (no time, no identity)
+    out = {
         "profile_id": "WEB",
         "wish_ids": body.get("wish_ids") or [],
         "birthdate": body.get("birthdate") or None,
@@ -51,3 +54,10 @@ def profile_from(body: dict) -> dict:
             "place_ids": list(exc.get("place_ids") or []),
         },
     }
+    if as_of:
+        try:
+            __import__("datetime").date.fromisoformat(as_of)
+            out["as_of"] = as_of
+        except ValueError:
+            pass
+    return out
