@@ -159,6 +159,24 @@ def dt_add(iso, n):
     return (_dt.date.fromisoformat(iso) + _dt.timedelta(days=n)).isoformat()
 
 
+class ExpertDecisionA(unittest.TestCase):
+    """Expert decision (option A): no reminder for real events whose schedule is unverified; synthetic events only in the Tab 2 simulation."""
+
+    def test_no_real_event_is_schedule_verified(self):
+        self.assertTrue(all(v["event_schedule"] == "EVENT_SCHEDULE_UNVERIFIED" for v in EV.STATIC.values()))
+
+    def test_tab1_has_no_demo_clock_and_defaults_to_info_only(self):
+        js = (ROOT / "public" / "js")
+        ui = (js / "notifyui.js").read_text(encoding="utf-8")
+        self.assertNotIn("openClock", ui)
+        self.assertNotIn("setDemo", ui)
+        st = (js / "state.js").read_text(encoding="utf-8")
+        self.assertIn("demo: false", st)
+        self.assertIn("POLICY.INFO_ONLY", st)
+        lab = (js / "eventlab.js").read_text(encoding="utf-8")
+        self.assertNotIn("เตือนพร้อมป้าย (รออนุมัติ)", lab)       # no option B in the Tab 2 simulation either
+
+
 class Api(unittest.TestCase):
     def test_profile_as_of_is_optional_and_validated(self):
         self.assertNotIn("as_of", _http.profile_from({"wish_ids": ["W01"]}))

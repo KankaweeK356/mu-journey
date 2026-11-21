@@ -38,7 +38,7 @@ export function eventTrace(T) {
         st.scenarios ? h('div', { class: 'small muted' }, Object.entries(st.scenarios).filter(([k]) => k !== 'baseline_50_50').map(([k, v]) => `${k}: top5 overlap ${v.top5_overlap ?? '—'} · Spearman ${v.spearman == null ? '—' : f(v.spearman, 3)}`).join(' | ')) : null,
         h('div', { class: 'small faint' }, 'เกณฑ์ 0.80 เป็นเกณฑ์ภายในสำหรับสาธิต ไม่ใช่ความแม่นยำ คะแนนที่เท่ากันเพราะหลายกิจกรรมใช้เทพและสถานที่คู่เดียวกัน')),
       h('div', { class: 'small faint' }, `ปฏิทินจันทรคติ: ${R.lunar_source.source_name} · ${R.lunar_source.provider} · ดึงเมื่อ ${R.lunar_source.retrieved_at} · ${R.lunar_source.leap_month_check} · `, h('a', { href: R.lunar_source.source_url, target: '_blank', rel: 'noopener noreferrer' }, 'แหล่งข้อมูล'), ' · วันที่ตรวจแล้วไม่ได้แปลว่ากำหนดการจัดงานยืนยันแล้ว'),
-      h('div', { class: 'callout small' }, 'กฎการเตือน: ต้องติดตาม + เปิดเตือน + วันที่ตรวจแล้ว + กำหนดการยืนยันแล้ว กิจกรรมจริงทั้ง 37 รายการยังไม่ผ่านข้อสุดท้าย จึงเป็นข้อมูลเท่านั้นจนกว่าผู้เชี่ยวชาญอนุมัติแบบมีป้ายเตือน กิจกรรมจำลองเตือนได้เฉพาะใน Demo Simulation'));
+      h('div', { class: 'callout small' }, 'กฎการเตือน: ต้องติดตาม + เปิดเตือน + วันที่ตรวจแล้ว + กำหนดการยืนยันแล้ว กิจกรรมจริงทั้ง 37 รายการยังไม่ผ่านข้อสุดท้าย จึงเป็นข้อมูลเท่านั้น (ผู้เชี่ยวชาญเลือกทาง ก) กิจกรรมจำลองทดสอบเตือนได้เฉพาะใน Reminder Simulation ของ Tab 2 นี้ ศูนย์แจ้งเตือนใน Tab 1 ไม่สร้างแจ้งเตือนจากกิจกรรมที่ยังไม่ยืนยัน'));
   };
   draw(today);
   return step('H', `Event Recommendation Trace (${R.counts.eligible} กิจกรรม)`, body);
@@ -100,7 +100,7 @@ export function reminderSimulation(T) {
         sel('④ เปิดเตือน', h('input', { type: 'checkbox', checked: f0 ? f0.reminder_enabled : sim.reminder, disabled: !followed(), onchange: (e) => { sim.reminder = e.target.checked; st.setReminder(sim.event, e.target.checked, off, sim.date); draw(); } })),
         sel('⑤ เตือนล่วงหน้า (วัน)', h('select', { onchange: (e) => { sim.offset = Number(e.target.value); if (followed()) st.setReminder(sim.event, f0.reminder_enabled, sim.offset, sim.date); draw(); } }, OFFSETS.map((o) => h('option', { value: o, selected: o === off }, o)))),
         sel('⑥ วันที่จำลอง', h('div', { class: 'row' }, h('input', { type: 'date', value: sim.date, onchange: (e) => { if (isIso(e.target.value)) { sim.date = e.target.value; draw(); } } }), h('button', { type: 'button', class: 'btn sm', onclick: () => { sim.date = addDays(sim.date, -1); draw(); } }, '−1'), h('button', { type: 'button', class: 'btn sm', onclick: () => { sim.date = addDays(sim.date, 1); draw(); } }, '+1'))),
-        sel('⑦ นโยบายกิจกรรมจริง', h('select', { onchange: (e) => { sim.policy = e.target.value; draw(); } }, [[POLICY.INFO_ONLY, 'ก · ข้อมูลเท่านั้น (ค่าตั้งต้น)'], [POLICY.ALERT_WITH_LABEL, 'ข · เตือนพร้อมป้าย (รออนุมัติ)']].map(([v, t]) => h('option', { value: v, selected: v === sim.policy }, t))))),
+        sel('⑦ นโยบายกิจกรรมจริง', h('div', { class: 'small muted' }, 'ผู้เชี่ยวชาญกำหนดแล้ว: กิจกรรมจริงที่ยังไม่ยืนยันกำหนดการ = ข้อมูลเท่านั้น ไม่เตือน'))),
       h('div', { class: 'row' },
         h('button', { type: 'button', class: 'btn primary', onclick: () => { const c = st.runCheck(sim.date, { policy: sim.policy }); sim.log.push({ date: sim.date, created: c.length, unread: st.unread(sim.date).length }); sim.last = c; draw(); } }, '⑧ Run Reminder Check'),
         h('button', { type: 'button', class: 'btn', disabled: !st.unread(sim.date).length, onclick: () => { st.markAllRead(); draw(); } }, '⑨ ทำเครื่องหมายว่าอ่านแล้ว'),

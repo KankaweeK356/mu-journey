@@ -83,7 +83,7 @@ function drawCenter() {
     h('div', { class: 'dlg-b stack' },
       list.length ? [unread ? h('div', { class: 'row', style: 'justify-content:flex-end' }, h('button', { type: 'button', class: 'btn sm', onclick: () => st.markAllRead() }, 'อ่านทั้งหมดแล้ว')) : null, ...list]
         : h('div', { class: 'callout info' }, h('b', {}, 'ยังไม่มีแจ้งเตือน'), h('p', { class: 'small', style: 'margin:.3em 0 0' },
-          'กด "＋ ติดตาม" ที่กิจกรรมในขั้นที่ 5 แล้วเปิด "เตือนล่วงหน้า" ระบบจะตรวจตอนเปิดหน้าเว็บและแจ้งเมื่อถึงวันเตือน (ไม่มีการส่งข้อความนอกหน้านี้)')),
+          'ศูนย์นี้แสดงเฉพาะการเตือนที่ผ่านเงื่อนไข กิจกรรมจริงตอนนี้ยังไม่ยืนยันกำหนดการกับผู้จัด จึงติดตามเก็บไว้ดูได้แต่ยังไม่แจ้งเตือน (ไม่มีการส่งข้อความนอกหน้านี้)')),
       h('div', { class: 'callout warn small' }, UNCONFIRMED + ': ข้อมูลวันจัดกิจกรรมของสถานที่จริงยังไม่ได้ยืนยันกับผู้จัด ควรตรวจก่อนเดินทาง')));
 }
 export function openCenter() { drawCenter(); if (!dlg.open) dlg.showModal(); }
@@ -112,8 +112,6 @@ export function calendarCard() {
 /* ------------------------------------------------------------------ header bell, bottom bar, banner */
 const badge = h('span', { class: 'badge', hidden: true });
 const bell = h('button', { type: 'button', class: 'hbtn', 'aria-label': 'การแจ้งเตือน', title: 'การแจ้งเตือน', onclick: openCenter }, '🔔', badge);
-const clockBtn = h('button', { type: 'button', class: 'hbtn faintbtn', 'aria-label': 'ตั้งค่าโหมดสาธิต', title: 'โหมดสาธิต', onclick: () => openClock() }, '🕒');
-const banner = h('div', { class: 'demo-banner', role: 'status', hidden: true });
 const bar = h('div', { class: 'nbar', role: 'status', hidden: true });
 let barTimer = null, barSeen = '';
 
@@ -121,9 +119,6 @@ export function refresh() {
   const st = store(), today = todayISO(), unread = st.unread(today);
   badge.hidden = !unread.length; badge.textContent = String(unread.length);
   bell.setAttribute('aria-label', unread.length ? `การแจ้งเตือน ${unread.length} รายการ` : 'การแจ้งเตือน');
-  banner.hidden = !CLOCK.demo;
-  if (CLOCK.demo) clear(banner).append(h('div', { class: 'wrap row', style: 'justify-content:center;gap:10px' }, h('b', {}, '🧪 โหมดสาธิต'), `วันที่จำลอง ${thaiDate(today)} · ข้อมูลแยกจากข้อมูลจริง ไม่บันทึกลงเครื่อง`,
-    h('button', { type: 'button', class: 'btn sm', onclick: () => openClock() }, 'ตั้งวันที่'), h('button', { type: 'button', class: 'btn sm', onclick: () => setDemo(false) }, 'ออก')));
   const sig = unread.map((n) => n.id).join(',');
   const visible = unread.length && hooks.showBar();
   if (!visible) { bar.hidden = true; if (!unread.length) barSeen = ''; return; }
@@ -134,44 +129,13 @@ export function refresh() {
     h('button', { type: 'button', class: 'nbar-x', 'aria-label': 'ซ่อนแถบแจ้งเตือน', onclick: () => { bar.hidden = true; clearTimeout(barTimer); } }, '✕'));
 }
 
-/* ------------------------------------------------------------------ hidden demo clock */
-const clk = h('dialog', { class: 'nc', 'aria-label': 'โหมดสาธิต' });
-clk.addEventListener('click', (e) => { if (e.target === clk) clk.close(); });
-document.body.append(clk);
-
-function setDemo(on) {
-  CLOCK.demo = on;
-  if (on && !CLOCK.date) CLOCK.date = bangkokToday();
-  if (!on) CLOCK.policy = POLICY.INFO_ONLY;
-  barSeen = ''; changed(); if (clk.open) openClock();
-}
-function setDate(iso) { if (!isIso(iso)) return; CLOCK.date = iso; barSeen = ''; changed(); if (clk.open) openClock(); }
-
-export function openClock() {
-  const d = todayISO();
-  clear(clk).append(h('div', { class: 'dlg-h' }, h('h3', {}, '🕒 โหมดสาธิต'), h('button', { type: 'button', class: 'btn sm', 'aria-label': 'ปิด', onclick: () => clk.close() }, '✕')),
-    h('div', { class: 'dlg-b stack' },
-      h('p', { class: 'small muted', style: 'margin:0' }, 'ใช้ทดสอบการแจ้งเตือนโดยไม่ต้องรอวันจริง ใช้นาฬิกาจำลองและข้อมูลแยกต่างหาก ไม่กระทบรายการติดตามจริงของคุณ'),
-      h('label', { class: 'row', style: 'flex-wrap:nowrap;align-items:center' }, h('input', { type: 'checkbox', checked: CLOCK.demo, onchange: (e) => setDemo(e.target.checked) }), h('b', {}, 'เปิดโหมดสาธิต')),
-      CLOCK.demo ? h('div', { class: 'stack' },
-        h('label', { class: 'field' }, h('span', { class: 'lbl' }, 'วันที่จำลอง'), h('input', { type: 'date', value: d, onchange: (e) => setDate(e.target.value) })),
-        h('div', { class: 'row' }, [[-1, '−1 วัน'], [1, '+1 วัน'], [7, '+7 วัน']].map(([n, t]) => h('button', { type: 'button', class: 'btn sm', onclick: () => setDate(addDays(d, n)) }, t)), h('button', { type: 'button', class: 'btn sm', onclick: () => setDate(bangkokToday()) }, 'วันนี้จริง')),
-        h('div', { class: 'row small' }, h('span', { class: 'muted' }, 'กิจกรรมจริงที่ยังไม่ยืนยันกำหนดการ:'),
-          h('div', { class: 'seg', role: 'group', 'aria-label': 'นโยบายกิจกรรมจริง' }, [[POLICY.INFO_ONLY, 'ข้อมูลเท่านั้น (ก)'], [POLICY.ALERT_WITH_LABEL, 'แจ้งเตือนพร้อมป้าย (ข)']].map(([v, t]) =>
-            h('button', { type: 'button', 'aria-pressed': String(CLOCK.policy === v), onclick: () => { CLOCK.policy = v; changed(); openClock(); } }, t)))),
-        h('div', { class: 'callout small' }, 'ตัวอย่างวันทดสอบ: สอบ 20 ม.ค. 2570 เตือน 14 วัน → ตั้งวันที่ 6 ม.ค. 2570 · ความรัก 14 ม.ค. เตือน 7 วัน → 7 ม.ค. · คอนเสิร์ต 10 ม.ค. เตือน 1 วัน → 9 ม.ค.'),
-        h('button', { type: 'button', class: 'btn sm', onclick: () => { demoUserStore.clear(); toast('ล้างข้อมูลโหมดสาธิตแล้ว'); changed(); openClock(); } }, 'ล้างข้อมูลโหมดสาธิต')) : null));
-  if (!clk.open) clk.showModal();
-}
-
 /** Wipes the real follow data too ("ล้างข้อมูลของฉัน"). */
 export function clearAllNotifyData() { realUserStore.clear(); demoUserStore.clear(); CLOCK.demo = false; CLOCK.date = null; CLOCK.policy = POLICY.INFO_ONLY; barSeen = ''; refresh(); }
 
 export function mountChrome() {
   const row = document.querySelector('.hdr-row');
   if (!row || bell.isConnected) return;
-  row.append(h('div', { class: 'hdr-tools' }, clockBtn, bell));
-  document.querySelector('.hdr').append(banner);
+  row.append(h('div', { class: 'hdr-tools' }, bell));
   document.body.append(bar);
   subscribe(refresh);
   check(); refresh();                                   // check-on-open: alerts that became due while the page was closed
