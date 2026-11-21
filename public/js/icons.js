@@ -25,7 +25,7 @@ export function hero() {
   const clouds = [[60, 150, 46], [330, 140, 38], [200, 165, 30]].map(([x, y, r]) =>
     s('g', { opacity: '.85' }, s('ellipse', { cx: x, cy: y, rx: r, ry: r * .38, fill: '#fff' }), s('ellipse', { cx: x + r * .5, cy: y - 6, rx: r * .6, ry: r * .3, fill: '#fff' })));
   const stars = [[40, 34], [120, 20], [270, 40], [350, 24], [380, 70]].map(([x, y]) => s('path', { d: `M${x} ${y - 6}l1.6 4.4 4.4 1.6-4.4 1.6L${x} ${y + 6}l-1.6-4.4-4.4-1.6 4.4-1.6z`, fill: '#fff', opacity: '.9' }));
-  return s('svg', { viewBox: '0 0 400 230', role: 'img', 'aria-label': 'ภาพประกอบวัด พระจันทร์ และรถไฟฟ้า' },
+  return s('svg', { viewBox: '0 0 400 230', preserveAspectRatio: 'xMidYMax slice', role: 'img', 'aria-label': 'ภาพประกอบวัด พระจันทร์ และรถไฟฟ้า' },
     s('defs', {}, s('linearGradient', { id: 'sky', x1: 0, y1: 0, x2: 0, y2: 1 }, s('stop', { offset: '0', 'stop-color': '#b49cf5' }), s('stop', { offset: '.65', 'stop-color': '#f3c6e6' }), s('stop', { offset: '1', 'stop-color': '#ffe7d2' }))),
     s('rect', { width: 400, height: 230, fill: 'url(#sky)' }),
     s('path', { d: 'M300 22a22 22 0 1 0 14 38 18 18 0 0 1-14-38z', fill: '#fff6cf' }),

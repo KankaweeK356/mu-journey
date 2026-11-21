@@ -57,8 +57,8 @@ export async function renderDemo(root) {
       h('option', { value: '' }, ph), opts.map(([v, t]) => h('option', { value: v, selected: String(S[key]) === String(v) }, t)));
     const era = h('div', { class: 'seg', role: 'group', 'aria-label': 'ระบบปี' }, [['BE', 'พ.ศ.'], ['CE', 'ค.ศ.']].map(([v, t]) => h('button', { type: 'button', 'aria-pressed': String(S.era === v), onclick: () => {
       if (S.y) S.y = String(Number(S.y) + (v === 'BE' ? 543 : -543)); S.era = v; invalidate(); draw(); } }, t)));
-    return h('div', { class: 'fade-in' }, h('div', { class: 'hero' }, hero(),
-      h('div', { class: 'hero-body' }, h('div', { class: 'row', style: 'justify-content:center;margin-bottom:6px' }, moon(30), h('b', { style: 'font-size:22px;letter-spacing:.08em;color:#512b86' }, 'MUMU')),
+    return h('div', { class: 'fade-in' }, h('div', { class: 'hero' }, h('div', { class: 'hero-art' }, hero()),
+      h('div', { class: 'hero-body' }, h('div', { class: 'row hero-logo', style: 'justify-content:center;margin-bottom:6px' }, moon(30), h('b', { style: 'font-size:22px;letter-spacing:.08em;color:#512b86' }, 'MUMU')),
         h('h1', {}, 'มูให้ตรงใจ ไปให้ถูกที่'), h('p', { class: 'muted' }, 'ค้นหาสถานที่และทริปสายมูที่เหมาะกับคุณ ด้วยการวิเคราะห์เครือข่ายความสัมพันธ์'),
         h('div', { class: 'card flat stack', style: 'text-align:left;margin-top:14px' },
           h('div', { class: 'field' }, h('span', { class: 'lbl' }, '🎂 วันเกิดของคุณ ', h('span', { class: 'hint' }, '(ไม่บังคับ)')),

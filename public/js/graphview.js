@@ -39,7 +39,7 @@ export function mountGraph(container, graph, { onSelect } = {}) {
     cols.W.sort((a, b) => a.id.localeCompare(b.id));
     cols.D.sort((a, b) => a.community - b.community || a.label.localeCompare(b.label, 'th'));
     cols.P.sort((a, b) => (a.degree === 0) - (b.degree === 0) || a.community - b.community || a.id.localeCompare(b.id));
-    const ROW = 18, TOP = 44, X = { W: 170, D: 500, P: 820 };
+    const ROW = 19, TOP = 40, X = { W: 150, D: 395, P: 630 };
     const rows = Math.max(cols.W.length * 2, cols.D.length, cols.P.length, 6);
     const H = TOP + rows * ROW + 14;
     const pos = {};
@@ -47,7 +47,7 @@ export function mountGraph(container, graph, { onSelect } = {}) {
       const gap = t === 'W' ? Math.min(40, (rows * ROW) / Math.max(cols.W.length, 1)) : ROW;
       cols[t].forEach((n, i) => { pos[n.id] = { x: X[t], y: TOP + 10 + i * gap }; });
     }
-    const svg = s('svg', { viewBox: `0 0 1000 ${H}`, role: 'img', 'aria-label': 'กราฟความสัมพันธ์ เรื่องที่ขอ สิ่งศักดิ์สิทธิ์ และสถานที่' });
+    const svg = s('svg', { viewBox: `0 0 800 ${H}`, role: 'img', 'aria-label': 'กราฟความสัมพันธ์ เรื่องที่ขอ สิ่งศักดิ์สิทธิ์ และสถานที่' });
     svg.append(...[['W', 'เรื่องที่ขอ'], ['D', 'สิ่งศักดิ์สิทธิ์'], ['P', 'สถานที่']].map(([t, l]) => s('text', { x: X[t], y: 22, 'text-anchor': 'middle', class: 'colhead' }, `${l} (${cols[t].length})`)));
     const gE = s('g'), gN = s('g');
     svg.append(gE, gN);
