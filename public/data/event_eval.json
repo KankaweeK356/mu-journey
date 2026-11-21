@@ -1,0 +1,76 @@
+{
+ "version": "EVENT_RANKING_V1",
+ "kind": "SYNTHETIC_STRUCTURAL_CHECKS",
+ "disclaimer": "ตรวจโครงสร้างของชั้นกิจกรรมบนโปรไฟล์ทดสอบ ไม่ใช่ความแม่นยำ NDCG หรือความพึงพอใจของผู้ใช้จริง",
+ "n_profiles": 75,
+ "n_source_events": 37,
+ "valid_path_rate": {
+  "valid": 1040,
+  "total": 1040
+ },
+ "exclusion_violations": 0,
+ "coverage": {
+  "profiles_with_events": 73,
+  "profiles_without_events": 2,
+  "mean_eligible_per_profile": 13.87,
+  "distinct_events_ever_eligible": 34,
+  "never_eligible": [
+   "E_MOON_FESTIVAL_2569",
+   "E_RAHU_TRANSIT_2569",
+   "E_RAHU_WEEKLY"
+  ]
+ },
+ "excluded_reasons": {
+  "NO_PATH_FOR_PROFILE": 1372,
+  "NO_VALID_NETWORK_PATH": 150,
+  "HARD_EXCLUDED": 138,
+  "RELATIONSHIP_REVIEW_REQUIRED": 75
+ },
+ "network_vs_direct": {
+  "profiles_with_network_events": 73,
+  "profiles_with_direct_events": 57,
+  "note": "กิจกรรมจับคู่ตรงเป็นข้อมูลจำลอง ไม่มีเส้นทางและคะแนน จึงไม่นำมาเทียบความแม่นยำกับเครือข่าย"
+ },
+ "rank_stability": {
+  "status": {
+   "EVALUATED": 63,
+   "NOT_EVALUABLE_INSUFFICIENT_EVENTS": 9,
+   "TOP5_ONLY": 1,
+   "NO_ELIGIBLE_NETWORK_EVENTS": 2
+  },
+  "interpretation": {
+   "STABLE": 12,
+   "TIE_BOUNDARY_REVIEW": 48,
+   "SENSITIVE": 3,
+   "NOT_EVALUABLE": 12
+  },
+  "threshold_note": "เกณฑ์ภายใน 0.80 สำหรับสาธิต ไม่ใช่เกณฑ์ความแม่นยำ"
+ },
+ "ties": {
+  "profiles_with_tie_at_rank1": 46,
+  "profiles_tie_boundary_review": 48
+ },
+ "static_status": {
+  "GRAPH_VALID": 34,
+  "NO_VALID_NETWORK_PATH": 2,
+  "RELATIONSHIP_REVIEW_REQUIRED": 1
+ },
+ "calendar_status": {
+  "CALENDAR_DATE_VERIFIED": 7,
+  "DATE_UNVERIFIED": 30
+ },
+ "schedule_status": {
+  "EVENT_SCHEDULE_UNVERIFIED": 37
+ },
+ "lunar_source": {
+  "source_url": "https://data.gov.hk/en-data/dataset/hk-hko-rss-gregorian-lunar-calendar-conversion-table",
+  "source_year": [
+   2026,
+   2027
+  ],
+  "retrieved_at": "2026-11-21",
+  "attribution": "Data source: Hong Kong Observatory (DATA.GOV.HK). Used under the DATA.GOV.HK Terms and Conditions of Use.",
+  "conversion_version": "HKO_NONGLI_2026_2027_V1",
+  "leap_month_check": "no month label containing 閏 in the two files"
+ }
+}

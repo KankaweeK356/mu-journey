@@ -1,5 +1,6 @@
 // Tab 2 · 05 Model Evaluation — numbers computed by the Python reference model, labelled for what they are (and are not).
-import { h, clear, f, pct, bar, statusChip, STATUS, TRIP_TH } from './util.js';
+import { h, clear, f, pct, bar, statusChip, STATUS, TRIP_TH, getJSON } from './util.js';
+import { reminderChecks } from './eventlab.js';
 import { API } from './api.js';
 import { PERSONAS, compare } from './crosstab.js';
 
@@ -57,6 +58,28 @@ export function renderEvaluation(p, { results, graph, cat, names }) {
     } catch (e) { clear(out).append(h('div', { class: 'callout bad' }, e.message)); } finally { runBtn.disabled = false; }
   }
 
+  /* 6b event recommendation + reminder checks (synthetic, structural: no accuracy or NDCG claims) */
+  const evBox = h('div', { class: 'stack' }, h('div', { class: 'spinner' }));
+  p.append(h('div', { class: 'card stack', style: 'margin-top:14px' }, h('h3', {}, '6b · Event Recommendation & Reminder Checks'),
+    h('div', { class: 'callout warn small' }, h('span', { class: 'chip st-syn', style: 'margin-right:6px' }, '◇ SYNTHETIC'), 'ตรวจโครงสร้างของชั้นกิจกรรมและตรรกะเตือนบนโปรไฟล์ทดสอบ ', h('b', {}, 'ไม่ใช่ความแม่นยำ NDCG หรือผลจากผู้ใช้จริง')), evBox));
+  getJSON('/data/event_eval.json').then((E) => {
+    const row = (a, b, ok) => h('tr', {}, h('td', {}, a), h('td', { class: 'n' }, b), h('td', {}, ok == null ? '' : ok ? '✅' : '❌'));
+    const vp = E.valid_path_rate, st = E.rank_stability, ev = E.coverage;
+    const live = reminderChecks();
+    clear(evBox).append(h('div', { class: 'grid g2' },
+      h('div', { class: 'stack' }, h('b', {}, `ชั้นเครือข่าย (${E.n_profiles} โปรไฟล์ทดสอบ · ${E.n_source_events} กิจกรรม)`), h('table', {}, h('tbody', {},
+        row('เส้นทางเรื่อง→เทพ→สถานที่ใช้ได้จริง', `${vp.valid}/${vp.total}`, vp.valid === vp.total),
+        row('กิจกรรมที่ละเมิดข้อจำกัด', E.exclusion_violations, E.exclusion_violations === 0),
+        row('โปรไฟล์ที่มีกิจกรรมจากเครือข่าย', `${ev.profiles_with_events}/${E.n_profiles}`), row('เฉลี่ยกิจกรรมต่อโปรไฟล์', ev.mean_eligible_per_profile),
+        row('กิจกรรมที่เคยเข้าอันดับอย่างน้อย 1 ครั้ง', `${ev.distinct_events_ever_eligible}/${E.n_source_events}`), row('โปรไฟล์ที่มีกิจกรรมจับคู่ตรง (จำลอง)', E.network_vs_direct.profiles_with_direct_events),
+        row('อันดับ 1 เสมอกัน (tie)', `${E.ties.profiles_with_tie_at_rank1}/${E.n_profiles}`), row('Tie คาบเกี่ยวอันดับ 5 (ตรวจแยก)', E.ties.profiles_tie_boundary_review))),
+        h('div', { class: 'small' }, 'เสถียรภาพอันดับ: ', Object.entries(st.interpretation).map(([k, v]) => `${k} ${v}`).join(' · ')),
+        h('div', { class: 'small faint' }, 'คะแนนเสมอกันมาก เพราะหลายกิจกรรมใช้คู่เทพ–สถานที่เดียวกัน อันดับภายในกลุ่มเสมอจึงเรียงตาม event_id ไม่ใช่ความต่างของคะแนน · ' + E.disclaimer),
+        h('div', { class: 'small faint' }, `ไม่เคยเข้าอันดับ: ${ev.never_eligible.join(', ') || '—'} · วันที่ ${Object.entries(E.calendar_status).map(([k, v]) => `${k} ${v}`).join(', ')} · กำหนดการ ${Object.entries(E.schedule_status).map(([k, v]) => `${k} ${v}`).join(', ')}`)),
+      h('div', { class: 'stack' }, h('b', {}, 'ตรรกะแจ้งเตือน (รันสดในเบราว์เซอร์)'), h('table', {}, h('tbody', {}, live.map((c) => h('tr', {}, h('td', {}, c.ok ? '✅' : '❌'), h('td', { class: 'small' }, c.label, h('div', { class: 'faint' }, c.detail)))))),
+        h('span', { class: live.every((c) => c.ok) ? 'chip ok' : 'chip bad' }, live.every((c) => c.ok) ? `✓ ผ่าน ${live.length}/${live.length} ข้อ` : '✗ มีข้อที่ไม่ผ่าน'))));
+  }).catch((e) => clear(evBox).append(h('div', { class: 'callout bad' }, 'โหลดผลตรวจกิจกรรมไม่สำเร็จ: ' + e.message)));
+
   /* 7 data gaps + limitations */
   const cnt = (arr, fn) => arr.reduce((a, x) => { const k = fn(x); a[k] = (a[k] || 0) + 1; return a; }, {});
   const edges = cnt(graph.edges, (e) => e.kind + ':' + e.status), hours = cnt(graph.nodes.filter((n) => n.type === 'P'), (n) => n.hours_status);
@@ -68,6 +91,6 @@ export function renderEvaluation(p, { results, graph, cat, names }) {
     h('div', { class: 'card stack' }, h('h3', {}, '8 · Model Limitations'), h('ul', { class: 'small', style: 'margin:0;padding-left:18px' }, [
       'label ที่ใช้ทดสอบมาจากกราฟเดียวกัน ยังไม่มี label อิสระจากผู้ใช้หรือผู้เชี่ยวชาญ', 'PPR แพ้ Degree ใน edge holdout จึงไม่อ้างว่าดีกว่าวิธีทั่วไปทุกกรณี', 'ความเชื่อทั้งหมดเป็น claim จากแหล่งอ้างอิง ไม่ใช่การรับรองหรือผลของการขอพร',
       'ทริปยังไม่ใช่ผลิตภัณฑ์ที่เปิดขายได้: ไม่มีเวลาเปิดจริง เส้นทางเดินที่ปลอดภัย ตารางรถไฟจริง ราคา ที่นั่ง หรือสิทธิ์จากสถานที่', 'บริการฝากมูเป็นรายการจำลอง ไม่ใช่ผู้ให้บริการจริง',
-      'Phase 2: เรียนรู้จาก feedback · การจองและชำระเงินจริง · แจ้งเตือนปฏิทิน', 'ก่อนใช้งานจริง: ตรวจสิทธิ์/ToS ของแหล่งข้อมูล, ความยินยอมตาม PDPA, ตรวจโดยผู้ใช้และผู้เชี่ยวชาญอิสระ'].map((t) => h('li', {}, t))),
+      'กิจกรรมจริงทั้ง 37 รายการยังไม่ได้ยืนยันกำหนดการกับผู้จัด จึงยังไม่เตือนจริง (วันที่ที่คำนวณได้ ≠ กำหนดการยืนยันแล้ว)', 'Phase 2: เรียนรู้จาก feedback · การจองและชำระเงินจริง · แจ้งเตือนนอกหน้าเว็บ (อีเมล/LINE)', 'ก่อนใช้งานจริง: ตรวจสิทธิ์/ToS ของแหล่งข้อมูล, ความยินยอมตาม PDPA, ตรวจโดยผู้ใช้และผู้เชี่ยวชาญอิสระ'].map((t) => h('li', {}, t))),
     h('div', { class: 'small faint' }, `Model ${cat.versions.model} · Dataset ${cat.versions.dataset_title} (${cat.versions.data_as_of}) · Snapshot ${cat.versions.snapshot_sha256}`))));
 }

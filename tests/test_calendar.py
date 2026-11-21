@@ -165,6 +165,21 @@ class Api(unittest.TestCase):
         self.assertNotIn("as_of", _http.profile_from({"wish_ids": ["W01"], "as_of": "2026-13-45"}))
         self.assertEqual(_http.profile_from({"wish_ids": ["W01"], "as_of": "2026-11-21"})["as_of"], "2026-11-21")
 
+    def test_trace_has_simulation_pool_with_the_three_agreed_test_events(self):
+        pool = {r["event_id"]: r for r in E.trace(A)["event_ranking"]["simulation_events"]}
+        self.assertEqual(len(pool), 36)
+        for eid, date, off in (("SYN_EV_025", "2027-01-20", 14), ("SYN_EV_013", "2027-01-14", 7), ("SYN_EV_001", "2027-01-10", 1)):
+            self.assertEqual((pool[eid]["event_date"], pool[eid]["notify_days_before"]), (date, off))
+            self.assertEqual(pool[eid]["event_schedule"], "SYNTHETIC_DEMO")
+        self.assertNotIn("simulation_events", E.recommend(A)["events"])   # Tab 1 payload does not carry the pool
+
+    def test_event_eval_file_matches_engine(self):
+        import json
+        ev = json.loads((ROOT / "public" / "data" / "event_eval.json").read_text(encoding="utf-8"))
+        self.assertEqual((ev["exclusion_violations"], ev["valid_path_rate"]["valid"] == ev["valid_path_rate"]["total"]), (0, True))
+        self.assertEqual(ev["kind"], "SYNTHETIC_STRUCTURAL_CHECKS")
+        self.assertEqual(ev["version"], EV.EVENT_RANKING_VERSION)
+
     def test_as_of_does_not_change_existing_outputs(self):
         a = E.recommend(A)
         b = E.recommend(dict(A, as_of="2026-11-21"))

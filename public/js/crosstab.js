@@ -27,5 +27,10 @@ export function compare(rec, tr) {
     { label: 'ไม่ละเมิดข้อจำกัด', ok: !violation, detail: `${blockedD.size} สิ่งศักดิ์สิทธิ์ / ${blockedP.size} สถานที่ถูกตัด` },
     { label: 'Model และ Data Snapshot Version ตรงกัน', ok: same(v1, v2) && !!v1.model && !!v1.snapshot_sha256, detail: `${v1.model || '?'} · snapshot ${v1.snapshot_sha256 || '?'}` },
     { label: 'Trace ตรงกับ Reference Model', ok: tr.step5_result.matches_reference === true, detail: 'matches_reference' },
+    (() => { // event ranking (EVENT_RANKING_V1): the same events, order and scores in both tabs
+      const e1 = (rec.events || {}).eligible || [], e2 = (tr.event_ranking || {}).eligible || [];
+      const ok = e1.length === e2.length && e1.every((r, i) => r.event_id === e2[i].event_id && r.event_score === e2[i].event_score);
+      return { label: 'อันดับกิจกรรม (EVENT_RANKING_V1) ตรงกัน', ok, detail: `${e1.length} กิจกรรม` };
+    })(),
   ];
 }

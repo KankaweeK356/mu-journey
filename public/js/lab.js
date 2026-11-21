@@ -5,6 +5,7 @@ import { S, profile, keyOf, hasProfile } from './state.js';
 import { mountGraph, graphLegend } from './graphview.js';
 import { PERSONAS, compare } from './crosstab.js';
 import { wishIcon } from './icons.js';
+import { eventTrace, reminderSimulation } from './eventlab.js';
 
 const clone = (x) => JSON.parse(JSON.stringify(x));
 const SOURCE_TH = (src) => (src === 'demo' ? 'โปรไฟล์จาก Demo ผู้ใช้ (Session ปัจจุบัน)' : src.startsWith('persona:') ? 'ตัวอย่างข้อมูลจำลอง' : 'กรอกเอง');
@@ -105,8 +106,9 @@ export function renderLab(p, ctx) {
     const G = h('section', { class: 'card stack fade-in' }, h('h3', {}, 'ภาพบนกราฟ'), h('p', { class: 'small muted', style: 'margin:0' }, 'ขนาดโหนด = คะแนน PPR · เส้นหนา = เส้นทางของ Top 5 · โหนดขีดฆ่า = ถูกตัดด้วยข้อจำกัด'), holder, graphLegend());
 
     const head = h('div', { class: 'row' }, h('span', { class: T.step5_result.matches_reference ? 'chip ok' : 'chip bad' }, T.step5_result.matches_reference ? '✓ ตรงกับ Python Reference Model' : '✗ ไม่ตรงกับ Reference'),
-      h('span', { class: 'chip' }, 'Model ' + T.versions.model), h('span', { class: 'chip' }, 'Snapshot ' + T.versions.snapshot_sha256), h('button', { type: 'button', class: 'btn sm', onclick: () => reveal([A, B, C, D, E, F, G, chk]) }, '↻ เล่นซ้ำทีละขั้น'));
-    clear(out).append(head, A, B, C, D, E, F, G, chk);
+      h('span', { class: 'chip' }, 'Model ' + T.versions.model), h('span', { class: 'chip' }, 'Snapshot ' + T.versions.snapshot_sha256), h('button', { type: 'button', class: 'btn sm', onclick: () => reveal([A, B, C, D, E, F, G, Hs, Is, chk]) }, '↻ เล่นซ้ำทีละขั้น'));
+    const Hs = eventTrace(T), Is = reminderSimulation(T);
+    clear(out).append(head, A, B, C, D, E, F, G, Hs, Is, chk);
     const view = mountGraph(holder, graph);
     view.setMode('score'); view.setScores(T.step3_pagerank.node_scores); view.setGone(gone); view.setLive(live); view.setRanks(ranks);
 

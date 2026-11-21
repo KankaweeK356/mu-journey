@@ -139,9 +139,10 @@ def order(rows: list, weights=DEFAULT_WEIGHTS) -> list:
     return out
 
 
-def direct_events(profile: dict) -> list:
-    """GD_EVENTS (synthetic): wish tag only. Never mixed into the network ranking and never given a path or a PPR score."""
-    wishes = set(m.normalize_profile(profile)["wish_ids"])
+def direct_events(profile: dict, all_wishes: bool = False) -> list:
+    """GD_EVENTS (synthetic): wish tag only. Never mixed into the network ranking and never given a path or a PPR score.
+    all_wishes=True lists every synthetic event (used only by the Tab 2 reminder simulation)."""
+    wishes = set(m.W) if all_wishes else set(m.normalize_profile(profile)["wish_ids"])
     out = []
     for r in m.D["events"]:
         if r["wish_id"] in wishes:

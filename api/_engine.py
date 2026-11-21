@@ -195,6 +195,8 @@ def _event_block(profile: dict, full: bool = False) -> dict:
     if full:
         block["stability"] = EV.stability_from_rows(EV.score_events(profile, ctx=ctx)["eligible"])
         block["step05_check"] = all(abs(r["place_score"] - ctx["place_scores"].get(r["place_id"], -1)) < 1e-15 for r in block["eligible"])
+    if full:
+        block["simulation_events"] = EV.direct_events(profile, all_wishes=True)   # synthetic pool for the Tab 2 reminder simulation only
     as_of = profile.get("as_of")          # optional Layer B date (a calendar date only, never personal data)
     if as_of:
         import _calendar as CAL
