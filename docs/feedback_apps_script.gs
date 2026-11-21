@@ -10,7 +10,7 @@
  * The token is the only thing protecting the endpoint, so keep it out of the repository.
  */
 const COLUMNS = ['submitted_at', 'kind', 'rating', 'reason_tag', 'would_use_again', 'wish_ids', 'place_ids',
-                 'trip_id', 'offer_id', 'comment', 'scope', 'data_origin'];
+                 'trip_id', 'offer_id', 'comment', 'scope', 'data_origin', 'consent'];
 
 function doPost(e) {
   try {
