@@ -2,6 +2,11 @@
 (pruning, seeds, PageRank, coverage re-ranking, trip scores) for the analytics explainer tab."""
 from http.server import BaseHTTPRequestHandler
 
+import os
+import sys
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+
 from _http import profile_from, read_json, send_json
 import _engine as E
 

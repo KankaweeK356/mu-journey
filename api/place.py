@@ -1,6 +1,11 @@
 """GET /api/places/:id  (rewritten to /api/place?id=P001) — place details and ritual information."""
 from http.server import BaseHTTPRequestHandler
 
+import os
+import sys
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+
 from _http import query, send_json
 import _engine as E
 
