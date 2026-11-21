@@ -187,6 +187,17 @@ def _reason(path: dict) -> str:
     return f"เกี่ยวข้องกับ{path['wish_name']} ผ่าน{path['deity_name']} ตามความสัมพันธ์ที่บันทึกไว้ในฐานข้อมูล"
 
 
+def _event_block(profile: dict, full: bool = False) -> dict:
+    """Layer A event ranking (see _events.py). Lazy import: _events imports this module."""
+    import _events as EV
+    ctx = EV.ppr_context(profile)
+    block = EV.rank_events(profile, ctx=ctx)
+    if full:
+        block["stability"] = EV.stability_from_rows(EV.score_events(profile, ctx=ctx)["eligible"])
+        block["step05_check"] = all(abs(r["place_score"] - ctx["place_scores"].get(r["place_id"], -1)) < 1e-15 for r in block["eligible"])
+    return block
+
+
 def recommend(profile: dict) -> dict:
     """Output A (Top<=5 places) and Output B (best fixed trip or NO_ELIGIBLE_SIGNATURE_TRIP)."""
     places = m.place_recommendation(profile)
@@ -226,6 +237,7 @@ def recommend(profile: dict) -> dict:
         "candidate_places": places["candidate_places"], "limited_results": places["limited_results"],
         "limited_reason": places["limited_reason"],
         "top5": view,
+        "events": _event_block(profile),
         "trip": {"decision": trip["decision"], "matched": trip["matched_trip"], "detail": trip_view,
                  "all_scores": scores, "route_reoptimized_per_user": trip["route_reoptimized_per_user"]},
         "model": {"place_recommendation": places, "match_trip": trip},  # untouched reference output
@@ -370,6 +382,7 @@ def trace(profile: dict) -> dict:
                                        for w, e in pathmap[p]] for p in selected},
                          "names": {p: m.P[p]["place_name"] for p in selected}},
         "baselines": {"direct_two_hop_top5": direct[:5], "popularity_degree_top5": popularity[:5]},
+        "event_ranking": _event_block(profile, full=True),
         "trip_matching": {"trips": trip_rows, "result": match},
     }
 
