@@ -14,8 +14,13 @@ API = ROOT / "api"
 PUBLIC = ROOT / "public"
 sys.path.insert(0, str(API))
 
-REWRITES = [(re.compile(r"^/api/places/([^/]+)$"), "/api/place?id=%s"),
-            (re.compile(r"^/api/trips/([^/]+)$"), "/api/trip?id=%s")]
+# Keep in sync with "rewrites" in vercel.json. /api/mumu/* are the public contract names for Tab 1.
+REWRITES = [(re.compile(r"^/api/(?:mumu/)?places/([^/]+)$"), r"/api/place?id=\1"),
+            (re.compile(r"^/api/(?:mumu/)?trips/([^/]+)$"), r"/api/trip?id=\1"),
+            (re.compile(r"^/api/mumu/catalog$"), "/api/catalog"),
+            (re.compile(r"^/api/mumu/recommendations$"), "/api/recommendations"),
+            (re.compile(r"^/api/mumu/proxy-offers$"), "/api/offers"),
+            (re.compile(r"^/api/mumu/demo-feedback$"), "/api/feedback")]
 _cache = {}
 
 
@@ -31,11 +36,15 @@ def load(name):
 class Dev(BaseHTTPRequestHandler):
     def _route(self, verb):
         path = urlparse(self.path).path
+        query = urlparse(self.path).query
         for rx, dest in REWRITES:
-            hit = rx.match(path)
-            if hit:
-                self.path = dest % hit.group(1)
+            if rx.match(path):
+                new = rx.sub(dest, path)
+                if query:  # Vercel keeps the original query string on rewrites
+                    new += ("&" if "?" in new else "?") + query
+                self.path = new
                 path = urlparse(self.path).path
+                break
         if path.startswith("/api/"):
             name = path[5:].strip("/")
             if not re.fullmatch(r"[a-z_]+", name) or name.startswith("_") or not (API / (name + ".py")).exists():

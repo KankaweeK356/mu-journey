@@ -25,6 +25,20 @@ ALPHA = 0.85
 BIRTH_STRENGTH = 0.05
 PPR_SHARE = 0.75
 
+# ---------------------------------------------------------------- versions (identical for every endpoint)
+import hashlib  # noqa: E402
+
+_snapshot_bytes = (MODEL_DIR / "input_drive_v2_snapshot.json").read_bytes()
+_snapshot_meta = json.loads(_snapshot_bytes)
+VERSIONS = {
+    "model": MODEL_VERSION,
+    "dataset_title": _snapshot_meta.get("dataset_title"),
+    "data_as_of": _snapshot_meta.get("data_as_of"),
+    "snapshot_sha256": hashlib.sha256(_snapshot_bytes).hexdigest()[:12],
+    "trip_design": m.TRIP_DATA.get("version"),
+}
+del _snapshot_bytes, _snapshot_meta
+
 # ---------------------------------------------------------------- ritual claims (File 01 / CL_RITUAL_CLAIMS)
 _rit = json.loads((MODEL_DIR / "ritual_claims.json").read_text(encoding="utf-8"))
 _cols = _rit["columns"]
@@ -73,6 +87,7 @@ def tradition_groups_of(tradition: str) -> list[str]:
 def catalog() -> dict:
     return {
         "model_version": MODEL_VERSION,
+        "versions": VERSIONS,
         "wishes": [{"id": w, "label": r["wish_th"]} for w, r in sorted(m.W.items())],
         "tradition_groups": list(m.TRADITION_GROUPS),
         "deities": [
@@ -204,6 +219,7 @@ def recommend(profile: dict) -> dict:
         trip_view = trip_detail(trip["matched_trip"]["trip_id"])
     return {
         "model_version": MODEL_VERSION,
+        "versions": VERSIONS,
         "profile": {"wish_ids": places["wish_ids"], "weekday": places["weekday_from_dob"],
                     "applied_exclusions": places["applied_exclusions"],
                     "birth_claim_ids_used": places["birth_claim_ids_used"]},
@@ -313,8 +329,26 @@ def trace(profile: dict) -> dict:
         trip_rows.append({"trip_id": tid, "title": trip["title"], "stops": stop_scores})
     match = m.match_trip(profile)
 
+    # Which relationships and places the exclusions took away (computed against the unfiltered graph).
+    no_block = dict(prof, blocked_deity_ids=set(), blocked_place_ids=set())
+    before = m.allowed_paths(no_block)
+    lost_places = [p for p in before if p not in pathmap]
+    reduced_places = [p for p in pathmap if len(pathmap[p]) < len(before[p])]
+    rm_wd = sorted((w, e) for (w, e) in m.WD if e in prof["blocked_deity_ids"])
+    rm_dp = sorted((e, p) for (e, p) in m.DP if e in prof["blocked_deity_ids"] or p in prof["blocked_place_ids"])
+    removed_edges = {
+        "wish_deity": len(rm_wd), "deity_place": len(rm_dp),
+        "examples": [f"{m.W[w]['wish_th']} – {m.E[e]['name_th']}" for w, e in rm_wd[:4]]
+                    + [f"{m.E[e]['name_th']} – {m.P[p]['place_name']}" for e, p in rm_dp[:4]],
+        "places_losing_all_paths": [{"id": p, "name": m.P[p]["place_name"]} for p in lost_places],
+        "places_with_fewer_paths": [{"id": p, "name": m.P[p]["place_name"], "before": len(before[p]), "after": len(pathmap[p])}
+                                    for p in reduced_places],
+        "candidates_before": len(before), "candidates_after": len(pathmap),
+    }
+
     return {
         "model_version": MODEL_VERSION,
+        "versions": VERSIONS,
         "parameters": {"alpha": ALPHA, "ppr_weight": 0.75, "coverage_weight": 0.25, "birth_strength": BIRTH_STRENGTH,
                        "trip_ppr_share": PPR_SHARE, "trip_min_coverage": 0.30, "k": 5,
                        "degree_correction": "ppr / sqrt(degree + 1)", "normalisation": "divide by max over candidates"},
@@ -322,6 +356,7 @@ def trace(profile: dict) -> dict:
                     "weekday": prof["weekday"], "blocked_deity_ids": sorted(prof["blocked_deity_ids"]),
                     "blocked_place_ids": sorted(prof["blocked_place_ids"])},
         "step1_prune": {"nodes_before": n_before, "nodes_after": graph.number_of_nodes(),
+                        "removed_edges": removed_edges,
                         "removed_deities": [{"id": d, "name": m.E[d]["name_th"], "tradition": m.E[d]["tradition"]}
                                             for d in sorted(prof["blocked_deity_ids"])],
                         "removed_places": [{"id": p, "name": m.P[p]["place_name"]} for p in sorted(prof["blocked_place_ids"])]},
@@ -369,7 +404,9 @@ def validate_feedback(body: dict) -> dict:
     again = body.get("would_use_again") or ""
     if again not in {"", "YES", "NO", "MAYBE"}:
         raise ValueError("invalid would_use_again")
-    comment = str(body.get("comment") or "").strip()[:200]
+    if body.get("consent") is not True:
+        raise ValueError("consent is required to store feedback")
+    comment = str(body.get("comment") or "").strip()[:300]
     return {"kind": kind, "rating": rating, "wish_ids": wishes, "place_ids": places, "trip_id": trip_id,
             "offer_id": offer_id, "reason_tag": reason, "would_use_again": again, "comment": comment,
-            "scope": "SERVICE_EXPERIENCE_NOT_WORSHIP_OUTCOME", "data_origin": "DEMO_USER_INPUT"}
+            "scope": "DEMO_UX_FEEDBACK_NOT_REAL_SERVICE", "data_origin": "DEMO_USER_INPUT", "consent": "YES"}

@@ -2,8 +2,12 @@
 
 เว็บสาธิตระบบแนะนำสถานที่สายมูด้วย Network Analysis (Personalized PageRank บน Knowledge Graph) และจับคู่ทริปบริษัทแบบคงที่ 1 จาก 3 ทริป
 
-- **Tab 1 ทดลองใช้งาน:** วันเกิด → เรื่องที่สนใจ (1–3) → สิ่งที่ไม่ต้องการ → ระบบเสนอสถานที่ไม่เกิน 5 แห่ง + ทริป 1 ทริป (หรือแจ้งว่าไม่มี) → เลือกสิ่งที่อยากมู → บริการเสริม (ทริป/ฝากมูจำลอง) → feedback
-- **Tab 2 Network Analytics:** 7 หัวข้อสำหรับผู้ตรวจ (ทริปสร้างจากอะไร, Knowledge Graph, โครงสร้างเครือข่าย, ลองถามทีละขั้น, จับคู่ทริป, ผลทดสอบรวมที่แพ้, ช่องว่างข้อมูล)
+เว็บมี 2 Main Tabs ใช้ Header, Design System, Backend, Dataset และ Model Version เดียวกัน
+
+- **Tab 1 Demo ผู้ใช้ (7 ขั้น):** 01 วันเกิด (พ.ศ./ค.ศ., ไม่บังคับ) → 02 เลือกความสนใจ 1–3 จาก 10 หมวด → 03 สิ่งที่ไม่ต้องการ (กลุ่มความเชื่อ/สิ่งศักดิ์สิทธิ์/สถานที่) → 04 เลือกโฟกัส + Preview จากเครือข่าย → 05 สถานที่ ≤5 แห่งพร้อมเส้นทาง Wish→Deity→Place → 06 ทริปบริษัท 1 จาก 3 (หรือ `NO_ELIGIBLE_SIGNATURE_TRIP`) → 07 ไปเอง/ทริป/ฝากมู (Demo) + feedback
+- **Tab 2 Network Analytics (5 หัวข้อ):** 01 Network Explorer · 02 MU Recommendation Lab (Step A–F, ปุ่ม "ใช้โปรไฟล์จาก Demo ผู้ใช้", ตรวจสอดคล้องกับ Tab 1) · 03 Signature Trip Designer (Offline) · 04 Trip Matching · 05 Model Evaluation (รวม Cross-tab Acceptance Test Case A/B/C)
+
+`focus_wish_id` (ขั้น 04) เป็น UI presentation state เท่านั้น ไม่ถูกส่งเข้าโมเดล ไม่เปลี่ยน PPR seeds, Top 5 หรือการจับคู่ทริป
 
 > ระบบสาธิตเชิงวิเคราะห์ ไม่ใช่บริการจริง: ความเชื่อคือ claim จากแหล่งอ้างอิง ไม่ใช่การรับรอง · ทริป ราคา และฝากมูเป็นข้อมูลจำลอง · ไม่มีการจองหรือชำระเงิน
 
@@ -21,6 +25,8 @@ docs/     ขั้นตอนตั้งค่า feedback → Google Sheet (
 แนวคิดสำคัญ: **Google Sheets เป็นที่แก้ข้อมูล แต่โมเดลรันจาก snapshot JSON** (`model/input_drive_v2_snapshot.json`) เพื่อให้ผลซ้ำได้และตรงกับ Python Reference โดยไม่เรียก Sheets ทุก request
 
 ## API
+
+ชื่อ endpoint ที่ Tab 1 ใช้คือ `/api/mumu/*` (`catalog`, `recommendations`, `places/:id`, `trips/:id`, `proxy-offers`, `demo-feedback`) ซึ่งเป็น alias ของ endpoint ด้านล่าง (ดู `rewrites` ใน `vercel.json`) ทุก response มี `versions` (model, dataset, snapshot hash, trip design) และ Tab 2 ใช้ `/api/trace` ซึ่งเรียกโมเดลตัวเดียวกัน
 
 | Method | Path | หน้าที่ |
 |---|---|---|

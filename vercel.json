@@ -12,7 +12,13 @@
   },
   "rewrites": [
     { "source": "/api/places/:id", "destination": "/api/place?id=:id" },
-    { "source": "/api/trips/:id", "destination": "/api/trip?id=:id" }
+    { "source": "/api/trips/:id", "destination": "/api/trip?id=:id" },
+    { "source": "/api/mumu/catalog", "destination": "/api/catalog" },
+    { "source": "/api/mumu/recommendations", "destination": "/api/recommendations" },
+    { "source": "/api/mumu/places/:id", "destination": "/api/place?id=:id" },
+    { "source": "/api/mumu/trips/:id", "destination": "/api/trip?id=:id" },
+    { "source": "/api/mumu/proxy-offers", "destination": "/api/offers" },
+    { "source": "/api/mumu/demo-feedback", "destination": "/api/feedback" }
   ],
   "headers": [
     {
