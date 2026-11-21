@@ -1,0 +1,5 @@
+tests/
+scripts/
+docs/
+docs_REPORT_TH.md
+model/test_network_phase1.py

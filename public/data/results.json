@@ -1,0 +1,4333 @@
+{
+  "version": "NETWORK_PHASE1_V2_2026-11-21",
+  "as_of": "2026-11-21",
+  "environment": "SYNTHETIC_DEMO_AND_UNVERIFIED_BELIEF_CLAIMS",
+  "qa": {
+    "passed": true,
+    "issues": [],
+    "unverified_place_coordinates": 52,
+    "source_claims_unverified": true,
+    "mock_user_feedback_used_for_training": false,
+    "distinct_trips": 3,
+    "source_snapshot_offers": 21
+  },
+  "graph_eda": {
+    "nodes": 101,
+    "edges": 114,
+    "by_type": {
+      "wish": 10,
+      "deity": 39,
+      "place": 52
+    },
+    "edge_types": {
+      "wish_deity": 48,
+      "deity_place": 66
+    },
+    "density_full": 0.022574,
+    "density_wish_deity": 0.123077,
+    "density_deity_place": 0.032544,
+    "components": 19,
+    "component_sizes": [
+      81,
+      2,
+      2,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "isolates": 16,
+    "isolated_place_ids": [
+      "P004",
+      "P006",
+      "P009",
+      "P010",
+      "P011",
+      "P020",
+      "P024",
+      "P027",
+      "P028",
+      "P033",
+      "P034",
+      "P046",
+      "P048",
+      "P049",
+      "P050",
+      "P052"
+    ],
+    "communities": 25,
+    "modularity": 0.586411,
+    "largest_community_summaries": [
+      {
+        "node_count": 16,
+        "wishes": [
+          "การเรียน/สอบ"
+        ],
+        "example_places": [
+          "วัดพระศรีมหาอุมาเทวี (วัดแขก สีลม)",
+          "วัดวิษณุ (สมาคมฮินดูธรรมสภา)",
+          "เทวสถานโบสถ์พราหมณ์",
+          "ศาลท้าวมหาพรหม แยกราชประสงค์ (เอราวัณ)"
+        ]
+      },
+      {
+        "node_count": 16,
+        "wishes": [
+          "สุขภาพ/แคล้วคลาด",
+          "ปลดหนี้"
+        ],
+        "example_places": [
+          "วัดอาวุธวิกสิตาราม",
+          "วัดปากน้ํา ภาษีเจริญ",
+          "วัดสุทัศนเทพวรารามราชวรมหาวิหาร",
+          "วัดอินทรวิหาร (บางขุนพรหม)"
+        ]
+      },
+      {
+        "node_count": 14,
+        "wishes": [
+          "การงาน",
+          "บ้าน/ที่ดิน/คดีความ"
+        ],
+        "example_places": [
+          "วัดระฆังโฆสิตารามวรมหาวิหาร",
+          "ศาลเจ้ากวนอู (คลองสาน)",
+          "ศาลหลักเมืองกรุงเทพมหานคร",
+          "ศาลเจ้าพ่อเห้งเจีย (สามย่าน)"
+        ]
+      },
+      {
+        "node_count": 11,
+        "wishes": [
+          "ความรัก"
+        ],
+        "example_places": [
+          "วัดมหาบุศย์ (แม่นาคพระโขนง)",
+          "พระแม่ลักษมี เกษรวิลเลจ",
+          "ศาลเจ้าแม่ทับทิม (สะพานซังฮี้)",
+          "โบสถ์เทพมณเฑียร (Dev Mandir)"
+        ]
+      },
+      {
+        "node_count": 10,
+        "wishes": [
+          "แก้ชง/สะเดาะเคราะห์"
+        ],
+        "example_places": [
+          "ศาลเจ้าพ่อเสือ (เสาชิงช้า)",
+          "วัดมังกรกมลาวาส (วัดเล่งเน่ยยี่)",
+          "วัดทิพยวารีวิหาร (กัมโล่วยี่)",
+          "ศาลเจ้าโจวซือกง (ตลาดน้อย)"
+        ]
+      },
+      {
+        "node_count": 8,
+        "wishes": [
+          "การเงิน/โชคลาภ",
+          "เสี่ยงโชค"
+        ],
+        "example_places": [
+          "ศาลพ่อปู่เจ้ายี่กอฮง",
+          "วัดไตรมิตรวิทยารามวรวิหาร",
+          "พระบรมรูปทรงม้า (ลานพระราชวังดุสิต)"
+        ]
+      },
+      {
+        "node_count": 6,
+        "wishes": [
+          "บัตรคอน/กิจกรรมติ่ง"
+        ],
+        "example_places": [
+          "เทวาลัยพระพิฆเนศ สี่แยกห้วยขวาง",
+          "ศาลพระพิฆเนศ ลานเซ็นทรัลเวิลด์",
+          "องค์พ่อพระพิฆเนศ ยูเนี่ยนมอลล์"
+        ]
+      },
+      {
+        "node_count": 2,
+        "wishes": [],
+        "example_places": [
+          "โรงพยาบาลสงฆ์ (จุดทําบุญ)"
+        ]
+      }
+    ],
+    "degree_hubs": [
+      {
+        "node_id": "W:W02",
+        "name": "การงาน",
+        "type": "W",
+        "degree": 12
+      },
+      {
+        "node_id": "W:W03",
+        "name": "การเงิน/โชคลาภ",
+        "type": "W",
+        "degree": 11
+      },
+      {
+        "node_id": "P:P001",
+        "name": "วัดพระศรีมหาอุมาเทวี (วัดแขก สีลม)",
+        "type": "P",
+        "degree": 10
+      },
+      {
+        "node_id": "D:D_GANESHA",
+        "name": "พระพิฆเนศ",
+        "type": "D",
+        "degree": 9
+      },
+      {
+        "node_id": "P:P002",
+        "name": "วัดวิษณุ (สมาคมฮินดูธรรมสภา)",
+        "type": "P",
+        "degree": 9
+      },
+      {
+        "node_id": "W:W01",
+        "name": "ความรัก",
+        "type": "W",
+        "degree": 8
+      },
+      {
+        "node_id": "D:D_BRAHMA",
+        "name": "ท้าวมหาพรหม / พระพรหม",
+        "type": "D",
+        "degree": 7
+      },
+      {
+        "node_id": "D:D_LAKSHMI",
+        "name": "พระแม่ลักษมี",
+        "type": "D",
+        "degree": 7
+      },
+      {
+        "node_id": "P:P014",
+        "name": "เทวสถานโบสถ์พราหมณ์",
+        "type": "P",
+        "degree": 7
+      },
+      {
+        "node_id": "D:D_WESSUWAN",
+        "name": "ท้าวเวสสุวรรณ",
+        "type": "D",
+        "degree": 6
+      },
+      {
+        "node_id": "W:W06",
+        "name": "สุขภาพ/แคล้วคลาด",
+        "type": "W",
+        "degree": 6
+      },
+      {
+        "node_id": "D:D_UMA",
+        "name": "พระแม่อุมาเทวี",
+        "type": "D",
+        "degree": 5
+      }
+    ],
+    "betweenness_hubs": [
+      {
+        "node_id": "W:W02",
+        "name": "การงาน",
+        "type": "W",
+        "degree": 12,
+        "betweenness": 0.280832
+      },
+      {
+        "node_id": "W:W03",
+        "name": "การเงิน/โชคลาภ",
+        "type": "W",
+        "degree": 11,
+        "betweenness": 0.215895
+      },
+      {
+        "node_id": "D:D_GANESHA",
+        "name": "พระพิฆเนศ",
+        "type": "D",
+        "degree": 9,
+        "betweenness": 0.115215
+      },
+      {
+        "node_id": "D:D_BRAHMA",
+        "name": "ท้าวมหาพรหม / พระพรหม",
+        "type": "D",
+        "degree": 7,
+        "betweenness": 0.109417
+      },
+      {
+        "node_id": "W:W01",
+        "name": "ความรัก",
+        "type": "W",
+        "degree": 8,
+        "betweenness": 0.092095
+      },
+      {
+        "node_id": "W:W06",
+        "name": "สุขภาพ/แคล้วคลาด",
+        "type": "W",
+        "degree": 6,
+        "betweenness": 0.070619
+      },
+      {
+        "node_id": "D:D_LAKSHMI",
+        "name": "พระแม่ลักษมี",
+        "type": "D",
+        "degree": 7,
+        "betweenness": 0.068242
+      },
+      {
+        "node_id": "D:D_WESSUWAN",
+        "name": "ท้าวเวสสุวรรณ",
+        "type": "D",
+        "degree": 6,
+        "betweenness": 0.064492
+      }
+    ],
+    "closeness_hubs": [
+      {
+        "node_id": "D:D_BRAHMA",
+        "name": "ท้าวมหาพรหม / พระพรหม",
+        "type": "D",
+        "degree": 7,
+        "closeness": 0.296296
+      },
+      {
+        "node_id": "W:W02",
+        "name": "การงาน",
+        "type": "W",
+        "degree": 12,
+        "closeness": 0.294931
+      },
+      {
+        "node_id": "W:W03",
+        "name": "การเงิน/โชคลาภ",
+        "type": "W",
+        "degree": 11,
+        "closeness": 0.279476
+      },
+      {
+        "node_id": "D:D_GANESHA",
+        "name": "พระพิฆเนศ",
+        "type": "D",
+        "degree": 9,
+        "closeness": 0.260163
+      },
+      {
+        "node_id": "D:D_RAMA5",
+        "name": "พระบาทสมเด็จพระจุลจอมเกล้าเจ้าอยู่หัว (ร.5)",
+        "type": "D",
+        "degree": 3,
+        "closeness": 0.260163
+      },
+      {
+        "node_id": "P:P001",
+        "name": "วัดพระศรีมหาอุมาเทวี (วัดแขก สีลม)",
+        "type": "P",
+        "degree": 10,
+        "closeness": 0.25498
+      },
+      {
+        "node_id": "P:P002",
+        "name": "วัดวิษณุ (สมาคมฮินดูธรรมสภา)",
+        "type": "P",
+        "degree": 9,
+        "closeness": 0.252964
+      },
+      {
+        "node_id": "D:D_LAKSHMI",
+        "name": "พระแม่ลักษมี",
+        "type": "D",
+        "degree": 7,
+        "closeness": 0.251969
+      }
+    ],
+    "analysis_caveat": "Typed graph density cannot be interpreted like an all-to-all social network; 16 orphaned Place nodes missing recommendation paths."
+  },
+  "structural_acceptance": {
+    "source_aligned_fixture_results": {
+      "popularity": {
+        "n": 15,
+        "mean_precision_at5": 0.3467,
+        "mean_recall_at5": 0.6889,
+        "mean_ndcg_at5_over_nonempty": 0.688,
+        "mean_covered_selected_wishes_at5": 0.9333
+      },
+      "direct": {
+        "n": 15,
+        "mean_precision_at5": 0.3333,
+        "mean_recall_at5": 0.6667,
+        "mean_ndcg_at5_over_nonempty": 0.6831,
+        "mean_covered_selected_wishes_at5": 0.9333
+      },
+      "ppr": {
+        "n": 15,
+        "mean_precision_at5": 0.3733,
+        "mean_recall_at5": 0.7333,
+        "mean_ndcg_at5_over_nonempty": 0.7622,
+        "mean_covered_selected_wishes_at5": 0.9333
+      },
+      "ppr_coverage": {
+        "n": 15,
+        "mean_precision_at5": 0.3733,
+        "mean_recall_at5": 0.7333,
+        "mean_ndcg_at5_over_nonempty": 0.7622,
+        "mean_covered_selected_wishes_at5": 0.9333
+      }
+    },
+    "cases": [
+      {
+        "profile_id": "CASE_LOVE",
+        "allowed_candidates": 11,
+        "predeclared_labels": [
+          "P001",
+          "P023",
+          "P030"
+        ],
+        "valid_predeclared_labels": [
+          "P001",
+          "P023",
+          "P030"
+        ],
+        "ppr_top5": [
+          "P001",
+          "P014",
+          "P019",
+          "P029",
+          "P002"
+        ],
+        "trip_match": "PROVISIONAL_MATCH_NOT_BOOKABLE"
+      },
+      {
+        "profile_id": "CASE_CAREER",
+        "allowed_candidates": 17,
+        "predeclared_labels": [
+          "P012",
+          "P021",
+          "P026"
+        ],
+        "valid_predeclared_labels": [
+          "P012",
+          "P021",
+          "P026"
+        ],
+        "ppr_top5": [
+          "P005",
+          "P012",
+          "P026",
+          "P032",
+          "P001"
+        ],
+        "trip_match": "PROVISIONAL_MATCH_NOT_BOOKABLE"
+      },
+      {
+        "profile_id": "CASE_WEALTH",
+        "allowed_candidates": 15,
+        "predeclared_labels": [
+          "P015",
+          "P017",
+          "P018"
+        ],
+        "valid_predeclared_labels": [
+          "P015",
+          "P017",
+          "P018"
+        ],
+        "ppr_top5": [
+          "P001",
+          "P002",
+          "P018",
+          "P014",
+          "P016"
+        ],
+        "trip_match": "PROVISIONAL_MATCH_NOT_BOOKABLE"
+      },
+      {
+        "profile_id": "CASE_EXAM",
+        "allowed_candidates": 7,
+        "predeclared_labels": [
+          "P001",
+          "P014",
+          "P017"
+        ],
+        "valid_predeclared_labels": [
+          "P001",
+          "P014",
+          "P017"
+        ],
+        "ppr_top5": [
+          "P017",
+          "P002",
+          "P001",
+          "P014",
+          "P021"
+        ],
+        "trip_match": "PROVISIONAL_MATCH_NOT_BOOKABLE"
+      },
+      {
+        "profile_id": "CASE_FAN",
+        "allowed_candidates": 6,
+        "predeclared_labels": [
+          "P001",
+          "P002",
+          "P021"
+        ],
+        "valid_predeclared_labels": [
+          "P001",
+          "P002",
+          "P021"
+        ],
+        "ppr_top5": [
+          "P021",
+          "P002",
+          "P001",
+          "P036",
+          "P037"
+        ],
+        "trip_match": "PROVISIONAL_MATCH_NOT_BOOKABLE"
+      },
+      {
+        "profile_id": "CASE_HEALTH",
+        "allowed_candidates": 11,
+        "predeclared_labels": [
+          "P003",
+          "P015",
+          "P044"
+        ],
+        "valid_predeclared_labels": [
+          "P003",
+          "P015",
+          "P044"
+        ],
+        "ppr_top5": [
+          "P044",
+          "P008",
+          "P003",
+          "P015",
+          "P031"
+        ],
+        "trip_match": "PROVISIONAL_MATCH_NOT_BOOKABLE"
+      },
+      {
+        "profile_id": "CASE_HOUSE",
+        "allowed_candidates": 2,
+        "predeclared_labels": [
+          "P007",
+          "P051"
+        ],
+        "valid_predeclared_labels": [
+          "P007",
+          "P051"
+        ],
+        "ppr_top5": [
+          "P051",
+          "P007"
+        ],
+        "trip_match": "NO_ELIGIBLE_SIGNATURE_TRIP"
+      },
+      {
+        "profile_id": "CASE_CHONG",
+        "allowed_candidates": 4,
+        "predeclared_labels": [
+          "P013",
+          "P017",
+          "P042"
+        ],
+        "valid_predeclared_labels": [
+          "P013",
+          "P017",
+          "P042"
+        ],
+        "ppr_top5": [
+          "P042",
+          "P013",
+          "P017",
+          "P043"
+        ],
+        "trip_match": "PROVISIONAL_MATCH_NOT_BOOKABLE"
+      },
+      {
+        "profile_id": "CASE_LOTTERY",
+        "allowed_candidates": 1,
+        "predeclared_labels": [
+          "P016"
+        ],
+        "valid_predeclared_labels": [
+          "P016"
+        ],
+        "ppr_top5": [
+          "P016"
+        ],
+        "trip_match": "NO_ELIGIBLE_SIGNATURE_TRIP"
+      },
+      {
+        "profile_id": "CASE_DEBT",
+        "allowed_candidates": 4,
+        "predeclared_labels": [
+          "P003",
+          "P015"
+        ],
+        "valid_predeclared_labels": [
+          "P003",
+          "P015"
+        ],
+        "ppr_top5": [
+          "P003",
+          "P015",
+          "P038",
+          "P039"
+        ],
+        "trip_match": "PROVISIONAL_MATCH_NOT_BOOKABLE"
+      },
+      {
+        "profile_id": "CASE_3TOPICS",
+        "allowed_candidates": 30,
+        "predeclared_labels": [
+          "P001",
+          "P014",
+          "P022"
+        ],
+        "valid_predeclared_labels": [
+          "P001",
+          "P014",
+          "P022"
+        ],
+        "ppr_top5": [
+          "P001",
+          "P002",
+          "P014",
+          "P019",
+          "P029"
+        ],
+        "trip_match": "PROVISIONAL_MATCH_NOT_BOOKABLE"
+      },
+      {
+        "profile_id": "CASE_NO_HINDU_LOVE",
+        "allowed_candidates": 3,
+        "predeclared_labels": [
+          "P019",
+          "P029",
+          "P047"
+        ],
+        "valid_predeclared_labels": [
+          "P019",
+          "P029",
+          "P047"
+        ],
+        "ppr_top5": [
+          "P019",
+          "P029",
+          "P047"
+        ],
+        "trip_match": "NO_ELIGIBLE_SIGNATURE_TRIP"
+      },
+      {
+        "profile_id": "CASE_NO_HINDU_FAN",
+        "allowed_candidates": 0,
+        "predeclared_labels": [],
+        "valid_predeclared_labels": [],
+        "ppr_top5": [],
+        "trip_match": "NO_ELIGIBLE_SIGNATURE_TRIP"
+      },
+      {
+        "profile_id": "CASE_NO_GANESHA_EXAM",
+        "allowed_candidates": 4,
+        "predeclared_labels": [
+          "P001",
+          "P017"
+        ],
+        "valid_predeclared_labels": [
+          "P001",
+          "P017"
+        ],
+        "ppr_top5": [
+          "P017",
+          "P002",
+          "P001",
+          "P014"
+        ],
+        "trip_match": "PROVISIONAL_MATCH_NOT_BOOKABLE"
+      },
+      {
+        "profile_id": "CASE_HIDE_PLACE",
+        "allowed_candidates": 17,
+        "predeclared_labels": [
+          "P018",
+          "P022",
+          "P030"
+        ],
+        "valid_predeclared_labels": [
+          "P018",
+          "P022",
+          "P030"
+        ],
+        "ppr_top5": [
+          "P002",
+          "P014",
+          "P019",
+          "P029",
+          "P039"
+        ],
+        "trip_match": "PROVISIONAL_MATCH_NOT_BOOKABLE"
+      }
+    ],
+    "limitation": "Labels chosen by researcher from the SAME candidate source graph; this is deterministic structural acceptance, not independent preference accuracy or measured network uplift."
+  },
+  "acceptance": {
+    "n_profiles": 75,
+    "zero_exclusion_violations": true,
+    "valid_explanation_paths": true,
+    "trip_choice_distribution": {
+      "TRIP_WEALTH": 22,
+      "TRIP_LOVE": 26,
+      "TRIP_CAREER": 21,
+      "ABSTAIN": 6
+    },
+    "abstentions": 6,
+    "limited_results": 8,
+    "all_trip_routes_fixed": true
+  },
+  "model_sensitivity": {
+    "matching_sensitivity": [
+      {
+        "ppr_weight": 0.5,
+        "choice_by_case": {
+          "CASE_LOVE": "TRIP_LOVE",
+          "CASE_CAREER": "TRIP_CAREER",
+          "CASE_WEALTH": "TRIP_WEALTH",
+          "CASE_EXAM": "TRIP_WEALTH",
+          "CASE_FAN": "TRIP_LOVE",
+          "CASE_HEALTH": "TRIP_WEALTH",
+          "CASE_HOUSE": "ABSTAIN",
+          "CASE_CHONG": "TRIP_WEALTH",
+          "CASE_LOTTERY": "ABSTAIN",
+          "CASE_DEBT": "TRIP_WEALTH",
+          "CASE_3TOPICS": "TRIP_LOVE",
+          "CASE_NO_HINDU_LOVE": "ABSTAIN",
+          "CASE_NO_HINDU_FAN": "ABSTAIN",
+          "CASE_NO_GANESHA_EXAM": "TRIP_WEALTH",
+          "CASE_HIDE_PLACE": "TRIP_CAREER"
+        }
+      },
+      {
+        "ppr_weight": 0.75,
+        "choice_by_case": {
+          "CASE_LOVE": "TRIP_LOVE",
+          "CASE_CAREER": "TRIP_CAREER",
+          "CASE_WEALTH": "TRIP_WEALTH",
+          "CASE_EXAM": "TRIP_WEALTH",
+          "CASE_FAN": "TRIP_LOVE",
+          "CASE_HEALTH": "TRIP_WEALTH",
+          "CASE_HOUSE": "ABSTAIN",
+          "CASE_CHONG": "TRIP_WEALTH",
+          "CASE_LOTTERY": "ABSTAIN",
+          "CASE_DEBT": "TRIP_WEALTH",
+          "CASE_3TOPICS": "TRIP_LOVE",
+          "CASE_NO_HINDU_LOVE": "ABSTAIN",
+          "CASE_NO_HINDU_FAN": "ABSTAIN",
+          "CASE_NO_GANESHA_EXAM": "TRIP_WEALTH",
+          "CASE_HIDE_PLACE": "TRIP_CAREER"
+        }
+      },
+      {
+        "ppr_weight": 0.9,
+        "choice_by_case": {
+          "CASE_LOVE": "TRIP_LOVE",
+          "CASE_CAREER": "TRIP_CAREER",
+          "CASE_WEALTH": "TRIP_WEALTH",
+          "CASE_EXAM": "TRIP_WEALTH",
+          "CASE_FAN": "TRIP_LOVE",
+          "CASE_HEALTH": "TRIP_WEALTH",
+          "CASE_HOUSE": "ABSTAIN",
+          "CASE_CHONG": "TRIP_WEALTH",
+          "CASE_LOTTERY": "ABSTAIN",
+          "CASE_DEBT": "TRIP_WEALTH",
+          "CASE_3TOPICS": "TRIP_LOVE",
+          "CASE_NO_HINDU_LOVE": "ABSTAIN",
+          "CASE_NO_HINDU_FAN": "ABSTAIN",
+          "CASE_NO_GANESHA_EXAM": "TRIP_WEALTH",
+          "CASE_HIDE_PLACE": "TRIP_CAREER"
+        }
+      }
+    ],
+    "changed_trip_choice_count": 0,
+    "travel_delay_scenarios": [
+      {
+        "trip_id": "TRIP_LOVE",
+        "travel_time_increase_pct": 0,
+        "duration_min_approx": 240.8,
+        "under_360min": true,
+        "note": "Linear scenario on travel component, NOT rerouting or actual timetable"
+      },
+      {
+        "trip_id": "TRIP_LOVE",
+        "travel_time_increase_pct": 15,
+        "duration_min_approx": 252.0,
+        "under_360min": true,
+        "note": "Linear scenario on travel component, NOT rerouting or actual timetable"
+      },
+      {
+        "trip_id": "TRIP_LOVE",
+        "travel_time_increase_pct": 30,
+        "duration_min_approx": 263.2,
+        "under_360min": true,
+        "note": "Linear scenario on travel component, NOT rerouting or actual timetable"
+      },
+      {
+        "trip_id": "TRIP_LOVE",
+        "travel_time_increase_pct": 50,
+        "duration_min_approx": 278.2,
+        "under_360min": true,
+        "note": "Linear scenario on travel component, NOT rerouting or actual timetable"
+      },
+      {
+        "trip_id": "TRIP_CAREER",
+        "travel_time_increase_pct": 0,
+        "duration_min_approx": 279.9,
+        "under_360min": true,
+        "note": "Linear scenario on travel component, NOT rerouting or actual timetable"
+      },
+      {
+        "trip_id": "TRIP_CAREER",
+        "travel_time_increase_pct": 15,
+        "duration_min_approx": 297.1,
+        "under_360min": true,
+        "note": "Linear scenario on travel component, NOT rerouting or actual timetable"
+      },
+      {
+        "trip_id": "TRIP_CAREER",
+        "travel_time_increase_pct": 30,
+        "duration_min_approx": 314.4,
+        "under_360min": true,
+        "note": "Linear scenario on travel component, NOT rerouting or actual timetable"
+      },
+      {
+        "trip_id": "TRIP_CAREER",
+        "travel_time_increase_pct": 50,
+        "duration_min_approx": 337.3,
+        "under_360min": true,
+        "note": "Linear scenario on travel component, NOT rerouting or actual timetable"
+      },
+      {
+        "trip_id": "TRIP_WEALTH",
+        "travel_time_increase_pct": 0,
+        "duration_min_approx": 239.6,
+        "under_360min": true,
+        "note": "Linear scenario on travel component, NOT rerouting or actual timetable"
+      },
+      {
+        "trip_id": "TRIP_WEALTH",
+        "travel_time_increase_pct": 15,
+        "duration_min_approx": 250.8,
+        "under_360min": true,
+        "note": "Linear scenario on travel component, NOT rerouting or actual timetable"
+      },
+      {
+        "trip_id": "TRIP_WEALTH",
+        "travel_time_increase_pct": 30,
+        "duration_min_approx": 262.0,
+        "under_360min": true,
+        "note": "Linear scenario on travel component, NOT rerouting or actual timetable"
+      },
+      {
+        "trip_id": "TRIP_WEALTH",
+        "travel_time_increase_pct": 50,
+        "duration_min_approx": 276.9,
+        "under_360min": true,
+        "note": "Linear scenario on travel component, NOT rerouting or actual timetable"
+      }
+    ],
+    "caveat": "Designed uncertainty scenarios; no observed real-world travel-time distribution."
+  },
+  "graph_link_holdout": {
+    "models": {
+      "ppr": {
+        "samples": 48,
+        "hit_rate_at5": 0.6667,
+        "mean_ndcg_at5": 0.5715
+      },
+      "degree": {
+        "samples": 48,
+        "hit_rate_at5": 0.8125,
+        "mean_ndcg_at5": 0.6521
+      }
+    },
+    "number_source_edges_tested": 28,
+    "methodology": "Deity-Place edge hidden prior to all scoring; rank all unseen places except training neighbors; fixed six random trials",
+    "warning": "This diagnoses topology-based hidden-edge recovery, not user relevance. True edges are still unverified source beliefs; no independence from input corpus."
+  },
+  "signature_trip": {
+    "algorithm": "Offline fixed-catalog design from prior v1 weighted PPR + Dijkstra + restricted candidate orienteering",
+    "three_trips": {
+      "TRIP_LOVE": {
+        "place_ids": [
+          "P030",
+          "P023",
+          "P001",
+          "P047"
+        ],
+        "duration_min_est": 240.8,
+        "rail_min_est": 14.8,
+        "walk_min_est": 50.0,
+        "finish_est": "13:01",
+        "source_candidate_objective": 73.76002,
+        "wish_coverage": [
+          "W01",
+          "W03"
+        ],
+        "main_wish_relevant_places": 4,
+        "hours_quality": [
+          "SOURCE_CANDIDATE_UNVERIFIED",
+          "SOURCE_MASTER_UNDER_REVIEW",
+          "SYNTHETIC_DEMO_HOURS"
+        ]
+      },
+      "TRIP_CAREER": {
+        "place_ids": [
+          "P026",
+          "P014",
+          "P012",
+          "P005"
+        ],
+        "duration_min_est": 279.9,
+        "rail_min_est": 28.9,
+        "walk_min_est": 66.0,
+        "finish_est": "13:40",
+        "source_candidate_objective": 76.69169,
+        "wish_coverage": [
+          "W02",
+          "W04",
+          "W05"
+        ],
+        "main_wish_relevant_places": 4,
+        "hours_quality": [
+          "SOURCE_CANDIDATE_UNVERIFIED",
+          "SOURCE_MASTER_UNDER_REVIEW",
+          "SYNTHETIC_DEMO_HOURS"
+        ]
+      },
+      "TRIP_WEALTH": {
+        "place_ids": [
+          "P018",
+          "P017",
+          "P044",
+          "P015"
+        ],
+        "duration_min_est": 239.6,
+        "rail_min_est": 23.6,
+        "walk_min_est": 36.0,
+        "finish_est": "13:00",
+        "source_candidate_objective": 76.54724,
+        "wish_coverage": [
+          "W03",
+          "W06",
+          "W08"
+        ],
+        "main_wish_relevant_places": 3,
+        "hours_quality": [
+          "SOURCE_CANDIDATE_UNVERIFIED",
+          "SOURCE_MASTER_UNDER_REVIEW",
+          "SYNTHETIC_DEMO_HOURS"
+        ]
+      }
+    },
+    "distinct_stop_sites": 12,
+    "baseline_issue": "Custom objective is same as optimizer target; not an independent efficacy metric.",
+    "live_gate": "Unverified venue hours / pedestrian coordinates / guide capacity / commercial price."
+  },
+  "examples": {
+    "CASE_LOVE": {
+      "profile": {
+        "profile_id": "CASE_LOVE",
+        "wish_ids": [
+          "W01"
+        ],
+        "birthdate": "2000-05-15",
+        "expected_relevant": [
+          "P030",
+          "P023",
+          "P001"
+        ]
+      },
+      "places": {
+        "profile_id": "CASE_LOVE",
+        "wish_ids": [
+          "W01"
+        ],
+        "applied_exclusions": {
+          "deity_ids": [],
+          "place_ids": []
+        },
+        "weekday_from_dob": "วันจันทร์",
+        "birth_claim_ids_used": [
+          "BD002"
+        ],
+        "candidate_places": 11,
+        "top5": [
+          {
+            "rank": 1,
+            "place_id": "P001",
+            "place_name": "วัดพระศรีมหาอุมาเทวี (วัดแขก สีลม)",
+            "ppr_normalized_score": 1.0,
+            "matched_wish_ids": [
+              "W01"
+            ],
+            "evidence_paths": [
+              {
+                "wish_id": "W01",
+                "wish_name": "ความรัก",
+                "deity_id": "D_BRAHMA",
+                "deity_name": "ท้าวมหาพรหม / พระพรหม",
+                "place_id": "P001",
+                "path": "ความรัก → ท้าวมหาพรหม / พระพรหม → วัดพระศรีมหาอุมาเทวี (วัดแขก สีลม)"
+              },
+              {
+                "wish_id": "W01",
+                "wish_name": "ความรัก",
+                "deity_id": "D_KRISHNA",
+                "deity_name": "พระกฤษณะ",
+                "place_id": "P001",
+                "path": "ความรัก → พระกฤษณะ → วัดพระศรีมหาอุมาเทวี (วัดแขก สีลม)"
+              },
+              {
+                "wish_id": "W01",
+                "wish_name": "ความรัก",
+                "deity_id": "D_LAKSHMI",
+                "deity_name": "พระแม่ลักษมี",
+                "place_id": "P001",
+                "path": "ความรัก → พระแม่ลักษมี → วัดพระศรีมหาอุมาเทวี (วัดแขก สีลม)"
+              },
+              {
+                "wish_id": "W01",
+                "wish_name": "ความรัก",
+                "deity_id": "D_UMA",
+                "deity_name": "พระแม่อุมาเทวี",
+                "place_id": "P001",
+                "path": "ความรัก → พระแม่อุมาเทวี → วัดพระศรีมหาอุมาเทวี (วัดแขก สีลม)"
+              }
+            ],
+            "data_quality": "DEMO_ROUTE_READY_TRANSIT",
+            "note": "BELIEF_CLAIM_NOT_CAUSAL_PROOF"
+          },
+          {
+            "rank": 2,
+            "place_id": "P014",
+            "place_name": "เทวสถานโบสถ์พราหมณ์",
+            "ppr_normalized_score": 0.908432,
+            "matched_wish_ids": [
+              "W01"
+            ],
+            "evidence_paths": [
+              {
+                "wish_id": "W01",
+                "wish_name": "ความรัก",
+                "deity_id": "D_BRAHMA",
+                "deity_name": "ท้าวมหาพรหม / พระพรหม",
+                "place_id": "P014",
+                "path": "ความรัก → ท้าวมหาพรหม / พระพรหม → เทวสถานโบสถ์พราหมณ์"
+              },
+              {
+                "wish_id": "W01",
+                "wish_name": "ความรัก",
+                "deity_id": "D_TRIMURTI",
+                "deity_name": "พระตรีมูรติ",
+                "place_id": "P014",
+                "path": "ความรัก → พระตรีมูรติ → เทวสถานโบสถ์พราหมณ์"
+              },
+              {
+                "wish_id": "W01",
+                "wish_name": "ความรัก",
+                "deity_id": "D_UMA",
+                "deity_name": "พระแม่อุมาเทวี",
+                "place_id": "P014",
+                "path": "ความรัก → พระแม่อุมาเทวี → เทวสถานโบสถ์พราหมณ์"
+              }
+            ],
+            "data_quality": "DEMO_ROUTE_READY_TRANSIT",
+            "note": "BELIEF_CLAIM_NOT_CAUSAL_PROOF"
+          },
+          {
+            "rank": 3,
+            "place_id": "P019",
+            "place_name": "วัดมหาบุศย์ (แม่นาคพระโขนง)",
+            "ppr_normalized_score": 0.851093,
+            "matched_wish_ids": [
+              "W01"
+            ],
+            "evidence_paths": [
+              {
+                "wish_id": "W01",
+                "wish_name": "ความรัก",
+                "deity_id": "D_MAE_NAK",
+                "deity_name": "แม่นาคพระโขนง",
+                "place_id": "P019",
+                "path": "ความรัก → แม่นาคพระโขนง → วัดมหาบุศย์ (แม่นาคพระโขนง)"
+              }
+            ],
+            "data_quality": "DEMO_ROUTE_READY_TRANSIT",
+            "note": "BELIEF_CLAIM_NOT_CAUSAL_PROOF"
+          },
+          {
+            "rank": 4,
+            "place_id": "P029",
+            "place_name": "ศาลเจ้าแม่ทับทิม (สะพานซังฮี้)",
+            "ppr_normalized_score": 0.851093,
+            "matched_wish_ids": [
+              "W01"
+            ],
+            "evidence_paths": [
+              {
+                "wish_id": "W01",
+                "wish_name": "ความรัก",
+                "deity_id": "D_TUBTIM",
+                "deity_name": "เจ้าแม่ทับทิม",
+                "place_id": "P029",
+                "path": "ความรัก → เจ้าแม่ทับทิม → ศาลเจ้าแม่ทับทิม (สะพานซังฮี้)"
+              }
+            ],
+            "data_quality": "DEMO_ROUTE_READY_TRANSIT",
+            "note": "BELIEF_CLAIM_NOT_CAUSAL_PROOF"
+          },
+          {
+            "rank": 5,
+            "place_id": "P002",
+            "place_name": "วัดวิษณุ (สมาคมฮินดูธรรมสภา)",
+            "ppr_normalized_score": 0.834861,
+            "matched_wish_ids": [
+              "W01"
+            ],
+            "evidence_paths": [
+              {
+                "wish_id": "W01",
+                "wish_name": "ความรัก",
+                "deity_id": "D_BRAHMA",
+                "deity_name": "ท้าวมหาพรหม / พระพรหม",
+                "place_id": "P002",
+                "path": "ความรัก → ท้าวมหาพรหม / พระพรหม → วัดวิษณุ (สมาคมฮินดูธรรมสภา)"
+              },
+              {
+                "wish_id": "W01",
+                "wish_name": "ความรัก",
+                "deity_id": "D_LAKSHMI",
+                "deity_name": "พระแม่ลักษมี",
+                "place_id": "P002",
+                "path": "ความรัก → พระแม่ลักษมี → วัดวิษณุ (สมาคมฮินดูธรรมสภา)"
+              },
+              {
+                "wish_id": "W01",
+                "wish_name": "ความรัก",
+                "deity_id": "D_UMA",
+                "deity_name": "พระแม่อุมาเทวี",
+                "place_id": "P002",
+                "path": "ความรัก → พระแม่อุมาเทวี → วัดวิษณุ (สมาคมฮินดูธรรมสภา)"
+              }
+            ],
+            "data_quality": "DEMO_ROUTE_READY_TRANSIT",
+            "note": "BELIEF_CLAIM_NOT_CAUSAL_PROOF"
+          }
+        ],
+        "limited_results": false,
+        "limited_reason": null
+      },
+      "trip": {
+        "profile_id": "CASE_LOVE",
+        "matched_trip": {
+          "trip_id": "TRIP_LOVE",
+          "trip_name": "Love & Blessings",
+          "eligible": true,
+          "reason_codes": [],
+          "user_wishes_covered": [
+            "W01"
+          ],
+          "coverage_fraction": 1.0,
+          "graph_relevance": 0.595414,
+          "matching_score": 0.69656,
+          "place_ids_fixed": [
+            "P030",
+            "P023",
+            "P001",
+            "P047"
+          ],
+          "commercial_status": "PRICE_AND_CAPACITY_TBD"
+        },
+        "decision": "PROVISIONAL_MATCH_NOT_BOOKABLE",
+        "all_trip_scores": [
+          {
+            "trip_id": "TRIP_LOVE",
+            "trip_name": "Love & Blessings",
+            "eligible": true,
+            "reason_codes": [],
+            "user_wishes_covered": [
+              "W01"
+            ],
+            "coverage_fraction": 1.0,
+            "graph_relevance": 0.595414,
+            "matching_score": 0.69656,
+            "place_ids_fixed": [
+              "P030",
+              "P023",
+              "P001",
+              "P047"
+            ],
+            "commercial_status": "PRICE_AND_CAPACITY_TBD"
+          },
+          {
+            "trip_id": "TRIP_CAREER",
+            "trip_name": "Career & Success",
+            "eligible": true,
+            "reason_codes": [],
+            "user_wishes_covered": [
+              "W01"
+            ],
+            "coverage_fraction": 1.0,
+            "graph_relevance": 0.227108,
+            "matching_score": 0.420331,
+            "place_ids_fixed": [
+              "P026",
+              "P014",
+              "P012",
+              "P005"
+            ],
+            "commercial_status": "PRICE_AND_CAPACITY_TBD"
+          },
+          {
+            "trip_id": "TRIP_WEALTH",
+            "trip_name": "Wealth & Protection",
+            "eligible": false,
+            "reason_codes": [
+              "INSUFFICIENT_USER_WISH_COVERAGE"
+            ],
+            "user_wishes_covered": [],
+            "coverage_fraction": 0.0,
+            "graph_relevance": 0,
+            "matching_score": 0.0,
+            "place_ids_fixed": [
+              "P018",
+              "P017",
+              "P044",
+              "P015"
+            ],
+            "commercial_status": "PRICE_AND_CAPACITY_TBD"
+          }
+        ],
+        "route_reoptimized_per_user": false
+      }
+    },
+    "CASE_CAREER": {
+      "profile": {
+        "profile_id": "CASE_CAREER",
+        "wish_ids": [
+          "W02"
+        ],
+        "birthdate": "1999-01-10",
+        "expected_relevant": [
+          "P012",
+          "P026",
+          "P021"
+        ]
+      },
+      "places": {
+        "profile_id": "CASE_CAREER",
+        "wish_ids": [
+          "W02"
+        ],
+        "applied_exclusions": {
+          "deity_ids": [],
+          "place_ids": []
+        },
+        "weekday_from_dob": "วันอาทิตย์",
+        "birth_claim_ids_used": [],
+        "candidate_places": 17,
+        "top5": [
+          {
+            "rank": 1,
+            "place_id": "P005",
+            "place_name": "วัดระฆังโฆสิตารามวรมหาวิหาร",
+            "ppr_normalized_score": 1.0,
+            "matched_wish_ids": [
+              "W02"
+            ],
+            "evidence_paths": [
+              {
+                "wish_id": "W02",
+                "wish_name": "การงาน",
+                "deity_id": "D_SOMDET_TO",
+                "deity_name": "สมเด็จพระพุฒาจารย์ (โต พรหมรังสี)",
+                "place_id": "P005",
+                "path": "การงาน → สมเด็จพระพุฒาจารย์ (โต พรหมรังสี) → วัดระฆังโฆสิตารามวรมหาวิหาร"
+              }
+            ],
+            "data_quality": "DEMO_ROUTE_READY_TRANSIT",
+            "note": "BELIEF_CLAIM_NOT_CAUSAL_PROOF"
+          },
+          {
+            "rank": 2,
+            "place_id": "P012",
+            "place_name": "ศาลหลักเมืองกรุงเทพมหานคร",
+            "ppr_normalized_score": 1.0,
+            "matched_wish_ids": [
+              "W02"
+            ],
+            "evidence_paths": [
+              {
+                "wish_id": "W02",
+                "wish_name": "การงาน",
+                "deity_id": "D_CITYPILLAR",
+                "deity_name": "เจ้าพ่อหลักเมือง / เทพารักษ์ 5 องค์",
+                "place_id": "P012",
+                "path": "การงาน → เจ้าพ่อหลักเมือง / เทพารักษ์ 5 องค์ → ศาลหลักเมืองกรุงเทพมหานคร"
+              }
+            ],
+            "data_quality": "DEMO_ROUTE_READY_TRANSIT",
+            "note": "BELIEF_CLAIM_NOT_CAUSAL_PROOF"
+          },
+          {
+            "rank": 3,
+            "place_id": "P026",
+            "place_name": "ศาลเจ้าพ่อเห้งเจีย (สามย่าน)",
+            "ppr_normalized_score": 1.0,
+            "matched_wish_ids": [
+              "W02"
+            ],
+            "evidence_paths": [
+              {
+                "wish_id": "W02",
+                "wish_name": "การงาน",
+                "deity_id": "D_HANUMAN_MONKEY",
+                "deity_name": "เจ้าพ่อเห้งเจีย (ไต่เสี่ยฮุดโจ้ว)",
+                "place_id": "P026",
+                "path": "การงาน → เจ้าพ่อเห้งเจีย (ไต่เสี่ยฮุดโจ้ว) → ศาลเจ้าพ่อเห้งเจีย (สามย่าน)"
+              }
+            ],
+            "data_quality": "DEMO_ROUTE_READY_TRANSIT",
+            "note": "BELIEF_CLAIM_NOT_CAUSAL_PROOF"
+          },
+          {
+            "rank": 4,
+            "place_id": "P032",
+            "place_name": "พระบรมราชานุสาวรีย์สมเด็จพระเจ้าตากสินมหาราช (วงเวียนใหญ่)",
+            "ppr_normalized_score": 1.0,
+            "matched_wish_ids": [
+              "W02"
+            ],
+            "evidence_paths": [
+              {
+                "wish_id": "W02",
+                "wish_name": "การงาน",
+                "deity_id": "D_TAKSIN",
+                "deity_name": "สมเด็จพระเจ้าตากสินมหาราช",
+                "place_id": "P032",
+                "path": "การงาน → สมเด็จพระเจ้าตากสินมหาราช → พระบรมราชานุสาวรีย์สมเด็จพระเจ้าตากสินมหาราช (วงเวียนใหญ่)"
+              }
+            ],
+            "data_quality": "DEMO_ROUTE_READY_TRANSIT",
+            "note": "BELIEF_CLAIM_NOT_CAUSAL_PROOF"
+          },
+          {
+            "rank": 5,
+            "place_id": "P001",
+            "place_name": "วัดพระศรีมหาอุมาเทวี (วัดแขก สีลม)",
+            "ppr_normalized_score": 0.899551,
+            "matched_wish_ids": [
+              "W02"
+            ],
+            "evidence_paths": [
+              {
+                "wish_id": "W02",
+                "wish_name": "การงาน",
+                "deity_id": "D_BRAHMA",
+                "deity_name": "ท้าวมหาพรหม / พระพรหม",
+                "place_id": "P001",
+                "path": "การงาน → ท้าวมหาพรหม / พระพรหม → วัดพระศรีมหาอุมาเทวี (วัดแขก สีลม)"
+              },
+              {
+                "wish_id": "W02",
+                "wish_name": "การงาน",
+                "deity_id": "D_GANESHA",
+                "deity_name": "พระพิฆเนศ",
+                "place_id": "P001",
+                "path": "การงาน → พระพิฆเนศ → วัดพระศรีมหาอุมาเทวี (วัดแขก สีลม)"
+              },
+              {
+                "wish_id": "W02",
+                "wish_name": "การงาน",
+                "deity_id": "D_VISHNU",
+                "deity_name": "พระวิษณุ / พระนารายณ์",
+                "place_id": "P001",
+                "path": "การงาน → พระวิษณุ / พระนารายณ์ → วัดพระศรีมหาอุมาเทวี (วัดแขก สีลม)"
+              }
+            ],
+            "data_quality": "DEMO_ROUTE_READY_TRANSIT",
+            "note": "BELIEF_CLAIM_NOT_CAUSAL_PROOF"
+          }
+        ],
+        "limited_results": false,
+        "limited_reason": null
+      },
+      "trip": {
+        "profile_id": "CASE_CAREER",
+        "matched_trip": {
+          "trip_id": "TRIP_CAREER",
+          "trip_name": "Career & Success",
+          "eligible": true,
+          "reason_codes": [],
+          "user_wishes_covered": [
+            "W02"
+          ],
+          "coverage_fraction": 1.0,
+          "graph_relevance": 0.960024,
+          "matching_score": 0.970018,
+          "place_ids_fixed": [
+            "P026",
+            "P014",
+            "P012",
+            "P005"
+          ],
+          "commercial_status": "PRICE_AND_CAPACITY_TBD"
+        },
+        "decision": "PROVISIONAL_MATCH_NOT_BOOKABLE",
+        "all_trip_scores": [
+          {
+            "trip_id": "TRIP_CAREER",
+            "trip_name": "Career & Success",
+            "eligible": true,
+            "reason_codes": [],
+            "user_wishes_covered": [
+              "W02"
+            ],
+            "coverage_fraction": 1.0,
+            "graph_relevance": 0.960024,
+            "matching_score": 0.970018,
+            "place_ids_fixed": [
+              "P026",
+              "P014",
+              "P012",
+              "P005"
+            ],
+            "commercial_status": "PRICE_AND_CAPACITY_TBD"
+          },
+          {
+            "trip_id": "TRIP_LOVE",
+            "trip_name": "Love & Blessings",
+            "eligible": true,
+            "reason_codes": [],
+            "user_wishes_covered": [
+              "W02"
+            ],
+            "coverage_fraction": 1.0,
+            "graph_relevance": 0.382776,
+            "matching_score": 0.537082,
+            "place_ids_fixed": [
+              "P030",
+              "P023",
+              "P001",
+              "P047"
+            ],
+            "commercial_status": "PRICE_AND_CAPACITY_TBD"
+          },
+          {
+            "trip_id": "TRIP_WEALTH",
+            "trip_name": "Wealth & Protection",
+            "eligible": false,
+            "reason_codes": [
+              "INSUFFICIENT_USER_WISH_COVERAGE"
+            ],
+            "user_wishes_covered": [],
+            "coverage_fraction": 0.0,
+            "graph_relevance": 0,
+            "matching_score": 0.0,
+            "place_ids_fixed": [
+              "P018",
+              "P017",
+              "P044",
+              "P015"
+            ],
+            "commercial_status": "PRICE_AND_CAPACITY_TBD"
+          }
+        ],
+        "route_reoptimized_per_user": false
+      }
+    },
+    "CASE_WEALTH": {
+      "profile": {
+        "profile_id": "CASE_WEALTH",
+        "wish_ids": [
+          "W03"
+        ],
+        "birthdate": "1996-09-30",
+        "expected_relevant": [
+          "P018",
+          "P017",
+          "P015"
+        ]
+      },
+      "places": {
+        "profile_id": "CASE_WEALTH",
+        "wish_ids": [
+          "W03"
+        ],
+        "applied_exclusions": {
+          "deity_ids": [],
+          "place_ids": []
+        },
+        "weekday_from_dob": "วันจันทร์",
+        "birth_claim_ids_used": [
+          "BD002"
+        ],
+        "candidate_places": 15,
+        "top5": [
+          {
+            "rank": 1,
+            "place_id": "P001",
+            "place_name": "วัดพระศรีมหาอุมาเทวี (วัดแขก สีลม)",
+            "ppr_normalized_score": 1.0,
+            "matched_wish_ids": [
+              "W03"
+            ],
+            "evidence_paths": [
+              {
+                "wish_id": "W03",
+                "wish_name": "การเงิน/โชคลาภ",
+                "deity_id": "D_BRAHMA",
+                "deity_name": "ท้าวมหาพรหม / พระพรหม",
+                "place_id": "P001",
+                "path": "การเงิน/โชคลาภ → ท้าวมหาพรหม / พระพรหม → วัดพระศรีมหาอุมาเทวี (วัดแขก สีลม)"
+              },
+              {
+                "wish_id": "W03",
+                "wish_name": "การเงิน/โชคลาภ",
+                "deity_id": "D_KRISHNA",
+                "deity_name": "พระกฤษณะ",
+                "place_id": "P001",
+                "path": "การเงิน/โชคลาภ → พระกฤษณะ → วัดพระศรีมหาอุมาเทวี (วัดแขก สีลม)"
+              },
+              {
+                "wish_id": "W03",
+                "wish_name": "การเงิน/โชคลาภ",
+                "deity_id": "D_LAKSHMI",
+                "deity_name": "พระแม่ลักษมี",
+                "place_id": "P001",
+                "path": "การเงิน/โชคลาภ → พระแม่ลักษมี → วัดพระศรีมหาอุมาเทวี (วัดแขก สีลม)"
+              },
+              {
+                "wish_id": "W03",
+                "wish_name": "การเงิน/โชคลาภ",
+                "deity_id": "D_SHIVA",
+                "deity_name": "พระศิวะ / พระอิศวร",
+                "place_id": "P001",
+                "path": "การเงิน/โชคลาภ → พระศิวะ / พระอิศวร → วัดพระศรีมหาอุมาเทวี (วัดแขก สีลม)"
+              }
+            ],
+            "data_quality": "DEMO_ROUTE_READY_TRANSIT",
+            "note": "BELIEF_CLAIM_NOT_CAUSAL_PROOF"
+          },
+          {
+            "rank": 2,
+            "place_id": "P002",
+            "place_name": "วัดวิษณุ (สมาคมฮินดูธรรมสภา)",
+            "ppr_normalized_score": 0.846247,
+            "matched_wish_ids": [
+              "W03"
+            ],
+            "evidence_paths": [
+              {
+                "wish_id": "W03",
+                "wish_name": "การเงิน/โชคลาภ",
+                "deity_id": "D_BRAHMA",
+                "deity_name": "ท้าวมหาพรหม / พระพรหม",
+                "place_id": "P002",
+                "path": "การเงิน/โชคลาภ → ท้าวมหาพรหม / พระพรหม → วัดวิษณุ (สมาคมฮินดูธรรมสภา)"
+              },
+              {
+                "wish_id": "W03",
+                "wish_name": "การเงิน/โชคลาภ",
+                "deity_id": "D_LAKSHMI",
+                "deity_name": "พระแม่ลักษมี",
+                "place_id": "P002",
+                "path": "การเงิน/โชคลาภ → พระแม่ลักษมี → วัดวิษณุ (สมาคมฮินดูธรรมสภา)"
+              },
+              {
+                "wish_id": "W03",
+                "wish_name": "การเงิน/โชคลาภ",
+                "deity_id": "D_SHIVA",
+                "deity_name": "พระศิวะ / พระอิศวร",
+                "place_id": "P002",
+                "path": "การเงิน/โชคลาภ → พระศิวะ / พระอิศวร → วัดวิษณุ (สมาคมฮินดูธรรมสภา)"
+              }
+            ],
+            "data_quality": "DEMO_ROUTE_READY_TRANSIT",
+            "note": "BELIEF_CLAIM_NOT_CAUSAL_PROOF"
+          },
+          {
+            "rank": 3,
+            "place_id": "P018",
+            "place_name": "วัดไตรมิตรวิทยารามวรวิหาร",
+            "ppr_normalized_score": 0.765033,
+            "matched_wish_ids": [
+              "W03"
+            ],
+            "evidence_paths": [
+              {
+                "wish_id": "W03",
+                "wish_name": "การเงิน/โชคลาภ",
+                "deity_id": "D_LP_THONGKHAM",
+                "deity_name": "หลวงพ่อทองคํา (พระพุทธมหาสุวรรณปฏิมากร)",
+                "place_id": "P018",
+                "path": "การเงิน/โชคลาภ → หลวงพ่อทองคํา (พระพุทธมหาสุวรรณปฏิมากร) → วัดไตรมิตรวิทยารามวรวิหาร"
+              }
+            ],
+            "data_quality": "DEMO_ROUTE_READY_TRANSIT",
+            "note": "BELIEF_CLAIM_NOT_CAUSAL_PROOF"
+          },
+          {
+            "rank": 4,
+            "place_id": "P014",
+            "place_name": "เทวสถานโบสถ์พราหมณ์",
+            "ppr_normalized_score": 0.703386,
+            "matched_wish_ids": [
+              "W03"
+            ],
+            "evidence_paths": [
+              {
+                "wish_id": "W03",
+                "wish_name": "การเงิน/โชคลาภ",
+                "deity_id": "D_BRAHMA",
+                "deity_name": "ท้าวมหาพรหม / พระพรหม",
+                "place_id": "P014",
+                "path": "การเงิน/โชคลาภ → ท้าวมหาพรหม / พระพรหม → เทวสถานโบสถ์พราหมณ์"
+              },
+              {
+                "wish_id": "W03",
+                "wish_name": "การเงิน/โชคลาภ",
+                "deity_id": "D_SHIVA",
+                "deity_name": "พระศิวะ / พระอิศวร",
+                "place_id": "P014",
+                "path": "การเงิน/โชคลาภ → พระศิวะ / พระอิศวร → เทวสถานโบสถ์พราหมณ์"
+              }
+            ],
+            "data_quality": "DEMO_ROUTE_READY_TRANSIT",
+            "note": "BELIEF_CLAIM_NOT_CAUSAL_PROOF"
+          },
+          {
+            "rank": 5,
+            "place_id": "P016",
+            "place_name": "ศาลพ่อปู่เจ้ายี่กอฮง",
+            "ppr_normalized_score": 0.628508,
+            "matched_wish_ids": [
+              "W03"
+            ],
+            "evidence_paths": [
+              {
+                "wish_id": "W03",
+                "wish_name": "การเงิน/โชคลาภ",
+                "deity_id": "D_YIKOHONG",
+                "deity_name": "พ่อปู่เจ้ายี่กอฮง",
+                "place_id": "P016",
+                "path": "การเงิน/โชคลาภ → พ่อปู่เจ้ายี่กอฮง → ศาลพ่อปู่เจ้ายี่กอฮง"
+              }
+            ],
+            "data_quality": "DEMO_ROUTE_READY_TRANSIT",
+            "note": "BELIEF_CLAIM_NOT_CAUSAL_PROOF"
+          }
+        ],
+        "limited_results": false,
+        "limited_reason": null
+      },
+      "trip": {
+        "profile_id": "CASE_WEALTH",
+        "matched_trip": {
+          "trip_id": "TRIP_WEALTH",
+          "trip_name": "Wealth & Protection",
+          "eligible": true,
+          "reason_codes": [],
+          "user_wishes_covered": [
+            "W03"
+          ],
+          "coverage_fraction": 1.0,
+          "graph_relevance": 0.463668,
+          "matching_score": 0.597751,
+          "place_ids_fixed": [
+            "P018",
+            "P017",
+            "P044",
+            "P015"
+          ],
+          "commercial_status": "PRICE_AND_CAPACITY_TBD"
+        },
+        "decision": "PROVISIONAL_MATCH_NOT_BOOKABLE",
+        "all_trip_scores": [
+          {
+            "trip_id": "TRIP_WEALTH",
+            "trip_name": "Wealth & Protection",
+            "eligible": true,
+            "reason_codes": [],
+            "user_wishes_covered": [
+              "W03"
+            ],
+            "coverage_fraction": 1.0,
+            "graph_relevance": 0.463668,
+            "matching_score": 0.597751,
+            "place_ids_fixed": [
+              "P018",
+              "P017",
+              "P044",
+              "P015"
+            ],
+            "commercial_status": "PRICE_AND_CAPACITY_TBD"
+          },
+          {
+            "trip_id": "TRIP_LOVE",
+            "trip_name": "Love & Blessings",
+            "eligible": true,
+            "reason_codes": [],
+            "user_wishes_covered": [
+              "W03"
+            ],
+            "coverage_fraction": 1.0,
+            "graph_relevance": 0.32667,
+            "matching_score": 0.495002,
+            "place_ids_fixed": [
+              "P030",
+              "P023",
+              "P001",
+              "P047"
+            ],
+            "commercial_status": "PRICE_AND_CAPACITY_TBD"
+          },
+          {
+            "trip_id": "TRIP_CAREER",
+            "trip_name": "Career & Success",
+            "eligible": true,
+            "reason_codes": [],
+            "user_wishes_covered": [
+              "W03"
+            ],
+            "coverage_fraction": 1.0,
+            "graph_relevance": 0.175846,
+            "matching_score": 0.381885,
+            "place_ids_fixed": [
+              "P026",
+              "P014",
+              "P012",
+              "P005"
+            ],
+            "commercial_status": "PRICE_AND_CAPACITY_TBD"
+          }
+        ],
+        "route_reoptimized_per_user": false
+      }
+    },
+    "CASE_EXAM": {
+      "profile": {
+        "profile_id": "CASE_EXAM",
+        "wish_ids": [
+          "W04"
+        ],
+        "birthdate": "2002-08-20",
+        "expected_relevant": [
+          "P017",
+          "P014",
+          "P001"
+        ]
+      },
+      "places": {
+        "profile_id": "CASE_EXAM",
+        "wish_ids": [
+          "W04"
+        ],
+        "applied_exclusions": {
+          "deity_ids": [],
+          "place_ids": []
+        },
+        "weekday_from_dob": "วันอังคาร",
+        "birth_claim_ids_used": [
+          "BD003"
+        ],
+        "candidate_places": 7,
+        "top5": [
+          {
+            "rank": 1,
+            "place_id": "P017",
+            "place_name": "วัดมังกรกมลาวาส (วัดเล่งเน่ยยี่)",
+            "ppr_normalized_score": 1.0,
+            "matched_wish_ids": [
+              "W04"
+            ],
+            "evidence_paths": [
+              {
+                "wish_id": "W04",
+                "wish_name": "การเรียน/สอบ",
+                "deity_id": "D_WENCHANG",
+                "deity_name": "เทพบุ่นเชียง (บุ๋นเชียงตี่กุง)",
+                "place_id": "P017",
+                "path": "การเรียน/สอบ → เทพบุ่นเชียง (บุ๋นเชียงตี่กุง) → วัดมังกรกมลาวาส (วัดเล่งเน่ยยี่)"
+              }
+            ],
+            "data_quality": "DEMO_ROUTE_READY_TRANSIT",
+            "note": "BELIEF_CLAIM_NOT_CAUSAL_PROOF"
+          },
+          {
+            "rank": 2,
+            "place_id": "P002",
+            "place_name": "วัดวิษณุ (สมาคมฮินดูธรรมสภา)",
+            "ppr_normalized_score": 0.794282,
+            "matched_wish_ids": [
+              "W04"
+            ],
+            "evidence_paths": [
+              {
+                "wish_id": "W04",
+                "wish_name": "การเรียน/สอบ",
+                "deity_id": "D_GANESHA",
+                "deity_name": "พระพิฆเนศ",
+                "place_id": "P002",
+                "path": "การเรียน/สอบ → พระพิฆเนศ → วัดวิษณุ (สมาคมฮินดูธรรมสภา)"
+              },
+              {
+                "wish_id": "W04",
+                "wish_name": "การเรียน/สอบ",
+                "deity_id": "D_SARASWATI",
+                "deity_name": "พระแม่สุรัสวดี",
+                "place_id": "P002",
+                "path": "การเรียน/สอบ → พระแม่สุรัสวดี → วัดวิษณุ (สมาคมฮินดูธรรมสภา)"
+              }
+            ],
+            "data_quality": "DEMO_ROUTE_READY_TRANSIT",
+            "note": "BELIEF_CLAIM_NOT_CAUSAL_PROOF"
+          },
+          {
+            "rank": 3,
+            "place_id": "P001",
+            "place_name": "วัดพระศรีมหาอุมาเทวี (วัดแขก สีลม)",
+            "ppr_normalized_score": 0.786257,
+            "matched_wish_ids": [
+              "W04"
+            ],
+            "evidence_paths": [
+              {
+                "wish_id": "W04",
+                "wish_name": "การเรียน/สอบ",
+                "deity_id": "D_GANESHA",
+                "deity_name": "พระพิฆเนศ",
+                "place_id": "P001",
+                "path": "การเรียน/สอบ → พระพิฆเนศ → วัดพระศรีมหาอุมาเทวี (วัดแขก สีลม)"
+              },
+              {
+                "wish_id": "W04",
+                "wish_name": "การเรียน/สอบ",
+                "deity_id": "D_SARASWATI",
+                "deity_name": "พระแม่สุรัสวดี",
+                "place_id": "P001",
+                "path": "การเรียน/สอบ → พระแม่สุรัสวดี → วัดพระศรีมหาอุมาเทวี (วัดแขก สีลม)"
+              }
+            ],
+            "data_quality": "DEMO_ROUTE_READY_TRANSIT",
+            "note": "BELIEF_CLAIM_NOT_CAUSAL_PROOF"
+          },
+          {
+            "rank": 4,
+            "place_id": "P014",
+            "place_name": "เทวสถานโบสถ์พราหมณ์",
+            "ppr_normalized_score": 0.69782,
+            "matched_wish_ids": [
+              "W04"
+            ],
+            "evidence_paths": [
+              {
+                "wish_id": "W04",
+                "wish_name": "การเรียน/สอบ",
+                "deity_id": "D_GANESHA",
+                "deity_name": "พระพิฆเนศ",
+                "place_id": "P014",
+                "path": "การเรียน/สอบ → พระพิฆเนศ → เทวสถานโบสถ์พราหมณ์"
+              },
+              {
+                "wish_id": "W04",
+                "wish_name": "การเรียน/สอบ",
+                "deity_id": "D_SARASWATI",
+                "deity_name": "พระแม่สุรัสวดี",
+                "place_id": "P014",
+                "path": "การเรียน/สอบ → พระแม่สุรัสวดี → เทวสถานโบสถ์พราหมณ์"
+              }
+            ],
+            "data_quality": "DEMO_ROUTE_READY_TRANSIT",
+            "note": "BELIEF_CLAIM_NOT_CAUSAL_PROOF"
+          },
+          {
+            "rank": 5,
+            "place_id": "P021",
+            "place_name": "เทวาลัยพระพิฆเนศ สี่แยกห้วยขวาง",
+            "ppr_normalized_score": 0.446519,
+            "matched_wish_ids": [
+              "W04"
+            ],
+            "evidence_paths": [
+              {
+                "wish_id": "W04",
+                "wish_name": "การเรียน/สอบ",
+                "deity_id": "D_GANESHA",
+                "deity_name": "พระพิฆเนศ",
+                "place_id": "P021",
+                "path": "การเรียน/สอบ → พระพิฆเนศ → เทวาลัยพระพิฆเนศ สี่แยกห้วยขวาง"
+              }
+            ],
+            "data_quality": "DEMO_ROUTE_READY_TRANSIT",
+            "note": "BELIEF_CLAIM_NOT_CAUSAL_PROOF"
+          }
+        ],
+        "limited_results": false,
+        "limited_reason": null
+      },
+      "trip": {
+        "profile_id": "CASE_EXAM",
+        "matched_trip": {
+          "trip_id": "TRIP_WEALTH",
+          "trip_name": "Wealth & Protection",
+          "eligible": true,
+          "reason_codes": [],
+          "user_wishes_covered": [
+            "W04"
+          ],
+          "coverage_fraction": 1.0,
+          "graph_relevance": 0.25,
+          "matching_score": 0.4375,
+          "place_ids_fixed": [
+            "P018",
+            "P017",
+            "P044",
+            "P015"
+          ],
+          "commercial_status": "PRICE_AND_CAPACITY_TBD"
+        },
+        "decision": "PROVISIONAL_MATCH_NOT_BOOKABLE",
+        "all_trip_scores": [
+          {
+            "trip_id": "TRIP_WEALTH",
+            "trip_name": "Wealth & Protection",
+            "eligible": true,
+            "reason_codes": [],
+            "user_wishes_covered": [
+              "W04"
+            ],
+            "coverage_fraction": 1.0,
+            "graph_relevance": 0.25,
+            "matching_score": 0.4375,
+            "place_ids_fixed": [
+              "P018",
+              "P017",
+              "P044",
+              "P015"
+            ],
+            "commercial_status": "PRICE_AND_CAPACITY_TBD"
+          },
+          {
+            "trip_id": "TRIP_LOVE",
+            "trip_name": "Love & Blessings",
+            "eligible": true,
+            "reason_codes": [],
+            "user_wishes_covered": [
+              "W04"
+            ],
+            "coverage_fraction": 1.0,
+            "graph_relevance": 0.196564,
+            "matching_score": 0.397423,
+            "place_ids_fixed": [
+              "P030",
+              "P023",
+              "P001",
+              "P047"
+            ],
+            "commercial_status": "PRICE_AND_CAPACITY_TBD"
+          },
+          {
+            "trip_id": "TRIP_CAREER",
+            "trip_name": "Career & Success",
+            "eligible": true,
+            "reason_codes": [],
+            "user_wishes_covered": [
+              "W04"
+            ],
+            "coverage_fraction": 1.0,
+            "graph_relevance": 0.174455,
+            "matching_score": 0.380841,
+            "place_ids_fixed": [
+              "P026",
+              "P014",
+              "P012",
+              "P005"
+            ],
+            "commercial_status": "PRICE_AND_CAPACITY_TBD"
+          }
+        ],
+        "route_reoptimized_per_user": false
+      }
+    },
+    "CASE_FAN": {
+      "profile": {
+        "profile_id": "CASE_FAN",
+        "wish_ids": [
+          "W05"
+        ],
+        "birthdate": "2001-06-15",
+        "expected_relevant": [
+          "P021",
+          "P001",
+          "P002"
+        ]
+      },
+      "places": {
+        "profile_id": "CASE_FAN",
+        "wish_ids": [
+          "W05"
+        ],
+        "applied_exclusions": {
+          "deity_ids": [],
+          "place_ids": []
+        },
+        "weekday_from_dob": "วันศุกร์",
+        "birth_claim_ids_used": [
+          "BD006"
+        ],
+        "candidate_places": 6,
+        "top5": [
+          {
+            "rank": 1,
+            "place_id": "P021",
+            "place_name": "เทวาลัยพระพิฆเนศ สี่แยกห้วยขวาง",
+            "ppr_normalized_score": 1.0,
+            "matched_wish_ids": [
+              "W05"
+            ],
+            "evidence_paths": [
+              {
+                "wish_id": "W05",
+                "wish_name": "บัตรคอน/กิจกรรมติ่ง",
+                "deity_id": "D_GANESHA",
+                "deity_name": "พระพิฆเนศ",
+                "place_id": "P021",
+                "path": "บัตรคอน/กิจกรรมติ่ง → พระพิฆเนศ → เทวาลัยพระพิฆเนศ สี่แยกห้วยขวาง"
+              }
+            ],
+            "data_quality": "DEMO_ROUTE_READY_TRANSIT",
+            "note": "BELIEF_CLAIM_NOT_CAUSAL_PROOF"
+          },
+          {
+            "rank": 2,
+            "place_id": "P002",
+            "place_name": "วัดวิษณุ (สมาคมฮินดูธรรมสภา)",
+            "ppr_normalized_score": 0.827232,
+            "matched_wish_ids": [
+              "W05"
+            ],
+            "evidence_paths": [
+              {
+                "wish_id": "W05",
+                "wish_name": "บัตรคอน/กิจกรรมติ่ง",
+                "deity_id": "D_GANESHA",
+                "deity_name": "พระพิฆเนศ",
+                "place_id": "P002",
+                "path": "บัตรคอน/กิจกรรมติ่ง → พระพิฆเนศ → วัดวิษณุ (สมาคมฮินดูธรรมสภา)"
+              }
+            ],
+            "data_quality": "DEMO_ROUTE_READY_TRANSIT",
+            "note": "BELIEF_CLAIM_NOT_CAUSAL_PROOF"
+          },
+          {
+            "rank": 3,
+            "place_id": "P001",
+            "place_name": "วัดพระศรีมหาอุมาเทวี (วัดแขก สีลม)",
+            "ppr_normalized_score": 0.819893,
+            "matched_wish_ids": [
+              "W05"
+            ],
+            "evidence_paths": [
+              {
+                "wish_id": "W05",
+                "wish_name": "บัตรคอน/กิจกรรมติ่ง",
+                "deity_id": "D_GANESHA",
+                "deity_name": "พระพิฆเนศ",
+                "place_id": "P001",
+                "path": "บัตรคอน/กิจกรรมติ่ง → พระพิฆเนศ → วัดพระศรีมหาอุมาเทวี (วัดแขก สีลม)"
+              }
+            ],
+            "data_quality": "DEMO_ROUTE_READY_TRANSIT",
+            "note": "BELIEF_CLAIM_NOT_CAUSAL_PROOF"
+          },
+          {
+            "rank": 4,
+            "place_id": "P036",
+            "place_name": "ศาลพระพิฆเนศ ลานเซ็นทรัลเวิลด์",
+            "ppr_normalized_score": 0.782306,
+            "matched_wish_ids": [
+              "W05"
+            ],
+            "evidence_paths": [
+              {
+                "wish_id": "W05",
+                "wish_name": "บัตรคอน/กิจกรรมติ่ง",
+                "deity_id": "D_GANESHA",
+                "deity_name": "พระพิฆเนศ",
+                "place_id": "P036",
+                "path": "บัตรคอน/กิจกรรมติ่ง → พระพิฆเนศ → ศาลพระพิฆเนศ ลานเซ็นทรัลเวิลด์"
+              }
+            ],
+            "data_quality": "DEMO_ROUTE_READY_TRANSIT",
+            "note": "BELIEF_CLAIM_NOT_CAUSAL_PROOF"
+          },
+          {
+            "rank": 5,
+            "place_id": "P037",
+            "place_name": "องค์พ่อพระพิฆเนศ ยูเนี่ยนมอลล์",
+            "ppr_normalized_score": 0.782306,
+            "matched_wish_ids": [
+              "W05"
+            ],
+            "evidence_paths": [
+              {
+                "wish_id": "W05",
+                "wish_name": "บัตรคอน/กิจกรรมติ่ง",
+                "deity_id": "D_GANESHA",
+                "deity_name": "พระพิฆเนศ",
+                "place_id": "P037",
+                "path": "บัตรคอน/กิจกรรมติ่ง → พระพิฆเนศ → องค์พ่อพระพิฆเนศ ยูเนี่ยนมอลล์"
+              }
+            ],
+            "data_quality": "DEMO_ROUTE_READY_TRANSIT",
+            "note": "BELIEF_CLAIM_NOT_CAUSAL_PROOF"
+          }
+        ],
+        "limited_results": false,
+        "limited_reason": null
+      },
+      "trip": {
+        "profile_id": "CASE_FAN",
+        "matched_trip": {
+          "trip_id": "TRIP_LOVE",
+          "trip_name": "Love & Blessings",
+          "eligible": true,
+          "reason_codes": [],
+          "user_wishes_covered": [
+            "W05"
+          ],
+          "coverage_fraction": 1.0,
+          "graph_relevance": 0.204973,
+          "matching_score": 0.40373,
+          "place_ids_fixed": [
+            "P030",
+            "P023",
+            "P001",
+            "P047"
+          ],
+          "commercial_status": "PRICE_AND_CAPACITY_TBD"
+        },
+        "decision": "PROVISIONAL_MATCH_NOT_BOOKABLE",
+        "all_trip_scores": [
+          {
+            "trip_id": "TRIP_LOVE",
+            "trip_name": "Love & Blessings",
+            "eligible": true,
+            "reason_codes": [],
+            "user_wishes_covered": [
+              "W05"
+            ],
+            "coverage_fraction": 1.0,
+            "graph_relevance": 0.204973,
+            "matching_score": 0.40373,
+            "place_ids_fixed": [
+              "P030",
+              "P023",
+              "P001",
+              "P047"
+            ],
+            "commercial_status": "PRICE_AND_CAPACITY_TBD"
+          },
+          {
+            "trip_id": "TRIP_CAREER",
+            "trip_name": "Career & Success",
+            "eligible": true,
+            "reason_codes": [],
+            "user_wishes_covered": [
+              "W05"
+            ],
+            "coverage_fraction": 1.0,
+            "graph_relevance": 0.191106,
+            "matching_score": 0.39333,
+            "place_ids_fixed": [
+              "P026",
+              "P014",
+              "P012",
+              "P005"
+            ],
+            "commercial_status": "PRICE_AND_CAPACITY_TBD"
+          },
+          {
+            "trip_id": "TRIP_WEALTH",
+            "trip_name": "Wealth & Protection",
+            "eligible": false,
+            "reason_codes": [
+              "INSUFFICIENT_USER_WISH_COVERAGE"
+            ],
+            "user_wishes_covered": [],
+            "coverage_fraction": 0.0,
+            "graph_relevance": 0,
+            "matching_score": 0.0,
+            "place_ids_fixed": [
+              "P018",
+              "P017",
+              "P044",
+              "P015"
+            ],
+            "commercial_status": "PRICE_AND_CAPACITY_TBD"
+          }
+        ],
+        "route_reoptimized_per_user": false
+      }
+    },
+    "CASE_HEALTH": {
+      "profile": {
+        "profile_id": "CASE_HEALTH",
+        "wish_ids": [
+          "W06"
+        ],
+        "birthdate": "1998-07-11",
+        "expected_relevant": [
+          "P044",
+          "P015",
+          "P003"
+        ]
+      },
+      "places": {
+        "profile_id": "CASE_HEALTH",
+        "wish_ids": [
+          "W06"
+        ],
+        "applied_exclusions": {
+          "deity_ids": [],
+          "place_ids": []
+        },
+        "weekday_from_dob": "วันเสาร์",
+        "birth_claim_ids_used": [
+          "BD007"
+        ],
+        "candidate_places": 11,
+        "top5": [
+          {
+            "rank": 1,
+            "place_id": "P044",
+            "place_name": "มูลนิธิโรงพยาบาลเทียนฟ้า (ศาลเจ้าแม่กวนอิม)",
+            "ppr_normalized_score": 1.0,
+            "matched_wish_ids": [
+              "W06"
+            ],
+            "evidence_paths": [
+              {
+                "wish_id": "W06",
+                "wish_name": "สุขภาพ/แคล้วคลาด",
+                "deity_id": "D_GUANYIN",
+                "deity_name": "เจ้าแม่กวนอิม",
+                "place_id": "P044",
+                "path": "สุขภาพ/แคล้วคลาด → เจ้าแม่กวนอิม → มูลนิธิโรงพยาบาลเทียนฟ้า (ศาลเจ้าแม่กวนอิม)"
+              }
+            ],
+            "data_quality": "DEMO_ROUTE_READY_TRANSIT",
+            "note": "BELIEF_CLAIM_NOT_CAUSAL_PROOF"
+          },
+          {
+            "rank": 2,
+            "place_id": "P008",
+            "place_name": "วัดปากน้ํา ภาษีเจริญ",
+            "ppr_normalized_score": 0.631679,
+            "matched_wish_ids": [
+              "W06"
+            ],
+            "evidence_paths": [
+              {
+                "wish_id": "W06",
+                "wish_name": "สุขภาพ/แคล้วคลาด",
+                "deity_id": "D_LP_SOTHORN_PAKNAM",
+                "deity_name": "หลวงพ่อสด (วัดปากน้ํา)",
+                "place_id": "P008",
+                "path": "สุขภาพ/แคล้วคลาด → หลวงพ่อสด (วัดปากน้ํา) → วัดปากน้ํา ภาษีเจริญ"
+              }
+            ],
+            "data_quality": "DEMO_ROUTE_READY_TRANSIT",
+            "note": "BELIEF_CLAIM_NOT_CAUSAL_PROOF"
+          },
+          {
+            "rank": 3,
+            "place_id": "P003",
+            "place_name": "วัดอาวุธวิกสิตาราม",
+            "ppr_normalized_score": 0.545341,
+            "matched_wish_ids": [
+              "W06"
+            ],
+            "evidence_paths": [
+              {
+                "wish_id": "W06",
+                "wish_name": "สุขภาพ/แคล้วคลาด",
+                "deity_id": "D_MAE_BOONRUEAN",
+                "deity_name": "คุณแม่บุญเรือน โตงบุญเติม",
+                "place_id": "P003",
+                "path": "สุขภาพ/แคล้วคลาด → คุณแม่บุญเรือน โตงบุญเติม → วัดอาวุธวิกสิตาราม"
+              }
+            ],
+            "data_quality": "DEMO_ROUTE_READY_TRANSIT",
+            "note": "BELIEF_CLAIM_NOT_CAUSAL_PROOF"
+          },
+          {
+            "rank": 4,
+            "place_id": "P015",
+            "place_name": "วัดสุทัศนเทพวรารามราชวรมหาวิหาร",
+            "ppr_normalized_score": 0.536791,
+            "matched_wish_ids": [
+              "W06"
+            ],
+            "evidence_paths": [
+              {
+                "wish_id": "W06",
+                "wish_name": "สุขภาพ/แคล้วคลาด",
+                "deity_id": "D_WESSUWAN",
+                "deity_name": "ท้าวเวสสุวรรณ",
+                "place_id": "P015",
+                "path": "สุขภาพ/แคล้วคลาด → ท้าวเวสสุวรรณ → วัดสุทัศนเทพวรารามราชวรมหาวิหาร"
+              }
+            ],
+            "data_quality": "DEMO_ROUTE_READY_TRANSIT",
+            "note": "BELIEF_CLAIM_NOT_CAUSAL_PROOF"
+          },
+          {
+            "rank": 5,
+            "place_id": "P031",
+            "place_name": "วัดอินทรวิหาร (บางขุนพรหม)",
+            "ppr_normalized_score": 0.531867,
+            "matched_wish_ids": [
+              "W06"
+            ],
+            "evidence_paths": [
+              {
+                "wish_id": "W06",
+                "wish_name": "สุขภาพ/แคล้วคลาด",
+                "deity_id": "D_LP_TO",
+                "deity_name": "หลวงพ่อโต",
+                "place_id": "P031",
+                "path": "สุขภาพ/แคล้วคลาด → หลวงพ่อโต → วัดอินทรวิหาร (บางขุนพรหม)"
+              }
+            ],
+            "data_quality": "DEMO_ROUTE_READY_TRANSIT",
+            "note": "BELIEF_CLAIM_NOT_CAUSAL_PROOF"
+          }
+        ],
+        "limited_results": false,
+        "limited_reason": null
+      },
+      "trip": {
+        "profile_id": "CASE_HEALTH",
+        "matched_trip": {
+          "trip_id": "TRIP_WEALTH",
+          "trip_name": "Wealth & Protection",
+          "eligible": true,
+          "reason_codes": [],
+          "user_wishes_covered": [
+            "W06"
+          ],
+          "coverage_fraction": 1.0,
+          "graph_relevance": 0.384198,
+          "matching_score": 0.538148,
+          "place_ids_fixed": [
+            "P018",
+            "P017",
+            "P044",
+            "P015"
+          ],
+          "commercial_status": "PRICE_AND_CAPACITY_TBD"
+        },
+        "decision": "PROVISIONAL_MATCH_NOT_BOOKABLE",
+        "all_trip_scores": [
+          {
+            "trip_id": "TRIP_WEALTH",
+            "trip_name": "Wealth & Protection",
+            "eligible": true,
+            "reason_codes": [],
+            "user_wishes_covered": [
+              "W06"
+            ],
+            "coverage_fraction": 1.0,
+            "graph_relevance": 0.384198,
+            "matching_score": 0.538148,
+            "place_ids_fixed": [
+              "P018",
+              "P017",
+              "P044",
+              "P015"
+            ],
+            "commercial_status": "PRICE_AND_CAPACITY_TBD"
+          },
+          {
+            "trip_id": "TRIP_LOVE",
+            "trip_name": "Love & Blessings",
+            "eligible": true,
+            "reason_codes": [],
+            "user_wishes_covered": [
+              "W06"
+            ],
+            "coverage_fraction": 1.0,
+            "graph_relevance": 0.128018,
+            "matching_score": 0.346014,
+            "place_ids_fixed": [
+              "P030",
+              "P023",
+              "P001",
+              "P047"
+            ],
+            "commercial_status": "PRICE_AND_CAPACITY_TBD"
+          },
+          {
+            "trip_id": "TRIP_CAREER",
+            "trip_name": "Career & Success",
+            "eligible": true,
+            "reason_codes": [],
+            "user_wishes_covered": [
+              "W06"
+            ],
+            "coverage_fraction": 1.0,
+            "graph_relevance": 0.110418,
+            "matching_score": 0.332813,
+            "place_ids_fixed": [
+              "P026",
+              "P014",
+              "P012",
+              "P005"
+            ],
+            "commercial_status": "PRICE_AND_CAPACITY_TBD"
+          }
+        ],
+        "route_reoptimized_per_user": false
+      }
+    },
+    "CASE_HOUSE": {
+      "profile": {
+        "profile_id": "CASE_HOUSE",
+        "wish_ids": [
+          "W07"
+        ],
+        "birthdate": "1995-11-18",
+        "expected_relevant": [
+          "P007",
+          "P051"
+        ]
+      },
+      "places": {
+        "profile_id": "CASE_HOUSE",
+        "wish_ids": [
+          "W07"
+        ],
+        "applied_exclusions": {
+          "deity_ids": [],
+          "place_ids": []
+        },
+        "weekday_from_dob": "วันเสาร์",
+        "birth_claim_ids_used": [
+          "BD007"
+        ],
+        "candidate_places": 2,
+        "top5": [
+          {
+            "rank": 1,
+            "place_id": "P051",
+            "place_name": "ศาลพระแม่ธรณีบีบมวยผม",
+            "ppr_normalized_score": 1.0,
+            "matched_wish_ids": [
+              "W07"
+            ],
+            "evidence_paths": [
+              {
+                "wish_id": "W07",
+                "wish_name": "บ้าน/ที่ดิน/คดีความ",
+                "deity_id": "D_MAE_THORANI",
+                "deity_name": "พระแม่ธรณีบีบมวยผม",
+                "place_id": "P051",
+                "path": "บ้าน/ที่ดิน/คดีความ → พระแม่ธรณีบีบมวยผม → ศาลพระแม่ธรณีบีบมวยผม"
+              }
+            ],
+            "data_quality": "DEMO_ROUTE_READY_TRANSIT",
+            "note": "BELIEF_CLAIM_NOT_CAUSAL_PROOF"
+          },
+          {
+            "rank": 2,
+            "place_id": "P007",
+            "place_name": "ศาลเจ้ากวนอู (คลองสาน)",
+            "ppr_normalized_score": 0.585794,
+            "matched_wish_ids": [
+              "W07"
+            ],
+            "evidence_paths": [
+              {
+                "wish_id": "W07",
+                "wish_name": "บ้าน/ที่ดิน/คดีความ",
+                "deity_id": "D_GUANYU",
+                "deity_name": "เทพเจ้ากวนอู",
+                "place_id": "P007",
+                "path": "บ้าน/ที่ดิน/คดีความ → เทพเจ้ากวนอู → ศาลเจ้ากวนอู (คลองสาน)"
+              }
+            ],
+            "data_quality": "DEMO_ROUTE_READY_TRANSIT",
+            "note": "BELIEF_CLAIM_NOT_CAUSAL_PROOF"
+          }
+        ],
+        "limited_results": true,
+        "limited_reason": "No more source-backed permissible paths"
+      },
+      "trip": {
+        "profile_id": "CASE_HOUSE",
+        "matched_trip": null,
+        "decision": "NO_ELIGIBLE_SIGNATURE_TRIP",
+        "all_trip_scores": [
+          {
+            "trip_id": "TRIP_CAREER",
+            "trip_name": "Career & Success",
+            "eligible": false,
+            "reason_codes": [
+              "INSUFFICIENT_USER_WISH_COVERAGE"
+            ],
+            "user_wishes_covered": [],
+            "coverage_fraction": 0.0,
+            "graph_relevance": 0,
+            "matching_score": 0.0,
+            "place_ids_fixed": [
+              "P026",
+              "P014",
+              "P012",
+              "P005"
+            ],
+            "commercial_status": "PRICE_AND_CAPACITY_TBD"
+          },
+          {
+            "trip_id": "TRIP_LOVE",
+            "trip_name": "Love & Blessings",
+            "eligible": false,
+            "reason_codes": [
+              "INSUFFICIENT_USER_WISH_COVERAGE"
+            ],
+            "user_wishes_covered": [],
+            "coverage_fraction": 0.0,
+            "graph_relevance": 0,
+            "matching_score": 0.0,
+            "place_ids_fixed": [
+              "P030",
+              "P023",
+              "P001",
+              "P047"
+            ],
+            "commercial_status": "PRICE_AND_CAPACITY_TBD"
+          },
+          {
+            "trip_id": "TRIP_WEALTH",
+            "trip_name": "Wealth & Protection",
+            "eligible": false,
+            "reason_codes": [
+              "INSUFFICIENT_USER_WISH_COVERAGE"
+            ],
+            "user_wishes_covered": [],
+            "coverage_fraction": 0.0,
+            "graph_relevance": 0,
+            "matching_score": 0.0,
+            "place_ids_fixed": [
+              "P018",
+              "P017",
+              "P044",
+              "P015"
+            ],
+            "commercial_status": "PRICE_AND_CAPACITY_TBD"
+          }
+        ],
+        "route_reoptimized_per_user": false
+      }
+    },
+    "CASE_CHONG": {
+      "profile": {
+        "profile_id": "CASE_CHONG",
+        "wish_ids": [
+          "W08"
+        ],
+        "birthdate": "1995-12-10",
+        "expected_relevant": [
+          "P017",
+          "P042",
+          "P013"
+        ]
+      },
+      "places": {
+        "profile_id": "CASE_CHONG",
+        "wish_ids": [
+          "W08"
+        ],
+        "applied_exclusions": {
+          "deity_ids": [],
+          "place_ids": []
+        },
+        "weekday_from_dob": "วันอาทิตย์",
+        "birth_claim_ids_used": [],
+        "candidate_places": 4,
+        "top5": [
+          {
+            "rank": 1,
+            "place_id": "P042",
+            "place_name": "วัดทิพยวารีวิหาร (กัมโล่วยี่)",
+            "ppr_normalized_score": 1.0,
+            "matched_wish_ids": [
+              "W08"
+            ],
+            "evidence_paths": [
+              {
+                "wish_id": "W08",
+                "wish_name": "แก้ชง/สะเดาะเคราะห์",
+                "deity_id": "D_TAISUI",
+                "deity_name": "ไท้ส่วยเอี๊ย",
+                "place_id": "P042",
+                "path": "แก้ชง/สะเดาะเคราะห์ → ไท้ส่วยเอี๊ย → วัดทิพยวารีวิหาร (กัมโล่วยี่)"
+              }
+            ],
+            "data_quality": "DEMO_ROUTE_READY_TRANSIT",
+            "note": "BELIEF_CLAIM_NOT_CAUSAL_PROOF"
+          },
+          {
+            "rank": 2,
+            "place_id": "P013",
+            "place_name": "ศาลเจ้าพ่อเสือ (เสาชิงช้า)",
+            "ppr_normalized_score": 0.866947,
+            "matched_wish_ids": [
+              "W08"
+            ],
+            "evidence_paths": [
+              {
+                "wish_id": "W08",
+                "wish_name": "แก้ชง/สะเดาะเคราะห์",
+                "deity_id": "D_TIGERGOD",
+                "deity_name": "เจ้าพ่อเสือ (ตั่วเหล่าเอี๊ย)",
+                "place_id": "P013",
+                "path": "แก้ชง/สะเดาะเคราะห์ → เจ้าพ่อเสือ (ตั่วเหล่าเอี๊ย) → ศาลเจ้าพ่อเสือ (เสาชิงช้า)"
+              }
+            ],
+            "data_quality": "DEMO_ROUTE_READY_TRANSIT",
+            "note": "BELIEF_CLAIM_NOT_CAUSAL_PROOF"
+          },
+          {
+            "rank": 3,
+            "place_id": "P017",
+            "place_name": "วัดมังกรกมลาวาส (วัดเล่งเน่ยยี่)",
+            "ppr_normalized_score": 0.806816,
+            "matched_wish_ids": [
+              "W08"
+            ],
+            "evidence_paths": [
+              {
+                "wish_id": "W08",
+                "wish_name": "แก้ชง/สะเดาะเคราะห์",
+                "deity_id": "D_TAISUI",
+                "deity_name": "ไท้ส่วยเอี๊ย",
+                "place_id": "P017",
+                "path": "แก้ชง/สะเดาะเคราะห์ → ไท้ส่วยเอี๊ย → วัดมังกรกมลาวาส (วัดเล่งเน่ยยี่)"
+              }
+            ],
+            "data_quality": "DEMO_ROUTE_READY_TRANSIT",
+            "note": "BELIEF_CLAIM_NOT_CAUSAL_PROOF"
+          },
+          {
+            "rank": 4,
+            "place_id": "P043",
+            "place_name": "ศาลเจ้าโจวซือกง (ตลาดน้อย)",
+            "ppr_normalized_score": 0.782306,
+            "matched_wish_ids": [
+              "W08"
+            ],
+            "evidence_paths": [
+              {
+                "wish_id": "W08",
+                "wish_name": "แก้ชง/สะเดาะเคราะห์",
+                "deity_id": "D_TAISUI",
+                "deity_name": "ไท้ส่วยเอี๊ย",
+                "place_id": "P043",
+                "path": "แก้ชง/สะเดาะเคราะห์ → ไท้ส่วยเอี๊ย → ศาลเจ้าโจวซือกง (ตลาดน้อย)"
+              }
+            ],
+            "data_quality": "DEMO_ROUTE_READY_TRANSIT",
+            "note": "BELIEF_CLAIM_NOT_CAUSAL_PROOF"
+          }
+        ],
+        "limited_results": true,
+        "limited_reason": "No more source-backed permissible paths"
+      },
+      "trip": {
+        "profile_id": "CASE_CHONG",
+        "matched_trip": {
+          "trip_id": "TRIP_WEALTH",
+          "trip_name": "Wealth & Protection",
+          "eligible": true,
+          "reason_codes": [],
+          "user_wishes_covered": [
+            "W08"
+          ],
+          "coverage_fraction": 1.0,
+          "graph_relevance": 0.201704,
+          "matching_score": 0.401278,
+          "place_ids_fixed": [
+            "P018",
+            "P017",
+            "P044",
+            "P015"
+          ],
+          "commercial_status": "PRICE_AND_CAPACITY_TBD"
+        },
+        "decision": "PROVISIONAL_MATCH_NOT_BOOKABLE",
+        "all_trip_scores": [
+          {
+            "trip_id": "TRIP_WEALTH",
+            "trip_name": "Wealth & Protection",
+            "eligible": true,
+            "reason_codes": [],
+            "user_wishes_covered": [
+              "W08"
+            ],
+            "coverage_fraction": 1.0,
+            "graph_relevance": 0.201704,
+            "matching_score": 0.401278,
+            "place_ids_fixed": [
+              "P018",
+              "P017",
+              "P044",
+              "P015"
+            ],
+            "commercial_status": "PRICE_AND_CAPACITY_TBD"
+          },
+          {
+            "trip_id": "TRIP_CAREER",
+            "trip_name": "Career & Success",
+            "eligible": false,
+            "reason_codes": [
+              "INSUFFICIENT_USER_WISH_COVERAGE"
+            ],
+            "user_wishes_covered": [],
+            "coverage_fraction": 0.0,
+            "graph_relevance": 0,
+            "matching_score": 0.0,
+            "place_ids_fixed": [
+              "P026",
+              "P014",
+              "P012",
+              "P005"
+            ],
+            "commercial_status": "PRICE_AND_CAPACITY_TBD"
+          },
+          {
+            "trip_id": "TRIP_LOVE",
+            "trip_name": "Love & Blessings",
+            "eligible": false,
+            "reason_codes": [
+              "INSUFFICIENT_USER_WISH_COVERAGE"
+            ],
+            "user_wishes_covered": [],
+            "coverage_fraction": 0.0,
+            "graph_relevance": 0,
+            "matching_score": 0.0,
+            "place_ids_fixed": [
+              "P030",
+              "P023",
+              "P001",
+              "P047"
+            ],
+            "commercial_status": "PRICE_AND_CAPACITY_TBD"
+          }
+        ],
+        "route_reoptimized_per_user": false
+      }
+    },
+    "CASE_LOTTERY": {
+      "profile": {
+        "profile_id": "CASE_LOTTERY",
+        "wish_ids": [
+          "W09"
+        ],
+        "birthdate": "1995-12-10",
+        "expected_relevant": [
+          "P016"
+        ]
+      },
+      "places": {
+        "profile_id": "CASE_LOTTERY",
+        "wish_ids": [
+          "W09"
+        ],
+        "applied_exclusions": {
+          "deity_ids": [],
+          "place_ids": []
+        },
+        "weekday_from_dob": "วันอาทิตย์",
+        "birth_claim_ids_used": [],
+        "candidate_places": 1,
+        "top5": [
+          {
+            "rank": 1,
+            "place_id": "P016",
+            "place_name": "ศาลพ่อปู่เจ้ายี่กอฮง",
+            "ppr_normalized_score": 1.0,
+            "matched_wish_ids": [
+              "W09"
+            ],
+            "evidence_paths": [
+              {
+                "wish_id": "W09",
+                "wish_name": "เสี่ยงโชค",
+                "deity_id": "D_YIKOHONG",
+                "deity_name": "พ่อปู่เจ้ายี่กอฮง",
+                "place_id": "P016",
+                "path": "เสี่ยงโชค → พ่อปู่เจ้ายี่กอฮง → ศาลพ่อปู่เจ้ายี่กอฮง"
+              }
+            ],
+            "data_quality": "DEMO_ROUTE_READY_TRANSIT",
+            "note": "BELIEF_CLAIM_NOT_CAUSAL_PROOF"
+          }
+        ],
+        "limited_results": true,
+        "limited_reason": "No more source-backed permissible paths"
+      },
+      "trip": {
+        "profile_id": "CASE_LOTTERY",
+        "matched_trip": null,
+        "decision": "NO_ELIGIBLE_SIGNATURE_TRIP",
+        "all_trip_scores": [
+          {
+            "trip_id": "TRIP_CAREER",
+            "trip_name": "Career & Success",
+            "eligible": false,
+            "reason_codes": [
+              "INSUFFICIENT_USER_WISH_COVERAGE"
+            ],
+            "user_wishes_covered": [],
+            "coverage_fraction": 0.0,
+            "graph_relevance": 0,
+            "matching_score": 0.0,
+            "place_ids_fixed": [
+              "P026",
+              "P014",
+              "P012",
+              "P005"
+            ],
+            "commercial_status": "PRICE_AND_CAPACITY_TBD"
+          },
+          {
+            "trip_id": "TRIP_LOVE",
+            "trip_name": "Love & Blessings",
+            "eligible": false,
+            "reason_codes": [
+              "INSUFFICIENT_USER_WISH_COVERAGE"
+            ],
+            "user_wishes_covered": [],
+            "coverage_fraction": 0.0,
+            "graph_relevance": 0,
+            "matching_score": 0.0,
+            "place_ids_fixed": [
+              "P030",
+              "P023",
+              "P001",
+              "P047"
+            ],
+            "commercial_status": "PRICE_AND_CAPACITY_TBD"
+          },
+          {
+            "trip_id": "TRIP_WEALTH",
+            "trip_name": "Wealth & Protection",
+            "eligible": false,
+            "reason_codes": [
+              "INSUFFICIENT_USER_WISH_COVERAGE"
+            ],
+            "user_wishes_covered": [],
+            "coverage_fraction": 0.0,
+            "graph_relevance": 0,
+            "matching_score": 0.0,
+            "place_ids_fixed": [
+              "P018",
+              "P017",
+              "P044",
+              "P015"
+            ],
+            "commercial_status": "PRICE_AND_CAPACITY_TBD"
+          }
+        ],
+        "route_reoptimized_per_user": false
+      }
+    },
+    "CASE_DEBT": {
+      "profile": {
+        "profile_id": "CASE_DEBT",
+        "wish_ids": [
+          "W10"
+        ],
+        "birthdate": "1995-12-10",
+        "expected_relevant": [
+          "P003",
+          "P015"
+        ]
+      },
+      "places": {
+        "profile_id": "CASE_DEBT",
+        "wish_ids": [
+          "W10"
+        ],
+        "applied_exclusions": {
+          "deity_ids": [],
+          "place_ids": []
+        },
+        "weekday_from_dob": "วันอาทิตย์",
+        "birth_claim_ids_used": [],
+        "candidate_places": 4,
+        "top5": [
+          {
+            "rank": 1,
+            "place_id": "P003",
+            "place_name": "วัดอาวุธวิกสิตาราม",
+            "ppr_normalized_score": 1.0,
+            "matched_wish_ids": [
+              "W10"
+            ],
+            "evidence_paths": [
+              {
+                "wish_id": "W10",
+                "wish_name": "ปลดหนี้",
+                "deity_id": "D_MAE_BOONRUEAN",
+                "deity_name": "คุณแม่บุญเรือน โตงบุญเติม",
+                "place_id": "P003",
+                "path": "ปลดหนี้ → คุณแม่บุญเรือน โตงบุญเติม → วัดอาวุธวิกสิตาราม"
+              }
+            ],
+            "data_quality": "DEMO_ROUTE_READY_TRANSIT",
+            "note": "BELIEF_CLAIM_NOT_CAUSAL_PROOF"
+          },
+          {
+            "rank": 2,
+            "place_id": "P015",
+            "place_name": "วัดสุทัศนเทพวรารามราชวรมหาวิหาร",
+            "ppr_normalized_score": 0.975068,
+            "matched_wish_ids": [
+              "W10"
+            ],
+            "evidence_paths": [
+              {
+                "wish_id": "W10",
+                "wish_name": "ปลดหนี้",
+                "deity_id": "D_WESSUWAN",
+                "deity_name": "ท้าวเวสสุวรรณ",
+                "place_id": "P015",
+                "path": "ปลดหนี้ → ท้าวเวสสุวรรณ → วัดสุทัศนเทพวรารามราชวรมหาวิหาร"
+              }
+            ],
+            "data_quality": "DEMO_ROUTE_READY_TRANSIT",
+            "note": "BELIEF_CLAIM_NOT_CAUSAL_PROOF"
+          },
+          {
+            "rank": 3,
+            "place_id": "P038",
+            "place_name": "วัดราษฎร์ศรัทธาธรรม (วัดบางชัน)",
+            "ppr_normalized_score": 0.762801,
+            "matched_wish_ids": [
+              "W10"
+            ],
+            "evidence_paths": [
+              {
+                "wish_id": "W10",
+                "wish_name": "ปลดหนี้",
+                "deity_id": "D_WESSUWAN",
+                "deity_name": "ท้าวเวสสุวรรณ",
+                "place_id": "P038",
+                "path": "ปลดหนี้ → ท้าวเวสสุวรรณ → วัดราษฎร์ศรัทธาธรรม (วัดบางชัน)"
+              }
+            ],
+            "data_quality": "NO_STATION_ACCESS_EXCLUDE_TRIPS",
+            "note": "BELIEF_CLAIM_NOT_CAUSAL_PROOF"
+          },
+          {
+            "rank": 4,
+            "place_id": "P039",
+            "place_name": "วัดไผ่เงินโชตนาราม",
+            "ppr_normalized_score": 0.715974,
+            "matched_wish_ids": [
+              "W10"
+            ],
+            "evidence_paths": [
+              {
+                "wish_id": "W10",
+                "wish_name": "ปลดหนี้",
+                "deity_id": "D_WESSUWAN",
+                "deity_name": "ท้าวเวสสุวรรณ",
+                "place_id": "P039",
+                "path": "ปลดหนี้ → ท้าวเวสสุวรรณ → วัดไผ่เงินโชตนาราม"
+              }
+            ],
+            "data_quality": "NO_STATION_ACCESS_EXCLUDE_TRIPS",
+            "note": "BELIEF_CLAIM_NOT_CAUSAL_PROOF"
+          }
+        ],
+        "limited_results": true,
+        "limited_reason": "No more source-backed permissible paths"
+      },
+      "trip": {
+        "profile_id": "CASE_DEBT",
+        "matched_trip": {
+          "trip_id": "TRIP_WEALTH",
+          "trip_name": "Wealth & Protection",
+          "eligible": true,
+          "reason_codes": [],
+          "user_wishes_covered": [
+            "W10"
+          ],
+          "coverage_fraction": 1.0,
+          "graph_relevance": 0.243767,
+          "matching_score": 0.432825,
+          "place_ids_fixed": [
+            "P018",
+            "P017",
+            "P044",
+            "P015"
+          ],
+          "commercial_status": "PRICE_AND_CAPACITY_TBD"
+        },
+        "decision": "PROVISIONAL_MATCH_NOT_BOOKABLE",
+        "all_trip_scores": [
+          {
+            "trip_id": "TRIP_WEALTH",
+            "trip_name": "Wealth & Protection",
+            "eligible": true,
+            "reason_codes": [],
+            "user_wishes_covered": [
+              "W10"
+            ],
+            "coverage_fraction": 1.0,
+            "graph_relevance": 0.243767,
+            "matching_score": 0.432825,
+            "place_ids_fixed": [
+              "P018",
+              "P017",
+              "P044",
+              "P015"
+            ],
+            "commercial_status": "PRICE_AND_CAPACITY_TBD"
+          },
+          {
+            "trip_id": "TRIP_CAREER",
+            "trip_name": "Career & Success",
+            "eligible": false,
+            "reason_codes": [
+              "INSUFFICIENT_USER_WISH_COVERAGE"
+            ],
+            "user_wishes_covered": [],
+            "coverage_fraction": 0.0,
+            "graph_relevance": 0,
+            "matching_score": 0.0,
+            "place_ids_fixed": [
+              "P026",
+              "P014",
+              "P012",
+              "P005"
+            ],
+            "commercial_status": "PRICE_AND_CAPACITY_TBD"
+          },
+          {
+            "trip_id": "TRIP_LOVE",
+            "trip_name": "Love & Blessings",
+            "eligible": false,
+            "reason_codes": [
+              "INSUFFICIENT_USER_WISH_COVERAGE"
+            ],
+            "user_wishes_covered": [],
+            "coverage_fraction": 0.0,
+            "graph_relevance": 0,
+            "matching_score": 0.0,
+            "place_ids_fixed": [
+              "P030",
+              "P023",
+              "P001",
+              "P047"
+            ],
+            "commercial_status": "PRICE_AND_CAPACITY_TBD"
+          }
+        ],
+        "route_reoptimized_per_user": false
+      }
+    },
+    "CASE_3TOPICS": {
+      "profile": {
+        "profile_id": "CASE_3TOPICS",
+        "wish_ids": [
+          "W01",
+          "W02",
+          "W03"
+        ],
+        "birthdate": "2000-05-15",
+        "expected_relevant": [
+          "P001",
+          "P014",
+          "P022"
+        ]
+      },
+      "places": {
+        "profile_id": "CASE_3TOPICS",
+        "wish_ids": [
+          "W01",
+          "W02",
+          "W03"
+        ],
+        "applied_exclusions": {
+          "deity_ids": [],
+          "place_ids": []
+        },
+        "weekday_from_dob": "วันจันทร์",
+        "birth_claim_ids_used": [
+          "BD002"
+        ],
+        "candidate_places": 30,
+        "top5": [
+          {
+            "rank": 1,
+            "place_id": "P001",
+            "place_name": "วัดพระศรีมหาอุมาเทวี (วัดแขก สีลม)",
+            "ppr_normalized_score": 1.0,
+            "matched_wish_ids": [
+              "W01",
+              "W02",
+              "W03"
+            ],
+            "evidence_paths": [
+              {
+                "wish_id": "W01",
+                "wish_name": "ความรัก",
+                "deity_id": "D_BRAHMA",
+                "deity_name": "ท้าวมหาพรหม / พระพรหม",
+                "place_id": "P001",
+                "path": "ความรัก → ท้าวมหาพรหม / พระพรหม → วัดพระศรีมหาอุมาเทวี (วัดแขก สีลม)"
+              },
+              {
+                "wish_id": "W01",
+                "wish_name": "ความรัก",
+                "deity_id": "D_KRISHNA",
+                "deity_name": "พระกฤษณะ",
+                "place_id": "P001",
+                "path": "ความรัก → พระกฤษณะ → วัดพระศรีมหาอุมาเทวี (วัดแขก สีลม)"
+              },
+              {
+                "wish_id": "W01",
+                "wish_name": "ความรัก",
+                "deity_id": "D_LAKSHMI",
+                "deity_name": "พระแม่ลักษมี",
+                "place_id": "P001",
+                "path": "ความรัก → พระแม่ลักษมี → วัดพระศรีมหาอุมาเทวี (วัดแขก สีลม)"
+              },
+              {
+                "wish_id": "W01",
+                "wish_name": "ความรัก",
+                "deity_id": "D_UMA",
+                "deity_name": "พระแม่อุมาเทวี",
+                "place_id": "P001",
+                "path": "ความรัก → พระแม่อุมาเทวี → วัดพระศรีมหาอุมาเทวี (วัดแขก สีลม)"
+              },
+              {
+                "wish_id": "W02",
+                "wish_name": "การงาน",
+                "deity_id": "D_BRAHMA",
+                "deity_name": "ท้าวมหาพรหม / พระพรหม",
+                "place_id": "P001",
+                "path": "การงาน → ท้าวมหาพรหม / พระพรหม → วัดพระศรีมหาอุมาเทวี (วัดแขก สีลม)"
+              },
+              {
+                "wish_id": "W02",
+                "wish_name": "การงาน",
+                "deity_id": "D_GANESHA",
+                "deity_name": "พระพิฆเนศ",
+                "place_id": "P001",
+                "path": "การงาน → พระพิฆเนศ → วัดพระศรีมหาอุมาเทวี (วัดแขก สีลม)"
+              },
+              {
+                "wish_id": "W02",
+                "wish_name": "การงาน",
+                "deity_id": "D_VISHNU",
+                "deity_name": "พระวิษณุ / พระนารายณ์",
+                "place_id": "P001",
+                "path": "การงาน → พระวิษณุ / พระนารายณ์ → วัดพระศรีมหาอุมาเทวี (วัดแขก สีลม)"
+              },
+              {
+                "wish_id": "W03",
+                "wish_name": "การเงิน/โชคลาภ",
+                "deity_id": "D_BRAHMA",
+                "deity_name": "ท้าวมหาพรหม / พระพรหม",
+                "place_id": "P001",
+                "path": "การเงิน/โชคลาภ → ท้าวมหาพรหม / พระพรหม → วัดพระศรีมหาอุมาเทวี (วัดแขก สีลม)"
+              },
+              {
+                "wish_id": "W03",
+                "wish_name": "การเงิน/โชคลาภ",
+                "deity_id": "D_KRISHNA",
+                "deity_name": "พระกฤษณะ",
+                "place_id": "P001",
+                "path": "การเงิน/โชคลาภ → พระกฤษณะ → วัดพระศรีมหาอุมาเทวี (วัดแขก สีลม)"
+              },
+              {
+                "wish_id": "W03",
+                "wish_name": "การเงิน/โชคลาภ",
+                "deity_id": "D_LAKSHMI",
+                "deity_name": "พระแม่ลักษมี",
+                "place_id": "P001",
+                "path": "การเงิน/โชคลาภ → พระแม่ลักษมี → วัดพระศรีมหาอุมาเทวี (วัดแขก สีลม)"
+              },
+              {
+                "wish_id": "W03",
+                "wish_name": "การเงิน/โชคลาภ",
+                "deity_id": "D_SHIVA",
+                "deity_name": "พระศิวะ / พระอิศวร",
+                "place_id": "P001",
+                "path": "การเงิน/โชคลาภ → พระศิวะ / พระอิศวร → วัดพระศรีมหาอุมาเทวี (วัดแขก สีลม)"
+              }
+            ],
+            "data_quality": "DEMO_ROUTE_READY_TRANSIT",
+            "note": "BELIEF_CLAIM_NOT_CAUSAL_PROOF"
+          },
+          {
+            "rank": 2,
+            "place_id": "P002",
+            "place_name": "วัดวิษณุ (สมาคมฮินดูธรรมสภา)",
+            "ppr_normalized_score": 0.875708,
+            "matched_wish_ids": [
+              "W01",
+              "W02",
+              "W03"
+            ],
+            "evidence_paths": [
+              {
+                "wish_id": "W01",
+                "wish_name": "ความรัก",
+                "deity_id": "D_BRAHMA",
+                "deity_name": "ท้าวมหาพรหม / พระพรหม",
+                "place_id": "P002",
+                "path": "ความรัก → ท้าวมหาพรหม / พระพรหม → วัดวิษณุ (สมาคมฮินดูธรรมสภา)"
+              },
+              {
+                "wish_id": "W01",
+                "wish_name": "ความรัก",
+                "deity_id": "D_LAKSHMI",
+                "deity_name": "พระแม่ลักษมี",
+                "place_id": "P002",
+                "path": "ความรัก → พระแม่ลักษมี → วัดวิษณุ (สมาคมฮินดูธรรมสภา)"
+              },
+              {
+                "wish_id": "W01",
+                "wish_name": "ความรัก",
+                "deity_id": "D_UMA",
+                "deity_name": "พระแม่อุมาเทวี",
+                "place_id": "P002",
+                "path": "ความรัก → พระแม่อุมาเทวี → วัดวิษณุ (สมาคมฮินดูธรรมสภา)"
+              },
+              {
+                "wish_id": "W02",
+                "wish_name": "การงาน",
+                "deity_id": "D_BRAHMA",
+                "deity_name": "ท้าวมหาพรหม / พระพรหม",
+                "place_id": "P002",
+                "path": "การงาน → ท้าวมหาพรหม / พระพรหม → วัดวิษณุ (สมาคมฮินดูธรรมสภา)"
+              },
+              {
+                "wish_id": "W02",
+                "wish_name": "การงาน",
+                "deity_id": "D_GANESHA",
+                "deity_name": "พระพิฆเนศ",
+                "place_id": "P002",
+                "path": "การงาน → พระพิฆเนศ → วัดวิษณุ (สมาคมฮินดูธรรมสภา)"
+              },
+              {
+                "wish_id": "W02",
+                "wish_name": "การงาน",
+                "deity_id": "D_VISHNU",
+                "deity_name": "พระวิษณุ / พระนารายณ์",
+                "place_id": "P002",
+                "path": "การงาน → พระวิษณุ / พระนารายณ์ → วัดวิษณุ (สมาคมฮินดูธรรมสภา)"
+              },
+              {
+                "wish_id": "W03",
+                "wish_name": "การเงิน/โชคลาภ",
+                "deity_id": "D_BRAHMA",
+                "deity_name": "ท้าวมหาพรหม / พระพรหม",
+                "place_id": "P002",
+                "path": "การเงิน/โชคลาภ → ท้าวมหาพรหม / พระพรหม → วัดวิษณุ (สมาคมฮินดูธรรมสภา)"
+              },
+              {
+                "wish_id": "W03",
+                "wish_name": "การเงิน/โชคลาภ",
+                "deity_id": "D_LAKSHMI",
+                "deity_name": "พระแม่ลักษมี",
+                "place_id": "P002",
+                "path": "การเงิน/โชคลาภ → พระแม่ลักษมี → วัดวิษณุ (สมาคมฮินดูธรรมสภา)"
+              },
+              {
+                "wish_id": "W03",
+                "wish_name": "การเงิน/โชคลาภ",
+                "deity_id": "D_SHIVA",
+                "deity_name": "พระศิวะ / พระอิศวร",
+                "place_id": "P002",
+                "path": "การเงิน/โชคลาภ → พระศิวะ / พระอิศวร → วัดวิษณุ (สมาคมฮินดูธรรมสภา)"
+              }
+            ],
+            "data_quality": "DEMO_ROUTE_READY_TRANSIT",
+            "note": "BELIEF_CLAIM_NOT_CAUSAL_PROOF"
+          },
+          {
+            "rank": 3,
+            "place_id": "P014",
+            "place_name": "เทวสถานโบสถ์พราหมณ์",
+            "ppr_normalized_score": 0.847524,
+            "matched_wish_ids": [
+              "W01",
+              "W02",
+              "W03"
+            ],
+            "evidence_paths": [
+              {
+                "wish_id": "W01",
+                "wish_name": "ความรัก",
+                "deity_id": "D_BRAHMA",
+                "deity_name": "ท้าวมหาพรหม / พระพรหม",
+                "place_id": "P014",
+                "path": "ความรัก → ท้าวมหาพรหม / พระพรหม → เทวสถานโบสถ์พราหมณ์"
+              },
+              {
+                "wish_id": "W01",
+                "wish_name": "ความรัก",
+                "deity_id": "D_TRIMURTI",
+                "deity_name": "พระตรีมูรติ",
+                "place_id": "P014",
+                "path": "ความรัก → พระตรีมูรติ → เทวสถานโบสถ์พราหมณ์"
+              },
+              {
+                "wish_id": "W01",
+                "wish_name": "ความรัก",
+                "deity_id": "D_UMA",
+                "deity_name": "พระแม่อุมาเทวี",
+                "place_id": "P014",
+                "path": "ความรัก → พระแม่อุมาเทวี → เทวสถานโบสถ์พราหมณ์"
+              },
+              {
+                "wish_id": "W02",
+                "wish_name": "การงาน",
+                "deity_id": "D_BRAHMA",
+                "deity_name": "ท้าวมหาพรหม / พระพรหม",
+                "place_id": "P014",
+                "path": "การงาน → ท้าวมหาพรหม / พระพรหม → เทวสถานโบสถ์พราหมณ์"
+              },
+              {
+                "wish_id": "W02",
+                "wish_name": "การงาน",
+                "deity_id": "D_GANESHA",
+                "deity_name": "พระพิฆเนศ",
+                "place_id": "P014",
+                "path": "การงาน → พระพิฆเนศ → เทวสถานโบสถ์พราหมณ์"
+              },
+              {
+                "wish_id": "W02",
+                "wish_name": "การงาน",
+                "deity_id": "D_VISHNU",
+                "deity_name": "พระวิษณุ / พระนารายณ์",
+                "place_id": "P014",
+                "path": "การงาน → พระวิษณุ / พระนารายณ์ → เทวสถานโบสถ์พราหมณ์"
+              },
+              {
+                "wish_id": "W03",
+                "wish_name": "การเงิน/โชคลาภ",
+                "deity_id": "D_BRAHMA",
+                "deity_name": "ท้าวมหาพรหม / พระพรหม",
+                "place_id": "P014",
+                "path": "การเงิน/โชคลาภ → ท้าวมหาพรหม / พระพรหม → เทวสถานโบสถ์พราหมณ์"
+              },
+              {
+                "wish_id": "W03",
+                "wish_name": "การเงิน/โชคลาภ",
+                "deity_id": "D_SHIVA",
+                "deity_name": "พระศิวะ / พระอิศวร",
+                "place_id": "P014",
+                "path": "การเงิน/โชคลาภ → พระศิวะ / พระอิศวร → เทวสถานโบสถ์พราหมณ์"
+              }
+            ],
+            "data_quality": "DEMO_ROUTE_READY_TRANSIT",
+            "note": "BELIEF_CLAIM_NOT_CAUSAL_PROOF"
+          },
+          {
+            "rank": 4,
+            "place_id": "P019",
+            "place_name": "วัดมหาบุศย์ (แม่นาคพระโขนง)",
+            "ppr_normalized_score": 0.428297,
+            "matched_wish_ids": [
+              "W01"
+            ],
+            "evidence_paths": [
+              {
+                "wish_id": "W01",
+                "wish_name": "ความรัก",
+                "deity_id": "D_MAE_NAK",
+                "deity_name": "แม่นาคพระโขนง",
+                "place_id": "P019",
+                "path": "ความรัก → แม่นาคพระโขนง → วัดมหาบุศย์ (แม่นาคพระโขนง)"
+              }
+            ],
+            "data_quality": "DEMO_ROUTE_READY_TRANSIT",
+            "note": "BELIEF_CLAIM_NOT_CAUSAL_PROOF"
+          },
+          {
+            "rank": 5,
+            "place_id": "P029",
+            "place_name": "ศาลเจ้าแม่ทับทิม (สะพานซังฮี้)",
+            "ppr_normalized_score": 0.428297,
+            "matched_wish_ids": [
+              "W01"
+            ],
+            "evidence_paths": [
+              {
+                "wish_id": "W01",
+                "wish_name": "ความรัก",
+                "deity_id": "D_TUBTIM",
+                "deity_name": "เจ้าแม่ทับทิม",
+                "place_id": "P029",
+                "path": "ความรัก → เจ้าแม่ทับทิม → ศาลเจ้าแม่ทับทิม (สะพานซังฮี้)"
+              }
+            ],
+            "data_quality": "DEMO_ROUTE_READY_TRANSIT",
+            "note": "BELIEF_CLAIM_NOT_CAUSAL_PROOF"
+          }
+        ],
+        "limited_results": false,
+        "limited_reason": null
+      },
+      "trip": {
+        "profile_id": "CASE_3TOPICS",
+        "matched_trip": {
+          "trip_id": "TRIP_LOVE",
+          "trip_name": "Love & Blessings",
+          "eligible": true,
+          "reason_codes": [],
+          "user_wishes_covered": [
+            "W01",
+            "W02",
+            "W03"
+          ],
+          "coverage_fraction": 1.0,
+          "graph_relevance": 0.497569,
+          "matching_score": 0.623176,
+          "place_ids_fixed": [
+            "P030",
+            "P023",
+            "P001",
+            "P047"
+          ],
+          "commercial_status": "PRICE_AND_CAPACITY_TBD"
+        },
+        "decision": "PROVISIONAL_MATCH_NOT_BOOKABLE",
+        "all_trip_scores": [
+          {
+            "trip_id": "TRIP_LOVE",
+            "trip_name": "Love & Blessings",
+            "eligible": true,
+            "reason_codes": [],
+            "user_wishes_covered": [
+              "W01",
+              "W02",
+              "W03"
+            ],
+            "coverage_fraction": 1.0,
+            "graph_relevance": 0.497569,
+            "matching_score": 0.623176,
+            "place_ids_fixed": [
+              "P030",
+              "P023",
+              "P001",
+              "P047"
+            ],
+            "commercial_status": "PRICE_AND_CAPACITY_TBD"
+          },
+          {
+            "trip_id": "TRIP_CAREER",
+            "trip_name": "Career & Success",
+            "eligible": true,
+            "reason_codes": [],
+            "user_wishes_covered": [
+              "W01",
+              "W02",
+              "W03"
+            ],
+            "coverage_fraction": 1.0,
+            "graph_relevance": 0.443641,
+            "matching_score": 0.582731,
+            "place_ids_fixed": [
+              "P026",
+              "P014",
+              "P012",
+              "P005"
+            ],
+            "commercial_status": "PRICE_AND_CAPACITY_TBD"
+          },
+          {
+            "trip_id": "TRIP_WEALTH",
+            "trip_name": "Wealth & Protection",
+            "eligible": true,
+            "reason_codes": [],
+            "user_wishes_covered": [
+              "W03"
+            ],
+            "coverage_fraction": 0.3333,
+            "graph_relevance": 0.219492,
+            "matching_score": 0.247952,
+            "place_ids_fixed": [
+              "P018",
+              "P017",
+              "P044",
+              "P015"
+            ],
+            "commercial_status": "PRICE_AND_CAPACITY_TBD"
+          }
+        ],
+        "route_reoptimized_per_user": false
+      }
+    },
+    "CASE_NO_HINDU_LOVE": {
+      "profile": {
+        "profile_id": "CASE_NO_HINDU_LOVE",
+        "wish_ids": [
+          "W01"
+        ],
+        "birthdate": "2000-05-15",
+        "exclusions": {
+          "tradition_groups": [
+            "ฮินดู"
+          ]
+        },
+        "expected_relevant": [
+          "P019",
+          "P029",
+          "P047"
+        ]
+      },
+      "places": {
+        "profile_id": "CASE_NO_HINDU_LOVE",
+        "wish_ids": [
+          "W01"
+        ],
+        "applied_exclusions": {
+          "deity_ids": [
+            "D_BRAHMA",
+            "D_DURGA",
+            "D_GANESHA",
+            "D_KALI",
+            "D_KRISHNA",
+            "D_LAKSHMI",
+            "D_SARASWATI",
+            "D_SHIVA",
+            "D_SKANDA",
+            "D_TRIMURTI",
+            "D_UMA",
+            "D_VISHNU"
+          ],
+          "place_ids": []
+        },
+        "weekday_from_dob": "วันจันทร์",
+        "birth_claim_ids_used": [],
+        "candidate_places": 3,
+        "top5": [
+          {
+            "rank": 1,
+            "place_id": "P019",
+            "place_name": "วัดมหาบุศย์ (แม่นาคพระโขนง)",
+            "ppr_normalized_score": 1.0,
+            "matched_wish_ids": [
+              "W01"
+            ],
+            "evidence_paths": [
+              {
+                "wish_id": "W01",
+                "wish_name": "ความรัก",
+                "deity_id": "D_MAE_NAK",
+                "deity_name": "แม่นาคพระโขนง",
+                "place_id": "P019",
+                "path": "ความรัก → แม่นาคพระโขนง → วัดมหาบุศย์ (แม่นาคพระโขนง)"
+              }
+            ],
+            "data_quality": "DEMO_ROUTE_READY_TRANSIT",
+            "note": "BELIEF_CLAIM_NOT_CAUSAL_PROOF"
+          },
+          {
+            "rank": 2,
+            "place_id": "P029",
+            "place_name": "ศาลเจ้าแม่ทับทิม (สะพานซังฮี้)",
+            "ppr_normalized_score": 1.0,
+            "matched_wish_ids": [
+              "W01"
+            ],
+            "evidence_paths": [
+              {
+                "wish_id": "W01",
+                "wish_name": "ความรัก",
+                "deity_id": "D_TUBTIM",
+                "deity_name": "เจ้าแม่ทับทิม",
+                "place_id": "P029",
+                "path": "ความรัก → เจ้าแม่ทับทิม → ศาลเจ้าแม่ทับทิม (สะพานซังฮี้)"
+              }
+            ],
+            "data_quality": "DEMO_ROUTE_READY_TRANSIT",
+            "note": "BELIEF_CLAIM_NOT_CAUSAL_PROOF"
+          },
+          {
+            "rank": 3,
+            "place_id": "P047",
+            "place_name": "วัดคณิกาผล (ย่าแฟง)",
+            "ppr_normalized_score": 0.596786,
+            "matched_wish_ids": [
+              "W01"
+            ],
+            "evidence_paths": [
+              {
+                "wish_id": "W01",
+                "wish_name": "ความรัก",
+                "deity_id": "D_MAE_FAENG",
+                "deity_name": "ย่าแฟง (วัดคณิกาผล)",
+                "place_id": "P047",
+                "path": "ความรัก → ย่าแฟง (วัดคณิกาผล) → วัดคณิกาผล (ย่าแฟง)"
+              }
+            ],
+            "data_quality": "DEMO_ROUTE_READY_TRANSIT",
+            "note": "BELIEF_CLAIM_NOT_CAUSAL_PROOF"
+          }
+        ],
+        "limited_results": true,
+        "limited_reason": "No more source-backed permissible paths"
+      },
+      "trip": {
+        "profile_id": "CASE_NO_HINDU_LOVE",
+        "matched_trip": null,
+        "decision": "NO_ELIGIBLE_SIGNATURE_TRIP",
+        "all_trip_scores": [
+          {
+            "trip_id": "TRIP_LOVE",
+            "trip_name": "Love & Blessings",
+            "eligible": false,
+            "reason_codes": [
+              "FEATURED_RITUAL_EXCLUSION:D_LAKSHMI,D_TRIMURTI,D_UMA"
+            ],
+            "user_wishes_covered": [
+              "W01"
+            ],
+            "coverage_fraction": 1.0,
+            "graph_relevance": 0.149197,
+            "matching_score": 0.361897,
+            "place_ids_fixed": [
+              "P030",
+              "P023",
+              "P001",
+              "P047"
+            ],
+            "commercial_status": "PRICE_AND_CAPACITY_TBD"
+          },
+          {
+            "trip_id": "TRIP_CAREER",
+            "trip_name": "Career & Success",
+            "eligible": false,
+            "reason_codes": [
+              "FEATURED_RITUAL_EXCLUSION:D_GANESHA",
+              "INSUFFICIENT_USER_WISH_COVERAGE"
+            ],
+            "user_wishes_covered": [],
+            "coverage_fraction": 0.0,
+            "graph_relevance": 0,
+            "matching_score": 0.0,
+            "place_ids_fixed": [
+              "P026",
+              "P014",
+              "P012",
+              "P005"
+            ],
+            "commercial_status": "PRICE_AND_CAPACITY_TBD"
+          },
+          {
+            "trip_id": "TRIP_WEALTH",
+            "trip_name": "Wealth & Protection",
+            "eligible": false,
+            "reason_codes": [
+              "INSUFFICIENT_USER_WISH_COVERAGE"
+            ],
+            "user_wishes_covered": [],
+            "coverage_fraction": 0.0,
+            "graph_relevance": 0,
+            "matching_score": 0.0,
+            "place_ids_fixed": [
+              "P018",
+              "P017",
+              "P044",
+              "P015"
+            ],
+            "commercial_status": "PRICE_AND_CAPACITY_TBD"
+          }
+        ],
+        "route_reoptimized_per_user": false
+      }
+    },
+    "CASE_NO_HINDU_FAN": {
+      "profile": {
+        "profile_id": "CASE_NO_HINDU_FAN",
+        "wish_ids": [
+          "W05"
+        ],
+        "birthdate": "2000-05-15",
+        "exclusions": {
+          "tradition_groups": [
+            "ฮินดู"
+          ]
+        },
+        "expected_relevant": []
+      },
+      "places": {
+        "profile_id": "CASE_NO_HINDU_FAN",
+        "wish_ids": [
+          "W05"
+        ],
+        "applied_exclusions": {
+          "deity_ids": [
+            "D_BRAHMA",
+            "D_DURGA",
+            "D_GANESHA",
+            "D_KALI",
+            "D_KRISHNA",
+            "D_LAKSHMI",
+            "D_SARASWATI",
+            "D_SHIVA",
+            "D_SKANDA",
+            "D_TRIMURTI",
+            "D_UMA",
+            "D_VISHNU"
+          ],
+          "place_ids": []
+        },
+        "weekday_from_dob": "วันจันทร์",
+        "birth_claim_ids_used": [],
+        "candidate_places": 0,
+        "top5": [],
+        "limited_results": true,
+        "limited_reason": "No more source-backed permissible paths"
+      },
+      "trip": {
+        "profile_id": "CASE_NO_HINDU_FAN",
+        "matched_trip": null,
+        "decision": "NO_ELIGIBLE_SIGNATURE_TRIP",
+        "all_trip_scores": [
+          {
+            "trip_id": "TRIP_CAREER",
+            "trip_name": "Career & Success",
+            "eligible": false,
+            "reason_codes": [
+              "FEATURED_RITUAL_EXCLUSION:D_GANESHA",
+              "INSUFFICIENT_USER_WISH_COVERAGE"
+            ],
+            "user_wishes_covered": [],
+            "coverage_fraction": 0.0,
+            "graph_relevance": 0,
+            "matching_score": 0.0,
+            "place_ids_fixed": [
+              "P026",
+              "P014",
+              "P012",
+              "P005"
+            ],
+            "commercial_status": "PRICE_AND_CAPACITY_TBD"
+          },
+          {
+            "trip_id": "TRIP_LOVE",
+            "trip_name": "Love & Blessings",
+            "eligible": false,
+            "reason_codes": [
+              "FEATURED_RITUAL_EXCLUSION:D_LAKSHMI,D_TRIMURTI,D_UMA",
+              "INSUFFICIENT_USER_WISH_COVERAGE"
+            ],
+            "user_wishes_covered": [],
+            "coverage_fraction": 0.0,
+            "graph_relevance": 0,
+            "matching_score": 0.0,
+            "place_ids_fixed": [
+              "P030",
+              "P023",
+              "P001",
+              "P047"
+            ],
+            "commercial_status": "PRICE_AND_CAPACITY_TBD"
+          },
+          {
+            "trip_id": "TRIP_WEALTH",
+            "trip_name": "Wealth & Protection",
+            "eligible": false,
+            "reason_codes": [
+              "INSUFFICIENT_USER_WISH_COVERAGE"
+            ],
+            "user_wishes_covered": [],
+            "coverage_fraction": 0.0,
+            "graph_relevance": 0,
+            "matching_score": 0.0,
+            "place_ids_fixed": [
+              "P018",
+              "P017",
+              "P044",
+              "P015"
+            ],
+            "commercial_status": "PRICE_AND_CAPACITY_TBD"
+          }
+        ],
+        "route_reoptimized_per_user": false
+      }
+    },
+    "CASE_NO_GANESHA_EXAM": {
+      "profile": {
+        "profile_id": "CASE_NO_GANESHA_EXAM",
+        "wish_ids": [
+          "W04"
+        ],
+        "birthdate": "2000-05-15",
+        "exclusions": {
+          "deity_ids": [
+            "D_GANESHA"
+          ]
+        },
+        "expected_relevant": [
+          "P017",
+          "P001"
+        ]
+      },
+      "places": {
+        "profile_id": "CASE_NO_GANESHA_EXAM",
+        "wish_ids": [
+          "W04"
+        ],
+        "applied_exclusions": {
+          "deity_ids": [
+            "D_GANESHA"
+          ],
+          "place_ids": []
+        },
+        "weekday_from_dob": "วันจันทร์",
+        "birth_claim_ids_used": [
+          "BD002"
+        ],
+        "candidate_places": 4,
+        "top5": [
+          {
+            "rank": 1,
+            "place_id": "P017",
+            "place_name": "วัดมังกรกมลาวาส (วัดเล่งเน่ยยี่)",
+            "ppr_normalized_score": 1.0,
+            "matched_wish_ids": [
+              "W04"
+            ],
+            "evidence_paths": [
+              {
+                "wish_id": "W04",
+                "wish_name": "การเรียน/สอบ",
+                "deity_id": "D_WENCHANG",
+                "deity_name": "เทพบุ่นเชียง (บุ๋นเชียงตี่กุง)",
+                "place_id": "P017",
+                "path": "การเรียน/สอบ → เทพบุ่นเชียง (บุ๋นเชียงตี่กุง) → วัดมังกรกมลาวาส (วัดเล่งเน่ยยี่)"
+              }
+            ],
+            "data_quality": "DEMO_ROUTE_READY_TRANSIT",
+            "note": "BELIEF_CLAIM_NOT_CAUSAL_PROOF"
+          },
+          {
+            "rank": 2,
+            "place_id": "P002",
+            "place_name": "วัดวิษณุ (สมาคมฮินดูธรรมสภา)",
+            "ppr_normalized_score": 0.504628,
+            "matched_wish_ids": [
+              "W04"
+            ],
+            "evidence_paths": [
+              {
+                "wish_id": "W04",
+                "wish_name": "การเรียน/สอบ",
+                "deity_id": "D_SARASWATI",
+                "deity_name": "พระแม่สุรัสวดี",
+                "place_id": "P002",
+                "path": "การเรียน/สอบ → พระแม่สุรัสวดี → วัดวิษณุ (สมาคมฮินดูธรรมสภา)"
+              }
+            ],
+            "data_quality": "DEMO_ROUTE_READY_TRANSIT",
+            "note": "BELIEF_CLAIM_NOT_CAUSAL_PROOF"
+          },
+          {
+            "rank": 3,
+            "place_id": "P001",
+            "place_name": "วัดพระศรีมหาอุมาเทวี (วัดแขก สีลม)",
+            "ppr_normalized_score": 0.500188,
+            "matched_wish_ids": [
+              "W04"
+            ],
+            "evidence_paths": [
+              {
+                "wish_id": "W04",
+                "wish_name": "การเรียน/สอบ",
+                "deity_id": "D_SARASWATI",
+                "deity_name": "พระแม่สุรัสวดี",
+                "place_id": "P001",
+                "path": "การเรียน/สอบ → พระแม่สุรัสวดี → วัดพระศรีมหาอุมาเทวี (วัดแขก สีลม)"
+              }
+            ],
+            "data_quality": "DEMO_ROUTE_READY_TRANSIT",
+            "note": "BELIEF_CLAIM_NOT_CAUSAL_PROOF"
+          },
+          {
+            "rank": 4,
+            "place_id": "P014",
+            "place_name": "เทวสถานโบสถ์พราหมณ์",
+            "ppr_normalized_score": 0.477002,
+            "matched_wish_ids": [
+              "W04"
+            ],
+            "evidence_paths": [
+              {
+                "wish_id": "W04",
+                "wish_name": "การเรียน/สอบ",
+                "deity_id": "D_SARASWATI",
+                "deity_name": "พระแม่สุรัสวดี",
+                "place_id": "P014",
+                "path": "การเรียน/สอบ → พระแม่สุรัสวดี → เทวสถานโบสถ์พราหมณ์"
+              }
+            ],
+            "data_quality": "DEMO_ROUTE_READY_TRANSIT",
+            "note": "BELIEF_CLAIM_NOT_CAUSAL_PROOF"
+          }
+        ],
+        "limited_results": true,
+        "limited_reason": "No more source-backed permissible paths"
+      },
+      "trip": {
+        "profile_id": "CASE_NO_GANESHA_EXAM",
+        "matched_trip": {
+          "trip_id": "TRIP_WEALTH",
+          "trip_name": "Wealth & Protection",
+          "eligible": true,
+          "reason_codes": [],
+          "user_wishes_covered": [
+            "W04"
+          ],
+          "coverage_fraction": 1.0,
+          "graph_relevance": 0.25,
+          "matching_score": 0.4375,
+          "place_ids_fixed": [
+            "P018",
+            "P017",
+            "P044",
+            "P015"
+          ],
+          "commercial_status": "PRICE_AND_CAPACITY_TBD"
+        },
+        "decision": "PROVISIONAL_MATCH_NOT_BOOKABLE",
+        "all_trip_scores": [
+          {
+            "trip_id": "TRIP_WEALTH",
+            "trip_name": "Wealth & Protection",
+            "eligible": true,
+            "reason_codes": [],
+            "user_wishes_covered": [
+              "W04"
+            ],
+            "coverage_fraction": 1.0,
+            "graph_relevance": 0.25,
+            "matching_score": 0.4375,
+            "place_ids_fixed": [
+              "P018",
+              "P017",
+              "P044",
+              "P015"
+            ],
+            "commercial_status": "PRICE_AND_CAPACITY_TBD"
+          },
+          {
+            "trip_id": "TRIP_LOVE",
+            "trip_name": "Love & Blessings",
+            "eligible": true,
+            "reason_codes": [],
+            "user_wishes_covered": [
+              "W04"
+            ],
+            "coverage_fraction": 1.0,
+            "graph_relevance": 0.125047,
+            "matching_score": 0.343785,
+            "place_ids_fixed": [
+              "P030",
+              "P023",
+              "P001",
+              "P047"
+            ],
+            "commercial_status": "PRICE_AND_CAPACITY_TBD"
+          },
+          {
+            "trip_id": "TRIP_CAREER",
+            "trip_name": "Career & Success",
+            "eligible": false,
+            "reason_codes": [
+              "FEATURED_RITUAL_EXCLUSION:D_GANESHA"
+            ],
+            "user_wishes_covered": [
+              "W04"
+            ],
+            "coverage_fraction": 1.0,
+            "graph_relevance": 0.119251,
+            "matching_score": 0.339438,
+            "place_ids_fixed": [
+              "P026",
+              "P014",
+              "P012",
+              "P005"
+            ],
+            "commercial_status": "PRICE_AND_CAPACITY_TBD"
+          }
+        ],
+        "route_reoptimized_per_user": false
+      }
+    },
+    "CASE_HIDE_PLACE": {
+      "profile": {
+        "profile_id": "CASE_HIDE_PLACE",
+        "wish_ids": [
+          "W01",
+          "W03"
+        ],
+        "birthdate": "2000-05-15",
+        "exclusions": {
+          "place_ids": [
+            "P001",
+            "P023"
+          ]
+        },
+        "expected_relevant": [
+          "P030",
+          "P022",
+          "P018"
+        ]
+      },
+      "places": {
+        "profile_id": "CASE_HIDE_PLACE",
+        "wish_ids": [
+          "W01",
+          "W03"
+        ],
+        "applied_exclusions": {
+          "deity_ids": [],
+          "place_ids": [
+            "P001",
+            "P023"
+          ]
+        },
+        "weekday_from_dob": "วันจันทร์",
+        "birth_claim_ids_used": [
+          "BD002"
+        ],
+        "candidate_places": 17,
+        "top5": [
+          {
+            "rank": 1,
+            "place_id": "P002",
+            "place_name": "วัดวิษณุ (สมาคมฮินดูธรรมสภา)",
+            "ppr_normalized_score": 1.0,
+            "matched_wish_ids": [
+              "W01",
+              "W03"
+            ],
+            "evidence_paths": [
+              {
+                "wish_id": "W01",
+                "wish_name": "ความรัก",
+                "deity_id": "D_BRAHMA",
+                "deity_name": "ท้าวมหาพรหม / พระพรหม",
+                "place_id": "P002",
+                "path": "ความรัก → ท้าวมหาพรหม / พระพรหม → วัดวิษณุ (สมาคมฮินดูธรรมสภา)"
+              },
+              {
+                "wish_id": "W01",
+                "wish_name": "ความรัก",
+                "deity_id": "D_LAKSHMI",
+                "deity_name": "พระแม่ลักษมี",
+                "place_id": "P002",
+                "path": "ความรัก → พระแม่ลักษมี → วัดวิษณุ (สมาคมฮินดูธรรมสภา)"
+              },
+              {
+                "wish_id": "W01",
+                "wish_name": "ความรัก",
+                "deity_id": "D_UMA",
+                "deity_name": "พระแม่อุมาเทวี",
+                "place_id": "P002",
+                "path": "ความรัก → พระแม่อุมาเทวี → วัดวิษณุ (สมาคมฮินดูธรรมสภา)"
+              },
+              {
+                "wish_id": "W03",
+                "wish_name": "การเงิน/โชคลาภ",
+                "deity_id": "D_BRAHMA",
+                "deity_name": "ท้าวมหาพรหม / พระพรหม",
+                "place_id": "P002",
+                "path": "การเงิน/โชคลาภ → ท้าวมหาพรหม / พระพรหม → วัดวิษณุ (สมาคมฮินดูธรรมสภา)"
+              },
+              {
+                "wish_id": "W03",
+                "wish_name": "การเงิน/โชคลาภ",
+                "deity_id": "D_LAKSHMI",
+                "deity_name": "พระแม่ลักษมี",
+                "place_id": "P002",
+                "path": "การเงิน/โชคลาภ → พระแม่ลักษมี → วัดวิษณุ (สมาคมฮินดูธรรมสภา)"
+              },
+              {
+                "wish_id": "W03",
+                "wish_name": "การเงิน/โชคลาภ",
+                "deity_id": "D_SHIVA",
+                "deity_name": "พระศิวะ / พระอิศวร",
+                "place_id": "P002",
+                "path": "การเงิน/โชคลาภ → พระศิวะ / พระอิศวร → วัดวิษณุ (สมาคมฮินดูธรรมสภา)"
+              }
+            ],
+            "data_quality": "DEMO_ROUTE_READY_TRANSIT",
+            "note": "BELIEF_CLAIM_NOT_CAUSAL_PROOF"
+          },
+          {
+            "rank": 2,
+            "place_id": "P014",
+            "place_name": "เทวสถานโบสถ์พราหมณ์",
+            "ppr_normalized_score": 0.944748,
+            "matched_wish_ids": [
+              "W01",
+              "W03"
+            ],
+            "evidence_paths": [
+              {
+                "wish_id": "W01",
+                "wish_name": "ความรัก",
+                "deity_id": "D_BRAHMA",
+                "deity_name": "ท้าวมหาพรหม / พระพรหม",
+                "place_id": "P014",
+                "path": "ความรัก → ท้าวมหาพรหม / พระพรหม → เทวสถานโบสถ์พราหมณ์"
+              },
+              {
+                "wish_id": "W01",
+                "wish_name": "ความรัก",
+                "deity_id": "D_TRIMURTI",
+                "deity_name": "พระตรีมูรติ",
+                "place_id": "P014",
+                "path": "ความรัก → พระตรีมูรติ → เทวสถานโบสถ์พราหมณ์"
+              },
+              {
+                "wish_id": "W01",
+                "wish_name": "ความรัก",
+                "deity_id": "D_UMA",
+                "deity_name": "พระแม่อุมาเทวี",
+                "place_id": "P014",
+                "path": "ความรัก → พระแม่อุมาเทวี → เทวสถานโบสถ์พราหมณ์"
+              },
+              {
+                "wish_id": "W03",
+                "wish_name": "การเงิน/โชคลาภ",
+                "deity_id": "D_BRAHMA",
+                "deity_name": "ท้าวมหาพรหม / พระพรหม",
+                "place_id": "P014",
+                "path": "การเงิน/โชคลาภ → ท้าวมหาพรหม / พระพรหม → เทวสถานโบสถ์พราหมณ์"
+              },
+              {
+                "wish_id": "W03",
+                "wish_name": "การเงิน/โชคลาภ",
+                "deity_id": "D_SHIVA",
+                "deity_name": "พระศิวะ / พระอิศวร",
+                "place_id": "P014",
+                "path": "การเงิน/โชคลาภ → พระศิวะ / พระอิศวร → เทวสถานโบสถ์พราหมณ์"
+              }
+            ],
+            "data_quality": "DEMO_ROUTE_READY_TRANSIT",
+            "note": "BELIEF_CLAIM_NOT_CAUSAL_PROOF"
+          },
+          {
+            "rank": 3,
+            "place_id": "P019",
+            "place_name": "วัดมหาบุศย์ (แม่นาคพระโขนง)",
+            "ppr_normalized_score": 0.573484,
+            "matched_wish_ids": [
+              "W01"
+            ],
+            "evidence_paths": [
+              {
+                "wish_id": "W01",
+                "wish_name": "ความรัก",
+                "deity_id": "D_MAE_NAK",
+                "deity_name": "แม่นาคพระโขนง",
+                "place_id": "P019",
+                "path": "ความรัก → แม่นาคพระโขนง → วัดมหาบุศย์ (แม่นาคพระโขนง)"
+              }
+            ],
+            "data_quality": "DEMO_ROUTE_READY_TRANSIT",
+            "note": "BELIEF_CLAIM_NOT_CAUSAL_PROOF"
+          },
+          {
+            "rank": 4,
+            "place_id": "P029",
+            "place_name": "ศาลเจ้าแม่ทับทิม (สะพานซังฮี้)",
+            "ppr_normalized_score": 0.573484,
+            "matched_wish_ids": [
+              "W01"
+            ],
+            "evidence_paths": [
+              {
+                "wish_id": "W01",
+                "wish_name": "ความรัก",
+                "deity_id": "D_TUBTIM",
+                "deity_name": "เจ้าแม่ทับทิม",
+                "place_id": "P029",
+                "path": "ความรัก → เจ้าแม่ทับทิม → ศาลเจ้าแม่ทับทิม (สะพานซังฮี้)"
+              }
+            ],
+            "data_quality": "DEMO_ROUTE_READY_TRANSIT",
+            "note": "BELIEF_CLAIM_NOT_CAUSAL_PROOF"
+          },
+          {
+            "rank": 5,
+            "place_id": "P039",
+            "place_name": "วัดไผ่เงินโชตนาราม",
+            "ppr_normalized_score": 0.521541,
+            "matched_wish_ids": [
+              "W01",
+              "W03"
+            ],
+            "evidence_paths": [
+              {
+                "wish_id": "W01",
+                "wish_name": "ความรัก",
+                "deity_id": "D_LAKSHMI",
+                "deity_name": "พระแม่ลักษมี",
+                "place_id": "P039",
+                "path": "ความรัก → พระแม่ลักษมี → วัดไผ่เงินโชตนาราม"
+              },
+              {
+                "wish_id": "W03",
+                "wish_name": "การเงิน/โชคลาภ",
+                "deity_id": "D_LAKSHMI",
+                "deity_name": "พระแม่ลักษมี",
+                "place_id": "P039",
+                "path": "การเงิน/โชคลาภ → พระแม่ลักษมี → วัดไผ่เงินโชตนาราม"
+              },
+              {
+                "wish_id": "W03",
+                "wish_name": "การเงิน/โชคลาภ",
+                "deity_id": "D_WESSUWAN",
+                "deity_name": "ท้าวเวสสุวรรณ",
+                "place_id": "P039",
+                "path": "การเงิน/โชคลาภ → ท้าวเวสสุวรรณ → วัดไผ่เงินโชตนาราม"
+              }
+            ],
+            "data_quality": "NO_STATION_ACCESS_EXCLUDE_TRIPS",
+            "note": "BELIEF_CLAIM_NOT_CAUSAL_PROOF"
+          }
+        ],
+        "limited_results": false,
+        "limited_reason": null
+      },
+      "trip": {
+        "profile_id": "CASE_HIDE_PLACE",
+        "matched_trip": {
+          "trip_id": "TRIP_CAREER",
+          "trip_name": "Career & Success",
+          "eligible": true,
+          "reason_codes": [],
+          "user_wishes_covered": [
+            "W01",
+            "W03"
+          ],
+          "coverage_fraction": 1.0,
+          "graph_relevance": 0.236187,
+          "matching_score": 0.42714,
+          "place_ids_fixed": [
+            "P026",
+            "P014",
+            "P012",
+            "P005"
+          ],
+          "commercial_status": "PRICE_AND_CAPACITY_TBD"
+        },
+        "decision": "PROVISIONAL_MATCH_NOT_BOOKABLE",
+        "all_trip_scores": [
+          {
+            "trip_id": "TRIP_CAREER",
+            "trip_name": "Career & Success",
+            "eligible": true,
+            "reason_codes": [],
+            "user_wishes_covered": [
+              "W01",
+              "W03"
+            ],
+            "coverage_fraction": 1.0,
+            "graph_relevance": 0.236187,
+            "matching_score": 0.42714,
+            "place_ids_fixed": [
+              "P026",
+              "P014",
+              "P012",
+              "P005"
+            ],
+            "commercial_status": "PRICE_AND_CAPACITY_TBD"
+          },
+          {
+            "trip_id": "TRIP_WEALTH",
+            "trip_name": "Wealth & Protection",
+            "eligible": true,
+            "reason_codes": [],
+            "user_wishes_covered": [
+              "W03"
+            ],
+            "coverage_fraction": 0.5,
+            "graph_relevance": 0.27678,
+            "matching_score": 0.332585,
+            "place_ids_fixed": [
+              "P018",
+              "P017",
+              "P044",
+              "P015"
+            ],
+            "commercial_status": "PRICE_AND_CAPACITY_TBD"
+          },
+          {
+            "trip_id": "TRIP_LOVE",
+            "trip_name": "Love & Blessings",
+            "eligible": false,
+            "reason_codes": [
+              "PLACE_EXCLUSION"
+            ],
+            "user_wishes_covered": [
+              "W01"
+            ],
+            "coverage_fraction": 0.5,
+            "graph_relevance": 0.194575,
+            "matching_score": 0.270931,
+            "place_ids_fixed": [
+              "P030",
+              "P023",
+              "P001",
+              "P047"
+            ],
+            "commercial_status": "PRICE_AND_CAPACITY_TBD"
+          }
+        ],
+        "route_reoptimized_per_user": false
+      }
+    }
+  },
+  "exclusions_policy": "Graph removes blocked deity/place nodes. Trip matching rejects fixed product when featured ritual excludes any entity. No live booking.",
+  "methodology": "Meta-path-aware PPR rank + hard exclusion + greedy coverage; 3 fixed offline Signature Trips; one online trip score, no rerouting."
+}

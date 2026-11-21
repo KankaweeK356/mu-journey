@@ -1,0 +1,1588 @@
+{
+  "version": "OFFLINE_SIGNATURE_V1_2026-11-21",
+  "source": "MU_Journey_Network_Demo_Data_v2.json",
+  "status": "SIMULATION_DESIGN_NOT_OPERATIONAL_ROUTE",
+  "business_constraints": {
+    "start_station_id": "CEN",
+    "start_station": "สยาม",
+    "start_min": 540,
+    "max_end_min": 900,
+    "max_total_minutes": 360,
+    "stops": 4,
+    "site_dwell_min": 25,
+    "on_site_group_buffer_min": 5,
+    "group_briefing_min": 15,
+    "midday_break_min": 30,
+    "max_station_walk_min": 75,
+    "max_rail_and_access_min": 185,
+    "boarding_wait_assumed_min": 5,
+    "end_at_nearest_station": true,
+    "allowed_station_systems": [
+      "BTS",
+      "MRT"
+    ],
+    "allowed_access_modes": [
+      "walk",
+      "skywalk"
+    ],
+    "access_exclusions": "No bus, boat, taxi, motorbike taxi, SRT, ARL or mixed/feeder access links",
+    "caveat": "Track times estimated; station-to-venue access estimated/unverified; venue real coords missing; many hours synthetic"
+  },
+  "themes": [
+    {
+      "trip_id": "TRIP_LOVE",
+      "theme": "Love & Blessings",
+      "wish_weights": {
+        "W01": 0.8,
+        "W03": 0.2
+      }
+    },
+    {
+      "trip_id": "TRIP_CAREER",
+      "theme": "Career & Success",
+      "wish_weights": {
+        "W02": 0.7,
+        "W04": 0.25,
+        "W05": 0.05
+      }
+    },
+    {
+      "trip_id": "TRIP_WEALTH",
+      "theme": "Wealth & Protection",
+      "wish_weights": {
+        "W03": 0.65,
+        "W06": 0.25,
+        "W08": 0.1
+      }
+    }
+  ],
+  "objective_weights": {
+    "ppr_mean": 0.45,
+    "theme_wish_coverage": 0.3,
+    "journey_efficiency": 0.15,
+    "deity_diversity": 0.1
+  },
+  "transit_graph": {
+    "eligible_BTS_MRT_stations": 171,
+    "rail_edges": 177,
+    "connected_component_sizes": [
+      171
+    ],
+    "eligible_places_with_rail_walk_access": 35,
+    "excluded_places": [
+      "P002",
+      "P004",
+      "P008",
+      "P009",
+      "P010",
+      "P019",
+      "P020",
+      "P024",
+      "P025",
+      "P029",
+      "P031",
+      "P034",
+      "P038",
+      "P039",
+      "P041",
+      "P046",
+      "P048"
+    ]
+  },
+  "model": "Weighted Wish -> Meta-path -> degree corrected PPR + exact-route candidate permutation search constrained by BTS/MRT and walk/skywalk only; joint three-tour no-overlap portfolio selection on top candidate sets.",
+  "per_theme_search": [
+    {
+      "trip_id": "TRIP_LOVE",
+      "theme": "Love & Blessings",
+      "wish_weights": {
+        "W01": 0.8,
+        "W03": 0.2
+      },
+      "candidate_pool": [
+        "P001",
+        "P014",
+        "P030",
+        "P047",
+        "P023",
+        "P040",
+        "P022",
+        "P018",
+        "P017",
+        "P015",
+        "P016",
+        "P003"
+      ],
+      "candidate_places": 12,
+      "permutations_checked": 11880,
+      "feasible_permutations": 9966,
+      "unique_feasible_sets": 420,
+      "initial_template": {
+        "route": {
+          "place_ids": [
+            "P001",
+            "P022",
+            "P023",
+            "P030"
+          ],
+          "stops": [
+            {
+              "order": 1,
+              "place_id": "P001",
+              "name": "วัดพระศรีมหาอุมาเทวี (วัดแขก สีลม)",
+              "arrival_clock": "09:34",
+              "start_clock": "09:34",
+              "finish_clock": "09:58",
+              "venue_hours_origin": "SOURCE_CANDIDATE_UNVERIFIED",
+              "station_id": "S2",
+              "station_name": "ศาลาแดง",
+              "entry_access_mode": "walk",
+              "approximate_leg_total_min": 18.5,
+              "wait_open_min": 0.0
+            },
+            {
+              "order": 2,
+              "place_id": "P022",
+              "name": "ศาลท้าวมหาพรหม แยกราชประสงค์ (เอราวัณ)",
+              "arrival_clock": "10:29",
+              "start_clock": "10:29",
+              "finish_clock": "10:54",
+              "venue_hours_origin": "SYNTHETIC_DEMO_HOURS",
+              "station_id": "E1",
+              "station_name": "ชิดลม",
+              "entry_access_mode": "skywalk",
+              "approximate_leg_total_min": 25.7,
+              "wait_open_min": 0.0
+            },
+            {
+              "order": 3,
+              "place_id": "P023",
+              "name": "พระแม่ลักษมี เกษรวิลเลจ",
+              "arrival_clock": "11:38",
+              "start_clock": "11:38",
+              "finish_clock": "12:03",
+              "venue_hours_origin": "SOURCE_MASTER_UNDER_REVIEW",
+              "station_id": "E1",
+              "station_name": "ชิดลม",
+              "entry_access_mode": "skywalk",
+              "approximate_leg_total_min": 9.0,
+              "wait_open_min": 0.0
+            },
+            {
+              "order": 4,
+              "place_id": "P030",
+              "name": "ศาลพระตรีมูรติ ลานเซ็นทรัลเวิลด์",
+              "arrival_clock": "12:17",
+              "start_clock": "12:17",
+              "finish_clock": "12:42",
+              "venue_hours_origin": "SYNTHETIC_DEMO_HOURS",
+              "station_id": "E1",
+              "station_name": "ชิดลม",
+              "entry_access_mode": "skywalk",
+              "approximate_leg_total_min": 9.0,
+              "wait_open_min": 0.0
+            }
+          ],
+          "legs": [
+            {
+              "from": "CEN",
+              "to": "S2",
+              "rail_min_est": 5.5,
+              "access_walk_min_est": 8.0,
+              "boarding_wait_assumption_min": 5.0,
+              "station_path": [
+                "CEN",
+                "S1",
+                "S2"
+              ],
+              "transfer_count_in_data": 0
+            },
+            {
+              "from": "S2",
+              "to": "E1",
+              "rail_min_est": 7.7,
+              "access_walk_min_est": 13.0,
+              "boarding_wait_assumption_min": 5.0,
+              "station_path": [
+                "S2",
+                "S1",
+                "CEN",
+                "E1"
+              ],
+              "transfer_count_in_data": 0
+            },
+            {
+              "from": "E1",
+              "to": "E1",
+              "rail_min_est": 0,
+              "access_walk_min_est": 9.0,
+              "boarding_wait_assumption_min": 0.0,
+              "station_path": [
+                "E1"
+              ],
+              "transfer_count_in_data": 0
+            },
+            {
+              "from": "E1",
+              "to": "E1",
+              "rail_min_est": 0,
+              "access_walk_min_est": 9.0,
+              "boarding_wait_assumption_min": 0.0,
+              "station_path": [
+                "E1"
+              ],
+              "transfer_count_in_data": 0
+            }
+          ],
+          "last_station_id": "CEN",
+          "last_station_name": "สยาม",
+          "finish_clock": "12:52",
+          "duration_min": 232.2,
+          "rail_min_est": 13.2,
+          "station_walk_min_est": 44.0,
+          "train_wait_min_assumed": 10.0,
+          "opening_wait_min": 0.0,
+          "group_briefing_min": 15,
+          "midday_break_min": 30,
+          "dwell_and_group_buffer_min": 120,
+          "source_data_quality": [
+            "SOURCE_CANDIDATE_UNVERIFIED",
+            "SOURCE_MASTER_UNDER_REVIEW",
+            "SYNTHETIC_DEMO_HOURS"
+          ]
+        },
+        "metrics": {
+          "objective_score": 71.04695,
+          "ppr_mean_norm": 0.53324,
+          "wish_coverage_weighted": 1.0,
+          "travel_efficiency_norm": 0.63676,
+          "deity_diversity_norm": 0.75,
+          "covered_wish_ids": [
+            "W01",
+            "W03"
+          ],
+          "theme_deity_count": 6,
+          "main_wish_relevant_places": 4
+        }
+      },
+      "direct_match_baseline": {
+        "route": {
+          "place_ids": [
+            "P022",
+            "P023",
+            "P001",
+            "P014"
+          ],
+          "stops": [
+            {
+              "order": 1,
+              "place_id": "P022",
+              "name": "ศาลท้าวมหาพรหม แยกราชประสงค์ (เอราวัณ)",
+              "arrival_clock": "09:23",
+              "start_clock": "09:23",
+              "finish_clock": "09:48",
+              "venue_hours_origin": "SYNTHETIC_DEMO_HOURS",
+              "station_id": "CEN",
+              "station_name": "สยาม",
+              "entry_access_mode": "skywalk",
+              "approximate_leg_total_min": 8.0,
+              "wait_open_min": 0.0
+            },
+            {
+              "order": 2,
+              "place_id": "P023",
+              "name": "พระแม่ลักษมี เกษรวิลเลจ",
+              "arrival_clock": "10:02",
+              "start_clock": "10:02",
+              "finish_clock": "10:27",
+              "venue_hours_origin": "SOURCE_MASTER_UNDER_REVIEW",
+              "station_id": "E1",
+              "station_name": "ชิดลม",
+              "entry_access_mode": "skywalk",
+              "approximate_leg_total_min": 9.0,
+              "wait_open_min": 0.0
+            },
+            {
+              "order": 3,
+              "place_id": "P001",
+              "name": "วัดพระศรีมหาอุมาเทวี (วัดแขก สีลม)",
+              "arrival_clock": "11:27",
+              "start_clock": "11:27",
+              "finish_clock": "11:52",
+              "venue_hours_origin": "SOURCE_CANDIDATE_UNVERIFIED",
+              "station_id": "S2",
+              "station_name": "ศาลาแดง",
+              "entry_access_mode": "walk",
+              "approximate_leg_total_min": 24.7,
+              "wait_open_min": 0.0
+            },
+            {
+              "order": 4,
+              "place_id": "P014",
+              "name": "เทวสถานโบสถ์พราหมณ์",
+              "arrival_clock": "12:27",
+              "start_clock": "12:27",
+              "finish_clock": "12:52",
+              "venue_hours_origin": "SYNTHETIC_DEMO_HOURS",
+              "station_id": "BL30",
+              "station_name": "สามยอด",
+              "entry_access_mode": "walk",
+              "approximate_leg_total_min": 30.3,
+              "wait_open_min": 0.0
+            }
+          ],
+          "legs": [
+            {
+              "from": "CEN",
+              "to": "CEN",
+              "rail_min_est": 0,
+              "access_walk_min_est": 8.0,
+              "boarding_wait_assumption_min": 0.0,
+              "station_path": [
+                "CEN"
+              ],
+              "transfer_count_in_data": 0
+            },
+            {
+              "from": "E1",
+              "to": "E1",
+              "rail_min_est": 0,
+              "access_walk_min_est": 9.0,
+              "boarding_wait_assumption_min": 0.0,
+              "station_path": [
+                "E1"
+              ],
+              "transfer_count_in_data": 0
+            },
+            {
+              "from": "E1",
+              "to": "S2",
+              "rail_min_est": 7.7,
+              "access_walk_min_est": 12.0,
+              "boarding_wait_assumption_min": 5.0,
+              "station_path": [
+                "E1",
+                "CEN",
+                "S1",
+                "S2"
+              ],
+              "transfer_count_in_data": 0
+            },
+            {
+              "from": "BL26",
+              "to": "BL30",
+              "rail_min_est": 9.3,
+              "access_walk_min_est": 16.0,
+              "boarding_wait_assumption_min": 5.0,
+              "station_path": [
+                "BL26",
+                "BL27",
+                "BL28",
+                "BL29",
+                "BL30"
+              ],
+              "transfer_count_in_data": 0
+            }
+          ],
+          "last_station_id": "BL30",
+          "last_station_name": "สามยอด",
+          "finish_clock": "13:05",
+          "duration_min": 245.0,
+          "rail_min_est": 17.0,
+          "station_walk_min_est": 53.0,
+          "train_wait_min_assumed": 10.0,
+          "opening_wait_min": 0.0,
+          "group_briefing_min": 15,
+          "midday_break_min": 30,
+          "dwell_and_group_buffer_min": 120,
+          "source_data_quality": [
+            "SOURCE_CANDIDATE_UNVERIFIED",
+            "SOURCE_MASTER_UNDER_REVIEW",
+            "SYNTHETIC_DEMO_HOURS"
+          ]
+        },
+        "metrics": {
+          "objective_score": 73.9532,
+          "ppr_mean_norm": 0.62088,
+          "wish_coverage_weighted": 1.0,
+          "travel_efficiency_norm": 0.56757,
+          "deity_diversity_norm": 0.75,
+          "covered_wish_ids": [
+            "W01",
+            "W03"
+          ],
+          "theme_deity_count": 6,
+          "main_wish_relevant_places": 4
+        }
+      },
+      "available_any": true
+    },
+    {
+      "trip_id": "TRIP_CAREER",
+      "theme": "Career & Success",
+      "wish_weights": {
+        "W02": 0.7,
+        "W04": 0.25,
+        "W05": 0.05
+      },
+      "candidate_pool": [
+        "P001",
+        "P014",
+        "P017",
+        "P005",
+        "P012",
+        "P026",
+        "P032",
+        "P021",
+        "P007",
+        "P013",
+        "P036",
+        "P037",
+        "P047"
+      ],
+      "candidate_places": 13,
+      "permutations_checked": 17160,
+      "feasible_permutations": 14628,
+      "unique_feasible_sets": 688,
+      "initial_template": {
+        "route": {
+          "place_ids": [
+            "P021",
+            "P047",
+            "P014",
+            "P012"
+          ],
+          "stops": [
+            {
+              "order": 1,
+              "place_id": "P021",
+              "name": "เทวาลัยพระพิฆเนศ สี่แยกห้วยขวาง",
+              "arrival_clock": "09:45",
+              "start_clock": "09:45",
+              "finish_clock": "10:10",
+              "venue_hours_origin": "SOURCE_MASTER_UNDER_REVIEW",
+              "station_id": "BL18",
+              "station_name": "ห้วยขวาง",
+              "entry_access_mode": "walk",
+              "approximate_leg_total_min": 30.2,
+              "wait_open_min": 0.0
+            },
+            {
+              "order": 2,
+              "place_id": "P047",
+              "name": "วัดคณิกาผล (ย่าแฟง)",
+              "arrival_clock": "10:56",
+              "start_clock": "10:56",
+              "finish_clock": "11:21",
+              "venue_hours_origin": "SYNTHETIC_DEMO_HOURS",
+              "station_id": "BL29",
+              "station_name": "วัดมังกร",
+              "entry_access_mode": "walk",
+              "approximate_leg_total_min": 41.0,
+              "wait_open_min": 0.0
+            },
+            {
+              "order": 3,
+              "place_id": "P014",
+              "name": "เทวสถานโบสถ์พราหมณ์",
+              "arrival_clock": "12:19",
+              "start_clock": "12:19",
+              "finish_clock": "12:44",
+              "venue_hours_origin": "SYNTHETIC_DEMO_HOURS",
+              "station_id": "BL30",
+              "station_name": "สามยอด",
+              "entry_access_mode": "walk",
+              "approximate_leg_total_min": 23.2,
+              "wait_open_min": 0.0
+            },
+            {
+              "order": 4,
+              "place_id": "P012",
+              "name": "ศาลหลักเมืองกรุงเทพมหานคร",
+              "arrival_clock": "13:10",
+              "start_clock": "13:10",
+              "finish_clock": "13:35",
+              "venue_hours_origin": "SOURCE_CANDIDATE_UNVERIFIED",
+              "station_id": "BL31",
+              "station_name": "สนามไชย",
+              "entry_access_mode": "walk",
+              "approximate_leg_total_min": 20.4,
+              "wait_open_min": 0.0
+            }
+          ],
+          "legs": [
+            {
+              "from": "CEN",
+              "to": "BL18",
+              "rail_min_est": 24.2,
+              "access_walk_min_est": 1.0,
+              "boarding_wait_assumption_min": 5.0,
+              "station_path": [
+                "CEN",
+                "E1",
+                "E2",
+                "E3",
+                "E4",
+                "BL22",
+                "BL21",
+                "BL20",
+                "BL19",
+                "BL18"
+              ],
+              "transfer_count_in_data": 1
+            },
+            {
+              "from": "BL18",
+              "to": "BL29",
+              "rail_min_est": 27.0,
+              "access_walk_min_est": 9.0,
+              "boarding_wait_assumption_min": 5.0,
+              "station_path": [
+                "BL18",
+                "BL19",
+                "BL20",
+                "BL21",
+                "BL22",
+                "BL23",
+                "BL24",
+                "BL25",
+                "BL26",
+                "BL27",
+                "BL28",
+                "BL29"
+              ],
+              "transfer_count_in_data": 0
+            },
+            {
+              "from": "BL29",
+              "to": "BL30",
+              "rail_min_est": 2.2,
+              "access_walk_min_est": 16.0,
+              "boarding_wait_assumption_min": 5.0,
+              "station_path": [
+                "BL29",
+                "BL30"
+              ],
+              "transfer_count_in_data": 0
+            },
+            {
+              "from": "BL30",
+              "to": "BL31",
+              "rail_min_est": 2.4,
+              "access_walk_min_est": 13.0,
+              "boarding_wait_assumption_min": 5.0,
+              "station_path": [
+                "BL30",
+                "BL31"
+              ],
+              "transfer_count_in_data": 0
+            }
+          ],
+          "last_station_id": "BL31",
+          "last_station_name": "สนามไชย",
+          "finish_clock": "13:45",
+          "duration_min": 284.8,
+          "rail_min_est": 55.8,
+          "station_walk_min_est": 44.0,
+          "train_wait_min_assumed": 20.0,
+          "opening_wait_min": 0.0,
+          "group_briefing_min": 15,
+          "midday_break_min": 30,
+          "dwell_and_group_buffer_min": 120,
+          "source_data_quality": [
+            "SOURCE_CANDIDATE_UNVERIFIED",
+            "SOURCE_MASTER_UNDER_REVIEW",
+            "SYNTHETIC_DEMO_HOURS"
+          ]
+        },
+        "metrics": {
+          "objective_score": 71.72775,
+          "ppr_mean_norm": 0.64314,
+          "wish_coverage_weighted": 1.0,
+          "travel_efficiency_norm": 0.35243,
+          "deity_diversity_norm": 0.75,
+          "covered_wish_ids": [
+            "W02",
+            "W04",
+            "W05"
+          ],
+          "theme_deity_count": 6,
+          "main_wish_relevant_places": 4
+        }
+      },
+      "direct_match_baseline": {
+        "route": {
+          "place_ids": [
+            "P036",
+            "P001",
+            "P014",
+            "P021"
+          ],
+          "stops": [
+            {
+              "order": 1,
+              "place_id": "P036",
+              "name": "ศาลพระพิฆเนศ ลานเซ็นทรัลเวิลด์",
+              "arrival_clock": "09:20",
+              "start_clock": "09:20",
+              "finish_clock": "09:45",
+              "venue_hours_origin": "SOURCE_MASTER_UNDER_REVIEW",
+              "station_id": "CEN",
+              "station_name": "สยาม",
+              "entry_access_mode": "skywalk",
+              "approximate_leg_total_min": 5.0,
+              "wait_open_min": 0.0
+            },
+            {
+              "order": 2,
+              "place_id": "P001",
+              "name": "วัดพระศรีมหาอุมาเทวี (วัดแขก สีลม)",
+              "arrival_clock": "10:14",
+              "start_clock": "10:14",
+              "finish_clock": "10:38",
+              "venue_hours_origin": "SOURCE_CANDIDATE_UNVERIFIED",
+              "station_id": "S2",
+              "station_name": "ศาลาแดง",
+              "entry_access_mode": "walk",
+              "approximate_leg_total_min": 23.5,
+              "wait_open_min": 0.0
+            },
+            {
+              "order": 3,
+              "place_id": "P014",
+              "name": "เทวสถานโบสถ์พราหมณ์",
+              "arrival_clock": "11:44",
+              "start_clock": "11:44",
+              "finish_clock": "12:09",
+              "venue_hours_origin": "SYNTHETIC_DEMO_HOURS",
+              "station_id": "BL30",
+              "station_name": "สามยอด",
+              "entry_access_mode": "walk",
+              "approximate_leg_total_min": 30.3,
+              "wait_open_min": 0.0
+            },
+            {
+              "order": 4,
+              "place_id": "P021",
+              "name": "เทวาลัยพระพิฆเนศ สี่แยกห้วยขวาง",
+              "arrival_clock": "12:57",
+              "start_clock": "12:57",
+              "finish_clock": "13:22",
+              "venue_hours_origin": "SOURCE_MASTER_UNDER_REVIEW",
+              "station_id": "BL18",
+              "station_name": "ห้วยขวาง",
+              "entry_access_mode": "walk",
+              "approximate_leg_total_min": 43.2,
+              "wait_open_min": 0.0
+            }
+          ],
+          "legs": [
+            {
+              "from": "CEN",
+              "to": "CEN",
+              "rail_min_est": 0,
+              "access_walk_min_est": 5.0,
+              "boarding_wait_assumption_min": 0.0,
+              "station_path": [
+                "CEN"
+              ],
+              "transfer_count_in_data": 0
+            },
+            {
+              "from": "CEN",
+              "to": "S2",
+              "rail_min_est": 5.5,
+              "access_walk_min_est": 13.0,
+              "boarding_wait_assumption_min": 5.0,
+              "station_path": [
+                "CEN",
+                "S1",
+                "S2"
+              ],
+              "transfer_count_in_data": 0
+            },
+            {
+              "from": "BL26",
+              "to": "BL30",
+              "rail_min_est": 9.3,
+              "access_walk_min_est": 16.0,
+              "boarding_wait_assumption_min": 5.0,
+              "station_path": [
+                "BL26",
+                "BL27",
+                "BL28",
+                "BL29",
+                "BL30"
+              ],
+              "transfer_count_in_data": 0
+            },
+            {
+              "from": "BL30",
+              "to": "BL18",
+              "rail_min_est": 29.2,
+              "access_walk_min_est": 9.0,
+              "boarding_wait_assumption_min": 5.0,
+              "station_path": [
+                "BL30",
+                "BL29",
+                "BL28",
+                "BL27",
+                "BL26",
+                "BL25",
+                "BL24",
+                "BL23",
+                "BL22",
+                "BL21",
+                "BL20",
+                "BL19",
+                "BL18"
+              ],
+              "transfer_count_in_data": 0
+            }
+          ],
+          "last_station_id": "BL18",
+          "last_station_name": "ห้วยขวาง",
+          "finish_clock": "13:28",
+          "duration_min": 268.0,
+          "rail_min_est": 44.0,
+          "station_walk_min_est": 44.0,
+          "train_wait_min_assumed": 15.0,
+          "opening_wait_min": 0.0,
+          "group_briefing_min": 15,
+          "midday_break_min": 30,
+          "dwell_and_group_buffer_min": 120,
+          "source_data_quality": [
+            "SOURCE_CANDIDATE_UNVERIFIED",
+            "SOURCE_MASTER_UNDER_REVIEW",
+            "SYNTHETIC_DEMO_HOURS"
+          ]
+        },
+        "metrics": {
+          "objective_score": 74.98307,
+          "ppr_mean_norm": 0.74076,
+          "wish_coverage_weighted": 1.0,
+          "travel_efficiency_norm": 0.44324,
+          "deity_diversity_norm": 0.5,
+          "covered_wish_ids": [
+            "W02",
+            "W04",
+            "W05"
+          ],
+          "theme_deity_count": 4,
+          "main_wish_relevant_places": 4
+        }
+      },
+      "available_any": true
+    },
+    {
+      "trip_id": "TRIP_WEALTH",
+      "theme": "Wealth & Protection",
+      "wish_weights": {
+        "W03": 0.65,
+        "W06": 0.25,
+        "W08": 0.1
+      },
+      "candidate_pool": [
+        "P001",
+        "P017",
+        "P014",
+        "P018",
+        "P015",
+        "P003",
+        "P044",
+        "P016",
+        "P042",
+        "P013",
+        "P043",
+        "P023"
+      ],
+      "candidate_places": 12,
+      "permutations_checked": 11880,
+      "feasible_permutations": 11047,
+      "unique_feasible_sets": 462,
+      "initial_template": {
+        "route": {
+          "place_ids": [
+            "P018",
+            "P044",
+            "P017",
+            "P042"
+          ],
+          "stops": [
+            {
+              "order": 1,
+              "place_id": "P018",
+              "name": "วัดไตรมิตรวิทยารามวรวิหาร",
+              "arrival_clock": "09:44",
+              "start_clock": "09:44",
+              "finish_clock": "10:09",
+              "venue_hours_origin": "SOURCE_MASTER_UNDER_REVIEW",
+              "station_id": "BL28",
+              "station_name": "หัวลําโพง",
+              "entry_access_mode": "walk",
+              "approximate_leg_total_min": 29.3,
+              "wait_open_min": 0.0
+            },
+            {
+              "order": 2,
+              "place_id": "P044",
+              "name": "มูลนิธิโรงพยาบาลเทียนฟ้า (ศาลเจ้าแม่กวนอิม)",
+              "arrival_clock": "10:32",
+              "start_clock": "10:32",
+              "finish_clock": "10:57",
+              "venue_hours_origin": "SYNTHETIC_DEMO_HOURS",
+              "station_id": "BL29",
+              "station_name": "วัดมังกร",
+              "entry_access_mode": "walk",
+              "approximate_leg_total_min": 18.1,
+              "wait_open_min": 0.0
+            },
+            {
+              "order": 3,
+              "place_id": "P017",
+              "name": "วัดมังกรกมลาวาส (วัดเล่งเน่ยยี่)",
+              "arrival_clock": "11:39",
+              "start_clock": "11:39",
+              "finish_clock": "12:04",
+              "venue_hours_origin": "SOURCE_MASTER_UNDER_REVIEW",
+              "station_id": "BL29",
+              "station_name": "วัดมังกร",
+              "entry_access_mode": "walk",
+              "approximate_leg_total_min": 7.0,
+              "wait_open_min": 0.0
+            },
+            {
+              "order": 4,
+              "place_id": "P042",
+              "name": "วัดทิพยวารีวิหาร (กัมโล่วยี่)",
+              "arrival_clock": "12:26",
+              "start_clock": "12:26",
+              "finish_clock": "12:51",
+              "venue_hours_origin": "SOURCE_CANDIDATE_UNVERIFIED",
+              "station_id": "BL30",
+              "station_name": "สามยอด",
+              "entry_access_mode": "walk",
+              "approximate_leg_total_min": 16.2,
+              "wait_open_min": 0.0
+            }
+          ],
+          "legs": [
+            {
+              "from": "CEN",
+              "to": "BL28",
+              "rail_min_est": 19.3,
+              "access_walk_min_est": 5.0,
+              "boarding_wait_assumption_min": 5.0,
+              "station_path": [
+                "CEN",
+                "S1",
+                "S2",
+                "BL26",
+                "BL27",
+                "BL28"
+              ],
+              "transfer_count_in_data": 1
+            },
+            {
+              "from": "BL28",
+              "to": "BL29",
+              "rail_min_est": 2.1,
+              "access_walk_min_est": 11.0,
+              "boarding_wait_assumption_min": 5.0,
+              "station_path": [
+                "BL28",
+                "BL29"
+              ],
+              "transfer_count_in_data": 0
+            },
+            {
+              "from": "BL29",
+              "to": "BL29",
+              "rail_min_est": 0,
+              "access_walk_min_est": 7.0,
+              "boarding_wait_assumption_min": 0.0,
+              "station_path": [
+                "BL29"
+              ],
+              "transfer_count_in_data": 0
+            },
+            {
+              "from": "BL29",
+              "to": "BL30",
+              "rail_min_est": 2.2,
+              "access_walk_min_est": 9.0,
+              "boarding_wait_assumption_min": 5.0,
+              "station_path": [
+                "BL29",
+                "BL30"
+              ],
+              "transfer_count_in_data": 0
+            }
+          ],
+          "last_station_id": "BL30",
+          "last_station_name": "สามยอด",
+          "finish_clock": "13:04",
+          "duration_min": 243.6,
+          "rail_min_est": 23.6,
+          "station_walk_min_est": 40.0,
+          "train_wait_min_assumed": 15.0,
+          "opening_wait_min": 0.0,
+          "group_briefing_min": 15,
+          "midday_break_min": 30,
+          "dwell_and_group_buffer_min": 120,
+          "source_data_quality": [
+            "SOURCE_CANDIDATE_UNVERIFIED",
+            "SOURCE_MASTER_UNDER_REVIEW",
+            "SYNTHETIC_DEMO_HOURS"
+          ]
+        },
+        "metrics": {
+          "objective_score": 72.93263,
+          "ppr_mean_norm": 0.65124,
+          "wish_coverage_weighted": 1.0,
+          "travel_efficiency_norm": 0.57514,
+          "deity_diversity_norm": 0.5,
+          "covered_wish_ids": [
+            "W03",
+            "W06",
+            "W08"
+          ],
+          "theme_deity_count": 4,
+          "main_wish_relevant_places": 2
+        }
+      },
+      "direct_match_baseline": {
+        "route": {
+          "place_ids": [
+            "P001",
+            "P014",
+            "P015",
+            "P003"
+          ],
+          "stops": [
+            {
+              "order": 1,
+              "place_id": "P001",
+              "name": "วัดพระศรีมหาอุมาเทวี (วัดแขก สีลม)",
+              "arrival_clock": "09:34",
+              "start_clock": "09:34",
+              "finish_clock": "09:58",
+              "venue_hours_origin": "SOURCE_CANDIDATE_UNVERIFIED",
+              "station_id": "S2",
+              "station_name": "ศาลาแดง",
+              "entry_access_mode": "walk",
+              "approximate_leg_total_min": 18.5,
+              "wait_open_min": 0.0
+            },
+            {
+              "order": 2,
+              "place_id": "P014",
+              "name": "เทวสถานโบสถ์พราหมณ์",
+              "arrival_clock": "10:34",
+              "start_clock": "10:34",
+              "finish_clock": "10:59",
+              "venue_hours_origin": "SYNTHETIC_DEMO_HOURS",
+              "station_id": "BL30",
+              "station_name": "สามยอด",
+              "entry_access_mode": "walk",
+              "approximate_leg_total_min": 30.3,
+              "wait_open_min": 0.0
+            },
+            {
+              "order": 3,
+              "place_id": "P015",
+              "name": "วัดสุทัศนเทพวรารามราชวรมหาวิหาร",
+              "arrival_clock": "11:48",
+              "start_clock": "11:48",
+              "finish_clock": "12:13",
+              "venue_hours_origin": "SOURCE_CANDIDATE_UNVERIFIED",
+              "station_id": "BL30",
+              "station_name": "สามยอด",
+              "entry_access_mode": "walk",
+              "approximate_leg_total_min": 14.0,
+              "wait_open_min": 0.0
+            },
+            {
+              "order": 4,
+              "place_id": "P003",
+              "name": "วัดอาวุธวิกสิตาราม",
+              "arrival_clock": "13:01",
+              "start_clock": "13:01",
+              "finish_clock": "13:26",
+              "venue_hours_origin": "SOURCE_CANDIDATE_UNVERIFIED",
+              "station_id": "BL07",
+              "station_name": "บางพลัด",
+              "entry_access_mode": "walk",
+              "approximate_leg_total_min": 42.9,
+              "wait_open_min": 0.0
+            }
+          ],
+          "legs": [
+            {
+              "from": "CEN",
+              "to": "S2",
+              "rail_min_est": 5.5,
+              "access_walk_min_est": 8.0,
+              "boarding_wait_assumption_min": 5.0,
+              "station_path": [
+                "CEN",
+                "S1",
+                "S2"
+              ],
+              "transfer_count_in_data": 0
+            },
+            {
+              "from": "BL26",
+              "to": "BL30",
+              "rail_min_est": 9.3,
+              "access_walk_min_est": 16.0,
+              "boarding_wait_assumption_min": 5.0,
+              "station_path": [
+                "BL26",
+                "BL27",
+                "BL28",
+                "BL29",
+                "BL30"
+              ],
+              "transfer_count_in_data": 0
+            },
+            {
+              "from": "BL30",
+              "to": "BL30",
+              "rail_min_est": 0,
+              "access_walk_min_est": 14.0,
+              "boarding_wait_assumption_min": 0.0,
+              "station_path": [
+                "BL30"
+              ],
+              "transfer_count_in_data": 0
+            },
+            {
+              "from": "BL30",
+              "to": "BL07",
+              "rail_min_est": 26.9,
+              "access_walk_min_est": 11.0,
+              "boarding_wait_assumption_min": 5.0,
+              "station_path": [
+                "BL30",
+                "BL31",
+                "BL32",
+                "BL01",
+                "BL02",
+                "BL03",
+                "BL04",
+                "BL05",
+                "BL06",
+                "BL07"
+              ],
+              "transfer_count_in_data": 0
+            }
+          ],
+          "last_station_id": "BL07",
+          "last_station_name": "บางพลัด",
+          "finish_clock": "13:36",
+          "duration_min": 275.7,
+          "rail_min_est": 41.7,
+          "station_walk_min_est": 54.0,
+          "train_wait_min_assumed": 15.0,
+          "opening_wait_min": 0.0,
+          "group_briefing_min": 15,
+          "midday_break_min": 30,
+          "dwell_and_group_buffer_min": 120,
+          "source_data_quality": [
+            "SOURCE_CANDIDATE_UNVERIFIED",
+            "SYNTHETIC_DEMO_HOURS"
+          ]
+        },
+        "metrics": {
+          "objective_score": 75.36581,
+          "ppr_mean_norm": 0.74648,
+          "wish_coverage_weighted": 0.9,
+          "travel_efficiency_norm": 0.40162,
+          "deity_diversity_norm": 0.875,
+          "covered_wish_ids": [
+            "W03",
+            "W06"
+          ],
+          "theme_deity_count": 7,
+          "main_wish_relevant_places": 4
+        }
+      },
+      "available_any": true
+    }
+  ],
+  "company_trips": [
+    {
+      "trip_id": "TRIP_LOVE",
+      "theme": "Love & Blessings",
+      "route": {
+        "place_ids": [
+          "P030",
+          "P023",
+          "P001",
+          "P047"
+        ],
+        "stops": [
+          {
+            "order": 1,
+            "place_id": "P030",
+            "name": "ศาลพระตรีมูรติ ลานเซ็นทรัลเวิลด์",
+            "arrival_clock": "09:20",
+            "start_clock": "09:20",
+            "finish_clock": "09:45",
+            "venue_hours_origin": "SYNTHETIC_DEMO_HOURS",
+            "station_id": "CEN",
+            "station_name": "สยาม",
+            "entry_access_mode": "skywalk",
+            "approximate_leg_total_min": 5.0,
+            "wait_open_min": 0.0
+          },
+          {
+            "order": 2,
+            "place_id": "P023",
+            "name": "พระแม่ลักษมี เกษรวิลเลจ",
+            "arrival_clock": "09:59",
+            "start_clock": "10:00",
+            "finish_clock": "10:25",
+            "venue_hours_origin": "SOURCE_MASTER_UNDER_REVIEW",
+            "station_id": "E1",
+            "station_name": "ชิดลม",
+            "entry_access_mode": "skywalk",
+            "approximate_leg_total_min": 9.0,
+            "wait_open_min": 1.0
+          },
+          {
+            "order": 3,
+            "place_id": "P001",
+            "name": "วัดพระศรีมหาอุมาเทวี (วัดแขก สีลม)",
+            "arrival_clock": "11:25",
+            "start_clock": "11:25",
+            "finish_clock": "11:50",
+            "venue_hours_origin": "SOURCE_CANDIDATE_UNVERIFIED",
+            "station_id": "S2",
+            "station_name": "ศาลาแดง",
+            "entry_access_mode": "walk",
+            "approximate_leg_total_min": 24.7,
+            "wait_open_min": 0.0
+          },
+          {
+            "order": 4,
+            "place_id": "P047",
+            "name": "วัดคณิกาผล (ย่าแฟง)",
+            "arrival_clock": "12:23",
+            "start_clock": "12:23",
+            "finish_clock": "12:48",
+            "venue_hours_origin": "SYNTHETIC_DEMO_HOURS",
+            "station_id": "BL29",
+            "station_name": "วัดมังกร",
+            "entry_access_mode": "walk",
+            "approximate_leg_total_min": 28.1,
+            "wait_open_min": 0.0
+          }
+        ],
+        "legs": [
+          {
+            "from": "CEN",
+            "to": "CEN",
+            "rail_min_est": 0,
+            "access_walk_min_est": 5.0,
+            "boarding_wait_assumption_min": 0.0,
+            "station_path": [
+              "CEN"
+            ],
+            "transfer_count_in_data": 0
+          },
+          {
+            "from": "E1",
+            "to": "E1",
+            "rail_min_est": 0,
+            "access_walk_min_est": 9.0,
+            "boarding_wait_assumption_min": 0.0,
+            "station_path": [
+              "E1"
+            ],
+            "transfer_count_in_data": 0
+          },
+          {
+            "from": "E1",
+            "to": "S2",
+            "rail_min_est": 7.7,
+            "access_walk_min_est": 12.0,
+            "boarding_wait_assumption_min": 5.0,
+            "station_path": [
+              "E1",
+              "CEN",
+              "S1",
+              "S2"
+            ],
+            "transfer_count_in_data": 0
+          },
+          {
+            "from": "BL26",
+            "to": "BL29",
+            "rail_min_est": 7.1,
+            "access_walk_min_est": 16.0,
+            "boarding_wait_assumption_min": 5.0,
+            "station_path": [
+              "BL26",
+              "BL27",
+              "BL28",
+              "BL29"
+            ],
+            "transfer_count_in_data": 0
+          }
+        ],
+        "last_station_id": "BL29",
+        "last_station_name": "วัดมังกร",
+        "finish_clock": "13:01",
+        "duration_min": 240.8,
+        "rail_min_est": 14.8,
+        "station_walk_min_est": 50.0,
+        "train_wait_min_assumed": 10.0,
+        "opening_wait_min": 1.0,
+        "group_briefing_min": 15,
+        "midday_break_min": 30,
+        "dwell_and_group_buffer_min": 120,
+        "source_data_quality": [
+          "SOURCE_CANDIDATE_UNVERIFIED",
+          "SOURCE_MASTER_UNDER_REVIEW",
+          "SYNTHETIC_DEMO_HOURS"
+        ]
+      },
+      "metrics": {
+        "objective_score": 73.76002,
+        "ppr_mean_norm": 0.57944,
+        "wish_coverage_weighted": 1.0,
+        "travel_efficiency_norm": 0.59568,
+        "deity_diversity_norm": 0.875,
+        "covered_wish_ids": [
+          "W01",
+          "W03"
+        ],
+        "theme_deity_count": 7,
+        "main_wish_relevant_places": 4
+      }
+    },
+    {
+      "trip_id": "TRIP_CAREER",
+      "theme": "Career & Success",
+      "route": {
+        "place_ids": [
+          "P026",
+          "P014",
+          "P012",
+          "P005"
+        ],
+        "stops": [
+          {
+            "order": 1,
+            "place_id": "P026",
+            "name": "ศาลเจ้าพ่อเห้งเจีย (สามย่าน)",
+            "arrival_clock": "09:41",
+            "start_clock": "09:41",
+            "finish_clock": "10:06",
+            "venue_hours_origin": "SOURCE_CANDIDATE_UNVERIFIED",
+            "station_id": "BL27",
+            "station_name": "สามย่าน",
+            "entry_access_mode": "walk",
+            "approximate_leg_total_min": 26.2,
+            "wait_open_min": 0.0
+          },
+          {
+            "order": 2,
+            "place_id": "P014",
+            "name": "เทวสถานโบสถ์พราหมณ์",
+            "arrival_clock": "10:37",
+            "start_clock": "10:37",
+            "finish_clock": "11:02",
+            "venue_hours_origin": "SYNTHETIC_DEMO_HOURS",
+            "station_id": "BL30",
+            "station_name": "สามยอด",
+            "entry_access_mode": "walk",
+            "approximate_leg_total_min": 25.4,
+            "wait_open_min": 0.0
+          },
+          {
+            "order": 3,
+            "place_id": "P012",
+            "name": "ศาลหลักเมืองกรุงเทพมหานคร",
+            "arrival_clock": "11:57",
+            "start_clock": "11:57",
+            "finish_clock": "12:22",
+            "venue_hours_origin": "SOURCE_CANDIDATE_UNVERIFIED",
+            "station_id": "BL31",
+            "station_name": "สนามไชย",
+            "entry_access_mode": "walk",
+            "approximate_leg_total_min": 20.4,
+            "wait_open_min": 0.0
+          },
+          {
+            "order": 4,
+            "place_id": "P005",
+            "name": "วัดระฆังโฆสิตารามวรมหาวิหาร",
+            "arrival_clock": "12:55",
+            "start_clock": "12:55",
+            "finish_clock": "13:20",
+            "venue_hours_origin": "SOURCE_MASTER_UNDER_REVIEW",
+            "station_id": "BL32",
+            "station_name": "อิสรภาพ",
+            "entry_access_mode": "walk",
+            "approximate_leg_total_min": 27.9,
+            "wait_open_min": 0.0
+          }
+        ],
+        "legs": [
+          {
+            "from": "CEN",
+            "to": "BL27",
+            "rail_min_est": 16.2,
+            "access_walk_min_est": 5.0,
+            "boarding_wait_assumption_min": 5.0,
+            "station_path": [
+              "CEN",
+              "S1",
+              "S2",
+              "BL26",
+              "BL27"
+            ],
+            "transfer_count_in_data": 1
+          },
+          {
+            "from": "BL27",
+            "to": "BL30",
+            "rail_min_est": 7.4,
+            "access_walk_min_est": 13.0,
+            "boarding_wait_assumption_min": 5.0,
+            "station_path": [
+              "BL27",
+              "BL28",
+              "BL29",
+              "BL30"
+            ],
+            "transfer_count_in_data": 0
+          },
+          {
+            "from": "BL30",
+            "to": "BL31",
+            "rail_min_est": 2.4,
+            "access_walk_min_est": 13.0,
+            "boarding_wait_assumption_min": 5.0,
+            "station_path": [
+              "BL30",
+              "BL31"
+            ],
+            "transfer_count_in_data": 0
+          },
+          {
+            "from": "BL31",
+            "to": "BL32",
+            "rail_min_est": 2.9,
+            "access_walk_min_est": 20.0,
+            "boarding_wait_assumption_min": 5.0,
+            "station_path": [
+              "BL31",
+              "BL32"
+            ],
+            "transfer_count_in_data": 0
+          }
+        ],
+        "last_station_id": "BL32",
+        "last_station_name": "อิสรภาพ",
+        "finish_clock": "13:40",
+        "duration_min": 279.9,
+        "rail_min_est": 28.9,
+        "station_walk_min_est": 66.0,
+        "train_wait_min_assumed": 20.0,
+        "opening_wait_min": 0.0,
+        "group_briefing_min": 15,
+        "midday_break_min": 30,
+        "dwell_and_group_buffer_min": 120,
+        "source_data_quality": [
+          "SOURCE_CANDIDATE_UNVERIFIED",
+          "SOURCE_MASTER_UNDER_REVIEW",
+          "SYNTHETIC_DEMO_HOURS"
+        ]
+      },
+      "metrics": {
+        "objective_score": 76.69169,
+        "ppr_mean_norm": 0.71684,
+        "wish_coverage_weighted": 1.0,
+        "travel_efficiency_norm": 0.37892,
+        "deity_diversity_norm": 0.875,
+        "covered_wish_ids": [
+          "W02",
+          "W04",
+          "W05"
+        ],
+        "theme_deity_count": 7,
+        "main_wish_relevant_places": 4
+      }
+    },
+    {
+      "trip_id": "TRIP_WEALTH",
+      "theme": "Wealth & Protection",
+      "route": {
+        "place_ids": [
+          "P018",
+          "P017",
+          "P044",
+          "P015"
+        ],
+        "stops": [
+          {
+            "order": 1,
+            "place_id": "P018",
+            "name": "วัดไตรมิตรวิทยารามวรวิหาร",
+            "arrival_clock": "09:44",
+            "start_clock": "09:44",
+            "finish_clock": "10:09",
+            "venue_hours_origin": "SOURCE_MASTER_UNDER_REVIEW",
+            "station_id": "BL28",
+            "station_name": "หัวลําโพง",
+            "entry_access_mode": "walk",
+            "approximate_leg_total_min": 29.3,
+            "wait_open_min": 0.0
+          },
+          {
+            "order": 2,
+            "place_id": "P017",
+            "name": "วัดมังกรกมลาวาส (วัดเล่งเน่ยยี่)",
+            "arrival_clock": "10:27",
+            "start_clock": "10:27",
+            "finish_clock": "10:52",
+            "venue_hours_origin": "SOURCE_MASTER_UNDER_REVIEW",
+            "station_id": "BL29",
+            "station_name": "วัดมังกร",
+            "entry_access_mode": "walk",
+            "approximate_leg_total_min": 13.1,
+            "wait_open_min": 0.0
+          },
+          {
+            "order": 3,
+            "place_id": "P044",
+            "name": "มูลนิธิโรงพยาบาลเทียนฟ้า (ศาลเจ้าแม่กวนอิม)",
+            "arrival_clock": "11:34",
+            "start_clock": "11:34",
+            "finish_clock": "11:59",
+            "venue_hours_origin": "SYNTHETIC_DEMO_HOURS",
+            "station_id": "BL29",
+            "station_name": "วัดมังกร",
+            "entry_access_mode": "walk",
+            "approximate_leg_total_min": 7.0,
+            "wait_open_min": 0.0
+          },
+          {
+            "order": 4,
+            "place_id": "P015",
+            "name": "วัดสุทัศนเทพวรารามราชวรมหาวิหาร",
+            "arrival_clock": "12:24",
+            "start_clock": "12:24",
+            "finish_clock": "12:49",
+            "venue_hours_origin": "SOURCE_CANDIDATE_UNVERIFIED",
+            "station_id": "BL30",
+            "station_name": "สามยอด",
+            "entry_access_mode": "walk",
+            "approximate_leg_total_min": 19.2,
+            "wait_open_min": 0.0
+          }
+        ],
+        "legs": [
+          {
+            "from": "CEN",
+            "to": "BL28",
+            "rail_min_est": 19.3,
+            "access_walk_min_est": 5.0,
+            "boarding_wait_assumption_min": 5.0,
+            "station_path": [
+              "CEN",
+              "S1",
+              "S2",
+              "BL26",
+              "BL27",
+              "BL28"
+            ],
+            "transfer_count_in_data": 1
+          },
+          {
+            "from": "BL28",
+            "to": "BL29",
+            "rail_min_est": 2.1,
+            "access_walk_min_est": 6.0,
+            "boarding_wait_assumption_min": 5.0,
+            "station_path": [
+              "BL28",
+              "BL29"
+            ],
+            "transfer_count_in_data": 0
+          },
+          {
+            "from": "BL29",
+            "to": "BL29",
+            "rail_min_est": 0,
+            "access_walk_min_est": 7.0,
+            "boarding_wait_assumption_min": 0.0,
+            "station_path": [
+              "BL29"
+            ],
+            "transfer_count_in_data": 0
+          },
+          {
+            "from": "BL29",
+            "to": "BL30",
+            "rail_min_est": 2.2,
+            "access_walk_min_est": 12.0,
+            "boarding_wait_assumption_min": 5.0,
+            "station_path": [
+              "BL29",
+              "BL30"
+            ],
+            "transfer_count_in_data": 0
+          }
+        ],
+        "last_station_id": "BL30",
+        "last_station_name": "สามยอด",
+        "finish_clock": "13:00",
+        "duration_min": 239.6,
+        "rail_min_est": 23.6,
+        "station_walk_min_est": 36.0,
+        "train_wait_min_assumed": 15.0,
+        "opening_wait_min": 0.0,
+        "group_briefing_min": 15,
+        "midday_break_min": 30,
+        "dwell_and_group_buffer_min": 120,
+        "source_data_quality": [
+          "SOURCE_CANDIDATE_UNVERIFIED",
+          "SOURCE_MASTER_UNDER_REVIEW",
+          "SYNTHETIC_DEMO_HOURS"
+        ]
+      },
+      "metrics": {
+        "objective_score": 76.54724,
+        "ppr_mean_norm": 0.69658,
+        "wish_coverage_weighted": 1.0,
+        "travel_efficiency_norm": 0.59676,
+        "deity_diversity_norm": 0.625,
+        "covered_wish_ids": [
+          "W03",
+          "W06",
+          "W08"
+        ],
+        "theme_deity_count": 5,
+        "main_wish_relevant_places": 3
+      }
+    }
+  ],
+  "company_overlap_count": 0,
+  "portfolio_mode": "NO_OVERLAP",
+  "portfolio_evaluated_combinations": 7283205,
+  "limitations": [
+    "This is an OFFLINE company package construction calculation, not an on-demand personalized itinerary.",
+    "Opening hours unverified and in part synthetic: routes are NOT actual visitation itineraries.",
+    "Station-to-venue walking/access times are source candidates and some missing walk distances.",
+    "Rail network travel times are OSM-derived estimates, not operator journey times; transfer and board waiting estimated.",
+    "Direct walking between venues is not in source graph: station-mediated route may overestimate travel within an area.",
+    "CEN = BTS Siam chosen as common assumed group meeting point, not a confirmed business decision.",
+    "Route optimizer searches restricted candidate pools (max 15), exact within this pool only; not a provable global optimum.",
+    "Candidate belief claims not official religious endorsements or proof of outcomes.",
+    "Business prices, group capacity, operating days, guide, booking and permission still require validation."
+  ]
+}

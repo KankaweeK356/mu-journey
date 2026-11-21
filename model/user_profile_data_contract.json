@@ -1,0 +1,67 @@
+{
+  "version": "ONBOARDING_PHASE1_v1",
+  "source": "CL_WISHES, CL_DEITIES, CL_WISH_DEITY, CL_DEITY_PLACE",
+  "wish_options": [
+    {
+      "id": "W01",
+      "label": "ความรัก"
+    },
+    {
+      "id": "W02",
+      "label": "การงาน"
+    },
+    {
+      "id": "W03",
+      "label": "การเงิน/โชคลาภ"
+    },
+    {
+      "id": "W04",
+      "label": "การเรียน/สอบ"
+    },
+    {
+      "id": "W05",
+      "label": "บัตรคอน/กิจกรรมติ่ง"
+    },
+    {
+      "id": "W06",
+      "label": "สุขภาพ/แคล้วคลาด"
+    },
+    {
+      "id": "W07",
+      "label": "บ้าน/ที่ดิน/คดีความ"
+    },
+    {
+      "id": "W08",
+      "label": "แก้ชง/สะเดาะเคราะห์"
+    },
+    {
+      "id": "W09",
+      "label": "เสี่ยงโชค"
+    },
+    {
+      "id": "W10",
+      "label": "ปลดหนี้"
+    }
+  ],
+  "birthdate": "YYYY-MM-DD ISO, Thai Buddhist Era YYYY converted to Gregorian; used only for resolved existing-master weekday claim; never inferred if missing",
+  "wish_ids": "1..3 unique IDs; selection has equal weight by default",
+  "exclusions": {
+    "tradition_groups": [
+      "ฮินดู",
+      "จีนและกลุ่มผสมจีน",
+      "พุทธและความเชื่อไทย",
+      "พราหมณ์/โหราศาสตร์"
+    ],
+    "deity_ids": "any CL_DEITIES ID",
+    "place_ids": "any GD_PLACES ID"
+  },
+  "evaluation_rules": [
+    "remove forbidden deity/place nodes before PPR",
+    "require explicit selected Wish–Deity–Place path",
+    "no synthetic relevance for a missing Wish",
+    "Trip featured rituals are locked from Drive SD_TRIP_RITUALS",
+    "If no eligible Trip: abstain; independent Top5 may still return relevant places"
+  ],
+  "commercial_gate": "Tour prices, capacity, dates and booking require verified business input; matching is advisory only",
+  "privacy": "Date of birth should be optional at model level; collect consent and minimum data required for deployed app"
+}

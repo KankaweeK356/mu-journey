@@ -1,0 +1,25 @@
+# secrets — never commit
+.env
+.env.*
+!.env.example
+*.pem
+*service-account*.json
+.vercel/
+
+# python / node
+__pycache__/
+*.pyc
+.venv/
+node_modules/
+
+# os / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# local tool config (contains machine paths)
+.claude/
+
+# accidental nested clone created by GitHub Desktop
+/mu-journey/
