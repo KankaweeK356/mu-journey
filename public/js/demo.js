@@ -45,7 +45,8 @@ export async function renderDemo(root) {
   const foot = (back, next) => h('div', { class: 'foot' }, back ? h('button', { type: 'button', class: 'btn', onclick: back.fn }, '← ' + (back.label || 'ย้อนกลับ')) : h('span'), next ? h('button', { type: 'button', class: 'btn primary', disabled: next.disabled, onclick: next.fn }, next.label + ' →') : null);
 
   function draw() {
-    clear(host).append(progress(), ({ 1: step1, 2: step2, 3: step3, 4: step4, 5: step5, 6: step6, 7: step7 })[S.step]());
+    const hasData = S.step > 1 || S.wishes.length || S.d || S.m || S.y;
+    clear(host).append(progress(), hasData ? h('div', { class: 'row', style: 'justify-content:flex-end;margin:-8px 0 8px' }, h('button', { type: 'button', class: 'btn sm ghost', title: 'ลบวันเกิดและตัวเลือกทั้งหมดออกจากหน้านี้', onclick: resetAll }, '🗑 ล้างข้อมูลของฉัน')) : null, ({ 1: step1, 2: step2, 3: step3, 4: step4, 5: step5, 6: step6, 7: step7 })[S.step]());
   }
 
   /* ------------------------------------------------ 01 welcome + birthdate */
@@ -259,6 +260,32 @@ export async function renderDemo(root) {
     });
   }
 
+  /* Steps 01-03 are the user's core profile; step 04 is "what to focus on this round". After feedback we go back to 04. */
+  function startNewRound(toStep) {
+    S.picked.clear(); S.service = null; S.focus = 'ALL';
+    dlg.close();
+    go(toStep);
+  }
+  function resetAll() {
+    Object.assign(S, { d: '', m: '', y: '', wishes: [], focus: 'ALL', maxStep: 1, step: 1 });
+    S.groups.clear(); S.deities.clear(); S.places.clear();
+    invalidate();
+    toast('ล้างข้อมูลของคุณแล้ว');
+    draw();
+    window.scrollTo({ top: 0 });
+  }
+  function thanks(r) {
+    const several = S.wishes.length > 1;
+    clear(dlg).append(h('div', { class: 'dlg-b stack', style: 'text-align:center;padding:26px 22px' },
+      h('div', { style: 'font-size:46px' }, '💜'), h('h3', {}, 'ขอบคุณสำหรับความคิดเห็น'),
+      h('div', { class: r.saved ? 'callout ok' : 'callout warn' }, r.message),
+      h('p', { class: 'muted', style: 'margin:0' }, 'ข้อมูลโปรไฟล์ของคุณยังอยู่ จะไปต่อทางไหนดี?'),
+      h('button', { type: 'button', class: 'btn primary', onclick: () => startNewRound(several ? 4 : 2) }, several ? 'เลือกเรื่องที่จะมูต่อ (ขั้น 4)' : 'มูเรื่องอื่นต่อ (ขั้น 2)'),
+      several ? h('button', { type: 'button', class: 'btn', onclick: () => startNewRound(2) }, 'เปลี่ยนความสนใจ (ขั้น 2)') : null,
+      h('button', { type: 'button', class: 'btn', onclick: () => { dlg.close(); go(5); } }, 'กลับไปดูสถานที่ที่แนะนำ'),
+      h('button', { type: 'button', class: 'btn ghost', onclick: () => { dlg.close(); resetAll(); } }, 'เริ่มใหม่ทั้งหมด (ล้างวันเกิดด้วย)')));
+  }
+
   function openFeedback(pre = {}) {
     const R = S.result;
     let service = pre.service || 'self', rating = 0;
@@ -280,8 +307,7 @@ export async function renderDemo(root) {
       try {
         const r = await API.feedback({ kind: { self: 'places', trip: 'trip', proxy: 'proxy' }[service], rating, comment: ta.value, consent: true, wish_ids: S.wishes,
           place_ids: R ? R.top5.map((p) => p.place_id) : [], trip_id: (R && R.trip.matched ? R.trip.matched.trip_id : ''), offer_id: pre.offer_id || '' });
-        msg.replaceChildren(h('div', { class: r.saved ? 'callout ok' : 'callout warn' }, r.message));
-        setTimeout(() => dlg.close(), 2200);
+        thanks(r);
       } catch (e) { msg.replaceChildren(h('div', { class: 'callout bad', role: 'alert' }, e.message)); send.disabled = false; }
     } }, '✈ ส่งความคิดเห็น');
     clear(dlg).append(h('div', { class: 'dlg-h' }, h('h3', {}, 'เล่าประสบการณ์ให้ MUMU ฟัง'), h('button', { class: 'btn sm', 'aria-label': 'ปิด', onclick: () => dlg.close() }, '✕')),
