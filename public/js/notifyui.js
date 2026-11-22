@@ -46,7 +46,7 @@ export function offsetControls(pid, sid) {
   const boxes = child.offsets_available.map((o) => h('label', { class: 'row', style: 'flex-wrap:nowrap;align-items:center;gap:4px' },
     h('input', { type: 'checkbox', checked: child.offsets_enabled.includes(o), disabled: !!block, onchange: (e) => {
       const next = e.target.checked ? [...child.offsets_enabled, o] : child.offsets_enabled.filter((x) => x !== o);
-      st.setOffsets(pid, sid, next); changed(); } }), `ก่อน ${offsetLabel(o)}`));
+      st.setOffsets(pid, sid, next, nowMinute()); changed(); } }), `ก่อน ${offsetLabel(o)}`));
   return h('div', { class: 'stack small', style: 'gap:4px' }, h('div', { class: 'row' }, h('span', {}, 'เตือนล่วงหน้า:'), ...boxes),
     block ? h('div', { class: 'muted' }, `ติดตามเป็นข้อมูลเท่านั้น ยังไม่แจ้งเตือน เพราะ${BLOCK_TEXT[block]}`) : null);
 }

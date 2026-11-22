@@ -11,7 +11,7 @@ export const LEGACY_KEY = 'mumu.notify.v1';
 export const keyOf = (uid, source, occ, offset) => `${uid}|${source}|${occ}|${offset}`;      // dedup key: user | source_entity_id | occurrence_datetime | offset_minutes
 
 const uuid = () => (globalThis.crypto && crypto.randomUUID ? crypto.randomUUID() : 'u' + Math.random().toString(36).slice(2) + Date.now().toString(36));
-const blank = () => ({ schema_version: SCHEMA_VERSION, rule_version: REMINDER_POLICY_VERSION, local_user_id: uuid(), follows: {}, notifications: [], superseded: {} });
+const blank = () => ({ schema_version: SCHEMA_VERSION, rule_version: REMINDER_POLICY_VERSION, local_user_id: uuid(), follows: {}, notifications: [], superseded: {}, catchups: {}, sent: {} });
 
 /** v1 (day based, one offset) -> v2. Only real network events are carried over; synthetic follows and old notifications are dropped. */
 export function migrateV1(old) {
@@ -70,7 +70,7 @@ export function createStore({ storage = null, key = STORAGE_KEY, demo = false } 
   });
   const stateFor = (source, occ, offset) => {
     const id = keyOf(st.local_user_id, source, occ.key, offset), n = st.notifications.find((x) => x.id === id);
-    return { notified: !!n, read: !!n && n.read_status === 'READ', superseded: !!st.superseded[id],
+    return { notified: !!n || !!st.sent[id], read: !!n && n.read_status === 'READ', superseded: !!st.superseded[id],
       previous_occurrence_notified: st.notifications.some((x) => x.source_entity_id === source && x.occurrence_min < occ.target_min) };
   };
 
@@ -95,11 +95,16 @@ export function createStore({ storage = null, key = STORAGE_KEY, demo = false } 
       st.notifications = st.notifications.filter((n) => n.parent_id !== pid);
       changed();
     },
-    /** Consent for one child: the offsets (minutes) the user switched on. [] = reminders off. */
-    setOffsets(pid, sid, offsets) {
-      const c = api.child(pid, sid);
+    /** Consent for one child: the offsets (minutes) the user switched on. [] = reminders off.
+     *  `now` = the moment of the switch; an offset whose due time is already behind that moment is a retro (catch-up) offset. */
+    setOffsets(pid, sid, offsets, now) {
+      const c = api.child(pid, sid), p = st.follows[pid];
       if (!c) return;
-      c.offsets_enabled = [...new Set(offsets)].filter((o) => c.offsets_available.includes(o)).sort((a, b) => b - a);
+      const next = [...new Set(offsets)].filter((o) => c.offsets_available.includes(o)).sort((a, b) => b - a);
+      const armed = { ...(c.armed_at || {}) };
+      Object.keys(armed).forEach((k) => { if (!next.includes(Number(k))) delete armed[k]; });
+      next.forEach((o) => { if (!c.offsets_enabled.includes(o) || armed[o] == null) armed[o] = Number.isInteger(now) ? now : p.followed_at_min; });
+      c.offsets_enabled = next; c.armed_at = armed;
       changed();
     },
 
@@ -116,12 +121,27 @@ export function createStore({ storage = null, key = STORAGE_KEY, demo = false } 
             const plan = planCheck(baseFor(parent, child, occ, now), child.offsets_enabled, states);
             log.push({ parent_id: parent.parent_id, source_entity_id: child.source_entity_id, occurrence: occ.key, results: plan.results });
             plan.superseded.forEach((o) => { st.superseded[keyOf(st.local_user_id, child.source_entity_id, occ.key, o)] = true; dirty = true; });
-            if (plan.create) {
-              const w = reminderWindow(baseFor(parent, child, occ, now).src, plan.create.offset, { examClose: () => child.exam_close_min });
-              const n = { id: keyOf(st.local_user_id, child.source_entity_id, occ.key, plan.create.offset), parent_id: parent.parent_id, source_entity_id: child.source_entity_id,
-                occurrence_datetime: occ.key, occurrence_min: occ.target_min, offset: plan.create.offset, due_min: w.due, expires_min: w.expires, created_at_min: now,
-                code: plan.create.code, read_status: 'UNREAD', synthetic: !!child.synthetic, rule_version: REMINDER_POLICY_VERSION };
-              st.notifications.push(n); created.push(n); dirty = true;
+            let create = plan.create;
+            if (create) {
+              // A retro offset (already overdue when the user switched it on) is a catch-up: at most ONE per user + occurrence, remembered
+              // across toggles, unfollow/follow and re-opens. An offset that only became due while the app was closed is not retro.
+              const w0 = reminderWindow(baseFor(parent, child, occ, now).src, create.offset, { examClose: () => child.exam_close_min });
+              const armedAt = (child.armed_at && child.armed_at[create.offset] != null) ? child.armed_at[create.offset] : parent.followed_at_min;
+              if (w0.ok && w0.due < armedAt) {
+                const lk = keyOf(st.local_user_id, child.source_entity_id, occ.key, 'CATCHUP');
+                if (st.catchups[lk]) {
+                  st.superseded[keyOf(st.local_user_id, child.source_entity_id, occ.key, create.offset)] = true; dirty = true;
+                  log[log.length - 1].results = log[log.length - 1].results.map((r) => (r.offset === create.offset ? { ...r, code: CODES.SUPERSEDED_BY_CATCHUP } : r));
+                  create = null;
+                } else { st.catchups[lk] = { offset: create.offset, at: now }; dirty = true; }
+              }
+            }
+            if (create) {
+              const w = reminderWindow(baseFor(parent, child, occ, now).src, create.offset, { examClose: () => child.exam_close_min });
+              const n = { id: keyOf(st.local_user_id, child.source_entity_id, occ.key, create.offset), parent_id: parent.parent_id, source_entity_id: child.source_entity_id,
+                occurrence_datetime: occ.key, occurrence_min: occ.target_min, offset: create.offset, due_min: w.due, expires_min: w.expires, created_at_min: now,
+                code: create.code, read_status: 'UNREAD', synthetic: !!child.synthetic, rule_version: REMINDER_POLICY_VERSION };
+              st.notifications.push(n); st.sent[n.id] = true; created.push(n); dirty = true;     // `sent` outlives unfollow: never the same alert twice
             }
           }
         }

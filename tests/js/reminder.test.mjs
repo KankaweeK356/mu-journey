@@ -194,3 +194,84 @@ test('migration is idempotent: loading again (or many times) changes nothing and
   assert.equal(first.state.notifications.length, 0);                                  // the old unread alert is not carried over, so nothing can repeat
   assert.deepEqual(first.child('E_NAV', 'E_NAV').offsets_enabled, [20160]);            // 14 days -> minutes
 });
+
+/* ---- Catch-up deduplication (expert decision): at most one catch-up per user + occurrence, across toggles, unfollow/follow and re-opens ---- */
+const catchupStore = () => { const s = createStore({ demo: false }); s.follow(valentine(), T('2027-02-14 09:00')); return s; };   // first opened on 14 Feb itself
+
+test('catch-up 1: switching on 7 days then 1 day, one at a time, gives ONE reminder', () => {
+  const s = catchupStore(), now = T('2027-02-14 12:00');
+  s.setOffsets('CAL_VALENTINE', 'CAL_VALENTINE', [10080], now);
+  assert.equal(s.runCheck(now).created.length, 1);
+  s.setOffsets('CAL_VALENTINE', 'CAL_VALENTINE', [10080, 1440], now);
+  assert.equal(s.runCheck(now).created.length, 0);                                   // the second overdue offset is superseded, not created
+  assert.equal(s.list(now).length, 1);
+  assert.equal(Object.keys(s.state.catchups).length, 1);
+  assert.equal(s.explain('CAL_VALENTINE', 'CAL_VALENTINE', now).rows.find((r) => r.offset === 1440).code, CODES.SUPERSEDED_BY_CATCHUP);
+});
+
+test('catch-up 2: the opposite order (1 day first, then 7 days) also gives ONE reminder', () => {
+  const s = catchupStore(), now = T('2027-02-14 12:00');
+  s.setOffsets('CAL_VALENTINE', 'CAL_VALENTINE', [1440], now);
+  assert.deepEqual(s.runCheck(now).created.map((n) => n.offset), [1440]);
+  s.setOffsets('CAL_VALENTINE', 'CAL_VALENTINE', [1440, 10080], now);
+  assert.equal(s.runCheck(now).created.length, 0);
+  assert.equal(s.list(now).length, 1);
+});
+
+test('catch-up 3: re-opening the app and switching the same offset off and on never repeats it', () => {
+  const s = catchupStore(), now = T('2027-02-14 12:00');
+  s.setOffsets('CAL_VALENTINE', 'CAL_VALENTINE', [1440], now); s.runCheck(now);
+  for (const t of ['2027-02-14 12:01', '2027-02-14 18:00', '2027-02-14 23:59']) assert.equal(s.runCheck(T(t)).created.length, 0, t);
+  s.setOffsets('CAL_VALENTINE', 'CAL_VALENTINE', [], T('2027-02-14 13:00'));
+  s.setOffsets('CAL_VALENTINE', 'CAL_VALENTINE', [1440], T('2027-02-14 13:01'));
+  assert.equal(s.runCheck(T('2027-02-14 13:01')).created.length, 0);
+  assert.equal(s.list(T('2027-02-14 13:01')).length, 1);
+});
+
+test('catch-up 4: unfollow then follow again does not give a second catch-up; "clear my data" does reset it', () => {
+  const s = catchupStore(), now = T('2027-02-14 12:00');
+  s.setOffsets('CAL_VALENTINE', 'CAL_VALENTINE', [10080], now); s.runCheck(now);
+  s.unfollow('CAL_VALENTINE');
+  s.follow(valentine(), T('2027-02-14 12:10'));
+  s.setOffsets('CAL_VALENTINE', 'CAL_VALENTINE', [10080, 1440], T('2027-02-14 12:10'));
+  assert.equal(s.runCheck(T('2027-02-14 12:10')).created.length, 0);                 // neither the same 7-day alert nor a new catch-up
+  s.clear();
+  s.follow(valentine(), T('2027-02-14 12:20'));
+  s.setOffsets('CAL_VALENTINE', 'CAL_VALENTINE', [1440], T('2027-02-14 12:20'));
+  assert.equal(s.runCheck(T('2027-02-14 12:20')).created.length, 1);                 // a cleared user starts fresh
+});
+
+test('catch-up 5: an offset that is still in the future keeps its right to notify normally, even after a catch-up', () => {
+  const s = createStore({ demo: false });
+  s.follow(valentine(), T('2027-02-10 09:00'));
+  s.setOffsets('CAL_VALENTINE', 'CAL_VALENTINE', [10080, 1440], T('2027-02-10 09:00'));
+  assert.deepEqual(s.runCheck(T('2027-02-10 09:00')).created.map((n) => [n.offset, n.code]), [[10080, CODES.CREATED_LATE]]);   // 7 days is already overdue: the one catch-up
+  assert.equal(s.runCheck(T('2027-02-12 23:59')).created.length, 0);
+  assert.deepEqual(s.runCheck(T('2027-02-13 08:00')).created.map((n) => [n.offset]), [[1440]]);                                  // 1 day became due later: NOT blocked by the ledger
+  assert.equal(s.runCheck(T('2027-02-13 09:00')).created.length, 0);
+});
+
+test('catch-up 6: the ledger and the sent-alerts memory survive reload; old v2 data without them still loads', () => {
+  const st = fake(), now = T('2027-02-14 12:00');
+  const a = createStore({ storage: st });
+  a.follow(valentine(), T('2027-02-14 09:00')); a.setOffsets('CAL_VALENTINE', 'CAL_VALENTINE', [10080], now); a.runCheck(now);
+  const b = createStore({ storage: st });
+  assert.equal(Object.keys(b.state.catchups).length, 1);
+  b.setOffsets('CAL_VALENTINE', 'CAL_VALENTINE', [10080, 1440], now);
+  assert.equal(b.runCheck(now).created.length, 0);
+  const old = JSON.parse(st.getItem(STORAGE_KEY)); delete old.catchups; delete old.sent;
+  st.setItem(STORAGE_KEY, JSON.stringify(old));
+  const c = createStore({ storage: st });
+  assert.deepEqual([c.state.catchups, c.state.sent], [{}, {}]);
+  assert.ok(c.follows().length === 1);
+});
+
+test('an alert already sent is never sent again after unfollow + follow (dedup survives unfollow)', () => {
+  const s = createStore({ demo: false });
+  s.follow(valentine(), T('2027-02-01'));
+  s.setOffsets('CAL_VALENTINE', 'CAL_VALENTINE', [10080], T('2027-02-01'));
+  assert.equal(s.runCheck(T('2027-02-07 00:00')).created.length, 1);                 // on time
+  s.unfollow('CAL_VALENTINE'); s.follow(valentine(), T('2027-02-08'));
+  s.setOffsets('CAL_VALENTINE', 'CAL_VALENTINE', [10080], T('2027-02-08'));
+  assert.equal(s.runCheck(T('2027-02-08')).created.length, 0);
+});

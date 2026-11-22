@@ -107,7 +107,7 @@ export function reminderSimulation(T) {
         eligib ? h('div', { class: 'callout warn small' }, `รอบนี้มีเงื่อนไขสิทธิ์ (${child.eligibility_rule}) โปรดตรวจสอบก่อนซื้อ ระบบไม่สรุปว่าผู้ใช้มีสิทธิ์`) : null),
       h('div', { class: 'grid g2' },
         sel('5 · Reminder Offset (ผู้ใช้เลือกเอง ค่าเริ่มต้นปิด)', h('div', { class: 'row' }, child.offsets_available.map((o) => h('label', { class: 'row', style: 'flex-wrap:nowrap;align-items:center;gap:4px' },
-          h('input', { type: 'checkbox', checked: !!live && live.offsets_enabled.includes(o), disabled: !followed || !!block, onchange: (e) => { const cur = live.offsets_enabled; st.setOffsets(parent.parent_id, child.source_entity_id, e.target.checked ? [...cur, o] : cur.filter((x) => x !== o)); draw(); } }), offLabel(o))))),
+          h('input', { type: 'checkbox', checked: !!live && live.offsets_enabled.includes(o), disabled: !followed || !!block, onchange: (e) => { const cur = live.offsets_enabled; st.setOffsets(parent.parent_id, child.source_entity_id, e.target.checked ? [...cur, o] : cur.filter((x) => x !== o), sim.now); draw(); } }), offLabel(o))))),
         sel('6 · Follow State (Parent Follow)', h('button', { type: 'button', class: 'btn sm' + (followed ? ' primary' : ''), onclick: () => { followed ? st.unfollow(parent.parent_id) : st.follow(parent, sim.now); draw(); } }, followed ? `✓ ติดตาม ${parent.kind} อยู่ (กดเพื่อเลิก)` : `＋ ติดตาม ${parent.parent_id}`)),
         sel('7 · Reminder Enabled', h('div', { class: 'small' }, live && live.offsets_enabled.length ? `เปิด ${live.offsets_enabled.length} ช่วง: ${live.offsets_enabled.map(offLabel).join(', ')}` : 'ปิด (consent ยังไม่ได้ให้)', block ? ` · ถูกบล็อก: ${block}` : '')),
         sel('8 · Simulation Date/Time (Asia/Bangkok)', h('div', { class: 'row' }, h('input', { type: 'date', value: tm.slice(0, 10), onchange: (e) => { const t = parseBkk(`${e.target.value} ${tm.slice(11)}`); if (t != null) setNow(t); } }),
@@ -162,6 +162,10 @@ export async function reminderChecks() {
   const s = createStore({ demo: false }); s.follow(val(), T('2027-01-01')); s.setOffsets('CAL_VALENTINE', 'CAL_VALENTINE', [10080, 1440]);
   const first = s.runCheck(T('2027-02-14 12:00')).created, again = s.runCheck(T('2027-02-14 12:05')).created;
   checks.push({ label: 'Catch-up: หลาย offset ที่พลาด → แจ้ง 1 รายการ และไม่ย้อนแจ้งซ้ำ', ok: first.length === 1 && first[0].offset === 1440 && again.length === 0, detail: 'SUPERSEDED_BY_CATCHUP บันทึกถาวร' });
+  const o = createStore({ demo: false }); o.follow(val(), T('2027-02-14 09:00'));
+  o.setOffsets('CAL_VALENTINE', 'CAL_VALENTINE', [10080], T('2027-02-14 12:00')); const one = o.runCheck(T('2027-02-14 12:00')).created;
+  o.setOffsets('CAL_VALENTINE', 'CAL_VALENTINE', [10080, 1440], T('2027-02-14 12:00')); const two = o.runCheck(T('2027-02-14 12:00')).created;
+  checks.push({ label: 'Catch-up ติ๊กทีละช่อง (7 วัน แล้ว 1 วัน): ได้ 1 รายการต่อ occurrence', ok: one.length === 1 && two.length === 0 && o.list(T('2027-02-14 12:00')).length === 1, detail: 'บันทึก catch-up ต่อผู้ใช้+occurrence' });
   const y = createStore({ demo: false }); y.follow(val(), T('2026-11-22')); y.setOffsets('CAL_VALENTINE', 'CAL_VALENTINE', [1440]); y.runCheck(T('2027-02-13 00:00'));
   const next = y.runCheck(T('2028-02-13 00:00')).created;
   checks.push({ label: 'Valentine รายปี: ของปีเก่าไม่บล็อกปีใหม่', ok: next.length === 1 && next[0].code === CODES.CREATED_NEW_OCCURRENCE, detail: '2027 → 2028' });
