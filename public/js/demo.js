@@ -34,11 +34,13 @@ export async function renderDemo(root) {
     showBar: () => S.step >= 4,
     // "มูเรื่องนี้ต่อ": straight to step 07, where the user picks self / company trip / proxy. Step 06 stays reachable from there.
     continueWith: (f) => {
+      // The Step 02 interests (S.wishes) are never written here. A wish outside them becomes a TEMPORARY topic (S.topic) until the user goes back.
       const w = (f.wish_ids || []).find((x) => S.wishes.includes(x)) || (f.wish_ids || [])[0];
-      if (!S.wishes.length && w) S.wishes = [w];
       S.topic = w && !S.wishes.includes(w) ? w : null;
-      S.focus = 'ALL'; S.maxStep = 7; invalidate(); S.eventContext = { event_id: f.parent_id, name: f.name, place_id: f.place_id || null, place_name: f.place_name || null };
-      go(7);
+      S.focus = 'ALL'; S.picked.clear(); S.service = null; invalidate();
+      S.eventContext = { event_id: f.parent_id, name: f.name, place_id: f.place_id || null, place_name: f.place_name || null };
+      S.maxStep = Math.max(S.maxStep, 7);
+      go(S.topic || S.wishes.length ? 7 : 2);
     },
   });
   mountChrome();
@@ -146,31 +148,34 @@ export async function renderDemo(root) {
     if (S.status === 'error') return h('div', { class: 'fade-in' }, title(n, ttl, sub), h('div', { class: 'callout bad', role: 'alert' }, 'คำนวณไม่สำเร็จ: ' + S.error), h('div', { class: 'foot' }, h('button', { class: 'btn', onclick: () => go(3) }, '← แก้ข้อมูล'), h('button', { class: 'btn primary', onclick: () => ensureResult(true) }, 'ลองอีกครั้ง')));
     return ok();
   }
+  /* Temporary activity mode: shown on steps 04-07 whenever the recommendation comes from an activity, not from the Step 02 interests. */
+  function backToInterests() {
+    S.topic = null; S.eventContext = null; S.focus = 'ALL'; S.picked.clear(); S.service = null; invalidate();
+    if (S.wishes.length) { go(S.step >= 4 ? S.step : 4); } else { S.maxStep = 2; go(2); }   // no main interests yet: choose them in step 02, nothing is saved for the user
+  }
+  const modeBanner = () => (!S.topic ? null : h('div', { class: 'callout warn', role: 'status', 'data-activity-mode': 'true' },
+    h('b', {}, 'กำลังดูคำแนะนำตามกิจกรรม: ' + ((S.eventContext && S.eventContext.name) || wishName[S.topic])),
+    h('div', { class: 'small' }, `คำนวณชั่วคราวจากเรื่อง "${wishName[S.topic]}" ของกิจกรรมนี้ ไม่ใช่จากความสนใจที่คุณเลือกไว้ในขั้น 02 (ความสนใจเดิมไม่ถูกแก้ไข)`),
+    h('div', { class: 'row', style: 'margin-top:6px' }, h('button', { type: 'button', class: 'btn sm primary', onclick: backToInterests }, 'กลับไปความสนใจเดิม'),
+      S.wishes.length ? null : h('span', { class: 'small' }, 'คุณยังไม่ได้เลือกความสนใจ ปุ่มนี้จะพาไปเลือกในขั้น 02'))));
   const summary = (R) => h('div', { class: 'row', style: 'margin-bottom:12px' }, activeWishes().map((w) => h('span', { class: 'chip' }, wishIcon(w).e + ' ' + wishName[w])),
     R.profile.weekday ? h('span', { class: 'chip gold', title: 'วันเกิดใช้เป็นสัญญาณรอง' }, 'เกิด' + R.profile.weekday) : null,
     R.profile.applied_exclusions.deity_ids.length || R.profile.applied_exclusions.place_ids.length ? h('span', { class: 'chip pink' }, `ตัดสิ่งศักดิ์สิทธิ์ ${R.profile.applied_exclusions.deity_ids.length} · สถานที่ ${R.profile.applied_exclusions.place_ids.length}`) : null);
 
   /* ------------------------------------------------ 04 focus + network preview */
   function step4() {
-    return gate(4, 'เรื่องมูที่แนะนำสำหรับคุณ', 'จากข้อมูลที่คุณเลือก MUMU พบความเกี่ยวข้องเหล่านี้', () => {
+    return gate(4, 'สำรวจความเชื่อมโยงของเรื่องที่คุณสนใจ', 'เลือกการ์ดเพื่อดูคำแนะนำเบื้องต้นแต่ละเรื่อง', () => {
       const R = S.result;
-      if (S.wishes.length === 1 && !S.topic) S.focus = S.wishes[0];
+      // The cards below are a PRESENTATION filter only: they set S.focus and redraw. They never touch wishes/topic, never invalidate and never call the engine.
+      const mode = !!S.topic;
+      if (mode || S.wishes.length === 1) S.focus = mode ? 'ALL' : S.wishes[0];
+      else if (S.focus !== 'ALL' && !S.wishes.includes(S.focus)) S.focus = 'ALL';
       const focus = S.focus;
-      // One topic at a time. A chosen wish only changes what is shown; a wish outside the chosen ones recomputes with that single wish.
-      const pick = (v) => {
-        const had = S.topic;
-        if (v === 'ALL' || S.wishes.includes(v)) { S.topic = null; S.focus = v; if (had) invalidate(); } else { S.topic = v; S.focus = 'ALL'; invalidate(); }
-        S.eventContext = null; ensureResult(); draw();
-      };
-      const current = S.topic || focus;
-      const topicSelect = h('label', { class: 'field' }, h('span', { class: 'lbl' }, 'เลือกเรื่องที่ต้องการมู'),
-        h('select', { 'aria-label': 'อยากมูเรื่องอะไร', onchange: (e) => pick(e.target.value) },
-          current === 'ALL' ? h('option', { value: 'ALL', selected: true, disabled: true }, '— เลือกเรื่อง —') : null,
-          S.wishes.length ? h('optgroup', { label: 'เรื่องที่คุณเลือกไว้' }, S.wishes.map((w) => h('option', { value: w, selected: current === w }, wishName[w]))) : null,
-          h('optgroup', { label: 'เรื่องอื่น ๆ (คำนวณใหม่เฉพาะเรื่องนั้น)' }, cat.wishes.filter((w) => !S.wishes.includes(w.id)).map((w) => h('option', { value: w.id, selected: current === w.id }, w.label)))));
+      const setFocus = (v) => { S.focus = v; draw(); };
       const list = focus === 'ALL' ? R.top5 : R.top5.filter((p) => p.matched_wish_ids.includes(focus));
       const shown = list.slice(0, 2);
-      const cards = S.wishes.map((w) => { const ic = wishIcon(w); return h('button', { type: 'button', class: 'wish-card sm', 'aria-pressed': String(focus === w), onclick: () => pick(focus === w && !S.topic ? 'ALL' : w) }, h('span', { class: 'ic', style: `background:${ic.bg}` }, ic.e), wishName[w]); });
+      const cards = mode ? [] : S.wishes.map((w) => { const ic = wishIcon(w); return h('button', { type: 'button', class: 'wish-card sm', 'data-focus': w, 'aria-pressed': String(focus === w), onclick: () => setFocus(w) }, h('span', { class: 'ic', style: `background:${ic.bg}` }, ic.e), wishName[w]); });
+      if (!mode && S.wishes.length > 1) cards.unshift(h('button', { type: 'button', class: 'wish-card sm', 'data-focus': 'ALL', 'aria-pressed': String(focus === 'ALL'), onclick: () => setFocus('ALL') }, h('span', { class: 'ic', style: 'background:#ede7f6' }, '🌐'), 'ดูทุกเรื่อง'));
       let preview;
       if (!R.top5.length) {
         preview = h('div', { class: 'callout warn' }, h('b', {}, 'ยังไม่พบสถานที่ที่ผ่านเงื่อนไข'), h('p', { class: 'small', style: 'margin:.3em 0 0' }, 'เรื่องที่เลือกกับสิ่งที่คุณไม่ต้องการทำให้ไม่เหลือเส้นทาง เรื่องที่ขอ → สิ่งศักดิ์สิทธิ์ → สถานที่ ที่มีในฐานข้อมูล ลองเอาข้อจำกัดบางข้อออก หรือเลือกเรื่องอื่นเพิ่ม'));
@@ -183,16 +188,15 @@ export async function renderDemo(root) {
           ...shown.map((p) => h('div', { class: 'card flat' }, h('b', {}, p.name), (focus === 'ALL' ? p.paths : p.paths.filter((z) => z.wish_id === focus)).slice(0, 2).map((z) => h('div', { class: 'path' }, z.wish_name, h('span', { class: 'ar' }, '→'), z.deity_name, h('span', { class: 'ar' }, '→'), p.name)))),
           focus !== 'ALL' && list.length === 1 ? h('p', { class: 'small faint', style: 'margin:0' }, 'นี่คือรายการที่เกี่ยวข้องกับเรื่องที่โฟกัส จากสถานที่ที่คำนวณไว้ ไม่ได้แปลว่าเครือข่ายพบได้เพียงแห่งเดียว') : null);
       }
-      return h('div', { class: 'fade-in stack' }, title(4, 'เรื่องมูที่แนะนำสำหรับคุณ', 'จากข้อมูลที่คุณเลือก MUMU พบความเกี่ยวข้องเหล่านี้'), summary(R),
-        h('div', { class: 'card stack' }, h('h3', {}, 'ความสนใจของคุณ'),
-          S.wishes.length > 1 ? h('p', { class: 'small muted', style: 'margin:0' }, 'เลือกได้ครั้งละ 1 เรื่อง แตะการ์ดหรือเลือกจากรายการ ยังไม่เลือกจะแสดงภาพรวมจากเรื่องที่คุณเลือกไว้') : h('p', { class: 'small muted', style: 'margin:0' }, 'คุณเลือกไว้เรื่องเดียว ระบบใช้เรื่องนี้เป็นโฟกัสให้อัตโนมัติ'),
-          topicSelect, S.topic ? h('div', { class: 'callout info small' }, `กำลังดูเฉพาะเรื่อง "${wishName[S.topic]}" (คำนวณใหม่เฉพาะเรื่องนี้) การ์ดความสนใจเดิมของคุณยังอยู่ แตะการ์ดเพื่อกลับ`) : null,
+      return h('div', { class: 'fade-in stack' }, title(4, 'สำรวจความเชื่อมโยงของเรื่องที่คุณสนใจ', 'เลือกการ์ดเพื่อดูคำแนะนำเบื้องต้นแต่ละเรื่อง โดยสถานที่ Top 5 ในขั้นตอนถัดไปจะพิจารณาจากทุกเรื่องที่คุณเลือกไว้'), modeBanner(), summary(R),
+        mode ? null : h('div', { class: 'card stack' }, h('h3', {}, 'ความสนใจของคุณ'),
+          S.wishes.length > 1 ? h('p', { class: 'small muted', style: 'margin:0' }, 'เลือกการ์ดเพื่อดูคำแนะนำเบื้องต้นแต่ละเรื่อง โดยสถานที่ Top 5 ในขั้นตอนถัดไปจะพิจารณาจากทุกเรื่องที่คุณเลือกไว้') : h('p', { class: 'small muted', style: 'margin:0' }, 'คุณเลือกไว้เรื่องเดียว ระบบใช้เรื่องนี้เป็นโฟกัสให้อัตโนมัติ'),
           h('div', { class: 'wish-grid', style: 'grid-template-columns:repeat(auto-fill,minmax(180px,1fr))' }, cards)),
         h('div', { class: 'card stack' }, h('h3', {}, '✨ คำแนะนำเบื้องต้นสำหรับคุณ'), preview,
-          h('div', { class: 'callout info small' }, 'การเลือกโฟกัสเปลี่ยนแค่วิธีแสดงตัวอย่างนี้ ไม่เปลี่ยนคะแนนเครือข่าย อันดับ Top 5 หรือการจับคู่ทริป')),
+          h('div', { class: 'callout info small' }, 'การเลือกการ์ดเปลี่ยนแค่วิธีแสดงตัวอย่างนี้ ไม่เปลี่ยนคะแนนเครือข่าย อันดับ Top 5 หรือการจับคู่ทริป และไม่คำนวณใหม่')),
         discoverySection(R, { today: todayISO(), focus, onDetail: () => go(5), redraw: draw }),
         fixedCalendarSection({ wishes: activeWishes(), focus, redraw: draw }),
-        h('div', { class: 'row small' }, h('button', { class: 'btn sm', onclick: () => go(2) }, 'แก้ความสนใจ'), h('button', { class: 'btn sm', onclick: () => go(3) }, 'แก้ข้อจำกัด')),
+        h('div', { class: 'row small' }, h('button', { class: 'btn sm', onclick: () => go(2) }, 'เปลี่ยนความสนใจ'), h('button', { class: 'btn sm', onclick: () => go(3) }, 'แก้ข้อจำกัด')),
         foot({ fn: () => go(3) }, { label: 'ดูสถานที่ที่เหมาะกับคุณ', fn: () => go(5) }));
     });
   }
@@ -224,17 +228,16 @@ export async function renderDemo(root) {
               h('div', { style: 'min-width:0' }, h('h3', {}, p.name), h('div', { class: 'small muted' }, p.district)),
               h('button', { type: 'button', class: 'heart', 'aria-pressed': String(on), 'aria-label': (on ? 'เลิกสนใจ ' : 'สนใจ ') + p.name, onclick: () => { on ? S.picked.delete(p.place_id) : S.picked.add(p.place_id); draw(); } }, on ? '♥' : '♡')),
             h('div', { class: 'row' }, p.matched_wishes.map((w, i) => h('span', { class: 'chip' }, wishIcon(p.matched_wish_ids[i]).e + ' ' + w)), deities.slice(0, 3).map((d) => h('span', { class: 'chip pink' }, d)), deities.length > 3 ? h('span', { class: 'chip' }, `+${deities.length - 3}`) : null),
-            h('div', {}, p.paths.slice(0, 2).map((z) => h('div', { class: 'path' }, h('b', {}, z.wish_name), h('span', { class: 'ar' }, '→'), z.deity_name, h('span', { class: 'ar' }, '→'), p.name,
-              h('div', { class: 'row small', style: 'margin-top:3px' }, statusChip(z.wish_link_status, 'เรื่อง–เทพ'), statusChip(z.place_link_status, 'เทพ–สถานที่')))),
+            h('div', {}, p.paths.slice(0, 2).map((z) => h('div', { class: 'path' }, h('b', {}, z.wish_name), h('span', { class: 'ar' }, '→'), z.deity_name, h('span', { class: 'ar' }, '→'), p.name)),
             p.paths.length > 2 ? h('div', { class: 'small faint' }, `และอีก ${p.paths.length - 2} เส้นทาง — ดูในรายละเอียด`) : null),
             h('div', { class: 'row' }, h('button', { type: 'button', class: 'btn sm', onclick: () => openPlace(p.place_id) }, 'ดูรายละเอียด'),
               h('button', { type: 'button', class: 'btn sm' + (on ? ' primary' : ''), onclick: () => { on ? S.picked.delete(p.place_id) : S.picked.add(p.place_id); draw(); } }, on ? '✓ สนใจสถานที่นี้' : 'สนใจสถานที่นี้'))));
       });
-      return h('div', { class: 'fade-in stack' }, title(5, 'สถานที่ที่เหมาะกับคุณ', 'คำแนะนำสูงสุด 5 แห่ง จากความสนใจของคุณ'), summary(R),
+      return h('div', { class: 'fade-in stack' }, title(5, 'สถานที่ที่เหมาะกับคุณ', 'คำแนะนำสูงสุด 5 แห่ง จากความสนใจของคุณ'), modeBanner(), summary(R),
         !R.top5.length ? h('div', { class: 'callout warn' }, h('b', {}, 'ไม่พบสถานที่ที่ผ่านเงื่อนไข'), h('p', { class: 'small', style: 'margin:.3em 0 0' }, 'ระบบไม่แนะนำสิ่งที่ขัดกับที่คุณไม่ต้องการ และไม่เติมรายการให้ครบ ลองแก้ข้อจำกัดหรือความสนใจ')) :
           R.limited_results ? h('div', { class: 'callout' }, `แสดง ${R.top5.length} แห่ง (น้อยกว่า 5) — ${R.limited_reason || 'ไม่มีเส้นทางที่มีแหล่งอ้างอิงเพิ่ม'} ระบบไม่เติมรายการให้ครบ`) : null,
         ...cardsOut, eventsBlock(R),
-        h('div', { class: 'callout small' }, 'ผลลัพธ์มาจากความสัมพันธ์ในฐานข้อมูล ไม่ใช่การรับรองความศักดิ์สิทธิ์หรือผลของการขอพร การเลือก "สนใจ" ไม่เปลี่ยนอันดับ'),
+        h('div', { class: 'callout small' }, 'ผลลัพธ์มาจากความสัมพันธ์ในฐานข้อมูล ไม่ใช่การรับรองความศักดิ์สิทธิ์หรือผลของการขอพร การเลือก "สนใจ" ไม่เปลี่ยนอันดับ บางความสัมพันธ์ยังรอตรวจสอบ ดูสถานะรายเส้นทางได้ใน "ดูรายละเอียด"'),
         foot({ fn: () => go(4) }, { label: 'ดูทริปที่เหมาะกับฉัน', fn: () => go(6) }));
     });
   }
@@ -263,12 +266,13 @@ export async function renderDemo(root) {
             h('div', { class: 'row', style: 'margin-top:12px' }, h('span', { class: 'tag' }, '🚆 BTS/MRT + เดิน'), h('span', { class: 'tag' }, `⏱ ประมาณ ${Math.round(D.duration_min)} นาที · จบ ~${D.finish_clock}`), h('span', { class: 'tag' }, `คะแนนจับคู่ ${f(M.matching_score, 2)}`), h('span', { class: 'tag' }, 'Demo · ยังไม่เปิดจองจริง'))),
           h('div', { class: 'card' }, h('h3', {}, 'จุดแวะตามลำดับ'), h('ol', { class: 'timeline', style: 'margin-top:10px' }, D.stops.map((s) => h('li', {},
             h('div', { class: 't' }, `${s.arrival}–${s.finish} · ${s.station_name} (${s.station_id}) · ${s.access_mode === 'skywalk' ? 'Skywalk' : 'เดิน'}`),
-            h('div', {}, h('b', {}, s.name)), h('div', { class: 'small muted' }, 'พิธีเด่น: ' + s.featured_deity + ' · ', statusChip(s.hours_origin === 'SYNTHETIC_DEMO_HOURS' ? 'SYNTHETIC' : 'CANDIDATE', 'เวลาเปิด')))))),
+            h('div', {}, h('b', {}, s.name)), h('div', { class: 'small muted' }, 'พิธีเด่น: ' + s.featured_deity))))),
+          h('div', { class: 'callout small' }, 'เวลาเปิดของบางแห่งเป็นข้อมูลจำลองหรือรอตรวจ ควรตรวจกับสถานที่ก่อนเดินทาง'),
           h('div', { class: 'callout info small' }, 'นี่คือ "ทริปคงที่" ที่บริษัทออกแบบไว้ล่วงหน้า ระบบแค่เลือกจาก 3 ทริป ไม่ปรับหรือสร้างเส้นทางใหม่ตามผู้ใช้ และยังไม่ยืนยันที่นั่ง ราคา หรือวันเดินทาง'),
           h('details', {}, h('summary', {}, 'ดูเหตุผลและคะแนนเทียบทั้ง 3 ทริป'), h('div', { class: 'inner' }, scoreTable(T))),
           h('div', { class: 'row' }, h('button', { class: 'btn primary', onclick: () => go(7) }, 'ดูรายละเอียดทริปและบริการ →')));
       }
-      return h('div', { class: 'fade-in stack' }, title(6, 'ทริปที่ใช่สำหรับคุณ', 'MUMU เลือกทริปที่เหมาะจาก 3 ทริปของบริษัท (เส้นทางคงที่)'), summary(R), body, foot({ fn: () => go(5) }, null));
+      return h('div', { class: 'fade-in stack' }, title(6, 'ทริปที่ใช่สำหรับคุณ', 'MUMU เลือกทริปที่เหมาะจาก 3 ทริปของบริษัท (เส้นทางคงที่)'), modeBanner(), summary(R), body, foot({ fn: () => go(5) }, null));
     });
   }
 
@@ -281,7 +285,7 @@ export async function renderDemo(root) {
       if (svc === 'self') {
         const ids = S.picked.size ? [...S.picked] : R.top5.map((p) => p.place_id);
         panel.append(h('h3', {}, 'ไปมูเอง'), h('p', { class: 'sub' }, S.picked.size ? 'สถานที่ที่คุณสนใจ' : 'คุณยังไม่ได้เลือกสถานที่ แสดงทั้งหมดที่ระบบเสนอ'),
-          ...ids.map((id) => { const p = R.top5.find((x) => x.place_id === id); return h('div', { class: 'path' }, h('b', {}, p.name), h('div', { class: 'small muted' }, `สถานีใกล้สุด ${p.station_id} · เข้าถึงประมาณ ${p.access_min} นาที (ประมาณการ) · เปิด ${p.hours.open}–${p.hours.close}`), h('div', { class: 'row', style: 'margin-top:4px' }, statusChip(p.hours.status, 'เวลาเปิด'), h('button', { class: 'btn sm', onclick: () => openPlace(id) }, 'ข้อมูลสถานที่และวิธีมู'))); }),
+          ...ids.map((id) => { const p = R.top5.find((x) => x.place_id === id); return h('div', { class: 'path' }, h('b', {}, p.name), h('div', { class: 'small muted' }, `สถานีใกล้สุด ${p.station_id} · เข้าถึงประมาณ ${p.access_min} นาที (ประมาณการ) · เปิด ${p.hours.open}–${p.hours.close}`), h('div', { class: 'row', style: 'margin-top:4px' }, h('button', { class: 'btn sm', onclick: () => openPlace(id) }, 'ข้อมูลสถานที่และวิธีมู'))); }),
           h('div', { class: 'callout small' }, 'ยังไม่มีการจองจริง เวลาเปิดบางแห่งเป็นข้อมูลจำลองหรือรอตรวจ ควรตรวจกับสถานที่ก่อนเดินทาง'),
           h('div', { class: 'row' }, h('button', { class: 'btn primary', onclick: () => openFeedback({ service: 'self' }) }, 'ให้ความคิดเห็นต่อ Demo')));
       } else if (svc === 'trip') {
@@ -293,14 +297,15 @@ export async function renderDemo(root) {
       } else if (svc === 'proxy') {
         const box = h('div', { class: 'stack' }, h('p', { class: 'muted' }, 'กำลังโหลดรายการ…'));
         panel.append(h('h3', {}, 'ฝากมู (Demo)'), box);
-        API.offers(S.picked.size ? [...S.picked] : R.top5.map((p) => p.place_id), S.wishes).then((O) => {
+        API.offers(S.picked.size ? [...S.picked] : R.top5.map((p) => p.place_id), activeWishes()).then((O) => {
           clear(box).append(...(O.offers.length ? O.offers.slice(0, 6).map((o) => h('div', { class: 'path' }, h('b', {}, o.title), h('div', { class: 'small muted' }, `${o.place_name} · ${o.wish_name} · ${o.price_thb} บาท · ล่วงหน้า ${o.lead_time_days} วัน`),
-            h('div', { class: 'row', style: 'margin-top:4px' }, statusChip('SYNTHETIC', 'ผู้ให้บริการ'), h('button', { class: 'btn sm primary', onclick: () => openFeedback({ service: 'proxy', offer_id: o.offer_id }) }, 'ทดลองสนใจบริการ')))) : [h('div', { class: 'callout' }, 'ไม่มีบริการฝากมูสำหรับสถานที่ที่เลือก')]),
+            h('div', { class: 'row', style: 'margin-top:4px' }, h('button', { class: 'btn sm primary', onclick: () => openFeedback({ service: 'proxy', offer_id: o.offer_id }) }, 'ทดลองสนใจบริการ')))) : [h('div', { class: 'callout' }, 'ไม่มีบริการฝากมูสำหรับสถานที่ที่เลือก')]),
             h('div', { class: 'callout warn small' }, 'ข้อมูลจำลอง ไม่มีการยืนยันผู้ให้บริการหรือการอนุญาตจากสถานที่จริง ไม่สร้างรายการจองหรือคำสั่งซื้อ'));
         }).catch((e) => clear(box).append(h('div', { class: 'callout bad' }, 'โหลดไม่สำเร็จ: ' + e.message)));
       }
       return h('div', { class: 'fade-in stack' }, title(7, 'อยากไปมูแบบไหนดี?', 'เลือกใช้บริการตามความสะดวก'),
-        ctx ? h('div', { class: 'callout info' }, h('b', {}, 'มูต่อจากกิจกรรม: ' + ctx.name), ctx.place_name ? ` · ${ctx.place_name}` : '', h('div', { class: 'small' }, 'เลือกไปมูเอง ทริปบริษัท หรือฝากมู ด้านล่าง')) : null,
+        modeBanner(),
+        ctx && !S.topic ? h('div', { class: 'callout info' }, h('b', {}, 'มูต่อจากกิจกรรม: ' + ctx.name), ctx.place_name ? ` · ${ctx.place_name}` : '', h('div', { class: 'small' }, 'เลือกไปมูเอง ทริปบริษัท หรือฝากมู ด้านล่าง')) : null,
         h('div', { class: 'svc-grid', role: 'group', 'aria-label': 'รูปแบบบริการ' }, SERVICES.map(([id, e, bg, t, sub]) => h('button', { type: 'button', class: 'svc', 'aria-pressed': String(svc === id), onclick: () => { S.service = svc === id ? null : id; draw(); } }, h('span', { class: 'ic', style: `background:${bg}` }, e), t, h('small', {}, sub)))),
         svc ? panel : h('div', { class: 'callout info' }, 'เลือกรูปแบบด้านบนเพื่อดูรายละเอียด'),
         calendarCard(),

@@ -43,23 +43,27 @@ export function offsetControls(pid, sid) {
   const st = store(), child = st.child(pid, sid);
   if (!child) return null;
   const block = reminderBlock(child, 'NORMAL');
+  // Cannot remind: no checkboxes at all, only the reason (a checkbox the user cannot tick is a broken promise).
+  if (block) return h('div', { class: 'small muted', 'data-no-reminder': block }, `บันทึกไว้ดูเท่านั้น ไม่มีการแจ้งเตือน เพราะ${BLOCK_TEXT[block]}`);
   const boxes = child.offsets_available.map((o) => h('label', { class: 'row', style: 'flex-wrap:nowrap;align-items:center;gap:4px' },
-    h('input', { type: 'checkbox', checked: child.offsets_enabled.includes(o), disabled: !!block, onchange: (e) => {
+    h('input', { type: 'checkbox', checked: child.offsets_enabled.includes(o), onchange: (e) => {
       const next = e.target.checked ? [...child.offsets_enabled, o] : child.offsets_enabled.filter((x) => x !== o);
       st.setOffsets(pid, sid, next, nowMinute()); changed(); } }), `ก่อน ${offsetLabel(o)}`));
-  return h('div', { class: 'stack small', style: 'gap:4px' }, h('div', { class: 'row' }, h('span', {}, 'เตือนล่วงหน้า:'), ...boxes),
-    block ? h('div', { class: 'muted' }, `ติดตามเป็นข้อมูลเท่านั้น ยังไม่แจ้งเตือน เพราะ${BLOCK_TEXT[block]}`) : null);
+  return h('div', { class: 'stack small', style: 'gap:4px' }, h('div', { class: 'row' }, h('span', {}, 'เตือนล่วงหน้า:'), ...boxes));
 }
+
+/** Words follow what the app can really do: "ติดตาม" only where a reminder can be raised, otherwise "บันทึกไว้". */
+export const canRemindNetwork = (snap) => !reminderBlock(parentFromNetwork(snap).children[0], 'NORMAL');
 
 /* ------------------------------------------------------------------ event card (step 05) */
 export function eventCard(snap, { evidence = null } = {}) {
-  const st = store(), today = todayISO(), c = classify(snap.schedule, today), followed = st.isFollowed(snap.event_id);
+  const st = store(), today = todayISO(), c = classify(snap.schedule, today), followed = st.isFollowed(snap.event_id), remind = canRemindNetwork(snap);
   const when = c.display_status === 'ONGOING' ? `กำลังจัดอยู่ (ถึง ${thaiDate(c.next_end)})`
     : c.display_status === 'UPCOMING' ? `${thaiRange(c.next_start, c.next_end)} · อีก ${c.days_until} วัน` : 'ไม่มีรอบที่กำลังจะมาถึง';
   return h('div', { class: 'card flat stack ev-card' },
     h('div', { class: 'row', style: 'justify-content:space-between;align-items:flex-start;flex-wrap:nowrap' }, h('div', { style: 'min-width:0' }, h('b', {}, snap.name), h('div', { class: 'small muted' }, `${snap.deity_name} · ${snap.place_name}`)),
       h('button', { type: 'button', class: 'btn sm' + (followed ? ' primary' : ''), 'aria-pressed': String(followed),
-        onclick: () => { followed ? st.unfollow(snap.event_id) : st.follow(parentFromNetwork(snap), nowMinute()); changed(); } }, followed ? '✓ ติดตามอยู่' : '＋ ติดตาม')),
+        onclick: () => { followed ? st.unfollow(snap.event_id) : st.follow(parentFromNetwork(snap), nowMinute()); changed(); } }, remind ? (followed ? '✓ ติดตามอยู่' : '＋ ติดตาม') : (followed ? '✓ บันทึกไว้แล้ว' : '＋ บันทึกไว้'))),
     h('div', { class: 'small' }, '📅 ', when), h('div', { class: 'row' }, h('span', { class: 'chip st-cand' }, UNCONFIRMED), snap.schedule.calendar_basis ? h('span', { class: 'small faint' }, BASIS[snap.schedule.calendar_basis]) : null),
     evidence ? h('div', { class: 'path' }, evidence) : null, followed ? offsetControls(snap.event_id, snap.event_id) : null);
 }
@@ -96,7 +100,7 @@ function drawCenter() {
     h('div', { class: 'dlg-b stack' },
       list.length ? [unread ? h('div', { class: 'row', style: 'justify-content:flex-end' }, h('button', { type: 'button', class: 'btn sm', onclick: () => st.markAllRead() }, 'อ่านทั้งหมดแล้ว')) : null, ...list]
         : h('div', { class: 'callout info' }, h('b', {}, 'ยังไม่มีแจ้งเตือน'), h('p', { class: 'small', style: 'margin:.3em 0 0' },
-          'ศูนย์นี้แสดงเฉพาะการเตือนที่ผ่านเงื่อนไข ติดตามวันสำคัญ เช่น วาเลนไทน์ แล้วเลือกเวลาเตือนล่วงหน้า ระบบจะตรวจตอนเปิดหน้าเว็บ กิจกรรมของสถานที่ที่ยังไม่ยืนยันกำหนดการกับผู้จัด จะติดตามเก็บไว้ดูได้แต่ยังไม่แจ้งเตือน (ไม่มีการส่งข้อความนอกหน้านี้)')),
+          'ศูนย์นี้แสดงเฉพาะการเตือนที่ผ่านเงื่อนไข ติดตามวันสำคัญ เช่น วาเลนไทน์ แล้วเลือกเวลาเตือนล่วงหน้า ระบบจะตรวจตอนเปิดหน้าเว็บ กิจกรรมของสถานที่ที่ยังไม่ยืนยันกำหนดการกับผู้จัด จะบันทึกไว้ดูได้แต่ไม่แจ้งเตือน (ไม่มีการส่งข้อความนอกหน้านี้)')),
       h('div', { class: 'callout warn small' }, UNCONFIRMED + ': ข้อมูลวันจัดกิจกรรมของสถานที่จริงยังไม่ได้ยืนยันกับผู้จัด ควรตรวจก่อนเดินทาง')));
 }
 export function openCenter() { drawCenter(); if (!dlg.open) dlg.showModal(); }
@@ -109,14 +113,14 @@ export function calendarCard() {
     const child = Object.values(f.children)[0], ex = st.explain(f.parent_id, child.source_entity_id, now), occ = ex && ex.occurrence;
     const block = reminderBlock(child, 'NORMAL'), on = child.offsets_enabled.length;
     return h('div', { class: 'path stack', style: 'gap:6px' }, h('div', { class: 'row', style: 'justify-content:space-between;align-items:flex-start' }, h('b', { style: 'flex:1 1 150px;min-width:0' }, f.name),
-      h('span', { class: 'chip ' + (on ? 'ok' : block ? 'st-cand' : '') }, on ? `เปิดเตือน ${on} ช่วง` : block ? 'ข้อมูลเท่านั้น · ' + BLOCK_TEXT[block] : 'ติดตาม · ปิดเตือน')),
+      h('span', { class: 'chip ' + (on ? 'ok' : block ? 'st-cand' : '') }, on ? `เปิดเตือน ${on} ช่วง` : block ? 'บันทึกไว้ · ' + BLOCK_TEXT[block] : 'ติดตาม · ปิดเตือน')),
       h('div', { class: 'small muted' }, occ ? `📅 ${whenText(child, occ.target_min)}` : 'ไม่มีรอบที่กำลังจะมาถึง', f.place_name ? ` · 📍 ${f.place_name}` : ''),
-      h('div', { class: 'row small' }, labelChip(f), h('button', { type: 'button', class: 'btn sm ghost', onclick: () => { st.unfollow(f.parent_id); changed(); } }, 'เลิกติดตาม')),
+      h('div', { class: 'row small' }, labelChip(f), h('button', { type: 'button', class: 'btn sm ghost', onclick: () => { st.unfollow(f.parent_id); changed(); } }, block ? 'เลิกบันทึก' : 'เลิกติดตาม')),
       offsetControls(f.parent_id, child.source_entity_id));
   };
   const rows = st.follows();
   return h('div', { class: 'card stack' }, h('h3', {}, '📅 ปฏิทินมูของฉัน'),
-    rows.length ? rows.map(item) : h('p', { class: 'small muted', style: 'margin:0' }, 'ยังไม่ได้ติดตามอะไร กด "＋ ติดตาม" ที่วันสำคัญหรือกิจกรรมในขั้นที่ 4–5'),
+    rows.length ? rows.map(item) : h('p', { class: 'small muted', style: 'margin:0' }, 'ยังไม่ได้ติดตามหรือบันทึกอะไร กด "＋ ติดตาม" ที่วันสำคัญ หรือ "＋ บันทึกไว้" ที่กิจกรรมในขั้นที่ 4–5'),
     h('div', { class: 'small faint' }, 'ข้อมูลการติดตามเก็บในเบราว์เซอร์นี้เท่านั้น (ไม่มีวันเกิด) ลบได้ด้วยปุ่ม "ล้างข้อมูลของฉัน"'));
 }
 

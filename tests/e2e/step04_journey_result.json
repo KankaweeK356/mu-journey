@@ -1,0 +1,222 @@
+[
+ {
+  "name": "A0 Valentine card shows in step 04 when W01 chosen",
+  "ok": true,
+  "info": ""
+ },
+ {
+  "name": "A1 a reminder exists after following Valentine",
+  "ok": true,
+  "info": "badge=1"
+ },
+ {
+  "name": "T1a no dropdown in step 04",
+  "ok": true,
+  "info": "{\"select\":0,\"all\":true,\"title\":\"04สำรวจความเชื่อมโยงของเรื่องที่คุณสนใจ\",\"backTxt\":true}"
+ },
+ {
+  "name": "T1b \"ดูทุกเรื่อง\" exists (3 interests) and new heading + back label",
+  "ok": true,
+  "info": ""
+ },
+ {
+  "name": "B0 baseline Top 5 has items",
+  "ok": true,
+  "info": "วัดพระศรีมหาอุมาเทวี (วัดแขก สีลม) | วัดวิษณุ (สมาคมฮินดูธรรมสภา) | วัดมังกรกมลาวาส (วัดเล่งเน่ยยี่) | เทวสถานโบสถ์พราหมณ์ | เทวาลัยพระพิฆเนศ สี่แยกห้วยขวาง "
+ },
+ {
+  "name": "T3b status chips still shown in the place detail modal",
+  "ok": true,
+  "info": "{\"chips\":12}"
+ },
+ {
+  "name": "T4 network event: \"บันทึกไว้\" wording, no checkboxes, reason shown",
+  "ok": true,
+  "info": "{\"before\":\"＋ บันทึกไว้\",\"after\":\"✓ บันทึกไว้แล้ว\",\"boxes\":0,\"reason\":true}"
+ },
+ {
+  "name": "T1c switching cards made 0 recommendation calls",
+  "ok": true,
+  "info": "calls 2->2"
+ },
+ {
+  "name": "T1d \"ดูทุกเรื่อง\" selected after cycling back",
+  "ok": true,
+  "info": ""
+ },
+ {
+  "name": "Acc1 Top 5 unchanged after card switching",
+  "ok": true,
+  "info": ""
+ },
+ {
+  "name": "T3a no technical status chips on step 05 cards",
+  "ok": true,
+  "info": ""
+ },
+ {
+  "name": "Acc2a exactly 1 recompute after \"มูเรื่องนี้ต่อ\"",
+  "ok": true,
+  "info": "calls 2->3"
+ },
+ {
+  "name": "Acc2b banner shown in step 07 with activity name",
+  "ok": true,
+  "info": "กำลังดูคำแนะนำตามกิจกรรม: วันวาเลนไทน์คำนวณชั่วคราวจากเรื่อง \"ความรัก\" ของกิจกรร"
+ },
+ {
+  "name": "Acc2c banner + back button present in steps 04-07",
+  "ok": true,
+  "info": "{\"4\":true,\"5\":true,\"6\":true,\"7\":true}"
+ },
+ {
+  "name": "Acc2d Step 02 interests unchanged while in activity mode",
+  "ok": true,
+  "info": "💼การงาน,🪙การเงิน/โชคลาภ,🎓การเรียน/สอบ"
+ },
+ {
+  "name": "Acc2e no interest cards (filter) offered in activity mode",
+  "ok": true,
+  "info": ""
+ },
+ {
+  "name": "Acc3 Top 5 back to the 3-interest result, no banner",
+  "ok": true,
+  "info": ""
+ },
+ {
+  "name": "Acc5 3 enter/leave cycles: activity Top 5 stable, original Top 5 restored, Step 02 untouched",
+  "ok": true,
+  "info": ""
+ },
+ {
+  "name": "Acc4a no interests + \"มูเรื่องนี้ต่อ\": temporary mode on, Step 02 still empty",
+  "ok": true,
+  "info": "{\"step\":\"7. บริการ\",\"banner\":true,\"s2\":[]}"
+ },
+ {
+  "name": "Acc4b back button with no interests goes to Step 02, nothing saved",
+  "ok": true,
+  "info": "{\"step\":\"2. ความสนใจ\",\"sel\":[],\"banner\":false}"
+ },
+ {
+  "name": "T1e \"ดูทุกเรื่อง\" hidden when only one interest is chosen",
+  "ok": true,
+  "info": "{\"all\":false,\"cards\":1}"
+ },
+ {
+  "name": "no console errors",
+  "ok": true,
+  "info": ""
+ },
+ {
+  "name": "A0 Valentine card shows in step 04 when W01 chosen",
+  "ok": true,
+  "info": ""
+ },
+ {
+  "name": "A1 a reminder exists after following Valentine",
+  "ok": true,
+  "info": "badge=1"
+ },
+ {
+  "name": "T1a no dropdown in step 04",
+  "ok": true,
+  "info": "{\"select\":0,\"all\":true,\"title\":\"04สำรวจความเชื่อมโยงของเรื่องที่คุณสนใจ\",\"backTxt\":true}"
+ },
+ {
+  "name": "T1b \"ดูทุกเรื่อง\" exists (3 interests) and new heading + back label",
+  "ok": true,
+  "info": ""
+ },
+ {
+  "name": "B0 baseline Top 5 has items",
+  "ok": true,
+  "info": "วัดพระศรีมหาอุมาเทวี (วัดแขก สีลม) | วัดวิษณุ (สมาคมฮินดูธรรมสภา) | วัดมังกรกมลาวาส (วัดเล่งเน่ยยี่) | เทวสถานโบสถ์พราหมณ์ | เทวาลัยพระพิฆเนศ สี่แยกห้วยขวาง "
+ },
+ {
+  "name": "T3b status chips still shown in the place detail modal",
+  "ok": true,
+  "info": "{\"chips\":12}"
+ },
+ {
+  "name": "T4 network event: \"บันทึกไว้\" wording, no checkboxes, reason shown",
+  "ok": true,
+  "info": "{\"before\":\"＋ บันทึกไว้\",\"after\":\"✓ บันทึกไว้แล้ว\",\"boxes\":0,\"reason\":true}"
+ },
+ {
+  "name": "T1c switching cards made 0 recommendation calls",
+  "ok": true,
+  "info": "calls 2->2"
+ },
+ {
+  "name": "T1d \"ดูทุกเรื่อง\" selected after cycling back",
+  "ok": true,
+  "info": ""
+ },
+ {
+  "name": "Acc1 Top 5 unchanged after card switching",
+  "ok": true,
+  "info": ""
+ },
+ {
+  "name": "T3a no technical status chips on step 05 cards",
+  "ok": true,
+  "info": ""
+ },
+ {
+  "name": "Acc2a exactly 1 recompute after \"มูเรื่องนี้ต่อ\"",
+  "ok": true,
+  "info": "calls 2->3"
+ },
+ {
+  "name": "Acc2b banner shown in step 07 with activity name",
+  "ok": true,
+  "info": "กำลังดูคำแนะนำตามกิจกรรม: วันวาเลนไทน์คำนวณชั่วคราวจากเรื่อง \"ความรัก\" ของกิจกรร"
+ },
+ {
+  "name": "Acc2c banner + back button present in steps 04-07",
+  "ok": true,
+  "info": "{\"4\":true,\"5\":true,\"6\":true,\"7\":true}"
+ },
+ {
+  "name": "Acc2d Step 02 interests unchanged while in activity mode",
+  "ok": true,
+  "info": "💼การงาน,🪙การเงิน/โชคลาภ,🎓การเรียน/สอบ"
+ },
+ {
+  "name": "Acc2e no interest cards (filter) offered in activity mode",
+  "ok": true,
+  "info": ""
+ },
+ {
+  "name": "Acc3 Top 5 back to the 3-interest result, no banner",
+  "ok": true,
+  "info": ""
+ },
+ {
+  "name": "Acc5 3 enter/leave cycles: activity Top 5 stable, original Top 5 restored, Step 02 untouched",
+  "ok": true,
+  "info": ""
+ },
+ {
+  "name": "Acc4a no interests + \"มูเรื่องนี้ต่อ\": temporary mode on, Step 02 still empty",
+  "ok": true,
+  "info": "{\"step\":\"7. บริการ\",\"banner\":true,\"s2\":[]}"
+ },
+ {
+  "name": "Acc4b back button with no interests goes to Step 02, nothing saved",
+  "ok": true,
+  "info": "{\"step\":\"2. ความสนใจ\",\"sel\":[],\"banner\":false}"
+ },
+ {
+  "name": "T1e \"ดูทุกเรื่อง\" hidden when only one interest is chosen",
+  "ok": true,
+  "info": "{\"all\":false,\"cards\":1}"
+ },
+ {
+  "name": "no console errors",
+  "ok": true,
+  "info": ""
+ }
+]
