@@ -11,6 +11,8 @@
 
 > ระบบสาธิตเชิงวิเคราะห์ ไม่ใช่บริการจริง: ความเชื่อคือ claim จากแหล่งอ้างอิง ไม่ใช่การรับรอง · ทริป ราคา และฝากมูเป็นข้อมูลจำลอง · ไม่มีการจองหรือชำระเงิน
 
+> **Calendar v3 / reminders:** in-app, on-open only (no background timer); catch-up is limited to 1 per occurrence. See `docs/CALENDAR_V3_REMINDER_RULES.md`.
+
 ## โครงสร้าง
 
 ```

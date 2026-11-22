@@ -241,14 +241,66 @@ test('catch-up 4: unfollow then follow again does not give a second catch-up; "c
   assert.equal(s.runCheck(T('2027-02-14 12:20')).created.length, 1);                 // a cleared user starts fresh
 });
 
-test('catch-up 5: an offset that is still in the future keeps its right to notify normally, even after a catch-up', () => {
+/* BUSINESS RULE CHANGE (expert decision "Catch-up Final Rule"): this test used to say that an offset which became due while the app was closed
+   still notifies normally after a catch-up. Under the final rule ANY delivery after the due time is a catch-up (max 1 per user + occurrence);
+   only a check that lands exactly on the due time is a scheduled reminder. Replaced by the three confirmation cases below. */
+test('catch-up 5 (expert case 1): catch-up for 7 days, then the 1-day reminder checked exactly on its due time -> notifies (scheduled)', () => {
   const s = createStore({ demo: false });
   s.follow(valentine(), T('2027-02-10 09:00'));
-  s.setOffsets('CAL_VALENTINE', 'CAL_VALENTINE', [10080, 1440], T('2027-02-10 09:00'));
-  assert.deepEqual(s.runCheck(T('2027-02-10 09:00')).created.map((n) => [n.offset, n.code]), [[10080, CODES.CREATED_LATE]]);   // 7 days is already overdue: the one catch-up
+  s.setOffsets('CAL_VALENTINE', 'CAL_VALENTINE', [10080, 1440]);
+  assert.deepEqual(s.runCheck(T('2027-02-10 09:00')).created.map((n) => [n.offset, n.code]), [[10080, CODES.CREATED_LATE]]);   // the one catch-up
   assert.equal(s.runCheck(T('2027-02-12 23:59')).created.length, 0);
-  assert.deepEqual(s.runCheck(T('2027-02-13 08:00')).created.map((n) => [n.offset]), [[1440]]);                                  // 1 day became due later: NOT blocked by the ledger
+  assert.deepEqual(s.runCheck(T('2027-02-13 00:00')).created.map((n) => [n.offset, n.code]), [[1440, CODES.CREATED]]);          // scheduled: exactly on due
+});
+
+test('catch-up 5 (expert case 2): catch-up for 7 days, then the 1-day reminder is missed because the app was closed -> NO second catch-up', () => {
+  const s = createStore({ demo: false });
+  s.follow(valentine(), T('2027-02-10 09:00'));
+  s.setOffsets('CAL_VALENTINE', 'CAL_VALENTINE', [10080, 1440]);
+  assert.equal(s.runCheck(T('2027-02-10 09:00')).created.length, 1);
+  assert.equal(s.runCheck(T('2027-02-13 08:00')).created.length, 0);                 // opened 8 hours after the due time of the 1-day reminder
+  assert.equal(s.runCheck(T('2027-02-14 12:00')).created.length, 0);
+  assert.equal(s.list(T('2027-02-14 12:00')).length, 1);
+  assert.equal(s.explain('CAL_VALENTINE', 'CAL_VALENTINE', T('2027-02-14 12:00')).rows.find((r) => r.offset === 1440).code, CODES.SUPERSEDED_BY_CATCHUP);
+});
+
+test('catch-up 5 (expert case 3): scheduled 7 days on time, then the 1-day reminder is missed (app closed) -> the single catch-up is still available', () => {
+  const s = createStore({ demo: false });
+  s.follow(valentine(), T('2027-02-01 09:00'));
+  s.setOffsets('CAL_VALENTINE', 'CAL_VALENTINE', [10080, 1440]);
+  assert.deepEqual(s.runCheck(T('2027-02-07 00:00')).created.map((n) => [n.offset, n.code]), [[10080, CODES.CREATED]]);           // scheduled, not a catch-up
+  assert.deepEqual(s.runCheck(T('2027-02-13 08:00')).created.map((n) => [n.offset, n.code]), [[1440, CODES.CREATED_LATE]]);       // closed at due time -> the catch-up
+  assert.equal(s.runCheck(T('2027-02-13 09:00')).created.length, 0);                 // never a second one
+});
+
+test('final rule: every delivery after the due time is a catch-up, even for an offset that was switched on long before it was due', () => {
+  const s = createStore({ demo: false });
+  s.follow(valentine(), T('2027-01-01 09:00'));
+  s.setOffsets('CAL_VALENTINE', 'CAL_VALENTINE', [1440]);                            // armed long before the due time
+  assert.equal(s.runCheck(T('2027-02-13 08:00')).created[0].code, CODES.CREATED_LATE);
+  assert.equal(Object.keys(s.state.catchups).length, 1);                             // and it used the occurrence's single catch-up
+});
+
+test('final rule: a check on the due minute is scheduled and never uses up the catch-up', () => {
+  const s = createStore({ demo: false });
+  s.follow(valentine(), T('2027-01-01'));
+  s.setOffsets('CAL_VALENTINE', 'CAL_VALENTINE', [10080, 1440]);
+  s.runCheck(T('2027-02-07 00:00')); s.runCheck(T('2027-02-13 00:00'));
+  assert.equal(s.list(T('2027-02-13 00:00')).length, 2);
+  assert.equal(Object.keys(s.state.catchups).length, 0);
+});
+
+test('final rule: catch-up history and delivery history survive unfollow + follow, and "clear my data" removes them', () => {
+  const s = createStore({ demo: false });
+  s.follow(valentine(), T('2027-01-01'));
+  s.setOffsets('CAL_VALENTINE', 'CAL_VALENTINE', [10080, 1440]);
+  s.runCheck(T('2027-02-13 08:00'));                                                 // closed earlier: one catch-up
+  s.unfollow('CAL_VALENTINE'); s.follow(valentine(), T('2027-02-13 09:00'));
+  s.setOffsets('CAL_VALENTINE', 'CAL_VALENTINE', [10080, 1440]);
   assert.equal(s.runCheck(T('2027-02-13 09:00')).created.length, 0);
+  assert.ok(Object.keys(s.state.sent).length >= 1 && Object.keys(s.state.catchups).length === 1);
+  s.clear();
+  assert.deepEqual([s.state.sent, s.state.catchups], [{}, {}]);
 });
 
 test('catch-up 6: the ledger and the sent-alerts memory survive reload; old v2 data without them still loads', () => {

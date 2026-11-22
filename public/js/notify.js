@@ -95,16 +95,11 @@ export function createStore({ storage = null, key = STORAGE_KEY, demo = false } 
       st.notifications = st.notifications.filter((n) => n.parent_id !== pid);
       changed();
     },
-    /** Consent for one child: the offsets (minutes) the user switched on. [] = reminders off.
-     *  `now` = the moment of the switch; an offset whose due time is already behind that moment is a retro (catch-up) offset. */
-    setOffsets(pid, sid, offsets, now) {
-      const c = api.child(pid, sid), p = st.follows[pid];
+    /** Consent for one child: the offsets (minutes) the user switched on. [] = reminders off. */
+    setOffsets(pid, sid, offsets) {
+      const c = api.child(pid, sid);
       if (!c) return;
-      const next = [...new Set(offsets)].filter((o) => c.offsets_available.includes(o)).sort((a, b) => b - a);
-      const armed = { ...(c.armed_at || {}) };
-      Object.keys(armed).forEach((k) => { if (!next.includes(Number(k))) delete armed[k]; });
-      next.forEach((o) => { if (!c.offsets_enabled.includes(o) || armed[o] == null) armed[o] = Number.isInteger(now) ? now : p.followed_at_min; });
-      c.offsets_enabled = next; c.armed_at = armed;
+      c.offsets_enabled = [...new Set(offsets)].filter((o) => c.offsets_available.includes(o)).sort((a, b) => b - a);
       changed();
     },
 
@@ -123,11 +118,10 @@ export function createStore({ storage = null, key = STORAGE_KEY, demo = false } 
             plan.superseded.forEach((o) => { st.superseded[keyOf(st.local_user_id, child.source_entity_id, occ.key, o)] = true; dirty = true; });
             let create = plan.create;
             if (create) {
-              // A retro offset (already overdue when the user switched it on) is a catch-up: at most ONE per user + occurrence, remembered
-              // across toggles, unfollow/follow and re-opens. An offset that only became due while the app was closed is not retro.
-              const w0 = reminderWindow(baseFor(parent, child, occ, now).src, create.offset, { examClose: () => child.exam_close_min });
-              const armedAt = (child.armed_at && child.armed_at[create.offset] != null) ? child.armed_at[create.offset] : parent.followed_at_min;
-              if (w0.ok && w0.due < armedAt) {
+              // Catch-up (REMINDER_POLICY_V3 final rule): ANY delivery after the due time and before expiry, whatever the reason
+              // (reminder switched on late, or the app was closed at the due time). At most ONE catch-up per user + occurrence,
+              // remembered across toggles, unfollow/follow and re-opens. A check that lands exactly on the due time is a scheduled reminder.
+              if (create.late) {
                 const lk = keyOf(st.local_user_id, child.source_entity_id, occ.key, 'CATCHUP');
                 if (st.catchups[lk]) {
                   st.superseded[keyOf(st.local_user_id, child.source_entity_id, occ.key, create.offset)] = true; dirty = true;
