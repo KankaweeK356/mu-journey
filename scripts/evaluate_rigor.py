@@ -1,6 +1,6 @@
 """Rigor addendum for the Network model (read-only): confidence intervals, a leakage-free holdout, and a measurement of the coverage layer.
 
-  python scripts/evaluate_rigor.py        -> model/results/rigor_addendum_v1.json
+  python scripts/evaluate_rigor.py        -> model/results/rigor_addendum_v1.json (+ a byte-identical copy in public/data/rigor_addendum.json for the web page)
 
 It only CALLS the reference model (api/_engine.m); it changes no model file and does not overwrite model/results/network_phase1_results.json.
 Everything is deterministic (fixed seeds). It makes no new claim about user relevance: the labels are the same researcher-chosen labels.
@@ -147,6 +147,8 @@ def main():
               "fixtures": fixtures(), "leave_one_edge_out": loeo(), "coverage_layer": coverage()}
     path = ROOT / "model" / "results" / "rigor_addendum_v1.json"
     path.write_text(json.dumps(result, ensure_ascii=False, indent=1), encoding="utf-8")
+    # The web page (Tab 2 -> Model Evaluation) reads this byte-identical copy; model/results/ is the source of truth.
+    (ROOT / "public" / "data" / "rigor_addendum.json").write_bytes(path.read_bytes())
     f, l, c = result["fixtures"], result["leave_one_edge_out"], result["coverage_layer"]["by_n_wishes"]
     print("fixtures: profiles", f["n_profiles"], "| with valid labels", f["n_with_valid_labels"], "| single-wish", f["single_wish_profiles"], "| means", f["means"])
     for k, v in f["pairs"].items():

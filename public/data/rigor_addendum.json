@@ -1,0 +1,535 @@
+{
+ "version": "RIGOR_ADDENDUM_V1",
+ "model_version": "NETWORK_PHASE1_V2_2026-11-21",
+ "seed": 7202,
+ "bootstrap_resamples": 10000,
+ "note": "Read-only addendum. The reference model and network_phase1_results.json are unchanged. Same researcher-chosen labels; not independent relevance accuracy.",
+ "fixtures": {
+  "n_profiles": 15,
+  "n_with_valid_labels": 14,
+  "single_wish_profiles": 13,
+  "multi_wish_profiles": 2,
+  "per_profile": [
+   {
+    "profile_id": "CASE_LOVE",
+    "n_wishes": 1,
+    "valid_labels": 3,
+    "candidates": 11,
+    "popularity": 0.46927872602275644,
+    "direct": 0.46927872602275644,
+    "ppr": 0.46927872602275644,
+    "ppr_coverage": 0.46927872602275644
+   },
+   {
+    "profile_id": "CASE_CAREER",
+    "n_wishes": 1,
+    "valid_labels": 3,
+    "candidates": 17,
+    "popularity": 0.20210734650054757,
+    "direct": 0.0,
+    "ppr": 0.5307212739772434,
+    "ppr_coverage": 0.5307212739772434
+   },
+   {
+    "profile_id": "CASE_WEALTH",
+    "n_wishes": 1,
+    "valid_labels": 3,
+    "candidates": 15,
+    "popularity": 0.38364913903790027,
+    "direct": 0.0,
+    "ppr": 0.23463936301137822,
+    "ppr_coverage": 0.23463936301137822
+   },
+   {
+    "profile_id": "CASE_EXAM",
+    "n_wishes": 1,
+    "valid_labels": 3,
+    "candidates": 7,
+    "popularity": 0.9060254355346823,
+    "direct": 0.9060254355346823,
+    "ppr": 0.9060254355346823,
+    "ppr_coverage": 0.9060254355346823
+   },
+   {
+    "profile_id": "CASE_FAN",
+    "n_wishes": 1,
+    "valid_labels": 3,
+    "candidates": 6,
+    "popularity": 0.9674679834891693,
+    "direct": 0.9674679834891693,
+    "ppr": 1.0,
+    "ppr_coverage": 1.0
+   },
+   {
+    "profile_id": "CASE_HEALTH",
+    "n_wishes": 1,
+    "valid_labels": 3,
+    "candidates": 11,
+    "popularity": 0.20210734650054757,
+    "direct": 0.23463936301137822,
+    "ppr": 0.9060254355346823,
+    "ppr_coverage": 0.9060254355346823
+   },
+   {
+    "profile_id": "CASE_HOUSE",
+    "n_wishes": 1,
+    "valid_labels": 2,
+    "candidates": 2,
+    "popularity": 1.0,
+    "direct": 1.0,
+    "ppr": 1.0,
+    "ppr_coverage": 1.0
+   },
+   {
+    "profile_id": "CASE_CHONG",
+    "n_wishes": 1,
+    "valid_labels": 3,
+    "candidates": 4,
+    "popularity": 1.0,
+    "direct": 1.0,
+    "ppr": 1.0,
+    "ppr_coverage": 1.0
+   },
+   {
+    "profile_id": "CASE_LOTTERY",
+    "n_wishes": 1,
+    "valid_labels": 1,
+    "candidates": 1,
+    "popularity": 1.0,
+    "direct": 1.0,
+    "ppr": 1.0,
+    "ppr_coverage": 1.0
+   },
+   {
+    "profile_id": "CASE_DEBT",
+    "n_wishes": 1,
+    "valid_labels": 2,
+    "candidates": 4,
+    "popularity": 0.9197207891481876,
+    "direct": 1.0,
+    "ppr": 1.0,
+    "ppr_coverage": 1.0
+   },
+   {
+    "profile_id": "CASE_3TOPICS",
+    "n_wishes": 3,
+    "valid_labels": 3,
+    "candidates": 30,
+    "popularity": 0.7039180890341347,
+    "direct": 0.9060254355346823,
+    "ppr": 0.7039180890341347,
+    "ppr_coverage": 0.7039180890341347
+   },
+   {
+    "profile_id": "CASE_NO_HINDU_LOVE",
+    "n_wishes": 1,
+    "valid_labels": 3,
+    "candidates": 3,
+    "popularity": 1.0,
+    "direct": 1.0,
+    "ppr": 1.0,
+    "ppr_coverage": 1.0
+   },
+   {
+    "profile_id": "CASE_NO_HINDU_FAN",
+    "n_wishes": 1,
+    "valid_labels": 0,
+    "candidates": 0,
+    "popularity": null,
+    "direct": null,
+    "ppr": null,
+    "ppr_coverage": null
+   },
+   {
+    "profile_id": "CASE_NO_GANESHA_EXAM",
+    "n_wishes": 1,
+    "valid_labels": 2,
+    "candidates": 4,
+    "popularity": 0.8772153153380493,
+    "direct": 0.8772153153380493,
+    "ppr": 0.9197207891481876,
+    "ppr_coverage": 0.9197207891481876
+   },
+   {
+    "profile_id": "CASE_HIDE_PLACE",
+    "n_wishes": 2,
+    "valid_labels": 3,
+    "candidates": 17,
+    "popularity": 0.0,
+    "direct": 0.20210734650054757,
+    "ppr": 0.0,
+    "ppr_coverage": 0.0
+   }
+  ],
+  "pairs": {
+   "ppr_minus_popularity": {
+    "mean_diff_ndcg_at5": 0.0742,
+    "ci95_bootstrap": [
+     -0.0099,
+     0.1959
+    ],
+    "profiles_better": 5,
+    "profiles_equal": 8,
+    "profiles_worse": 1
+   },
+   "ppr_minus_direct": {
+    "mean_diff_ndcg_at5": 0.0791,
+    "ci95_bootstrap": [
+     -0.0342,
+     0.2132
+    ],
+    "profiles_better": 5,
+    "profiles_equal": 7,
+    "profiles_worse": 2
+   },
+   "ppr_coverage_minus_ppr": {
+    "mean_diff_ndcg_at5": 0.0,
+    "ci95_bootstrap": [
+     0.0,
+     0.0
+    ],
+    "profiles_better": 0,
+    "profiles_equal": 14,
+    "profiles_worse": 0
+   },
+   "direct_minus_popularity": {
+    "mean_diff_ndcg_at5": -0.0049,
+    "ci95_bootstrap": [
+     -0.0822,
+     0.0624
+    ],
+    "profiles_better": 4,
+    "profiles_equal": 8,
+    "profiles_worse": 2
+   }
+  },
+  "means": {
+   "popularity": 0.688,
+   "direct": 0.6831,
+   "ppr": 0.7622,
+   "ppr_coverage": 0.7622
+  }
+ },
+ "leave_one_edge_out": {
+  "design": "leave-one-edge-out over every eligible Deity-Place edge (deterministic, each edge hidden exactly once)",
+  "n_edges": 28,
+  "models": {
+   "ppr": {
+    "hit_at5": 0.7857,
+    "hits": 22,
+    "wilson95": [
+     0.6046,
+     0.8979
+    ],
+    "mean_ndcg_at5": 0.7638,
+    "mrr": 0.767,
+    "median_rank": 1.0
+   },
+   "degree": {
+    "hit_at5": 0.8214,
+    "hits": 23,
+    "wilson95": [
+     0.6441,
+     0.9212
+    ],
+    "mean_ndcg_at5": 0.7832,
+    "mrr": 0.78,
+    "median_rank": 1.0
+   }
+  },
+  "paired": {
+   "hit_only_ppr": 0,
+   "hit_only_degree": 1,
+   "exact_mcnemar_p": 1.0,
+   "hit_diff_ppr_minus_degree": -0.0357,
+   "hit_diff_ci95_bootstrap": [
+    -0.1071,
+    0
+   ]
+  },
+  "per_edge": [
+   {
+    "deity_id": "D_BRAHMA",
+    "place_id": "P001",
+    "ppr_rank": 1,
+    "degree_rank": 1
+   },
+   {
+    "deity_id": "D_BRAHMA",
+    "place_id": "P002",
+    "ppr_rank": 1,
+    "degree_rank": 1
+   },
+   {
+    "deity_id": "D_BRAHMA",
+    "place_id": "P014",
+    "ppr_rank": 1,
+    "degree_rank": 1
+   },
+   {
+    "deity_id": "D_GANESHA",
+    "place_id": "P001",
+    "ppr_rank": 1,
+    "degree_rank": 1
+   },
+   {
+    "deity_id": "D_GANESHA",
+    "place_id": "P002",
+    "ppr_rank": 1,
+    "degree_rank": 1
+   },
+   {
+    "deity_id": "D_GANESHA",
+    "place_id": "P014",
+    "ppr_rank": 1,
+    "degree_rank": 1
+   },
+   {
+    "deity_id": "D_GANESHA",
+    "place_id": "P021",
+    "ppr_rank": 29,
+    "degree_rank": 14
+   },
+   {
+    "deity_id": "D_KRISHNA",
+    "place_id": "P001",
+    "ppr_rank": 1,
+    "degree_rank": 1
+   },
+   {
+    "deity_id": "D_LAKSHMI",
+    "place_id": "P001",
+    "ppr_rank": 1,
+    "degree_rank": 1
+   },
+   {
+    "deity_id": "D_LAKSHMI",
+    "place_id": "P002",
+    "ppr_rank": 1,
+    "degree_rank": 1
+   },
+   {
+    "deity_id": "D_LAKSHMI",
+    "place_id": "P039",
+    "ppr_rank": 18,
+    "degree_rank": 26
+   },
+   {
+    "deity_id": "D_SARASWATI",
+    "place_id": "P001",
+    "ppr_rank": 1,
+    "degree_rank": 1
+   },
+   {
+    "deity_id": "D_SARASWATI",
+    "place_id": "P002",
+    "ppr_rank": 1,
+    "degree_rank": 1
+   },
+   {
+    "deity_id": "D_SARASWATI",
+    "place_id": "P014",
+    "ppr_rank": 1,
+    "degree_rank": 1
+   },
+   {
+    "deity_id": "D_SHIVA",
+    "place_id": "P001",
+    "ppr_rank": 1,
+    "degree_rank": 1
+   },
+   {
+    "deity_id": "D_SHIVA",
+    "place_id": "P002",
+    "ppr_rank": 1,
+    "degree_rank": 1
+   },
+   {
+    "deity_id": "D_SHIVA",
+    "place_id": "P014",
+    "ppr_rank": 1,
+    "degree_rank": 1
+   },
+   {
+    "deity_id": "D_TAISUI",
+    "place_id": "P017",
+    "ppr_rank": 19,
+    "degree_rank": 4
+   },
+   {
+    "deity_id": "D_TAISUI",
+    "place_id": "P042",
+    "ppr_rank": 33,
+    "degree_rank": 30
+   },
+   {
+    "deity_id": "D_TRIMURTI",
+    "place_id": "P014",
+    "ppr_rank": 5,
+    "degree_rank": 3
+   },
+   {
+    "deity_id": "D_UMA",
+    "place_id": "P001",
+    "ppr_rank": 1,
+    "degree_rank": 1
+   },
+   {
+    "deity_id": "D_UMA",
+    "place_id": "P002",
+    "ppr_rank": 1,
+    "degree_rank": 1
+   },
+   {
+    "deity_id": "D_UMA",
+    "place_id": "P014",
+    "ppr_rank": 1,
+    "degree_rank": 1
+   },
+   {
+    "deity_id": "D_VISHNU",
+    "place_id": "P001",
+    "ppr_rank": 1,
+    "degree_rank": 1
+   },
+   {
+    "deity_id": "D_VISHNU",
+    "place_id": "P002",
+    "ppr_rank": 1,
+    "degree_rank": 1
+   },
+   {
+    "deity_id": "D_VISHNU",
+    "place_id": "P014",
+    "ppr_rank": 1,
+    "degree_rank": 1
+   },
+   {
+    "deity_id": "D_WESSUWAN",
+    "place_id": "P015",
+    "ppr_rank": 32,
+    "degree_rank": 13
+   },
+   {
+    "deity_id": "D_WESSUWAN",
+    "place_id": "P039",
+    "ppr_rank": 14,
+    "degree_rank": 27
+   }
+  ]
+ },
+ "coverage_layer": {
+  "design": "every 1-, 2- and 3-wish combination of the 10 wishes, no exclusions, no birth date (so only the graph and the coverage term differ)",
+  "by_n_wishes": {
+   "1": {
+    "profiles": 10,
+    "with_candidates": 10,
+    "top5_set_changed": 0,
+    "top5_order_changed": 0,
+    "coverage_up": 0,
+    "coverage_equal": 10,
+    "coverage_down": 0,
+    "mean_covered_ppr": 1.0,
+    "mean_covered_ppr_coverage": 1.0,
+    "mean_reachable_share": 1.0,
+    "examples_changed": []
+   },
+   "2": {
+    "profiles": 45,
+    "with_candidates": 45,
+    "top5_set_changed": 0,
+    "top5_order_changed": 10,
+    "coverage_up": 0,
+    "coverage_equal": 45,
+    "coverage_down": 0,
+    "mean_covered_ppr": 1.0,
+    "mean_covered_ppr_coverage": 1.0,
+    "mean_reachable_share": 1.0,
+    "examples_changed": []
+   },
+   "3": {
+    "profiles": 120,
+    "with_candidates": 120,
+    "top5_set_changed": 9,
+    "top5_order_changed": 53,
+    "coverage_up": 8,
+    "coverage_equal": 112,
+    "coverage_down": 0,
+    "mean_covered_ppr": 0.9583,
+    "mean_covered_ppr_coverage": 0.9806,
+    "mean_reachable_share": 1.0,
+    "examples_changed": [
+     {
+      "wishes": [
+       "W01",
+       "W07",
+       "W10"
+      ],
+      "ppr_top5": [
+       "P051",
+       "P007",
+       "P001",
+       "P003",
+       "P015"
+      ],
+      "coverage_top5": [
+       "P051",
+       "P007",
+       "P039",
+       "P001",
+       "P003"
+      ],
+      "covered_ppr": 1.0,
+      "covered_coverage": 1.0
+     },
+     {
+      "wishes": [
+       "W01",
+       "W08",
+       "W09"
+      ],
+      "ppr_top5": [
+       "P016",
+       "P042",
+       "P017",
+       "P013",
+       "P043"
+      ],
+      "coverage_top5": [
+       "P016",
+       "P042",
+       "P017",
+       "P013",
+       "P001"
+      ],
+      "covered_ppr": 0.667,
+      "covered_coverage": 1.0
+     },
+     {
+      "wishes": [
+       "W01",
+       "W08",
+       "W10"
+      ],
+      "ppr_top5": [
+       "P042",
+       "P017",
+       "P013",
+       "P043",
+       "P001"
+      ],
+      "coverage_top5": [
+       "P042",
+       "P017",
+       "P013",
+       "P039",
+       "P043"
+      ],
+      "covered_ppr": 0.667,
+      "covered_coverage": 1.0
+     }
+    ]
+   }
+  }
+ }
+}
