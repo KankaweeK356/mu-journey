@@ -2,8 +2,9 @@
 import { h, clear, f, pct, statusChip, TRIP_TH, MONTHS_TH, bar, toast } from './util.js';
 import { API } from './api.js';
 import { S, subscribe, invalidate, ensureResult, profile, birthdateISO, activeWishes, catalogNames, store, todayISO, CLOCK } from './state.js';
-import { displayLayer, classify } from './calendar.js';
-import { eventCard, snapNetwork, snapDirect, calendarCard, setHooks, mountChrome, refresh as refreshNotify, clearAllNotifyData } from './notifyui.js';
+import { displayLayer } from './calendar.js';
+import { discoverySection, resetDismissed } from './discovery.js';
+import { eventCard, snapNetwork, calendarCard, setHooks, mountChrome, refresh as refreshNotify, clearAllNotifyData } from './notifyui.js';
 import { hero, moon, wishIcon } from './icons.js';
 
 const STEPS = ['เริ่มต้น', 'ความสนใจ', 'ข้อจำกัด', 'เรื่องที่แนะนำ', 'สถานที่', 'ทริป', 'บริการ'];
@@ -189,6 +190,7 @@ export async function renderDemo(root) {
           h('div', { class: 'wish-grid', style: 'grid-template-columns:repeat(auto-fill,minmax(180px,1fr))' }, cards)),
         h('div', { class: 'card stack' }, h('h3', {}, '✨ คำแนะนำเบื้องต้นสำหรับคุณ'), preview,
           h('div', { class: 'callout info small' }, 'การเลือกโฟกัสเปลี่ยนแค่วิธีแสดงตัวอย่างนี้ ไม่เปลี่ยนคะแนนเครือข่าย อันดับ Top 5 หรือการจับคู่ทริป')),
+        discoverySection(R, { today: todayISO(), focus, onDetail: () => go(5), redraw: draw }),
         h('div', { class: 'row small' }, h('button', { class: 'btn sm', onclick: () => go(2) }, 'แก้ความสนใจ'), h('button', { class: 'btn sm', onclick: () => go(3) }, 'แก้ข้อจำกัด')),
         foot({ fn: () => go(3) }, { label: 'ดูสถานที่ที่เหมาะกับคุณ', fn: () => go(5) }));
     });
@@ -200,12 +202,11 @@ export async function renderDemo(root) {
     if (!E) return null;
     const today = todayISO();
     const shown = displayLayer(E.eligible, today).displayable.slice(0, 2);
-    const direct = (E.direct || []).map(snapDirect).filter((s) => classify(s.schedule, today).display_status !== 'PAST');
-    return h('div', { class: 'card stack' }, h('h3', {}, '🗓 กิจกรรมที่เกี่ยวข้อง'),
-      shown.length ? shown.map((r) => eventCard(snapNetwork(r), { evidence: r.evidence_paths[0].text })) : h('p', { class: 'small muted', style: 'margin:0' }, 'ยังไม่มีกิจกรรมที่กำลังจะมาถึงซึ่งเครือข่ายเชื่อมกับเรื่องที่คุณเลือก'),
-      h('div', { class: 'small faint' }, 'จัดลำดับจากเครือข่าย เรื่อง → สิ่งศักดิ์สิทธิ์ → สถานที่ → กิจกรรม วันที่ใช้แค่คัดกิจกรรมที่ยังมาไม่ถึง ไม่เปลี่ยนคะแนน'),
-      direct.length ? h('div', { class: 'stack', style: 'margin-top:6px' }, h('div', { class: 'small' }, h('b', {}, 'กิจกรรมตัวอย่าง (ข้อมูลจำลอง)'), ' · จับคู่จากเรื่องที่ขอโดยตรง ไม่ผ่านเครือข่าย ไม่มีเส้นทางและคะแนน'),
-        ...direct.slice(0, 3).map((s) => eventCard(s, { showFollow: CLOCK.demo }))) : null);
+    if (!shown.length) return null;                       // nothing qualifies: hide the section, no sample data in the user pages
+    // Real network events only (synthetic events live in Tab 2). Detailed view, collapsed so it does not crowd the Top 5.
+    return h('details', { class: 'card stack ev-details' }, h('summary', {}, `🗓 กิจกรรมที่เกี่ยวข้อง (${shown.length}) · รายละเอียด`),
+      h('div', { class: 'inner stack' }, shown.map((r) => eventCard(snapNetwork(r), { evidence: r.evidence_paths[0].text })),
+        h('div', { class: 'small faint' }, 'จัดลำดับจากเครือข่าย เรื่อง → สิ่งศักดิ์สิทธิ์ → สถานที่ → กิจกรรม วันที่ใช้แค่คัดกิจกรรมที่ยังมาไม่ถึง ไม่เปลี่ยนคะแนน')));
   }
 
   /* ------------------------------------------------ 05 places */
@@ -318,6 +319,7 @@ export async function renderDemo(root) {
   function resetAll() {
     Object.assign(S, { d: '', m: '', y: '', wishes: [], focus: 'ALL', topic: null, eventContext: null, maxStep: 1, step: 1 });
     S.groups.clear(); S.deities.clear(); S.places.clear();
+    resetDismissed();
     clearAllNotifyData();                 // also removes followed events and alerts kept in this browser
     invalidate();
     toast('ล้างข้อมูลของคุณแล้ว');

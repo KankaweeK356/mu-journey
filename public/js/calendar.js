@@ -88,3 +88,24 @@ export function dueOccurrences(sched, today, offset, followedOn, horizon = 400) 
 }
 
 export const dedupKey = (uid, eventId, occStart, offset) => `${uid}|${eventId}|${occStart}|${offset}`;
+
+/* ------------------------------------------------------------------ proactive discovery card (step 04) */
+export const NEAR_DAYS = 14;
+
+/** Wording rule: "ใกล้ถึง" only when the calendar date itself is verified AND it is within NEAR_DAYS. Anything else is "may interest you". */
+export function discoveryTone(row) {
+  const dateOk = row.static && row.static.calendar_date === 'CALENDAR_DATE_VERIFIED';
+  return dateOk && row.display_status === 'UPCOMING' && row.days_until <= NEAR_DAYS ? 'NEAR' : dateOk && row.display_status === 'ONGOING' ? 'NEAR' : 'MAYBE';
+}
+
+/**
+ * Real network events only (rows of EVENT_RANKING_V1, which already passed the hard exclusions). Keeps the Layer A order,
+ * drops events that are over, optionally narrows to the focused wish (presentation only), shows at most 2, hides when empty.
+ */
+export function pickDiscovery(eligibleRows, today, { focus = 'ALL', dismissed = new Set(), max = 2 } = {}) {
+  const shown = displayLayer(eligibleRows, today).displayable
+    .filter((r) => !dismissed.has(r.event_id))
+    .filter((r) => focus === 'ALL' || (r.compatible_wish_ids || []).includes(focus))
+    .filter((r) => r.evidence_paths && r.evidence_paths.length);       // every card must carry a real evidence path
+  return shown.slice(0, Math.min(max, 2)).map((r) => ({ ...r, tone: discoveryTone(r) }));
+}

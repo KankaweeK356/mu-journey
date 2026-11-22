@@ -150,7 +150,7 @@ class JsParity(unittest.TestCase):
         node = self._node()
         if not node:
             self.skipTest("node is not installed")
-        out = subprocess.run([node, "--test", str(ROOT / "tests" / "js" / "reminder.test.mjs")], capture_output=True, text=True, encoding="utf-8", timeout=180)
+        out = subprocess.run([node, "--test", str(ROOT / "tests" / "js" / "reminder.test.mjs"), str(ROOT / "tests" / "js" / "discovery.test.mjs")], capture_output=True, text=True, encoding="utf-8", timeout=180)
         self.assertEqual(out.returncode, 0, out.stdout[-2500:] + out.stderr[-1500:])
 
 
@@ -175,6 +175,40 @@ class ExpertDecisionA(unittest.TestCase):
         self.assertIn("POLICY.INFO_ONLY", st)
         lab = (js / "eventlab.js").read_text(encoding="utf-8")
         self.assertNotIn("เตือนพร้อมป้าย (รออนุมัติ)", lab)       # no option B in the Tab 2 simulation either
+
+
+class ProactiveDiscoveryExpertRules(unittest.TestCase):
+    """Expert decision (a): discovery card in step 04. Static guards on the source, because the rules are about what the card must NOT do."""
+
+    def setUp(self):
+        self.js = ROOT / "public" / "js"
+        self.card = (self.js / "discovery.js").read_text(encoding="utf-8")
+        self.demo = (self.js / "demo.js").read_text(encoding="utf-8")
+
+    def test_card_never_touches_notifications_or_the_follow_store(self):
+        for banned in ("notify.js", "store()", "runCheck", "markRead", "follow(", "openCenter", "unread", "createStore", "localStorage"):
+            self.assertNotIn(banned, self.card, banned)
+
+    def test_user_pages_do_not_use_synthetic_events(self):
+        self.assertNotIn("snapDirect", self.demo)
+        self.assertNotIn("E.direct", self.demo)
+        self.assertNotIn("simulation_events", self.card)
+
+    def test_wording_and_label_rules(self):
+        self.assertIn("กำหนดการยังไม่ยืนยัน", self.card)
+        self.assertIn("ยังไม่ยืนยันกับผู้จัดว่าจะจัดงานในวันดังกล่าว", self.card)
+        self.assertIn("กิจกรรมที่คุณอาจสนใจ", self.card)
+        self.assertNotIn("จะจัดงานวันที่", self.card)
+
+    def test_step04_uses_the_card_and_does_not_recompute_for_focus(self):
+        self.assertIn("discoverySection(R", self.demo)
+        self.assertIn("ไม่เปลี่ยนอันดับสถานที่", self.card)
+
+    def test_events_in_the_payload_come_from_the_unchanged_ranking(self):
+        ids = [r["event_id"] for r in E.recommend(A)["events"]["eligible"]]
+        self.assertEqual(ids, [r["event_id"] for r in EV.rank_events(A)["eligible"]])
+        for r in E.recommend(A)["events"]["eligible"]:
+            self.assertTrue(r["evidence_paths"])
 
 
 class Api(unittest.TestCase):
