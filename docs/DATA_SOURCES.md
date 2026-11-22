@@ -1,0 +1,70 @@
+# แหล่งข้อมูล (Data Sources) และที่มาของไฟล์ใน repo นี้
+
+ข้อมูลทุกไฟล์ที่ระบบใช้ **อยู่ใน repo นี้** รันซ้ำได้โดยไม่ต้องเข้า Google Drive รหัส `sha256` ย่อ (12 ตัวแรก) ไว้ตรวจว่าไฟล์ไม่ถูกแก้โดยไม่รู้ตัว
+สถานะข้อมูล: **SOURCE** = มีแหล่งอ้างอิงภายนอก · **CANDIDATE** = จากเว็บ/บทความ รอตรวจ · **UNVERIFIED** = ความเชื่อ/ค่าที่ยังไม่มีใครยืนยัน · **SYNTHETIC** = สร้างขึ้นเพื่อสาธิต ไม่ใช่ข้อมูลจริง
+
+> ความเชื่อทั้งหมดเป็น "claim จากแหล่งอ้างอิง" ไม่ใช่การรับรองความศักดิ์สิทธิ์ ข้อมูลสมมติทุกชุดติดป้าย `SYNTHETIC` / `DEMO_ONLY_NOT_OFFICIAL`
+
+## 1. ไฟล์ต้นทางจาก Google Drive (Baseline v2) — `data/source_drive_v2/`
+ส่งออกเป็น .xlsx เมื่อ 2026-11-22 จากโฟลเดอร์ Drive "Baseline" (สำเนาที่ใช้ทำ snapshot ของโมเดล)
+
+| ไฟล์ | เนื้อหา (ชีต: จำนวนแถว) | ธรรมชาติข้อมูล | sha256 |
+|---|---|---|---|
+| `01_MU_Knowledge_Graph_BASE_v2.xlsx` | เทพ 39, เรื่องที่ขอ 10, เรื่อง–เทพ 48, เทพ–สถานที่ 66, alias 120, claim พิธีกรรม 93, แหล่งของไหว้ 131, สถานที่ 52, ความเชื่อวันเกิด 71, เส้นรวม 114 | claim จากเว็บ/บทความ (SOURCE/CANDIDATE) เส้นเรื่อง–เทพทั้งหมด UNVERIFIED | `bb46c43ff96e` |
+| `02_MU_Trip_Transit_Proxy_BASE_v2.xlsx` | สถานี 192, เส้นทางรถไฟ 202, สถานี–สถานที่ 56, เวลาเปิด (ผู้สมัคร) 179, ทริป/จุดแวะ/พิธีเด่น, ผู้ให้บริการและข้อเสนอฝากมู (จำลอง) | ผสม: เวลา/เส้นทางจากแหล่งอ้างอิงและการประมาณ; ผู้ให้บริการและข้อเสนอเป็น SYNTHETIC | `37458a7e8a81` |
+| `03_MU_Proactive_Calendar_BASE_v2.xlsx` | `CL_EVENTS` 37 (กิจกรรมสายมู), `GD_EVENTS` 36 | `CL_EVENTS` จากตารางข้อมูลโครงการ ยังไม่มีลิงก์แหล่งรายแถว (`SOURCE_URL_NOT_IN_TABLE_REVIEW`); `GD_EVENTS` SYNTHETIC | `7c21c0972ae1` |
+| `04_MU_User_Feedback_Proxy_BASE_v2.xlsx` | ผู้ใช้ 120, feedback 360, ติดตามกิจกรรม 90, ออเดอร์ 60, feedback ฝากมู 40 | **SYNTHETIC ทั้งหมด** (ไม่ใช่ผู้ใช้จริง) | `da95abed27b0` |
+| `05_MU_Demo_Guide_Data_QA_v2.xlsx` | คู่มือเดโม, สัญญาข้อมูล, ผลตรวจคุณภาพข้อมูล, คิวรอตรวจ 354 รายการ | เอกสารประกอบ/QA | `262d4ca613de` |
+
+ตรวจก่อนเผยแพร่แล้ว: ไม่มีอีเมล เบอร์โทร ชื่อคนจริง หรือเมตาดาต้าผู้สร้างในไฟล์ และไม่มีข้อความยาวที่คัดลอกจากเว็บ (เซลล์ยาวสุดคือรายการ URL)
+
+## 2. Calendar Dataset v3 — `model/calendar_v3/`
+| ไฟล์ | เนื้อหา | ธรรมชาติข้อมูล | sha256 |
+|---|---|---|---|
+| `03_MU_Proactive_Calendar_Mock_v3.xlsx` | ศิลปิน 64, คอนเสิร์ต 120, รอบขายบัตร 360, รอบสอบ 120, milestone 480, กฎวาเลนไทน์ 1, ฟีด 841, ชุดทดสอบ Reminder 60 | คอนเสิร์ต/สอบ **SYNTHETIC** (ไม่ใช่ประกาศจริง ไม่มี URL ขายบัตรหรือสมัครสอบจริง); วาเลนไทน์เป็นวันตามปฏิทิน | `4c35791ce0cd` |
+
+แปลงเป็น JSON ด้วย `scripts/build_calendar_v3.py` (ตรวจ FK ทุกตาราง; ไม่ผ่านจะหยุด): `public/data/calendar_fixed.json` (วันสำคัญจริง Tab 1 โหลดได้), `calendar_demo.json` และ `calendar_demo_fixtures.json` (สมมติ โหลดเฉพาะ Tab 2), `tests/fixtures/reminder_test_cases.json`
+
+## 3. ตารางปฏิทินจีน (ข้อมูลเปิดภายนอก) — `model/hko_lunar/`
+| ไฟล์ | ที่มา | เงื่อนไข |
+|---|---|---|
+| `nongli_calendar_2026.csv`, `nongli_calendar_2027.csv` (sha `8b2892b0e04f`, `11de6b80c617`) | Hong Kong Observatory ผ่าน DATA.GOV.HK: https://data.gov.hk/en-data/dataset/hk-hko-rss-gregorian-lunar-calendar-conversion-table | ใช้ตาม Terms and Conditions of Use ของ DATA.GOV.HK ต้องระบุที่มา: *Data source: Hong Kong Observatory (DATA.GOV.HK)* |
+
+`model/lunar_hko_2026_2027.json` สร้างจากสองไฟล์นี้ (`scripts/build_lunar.py`) ไม่มีเดือนอธิกมาสในช่วง 2026–2027 วันที่ที่คำนวณได้ ≠ กำหนดการจัดงานที่ผู้จัดยืนยัน
+
+## 4. ข้อมูลที่โมเดลอ่านโดยตรง — `model/`
+| ไฟล์ | ที่มา | sha256 |
+|---|---|---|
+| `input_drive_v2_snapshot.json` | snapshot รวมตารางจาก Drive Baseline v2 (ข้อ 1) ที่โมเดลรันจากไฟล์นี้ เพื่อให้ผลซ้ำได้ | `44f01c2b5ac6` |
+| `events_cl.json` | `CL_EVENTS` 37 แถว จาก `03_MU_Proactive_Calendar_BASE_v2` | `f6fb74ea5ae7` |
+| `ritual_claims.json` | `CL_RITUAL_CLAIMS` ของไฟล์ 01 (ส่งออกเมื่อ 2026-11-21) | `cf463aa510b8` |
+| `offline_signature_trip_v1.json` | ทริปบริษัท 3 เส้นทางที่ล็อกไว้ (ออกแบบ offline) | `82145227079e` |
+| `network_phase1.py` | โมเดลอ้างอิง (ไม่แก้) | — |
+| `results/network_phase1_results.json` | ผลของโมเดลอ้างอิง (ไม่ทับ) | — |
+| `results/rigor_addendum_v1.json` | ภาคผนวกสถิติ (CI, leave-one-edge-out, Coverage) สร้างโดย `scripts/evaluate_rigor.py` | — |
+
+## 5. แหล่งภายนอกที่อ้างอิงในข้อมูล
+ชีต `CL_RITUAL_CLAIMS`, `CL_OFFERING_SOURCES`, `GD_PLACES`, `CL_HOURS_CANDIDATES` มี URL ของเว็บภายนอก (ประมาณ 125 ลิงก์ในไฟล์ 01 และ 120 ในไฟล์ 02) เช่น เว็บมูลนิธิ พจนานุกรม และเว็บท่องเที่ยว
+- repo เก็บเฉพาะ **ข้อความอ้างอิงสั้น ๆ (claim) พร้อมลิงก์ที่มา** ไม่เก็บบทความหรือเนื้อหาของเว็บเหล่านั้น
+- **ยังไม่ได้ตรวจสิทธิ์/ToS ของแต่ละแหล่งอย่างเป็นทางการ** (ระบุไว้เป็นงานค้างในรายงาน) ผู้ที่นำไปใช้เชิงพาณิชย์ต้องตรวจก่อน
+- ถ้าเจ้าของเว็บใดต้องการให้ถอนการอ้างอิง ให้ลบแถวนั้นจากชีตและ `ritual_claims.json` แล้วรันเทสต์
+
+## 6. สิ่งที่ **ไม่อยู่** ใน repo (ตั้งใจ)
+| รายการ | เหตุผล |
+|---|---|
+| ชีต feedback จริงจากผู้ใช้ (Google Sheet ที่รับข้อความผ่านเว็บ) | เป็นข้อมูลส่วนบุคคลของผู้ตอบ ผู้ตอบยินยอมให้เก็บเพื่อประเมิน Demo เท่านั้น ไม่ใช่เพื่อเผยแพร่สาธารณะ |
+| `FEEDBACK_WEBHOOK_URL`, `FEEDBACK_TOKEN` และไฟล์ `.env` | ความลับ อยู่ใน Environment Variables ของ Vercel (repo มีเฉพาะ `.env.example` ที่เป็นค่าว่าง) |
+| วันเกิดของผู้ใช้ | ไม่เก็บที่ใดเลย อยู่ในหน่วยความจำของหน้าเว็บเท่านั้น |
+| ไฟล์ zip ต้นฉบับ Phase 1 (`MU_Journey_Network_Phase1_Complete.zip`) | เนื้อหาในนั้น (โมเดล รายงาน รูป) มีใน repo แล้ว |
+
+## 7. สร้างไฟล์ที่ได้มา (derived) ใหม่
+| ต้องการ | คำสั่ง |
+|---|---|
+| `public/data/graph.json` | `python scripts/build_public_data.py` |
+| `public/data/event_eval.json` | `python scripts/build_event_eval.py` |
+| ปฏิทินจันทรคติ | `python scripts/build_lunar.py` |
+| Calendar v3 JSON | `python -I scripts/build_calendar_v3.py` |
+| ภาคผนวกสถิติ | `python scripts/evaluate_rigor.py` |
+
+## 8. ใบอนุญาต
+ยังไม่ได้ระบุใบอนุญาตของ repo (ไม่มีไฟล์ `LICENSE`) จึงถือว่า **สงวนสิทธิ์ทั้งหมด** โดยค่าเริ่มต้น ถ้าต้องการให้ผู้อื่นนำโค้ดไปใช้ ควรเพิ่ม LICENSE (เช่น MIT สำหรับโค้ด) และระบุว่าข้อมูลสมมติและข้อมูลจากแหล่งภายนอกอยู่ภายใต้เงื่อนไขของตัวเอง

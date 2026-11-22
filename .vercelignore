@@ -7,3 +7,5 @@ model/test_network_phase1.py
 model/hko_lunar/
 
 model/calendar_v3/
+
+data/
