@@ -62,33 +62,6 @@ export function displayLayer(eligibleRows, today) {
   return { as_of: today, displayable: shown, not_displayed: hidden };
 }
 
-/* ------------------------------------------------------------------ reminder rules */
-export const POLICY = { INFO_ONLY: 'INFO_ONLY', ALERT_WITH_LABEL: 'ALERT_WITH_LABEL' };
-export const OFFSETS = [1, 7, 14];
-
-export const isSynthetic = (ev) => ev.event_schedule === 'SYNTHETIC_DEMO' || ev.calendar_date === 'SYNTHETIC_DATE';
-
-/**
- * May this event raise a reminder?  Real events need CALENDAR_DATE_VERIFIED and EVENT_SCHEDULE_VERIFIED (none of the 37 has the second one).
- * Policy ALERT_WITH_LABEL (option B, pending expert approval) lets a real event alert with a visible "schedule not confirmed" label.
- * Synthetic events alert only in the demo simulation, never against the real clock.
- */
-export function alertRule(ev, { policy = POLICY.INFO_ONLY, demo = false } = {}) {
-  if (isSynthetic(ev)) return demo ? { ok: true, label: 'SYNTHETIC_DEMO' } : { ok: false, why: 'SYNTHETIC_OUTSIDE_SIMULATION' };
-  if (ev.calendar_date === 'CALENDAR_DATE_VERIFIED' && ev.event_schedule === 'EVENT_SCHEDULE_VERIFIED') return { ok: true, label: null };
-  if (policy === POLICY.ALERT_WITH_LABEL && ev.calendar_date !== 'NO_COMPUTABLE_DATE') return { ok: true, label: 'SCHEDULE_UNCONFIRMED' };
-  return { ok: false, why: 'BLOCKED_UNVERIFIED' };
-}
-
-/** Occurrences that are due today and have not been alerted yet. due = start - offset at 00:00 Bangkok; no alert for a due date before the follow. */
-export function dueOccurrences(sched, today, offset, followedOn, horizon = 400) {
-  return occurrencesBetween(sched, today, addDays(today, horizon))
-    .map((o) => ({ ...o, due_on: addDays(o.start, -offset) }))
-    .filter((o) => daysBetween(o.due_on, today) >= 0 && daysBetween(today, o.end) >= 0 && daysBetween(followedOn, o.due_on) >= 0);
-}
-
-export const dedupKey = (uid, eventId, occStart, offset) => `${uid}|${eventId}|${occStart}|${offset}`;
-
 /* ------------------------------------------------------------------ proactive discovery card (step 04) */
 export const NEAR_DAYS = 14;
 

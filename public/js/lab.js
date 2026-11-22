@@ -5,7 +5,8 @@ import { S, profile, keyOf, hasProfile } from './state.js';
 import { mountGraph, graphLegend } from './graphview.js';
 import { PERSONAS, compare } from './crosstab.js';
 import { wishIcon } from './icons.js';
-import { eventTrace, reminderSimulation } from './eventlab.js';
+import { eventTrace } from './eventlab.js';
+import { reminderSimulation } from './calendarlab.js';
 
 const clone = (x) => JSON.parse(JSON.stringify(x));
 const SOURCE_TH = (src) => (src === 'demo' ? 'โปรไฟล์จาก Demo ผู้ใช้ (Session ปัจจุบัน)' : src.startsWith('persona:') ? 'ตัวอย่างข้อมูลจำลอง' : 'กรอกเอง');

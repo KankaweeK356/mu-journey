@@ -1,6 +1,6 @@
 // Tab 2 · 05 Model Evaluation — numbers computed by the Python reference model, labelled for what they are (and are not).
 import { h, clear, f, pct, bar, statusChip, STATUS, TRIP_TH, getJSON } from './util.js';
-import { reminderChecks } from './eventlab.js';
+import { reminderChecks } from './calendarlab.js';
 import { API } from './api.js';
 import { PERSONAS, compare } from './crosstab.js';
 
@@ -65,8 +65,7 @@ export function renderEvaluation(p, { results, graph, cat, names }) {
   getJSON('/data/event_eval.json').then((E) => {
     const row = (a, b, ok) => h('tr', {}, h('td', {}, a), h('td', { class: 'n' }, b), h('td', {}, ok == null ? '' : ok ? '✅' : '❌'));
     const vp = E.valid_path_rate, st = E.rank_stability, ev = E.coverage;
-    const live = reminderChecks();
-    clear(evBox).append(h('div', { class: 'grid g2' },
+    return reminderChecks().then((live) => { clear(evBox).append(h('div', { class: 'grid g2' },
       h('div', { class: 'stack' }, h('b', {}, `ชั้นเครือข่าย (${E.n_profiles} โปรไฟล์ทดสอบ · ${E.n_source_events} กิจกรรม)`), h('table', {}, h('tbody', {},
         row('เส้นทางเรื่อง→เทพ→สถานที่ใช้ได้จริง', `${vp.valid}/${vp.total}`, vp.valid === vp.total),
         row('กิจกรรมที่ละเมิดข้อจำกัด', E.exclusion_violations, E.exclusion_violations === 0),
@@ -77,7 +76,7 @@ export function renderEvaluation(p, { results, graph, cat, names }) {
         h('div', { class: 'small faint' }, 'คะแนนเสมอกันมาก เพราะหลายกิจกรรมใช้คู่เทพ–สถานที่เดียวกัน อันดับภายในกลุ่มเสมอจึงเรียงตาม event_id ไม่ใช่ความต่างของคะแนน · ' + E.disclaimer),
         h('div', { class: 'small faint' }, `ไม่เคยเข้าอันดับ: ${ev.never_eligible.join(', ') || '—'} · วันที่ ${Object.entries(E.calendar_status).map(([k, v]) => `${k} ${v}`).join(', ')} · กำหนดการ ${Object.entries(E.schedule_status).map(([k, v]) => `${k} ${v}`).join(', ')}`)),
       h('div', { class: 'stack' }, h('b', {}, 'ตรรกะแจ้งเตือน (รันสดในเบราว์เซอร์)'), h('table', {}, h('tbody', {}, live.map((c) => h('tr', {}, h('td', {}, c.ok ? '✅' : '❌'), h('td', { class: 'small' }, c.label, h('div', { class: 'faint' }, c.detail)))))),
-        h('span', { class: live.every((c) => c.ok) ? 'chip ok' : 'chip bad' }, live.every((c) => c.ok) ? `✓ ผ่าน ${live.length}/${live.length} ข้อ` : '✗ มีข้อที่ไม่ผ่าน'))));
+        h('span', { class: live.every((c) => c.ok) ? 'chip ok' : 'chip bad' }, live.every((c) => c.ok) ? `✓ ผ่าน ${live.length}/${live.length} ข้อ` : '✗ มีข้อที่ไม่ผ่าน')))); });
   }).catch((e) => clear(evBox).append(h('div', { class: 'callout bad' }, 'โหลดผลตรวจกิจกรรมไม่สำเร็จ: ' + e.message)));
 
   /* 7 data gaps + limitations */

@@ -150,7 +150,7 @@ class JsParity(unittest.TestCase):
         node = self._node()
         if not node:
             self.skipTest("node is not installed")
-        out = subprocess.run([node, "--test", str(ROOT / "tests" / "js" / "reminder.test.mjs"), str(ROOT / "tests" / "js" / "discovery.test.mjs")], capture_output=True, text=True, encoding="utf-8", timeout=180)
+        out = subprocess.run([node, "--test"] + [str(f) for f in sorted((ROOT / "tests" / "js").glob("*.test.mjs"))], capture_output=True, text=True, encoding="utf-8", timeout=180)
         self.assertEqual(out.returncode, 0, out.stdout[-2500:] + out.stderr[-1500:])
 
 
@@ -172,7 +172,7 @@ class ExpertDecisionA(unittest.TestCase):
         self.assertNotIn("setDemo", ui)
         st = (js / "state.js").read_text(encoding="utf-8")
         self.assertIn("demo: false", st)
-        self.assertIn("POLICY.INFO_ONLY", st)
+        self.assertNotIn("demo: true", st)                      # Tab 1 has no simulation store
         lab = (js / "eventlab.js").read_text(encoding="utf-8")
         self.assertNotIn("เตือนพร้อมป้าย (รออนุมัติ)", lab)       # no option B in the Tab 2 simulation either
 
@@ -209,6 +209,90 @@ class ProactiveDiscoveryExpertRules(unittest.TestCase):
         self.assertEqual(ids, [r["event_id"] for r in EV.rank_events(A)["eligible"]])
         for r in E.recommend(A)["events"]["eligible"]:
             self.assertTrue(r["evidence_paths"])
+
+
+class CalendarV3Data(unittest.TestCase):
+    """Versioned JSON from Calendar Dataset v3: provenance, isolation of synthetic data, no network-model change."""
+
+    def setUp(self):
+        import json
+        self.fixed = json.loads((ROOT / "public" / "data" / "calendar_fixed.json").read_text(encoding="utf-8"))
+        self.demo = json.loads((ROOT / "public" / "data" / "calendar_demo.json").read_text(encoding="utf-8"))
+
+    def test_versions_and_provenance_are_kept(self):
+        for d in (self.fixed, self.demo):
+            m = d["meta"]
+            self.assertEqual(m["dataset_version"], "MUMU_CALENDAR_V3")
+            self.assertEqual(len(m["source_sha256"]), 64)
+            self.assertEqual((m["timezone"], m["utc_offset"]), ("Asia/Bangkok", "+07:00"))
+        self.assertEqual(self.fixed["meta"]["visibility_scope"], "NORMAL_CALENDAR")
+        self.assertEqual(self.demo["meta"]["visibility_scope"], "SIMULATION_ONLY")
+        self.assertIn("DEMO", self.demo["meta"]["label"])
+
+    def test_normal_file_has_only_the_valentine_rule(self):
+        self.assertEqual([r["calendar_item_id"] for r in self.fixed["fixed_days"]], ["CAL_VALENTINE"])
+        text = (ROOT / "public" / "data" / "calendar_fixed.json").read_text(encoding="utf-8")
+        for banned in ("SYNTHETIC", "SALE_DEMO", "MILESTONE_DEMO", "CON_DEMO", "EXAM_DEMO", "SIMULATION_ONLY"):
+            self.assertNotIn(banned, text, banned)
+
+    def test_synthetic_file_is_all_simulation_only_with_source_ids(self):
+        d = self.demo
+        self.assertEqual((len(d["artists"]), len(d["concerts"]), len(d["ticket_sales"]), len(d["exam_programs"]), len(d["exam_milestones"]), len(d["calendar_feed"])), (64, 120, 360, 120, 480, 840))
+        for r in d["ticket_sales"] + d["exam_milestones"]:
+            self.assertEqual((r["data_origin"], r["visibility_scope"]), ("SYNTHETIC_DEMO", "SIMULATION_ONLY"))
+        for r in d["calendar_feed"]:
+            self.assertEqual(r["real_reminder_capability"], "N")
+        sales = {r["sale_id"] for r in d["ticket_sales"]}
+        miles = {r["milestone_id"] for r in d["exam_milestones"]}
+        self.assertEqual({r["source_entity_id"] for r in d["calendar_feed"]}, sales | miles)   # joined by key, never by title
+        self.assertTrue(all(isinstance(o, int) for r in d["ticket_sales"] for o in r["reminder_offsets_minutes"]))
+
+    def test_tab1_code_never_loads_the_synthetic_file(self):
+        for f in (ROOT / "public" / "js").glob("*.js"):
+            if f.name in ("eventlab.js", "calendar_sim.js", "calendarlab.js"):      # Tab 2 only
+                continue
+            self.assertNotIn("calendar_demo", f.read_text(encoding="utf-8"), f.name)
+
+    def test_build_script_stops_on_a_broken_key(self):
+        src = (ROOT / "scripts" / "build_calendar_v3.py").read_text(encoding="utf-8")
+        self.assertIn("SystemExit", src)
+        self.assertIn("GD_TICKET_SALES.concert_id -> GD_CONCERTS", src)
+
+    def test_no_python_function_or_model_file_was_added_for_calendar(self):
+        names = {p.name for p in (ROOT / "api").glob("*.py")}
+        self.assertEqual(names, {"_calendar.py", "_engine.py", "_events.py", "_http.py", "catalog.py", "feedback.py", "offers.py", "place.py", "recommendations.py", "trace.py", "trip.py"})
+
+
+class SimulationIsolation(unittest.TestCase):
+    """Calendar v3 data safety: the simulation never reaches the real notification centre, Tab 1 never loads synthetic data."""
+
+    def js(self, name):
+        return (ROOT / "public" / "js" / name).read_text(encoding="utf-8")
+
+    def test_tab2_simulation_has_its_own_store_and_never_imports_tab1_state(self):
+        lab = self.js("calendarlab.js")
+        self.assertNotIn("from './state.js'", lab)
+        self.assertNotIn("from './notifyui.js'", lab)
+        self.assertIn("createStore({ demo: true })", lab)
+
+    def test_tab1_modules_do_not_touch_the_simulation_or_synthetic_data(self):
+        for name in ("demo.js", "fixedcal.js", "notifyui.js", "state.js", "discovery.js"):
+            src = self.js(name)
+            for banned in ("calendarlab", "calendar_demo", "SALE_DEMO", "MILESTONE_DEMO", "SIMULATION_ONLY"):
+                self.assertNotIn(banned, src, f"{name}: {banned}")
+
+    def test_normal_store_is_never_in_simulation_mode(self):
+        self.assertIn("demo: false", self.js("state.js"))
+        self.assertIn("mode = demo ? 'SIMULATION' : 'NORMAL'", self.js("notify.js"))
+
+    def test_policy_version_and_no_old_reminder_rules_left(self):
+        self.assertIn("REMINDER_POLICY_V3", self.js("reminder.js"))
+        cal = self.js("calendar.js")
+        for gone in ("alertRule", "dueOccurrences", "dedupKey", "ALERT_WITH_LABEL"):
+            self.assertNotIn(gone, cal, gone)
+
+    def test_label_for_synthetic_screens(self):
+        self.assertIn("DEMO — ข้อมูลสมมติ", self.js("calendarlab.js"))
 
 
 class Api(unittest.TestCase):

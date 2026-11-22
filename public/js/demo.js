@@ -1,9 +1,10 @@
 // Tab 1 — MUMU user demo: 7 steps. Every number and every place comes from the engine (via /api/mumu/*).
 import { h, clear, f, pct, statusChip, TRIP_TH, MONTHS_TH, bar, toast } from './util.js';
 import { API } from './api.js';
-import { S, subscribe, invalidate, ensureResult, profile, birthdateISO, activeWishes, catalogNames, store, todayISO, CLOCK } from './state.js';
+import { S, subscribe, invalidate, ensureResult, profile, birthdateISO, activeWishes, catalogNames, todayISO } from './state.js';
 import { displayLayer } from './calendar.js';
 import { discoverySection, resetDismissed } from './discovery.js';
+import { fixedCalendarSection, resetFixedDismissed } from './fixedcal.js';
 import { eventCard, snapNetwork, calendarCard, setHooks, mountChrome, refresh as refreshNotify, clearAllNotifyData } from './notifyui.js';
 import { hero, moon, wishIcon } from './icons.js';
 
@@ -36,8 +37,7 @@ export async function renderDemo(root) {
       const w = (f.wish_ids || []).find((x) => S.wishes.includes(x)) || (f.wish_ids || [])[0];
       if (!S.wishes.length && w) S.wishes = [w];
       S.topic = w && !S.wishes.includes(w) ? w : null;
-      S.focus = 'ALL'; S.eventContext = { event_id: f.event_id, name: f.name, place_id: f.place_id, place_name: f.place_name };
-      S.maxStep = 7; invalidate(); S.eventContext = { event_id: f.event_id, name: f.name, place_id: f.place_id, place_name: f.place_name };
+      S.focus = 'ALL'; S.maxStep = 7; invalidate(); S.eventContext = { event_id: f.parent_id, name: f.name, place_id: f.place_id || null, place_name: f.place_name || null };
       go(7);
     },
   });
@@ -191,6 +191,7 @@ export async function renderDemo(root) {
         h('div', { class: 'card stack' }, h('h3', {}, '✨ คำแนะนำเบื้องต้นสำหรับคุณ'), preview,
           h('div', { class: 'callout info small' }, 'การเลือกโฟกัสเปลี่ยนแค่วิธีแสดงตัวอย่างนี้ ไม่เปลี่ยนคะแนนเครือข่าย อันดับ Top 5 หรือการจับคู่ทริป')),
         discoverySection(R, { today: todayISO(), focus, onDetail: () => go(5), redraw: draw }),
+        fixedCalendarSection({ wishes: activeWishes(), focus, redraw: draw }),
         h('div', { class: 'row small' }, h('button', { class: 'btn sm', onclick: () => go(2) }, 'แก้ความสนใจ'), h('button', { class: 'btn sm', onclick: () => go(3) }, 'แก้ข้อจำกัด')),
         foot({ fn: () => go(3) }, { label: 'ดูสถานที่ที่เหมาะกับคุณ', fn: () => go(5) }));
     });
@@ -319,7 +320,7 @@ export async function renderDemo(root) {
   function resetAll() {
     Object.assign(S, { d: '', m: '', y: '', wishes: [], focus: 'ALL', topic: null, eventContext: null, maxStep: 1, step: 1 });
     S.groups.clear(); S.deities.clear(); S.places.clear();
-    resetDismissed();
+    resetDismissed(); resetFixedDismissed();
     clearAllNotifyData();                 // also removes followed events and alerts kept in this browser
     invalidate();
     toast('ล้างข้อมูลของคุณแล้ว');

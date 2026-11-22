@@ -1,102 +1,165 @@
-// Follow / reminder / notification store. Pure logic + an optional storage object (localStorage or a test double).
-// Stored: local_user_id, followed events, reminder settings, notifications. Never stored: date of birth, name, e-mail.
-import { alertRule, dueOccurrences, dedupKey, daysBetween, addDays, OFFSETS, POLICY } from './calendar.js';
+// Follow / reminder / notification store, schema v2 (REMINDER_POLICY_V3). Pure logic + an optional storage object (localStorage or a test double).
+// Parent follow + child reminder preferences:
+//   concert_id  -> sale_id children        exam_id -> milestone children        CAL_VALENTINE / event_id -> one child (itself)
+// Stored: local_user_id, followed parents, per-child reminder offsets, notifications, superseded offsets. Never stored: date of birth, name, e-mail.
+import { occurrencesBetween, addDays } from './calendar.js';
+import { REMINDER_POLICY_VERSION, parseBkk, fmtBkk, parseOffsets, evaluate, planCheck, reminderWindow, CODES } from './reminder.js';
 
-export const SCHEMA_VERSION = 1;
-export const STORAGE_KEY = 'mumu.notify.v1';
+export const SCHEMA_VERSION = 2;
+export const STORAGE_KEY = 'mumu.notify.v2';
+export const LEGACY_KEY = 'mumu.notify.v1';
+export const keyOf = (uid, source, occ, offset) => `${uid}|${source}|${occ}|${offset}`;      // dedup key: user | source_entity_id | occurrence_datetime | offset_minutes
 
 const uuid = () => (globalThis.crypto && crypto.randomUUID ? crypto.randomUUID() : 'u' + Math.random().toString(36).slice(2) + Date.now().toString(36));
+const blank = () => ({ schema_version: SCHEMA_VERSION, rule_version: REMINDER_POLICY_VERSION, local_user_id: uuid(), follows: {}, notifications: [], superseded: {} });
 
-function blank() { return { schema_version: SCHEMA_VERSION, local_user_id: uuid(), follows: {}, notifications: [] }; }
+/** v1 (day based, one offset) -> v2. Only real network events are carried over; synthetic follows and old notifications are dropped. */
+export function migrateV1(old) {
+  const st = blank();
+  if (old && old.local_user_id) st.local_user_id = old.local_user_id;
+  for (const f of Object.values((old && old.follows) || {})) {
+    if (!f || f.follow_status !== 'FOLLOWING' || f.origin !== 'NETWORK' || !f.schedule) continue;
+    st.follows[f.event_id] = {
+      parent_id: f.event_id, kind: 'EVENT', name: f.name, origin: 'NETWORK', place_id: f.place_id, place_name: f.place_name, deity_name: f.deity_name, wish_ids: f.wish_ids || [],
+      follow_status: 'FOLLOWING', followed_at_min: parseBkk(f.followed_on) ?? 0,
+      children: { [f.event_id]: { source_entity_id: f.event_id, source_type: 'EVENT', label: f.name, occ: { kind: 'schedule', schedule: f.schedule }, calendar_date_status: f.calendar_date, schedule_status: f.event_schedule,
+        synthetic: false, offsets_available: [1440, 10080, 20160], offsets_enabled: f.reminder_enabled ? [Math.max(1, Number(f.notify_days_before) || 1) * 1440] : [] } },
+    };
+  }
+  return st;
+}
+
+/** Occurrences of one child around `now` (epoch minutes): [{ key, target_min, end_min }]. */
+export function occurrencesOf(child, now) {
+  const o = child.occ || {};
+  if (o.kind === 'single') { const t = parseBkk(o.datetime); return t == null ? [] : [{ key: fmtBkk(t), target_min: t, end_min: t }]; }
+  if (o.kind === 'yearly') {
+    const y = Number(fmtBkk(now).slice(0, 4)), out = [];
+    for (const yy of [y - 1, y, y + 1]) { const t = parseBkk(`${yy}-${o.month_day}`); if (t != null) out.push({ key: fmtBkk(t), target_min: t, end_min: t }); }
+    return out;
+  }
+  if (o.kind === 'schedule') {
+    const a = fmtBkk(now).slice(0, 10);
+    return occurrencesBetween(o.schedule, addDays(a, -2), addDays(a, 400)).map((x) => ({ key: fmtBkk(parseBkk(x.start)), target_min: parseBkk(x.start), end_min: parseBkk(x.end) }));
+  }
+  return [];
+}
 
 export function createStore({ storage = null, key = STORAGE_KEY, demo = false } = {}) {
   let st = blank();
   if (storage) {
     try {
       const raw = JSON.parse(storage.getItem(key) || 'null');
-      if (raw && raw.schema_version === SCHEMA_VERSION && raw.local_user_id && raw.follows && Array.isArray(raw.notifications)) st = raw;
+      if (raw && raw.schema_version === SCHEMA_VERSION && raw.local_user_id && raw.follows && Array.isArray(raw.notifications)) st = { ...blank(), ...raw };
+      else if (!raw && key === STORAGE_KEY) {                                    // first run on v2: bring v1 follows over, then forget v1
+        const legacy = JSON.parse(storage.getItem(LEGACY_KEY) || 'null');
+        if (legacy && legacy.schema_version === 1) { st = migrateV1(legacy); storage.setItem(key, JSON.stringify(st)); storage.removeItem(LEGACY_KEY); }
+      }
     } catch { /* unreadable or blocked storage: start empty */ }
   }
   const save = () => { if (storage) { try { storage.setItem(key, JSON.stringify(st)); } catch { /* quota or private mode: keep working in memory */ } } };
   const listeners = new Set();
   const changed = () => { save(); listeners.forEach((fn) => fn()); };
+  const mode = demo ? 'SIMULATION' : 'NORMAL';
+
+  const baseFor = (parent, child, occ, now) => ({
+    mode, synthetic: !!child.synthetic, followed: parent.follow_status === 'FOLLOWING', reminder_enabled: child.offsets_enabled.length > 0,
+    calendar_date_status: child.calendar_date_status, schedule_status: child.schedule_status, now,
+    src: { source_type: child.source_type, milestone_type: child.milestone_type, exam_id: child.exam_id, target_min: occ.target_min, end_min: occ.end_min },
+    ctx: { examClose: () => child.exam_close_min },
+  });
+  const stateFor = (source, occ, offset) => {
+    const id = keyOf(st.local_user_id, source, occ.key, offset), n = st.notifications.find((x) => x.id === id);
+    return { notified: !!n, read: !!n && n.read_status === 'READ', superseded: !!st.superseded[id],
+      previous_occurrence_notified: st.notifications.some((x) => x.source_entity_id === source && x.occurrence_min < occ.target_min) };
+  };
 
   const api = {
-    demo,
+    demo, mode,
     get state() { return st; },
     subscribe(fn) { listeners.add(fn); return () => listeners.delete(fn); },
     userId: () => st.local_user_id,
-
-    isFollowed: (id) => !!(st.follows[id] && st.follows[id].follow_status === 'FOLLOWING'),
+    isFollowed: (pid) => !!(st.follows[pid] && st.follows[pid].follow_status === 'FOLLOWING'),
     follows: () => Object.values(st.follows).filter((f) => f.follow_status === 'FOLLOWING'),
+    child: (pid, sid) => (st.follows[pid] && st.follows[pid].children[sid]) || null,
 
-    /** snap: {event_id, name, place_id, place_name, deity_name, date_text, schedule, calendar_date, event_schedule, origin, wish_ids, notify_days_before?} */
-    follow(snap, today, { reminder = false, offset } = {}) {
-      const off = OFFSETS.includes(offset) ? offset : OFFSETS.includes(snap.notify_days_before) ? snap.notify_days_before : 1;
-      st.follows[snap.event_id] = { ...snap, follow_status: 'FOLLOWING', reminder_enabled: !!reminder, notify_days_before: off, followed_on: today };
+    /** parent: { parent_id, kind, name, origin, wish_ids, place_id?, place_name?, deity_name?, children:[child] } ; every child starts with its reminders OFF. */
+    follow(parent, now) {
+      const children = {};
+      for (const c of parent.children) children[c.source_entity_id] = { ...c, offsets_enabled: [] };
+      st.follows[parent.parent_id] = { ...parent, children, follow_status: 'FOLLOWING', followed_at_min: now };
       changed();
     },
-    unfollow(id) {
-      if (st.follows[id]) st.follows[id] = { ...st.follows[id], follow_status: 'UNFOLLOWED', reminder_enabled: false };
-      st.notifications = st.notifications.filter((n) => n.event_id !== id);
+    unfollow(pid) {
+      delete st.follows[pid];
+      st.notifications = st.notifications.filter((n) => n.parent_id !== pid);
       changed();
     },
-    setReminder(id, on, offset, today) {
-      const f = st.follows[id];
-      if (!f || f.follow_status !== 'FOLLOWING') return;
-      if (OFFSETS.includes(offset)) f.notify_days_before = offset;
-      if (on && !f.reminder_enabled && today) f.followed_on = today;   // switching a reminder on starts from today: no retro alerts
-      f.reminder_enabled = !!on;
+    /** Consent for one child: the offsets (minutes) the user switched on. [] = reminders off. */
+    setOffsets(pid, sid, offsets) {
+      const c = api.child(pid, sid);
+      if (!c) return;
+      c.offsets_enabled = [...new Set(offsets)].filter((o) => c.offsets_available.includes(o)).sort((a, b) => b - a);
       changed();
     },
 
-    /** Check-on-open. Creates a notification for every occurrence that is due and not yet alerted. Returns the new ones. */
-    runCheck(today, { policy = POLICY.INFO_ONLY } = {}) {
-      const created = [];
-      for (const f of api.follows()) {
-        if (!f.reminder_enabled) continue;
-        const rule = alertRule(f, { policy, demo });
-        if (!rule.ok) continue;
-        for (const o of dueOccurrences(f.schedule, today, f.notify_days_before, f.followed_on)) {
-          const id = dedupKey(st.local_user_id, f.event_id, o.start, f.notify_days_before);
-          if (st.notifications.some((n) => n.id === id)) continue;     // dedup: same user + event + occurrence + offset
-          const n = { id, event_id: f.event_id, occurrence_start: o.start, occurrence_end: o.end, offset: f.notify_days_before, due_on: o.due_on,
-            created_on: today, read_status: 'UNREAD', label: rule.label, origin: f.origin };
-          st.notifications.push(n); created.push(n);
+    /** Check-on-open / on-follow. Creates at most one notification per occurrence per check; persists SUPERSEDED_BY_CATCHUP. */
+    runCheck(now) {
+      const created = [], log = [];
+      let dirty = false;
+      for (const parent of api.follows()) {
+        for (const child of Object.values(parent.children)) {
+          if (!child.offsets_enabled.length) continue;
+          for (const occ of occurrencesOf(child, now)) {
+            const states = {};
+            child.offsets_enabled.forEach((o) => { states[o] = stateFor(child.source_entity_id, occ, o); });
+            const plan = planCheck(baseFor(parent, child, occ, now), child.offsets_enabled, states);
+            log.push({ parent_id: parent.parent_id, source_entity_id: child.source_entity_id, occurrence: occ.key, results: plan.results });
+            plan.superseded.forEach((o) => { st.superseded[keyOf(st.local_user_id, child.source_entity_id, occ.key, o)] = true; dirty = true; });
+            if (plan.create) {
+              const w = reminderWindow(baseFor(parent, child, occ, now).src, plan.create.offset, { examClose: () => child.exam_close_min });
+              const n = { id: keyOf(st.local_user_id, child.source_entity_id, occ.key, plan.create.offset), parent_id: parent.parent_id, source_entity_id: child.source_entity_id,
+                occurrence_datetime: occ.key, occurrence_min: occ.target_min, offset: plan.create.offset, due_min: w.due, expires_min: w.expires, created_at_min: now,
+                code: plan.create.code, read_status: 'UNREAD', synthetic: !!child.synthetic, rule_version: REMINDER_POLICY_VERSION };
+              st.notifications.push(n); created.push(n); dirty = true;
+            }
+          }
         }
       }
-      if (created.length) changed();
-      return created;
+      if (dirty) changed();
+      return { created, log };
     },
 
-    /** Notifications that are still relevant on `today` (an unread alert for an event that already finished is EXPIRED). */
-    list(today) {
-      return st.notifications.map((n) => ({ ...n, expired: daysBetween(n.occurrence_end, today) > 0 }))
-        .sort((a, b) => (a.occurrence_start < b.occurrence_start ? -1 : a.occurrence_start > b.occurrence_start ? 1 : a.event_id < b.event_id ? -1 : 1));
+    /** What each enabled/available offset would give right now for the next live occurrence of a child (no side effects). */
+    explain(pid, sid, now) {
+      const parent = st.follows[pid], child = api.child(pid, sid);
+      if (!parent || !child) return null;
+      const occs = occurrencesOf(child, now).filter((o) => {
+        const w = reminderWindow(baseFor(parent, child, o, now).src, Math.min(...child.offsets_available), { examClose: () => child.exam_close_min });
+        return !w.ok || now < Math.max(w.expires, o.end_min + 1);
+      });
+      const occ = occs.sort((a, b) => a.target_min - b.target_min)[0];
+      if (!occ) return { occurrence: null, rows: [] };
+      const rows = child.offsets_available.map((o) => {
+        const enabled = child.offsets_enabled.includes(o);
+        const b = { ...baseFor(parent, child, occ, now), reminder_enabled: enabled };
+        return { offset: o, enabled, ...evaluate({ ...b, offset: o, state: stateFor(child.source_entity_id, occ, o) }) };
+      });
+      return { occurrence: occ, rows };
     },
-    unread(today) { return api.list(today).filter((n) => n.read_status === 'UNREAD' && !n.expired); },
+
+    list(now) { return st.notifications.map((n) => ({ ...n, expired: now >= n.expires_min })).sort((a, b) => a.occurrence_min - b.occurrence_min || (a.id < b.id ? -1 : 1)); },
+    unread(now) { return api.list(now).filter((n) => n.read_status === 'UNREAD' && !n.expired); },
     markRead(id) { const n = st.notifications.find((x) => x.id === id); if (n && n.read_status !== 'READ') { n.read_status = 'READ'; changed(); } },
     markAllRead() { st.notifications.forEach((n) => { n.read_status = 'READ'; }); changed(); },
-
-    /** Four-dimension status contract: user state, time state, notice state (+ why an alert is blocked). */
-    status(id, today, { policy = POLICY.INFO_ONLY } = {}) {
-      const f = st.follows[id];
-      if (!f || f.follow_status !== 'FOLLOWING') return { user: 'NOT_FOLLOWED', time: null, notice: null };
-      if (!f.reminder_enabled) return { user: 'FOLLOWED_REMINDER_OFF', time: null, notice: null };
-      const rule = alertRule(f, { policy, demo });
-      if (!rule.ok) return { user: 'BLOCKED_UNVERIFIED', time: null, notice: null, why: rule.why };
-      const mine = api.list(today).filter((n) => n.event_id === id);
-      const latest = mine[mine.length - 1];
-      if (latest) {
-        if (latest.expired) return { user: 'FOLLOWED_REMINDER_ON', time: 'EXPIRED', notice: latest.read_status === 'READ' ? 'READ' : 'ALREADY_NOTIFIED' };
-        return { user: 'FOLLOWED_REMINDER_ON', time: 'DUE', notice: latest.read_status === 'READ' ? 'READ' : 'ALREADY_NOTIFIED' };
-      }
-      return { user: 'FOLLOWED_REMINDER_ON', time: dueOccurrences(f.schedule, today, f.notify_days_before, f.followed_on).length ? 'DUE' : 'NOT_DUE', notice: null };
-    },
-
-    clear() { st = blank(); if (storage) { try { storage.removeItem(key); } catch { /* ignore */ } } listeners.forEach((fn) => fn()); },
+    clear() { st = blank(); if (storage) { try { storage.removeItem(key); storage.removeItem(LEGACY_KEY); } catch { /* ignore */ } } listeners.forEach((fn) => fn()); },
   };
   return api;
 }
 
-export { addDays };
+/** Why reminders cannot be switched on for this child in this mode (null = they can). Uses steps 1 and 4 of the validation priority. */
+export function reminderBlock(child, mode) {
+  const r = evaluate({ mode, synthetic: !!child.synthetic, followed: true, reminder_enabled: true, calendar_date_status: child.calendar_date_status, schedule_status: child.schedule_status,
+    src: { source_type: child.source_type, target_min: 0 }, offset: 0, now: 0 });
+  return [CODES.BLOCKED_SYNTHETIC, CODES.DATE_UNVERIFIED, CODES.BLOCKED_UNVERIFIED].includes(r.code) ? r.code : null;
+}

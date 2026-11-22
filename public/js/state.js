@@ -65,20 +65,18 @@ export async function ensureResult(force = false) {
 
 export const hasProfile = () => S.wishes.length > 0;
 
-/* ------------------------------------------------------------------ calendar, follows and reminders */
+/* ------------------------------------------------------------------ calendar, follows and reminders (Tab 1: the real store only) */
 import { createStore, STORAGE_KEY } from './notify.js';
-import { bangkokToday, POLICY } from './calendar.js';
+import { bangkokToday } from './calendar.js';
+import { nowMin } from './reminder.js';
 
 function safeLocalStorage() {
   try { const s = window.localStorage; s.setItem('__t', '1'); s.removeItem('__t'); return s; } catch { return null; }   // private mode / blocked
 }
-const realStore = createStore({ storage: safeLocalStorage(), key: STORAGE_KEY });
-const demoStore = createStore({ storage: null, demo: true });                 // isolated, in memory only, gone on reload
-
-/** Hidden demo clock. policy: INFO_ONLY (A) is the default; ALERT_WITH_LABEL (B) waits for expert approval and can be tried here. */
-export const CLOCK = { demo: false, date: null, policy: POLICY.INFO_ONLY };
-export const store = () => (CLOCK.demo ? demoStore : realStore);
+// Normal user mode: never a simulation store, never a virtual clock. Synthetic data cannot raise a reminder here (see reminder.js).
+const realStore = createStore({ storage: safeLocalStorage(), key: STORAGE_KEY, demo: false });
+export const store = () => realStore;
 export const realUserStore = realStore;
-export const demoUserStore = demoStore;
-export const todayISO = () => (CLOCK.demo && CLOCK.date ? CLOCK.date : bangkokToday());
+export const todayISO = () => bangkokToday();
+export const nowMinute = () => nowMin();
 export const catalogNames = { wish: {} };                                        // filled by demo.js after the catalog loads
