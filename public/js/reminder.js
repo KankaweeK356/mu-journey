@@ -122,9 +122,9 @@ export function planCheck(base, offsets, states = {}) {
 export function reminderText(kind, src, offset, now) {
   const left = src.target_min - now;
   const days = Math.ceil(left / 1440);
-  const when = left <= 0 ? null : left < 60 ? `อีก ${left} นาที` : left < 1440 ? `อีก ${Math.ceil(left / 60)} ชั่วโมง` : `อีก ${days} วัน`;
+  const when = left <= 0 ? 'ผ่านเวลาแล้ว' : left < 60 ? `อีก ${left} นาที` : left < 1440 ? `อีก ${Math.ceil(left / 60)} ชั่วโมง` : `อีก ${days} วัน`;
   switch (kind) {
-    case 'FIXED_CALENDAR_DAY': return dateBkk(now) === dateBkk(src.target_min) ? 'วันนี้' : `ใกล้ถึง · ${when}`;
+    case 'FIXED_CALENDAR_DAY': return dateBkk(now) === dateBkk(src.target_min) ? 'วันนี้' : left > 0 ? `ใกล้ถึง · ${when}` : 'ผ่านไปแล้ว';
     case 'APPLICATION_OPEN': return left > 0 ? `ใกล้เปิดรับสมัคร · ${when}` : 'เปิดรับสมัครแล้ว';
     case 'APPLICATION_CLOSE': return `ใกล้ปิดรับสมัคร · ${when}`;
     case 'EXAM_DATE': return `ใกล้วันสอบ · ${when}`;

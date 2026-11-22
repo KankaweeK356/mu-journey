@@ -74,7 +74,7 @@ function noteCard(n) {
   if (!child) return null;
   const now = nowMinute();
   return h('div', { class: 'card flat stack nc-item' + (n.read_status === 'READ' || n.expired ? ' read' : '') },
-    h('div', { class: 'row', style: 'justify-content:space-between;flex-wrap:nowrap' }, h('b', {}, '🔔 ' + f.name), n.read_status === 'UNREAD' && !n.expired ? h('span', { class: 'chip pink' }, 'ใหม่') : n.expired ? h('span', { class: 'chip' }, 'หมดเวลาแล้ว') : h('span', { class: 'chip' }, 'อ่านแล้ว')),
+    h('div', { class: 'row', style: 'justify-content:space-between;align-items:flex-start' }, h('b', { style: 'flex:1 1 150px;min-width:0' }, '🔔 ' + f.name), n.read_status === 'UNREAD' && !n.expired ? h('span', { class: 'chip pink' }, 'ใหม่') : n.expired ? h('span', { class: 'chip' }, 'หมดเวลาแล้ว') : h('span', { class: 'chip' }, 'อ่านแล้ว')),
     h('div', { class: 'small' }, reminderText(kindOf(child), { target_min: n.occurrence_min }, n.offset, now)),
     h('div', { class: 'small' }, `📅 ${whenText(child, n.occurrence_min)}`),
     f.place_name ? h('div', { class: 'small' }, '📍 ' + f.place_name) : null,
@@ -108,7 +108,7 @@ export function calendarCard() {
   const item = (f) => {
     const child = Object.values(f.children)[0], ex = st.explain(f.parent_id, child.source_entity_id, now), occ = ex && ex.occurrence;
     const block = reminderBlock(child, 'NORMAL'), on = child.offsets_enabled.length;
-    return h('div', { class: 'path stack', style: 'gap:6px' }, h('div', { class: 'row', style: 'justify-content:space-between;flex-wrap:nowrap' }, h('b', {}, f.name),
+    return h('div', { class: 'path stack', style: 'gap:6px' }, h('div', { class: 'row', style: 'justify-content:space-between;align-items:flex-start' }, h('b', { style: 'flex:1 1 150px;min-width:0' }, f.name),
       h('span', { class: 'chip ' + (on ? 'ok' : block ? 'st-cand' : '') }, on ? `เปิดเตือน ${on} ช่วง` : block ? 'ข้อมูลเท่านั้น · ' + BLOCK_TEXT[block] : 'ติดตาม · ปิดเตือน')),
       h('div', { class: 'small muted' }, occ ? `📅 ${whenText(child, occ.target_min)}` : 'ไม่มีรอบที่กำลังจะมาถึง', f.place_name ? ` · 📍 ${f.place_name}` : ''),
       h('div', { class: 'row small' }, labelChip(f), h('button', { type: 'button', class: 'btn sm ghost', onclick: () => { st.unfollow(f.parent_id); changed(); } }, 'เลิกติดตาม')),

@@ -172,3 +172,13 @@ test('full precision: one minute either side of every boundary', () => {
   assert.equal(run(synth, s, 1440, '2027-06-09 09:59').code, 'CREATED_LATE');
   assert.equal(run(synth, s, 1440, '2027-06-09 10:00').code, 'EXPIRED');
 });
+
+test('wording after the time has passed never prints "null" (regression found in the Valentine end-to-end run)', () => {
+  const v = valentine('2027-02-14');
+  assert.equal(reminderText('FIXED_CALENDAR_DAY', v, 1440, T('2027-02-15 00:00')), 'ผ่านไปแล้ว');
+  assert.equal(reminderText('FIXED_CALENDAR_DAY', v, 1440, T('2027-02-14 23:59')), 'วันนี้');
+  for (const kind of ['APPLICATION_CLOSE', 'EXAM_DATE', 'TICKET_SALE', 'EVENT', 'APPLICATION_OPEN', 'RESULT_ANNOUNCEMENT']) {
+    const text = reminderText(kind, { target_min: T('2027-02-14 10:00') }, 60, T('2027-02-14 11:00'));
+    assert.ok(!/null|undefined/.test(text), `${kind}: ${text}`);
+  }
+});

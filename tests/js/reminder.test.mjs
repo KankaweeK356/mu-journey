@@ -182,3 +182,15 @@ test('Bangkok date does not depend on the device time zone', () => {
   assert.equal(bangkokToday(new Date('2026-11-20T17:30:00Z')), '2026-11-21');
   assert.equal(bangkokToday(new Date('2026-11-20T16:59:00Z')), '2026-11-20');
 });
+
+test('migration is idempotent: loading again (or many times) changes nothing and never recreates alerts', () => {
+  const st = fake();
+  const sched = { kind: 'annual', occurrences: [{ start: '2027-09-29', end: '2027-10-09' }] };
+  st.setItem(LEGACY_KEY, JSON.stringify({ schema_version: 1, local_user_id: 'u-legacy', notifications: [{ id: 'old', event_id: 'E_NAV', read_status: 'UNREAD' }], follows: {
+    E_NAV: { event_id: 'E_NAV', name: 'N', origin: 'NETWORK', follow_status: 'FOLLOWING', reminder_enabled: true, notify_days_before: 14, followed_on: '2026-11-20', schedule: sched, calendar_date: 'DATE_UNVERIFIED', event_schedule: 'EVENT_SCHEDULE_UNVERIFIED', wish_ids: [] } } }));
+  const first = createStore({ storage: st });
+  const snapshot = JSON.stringify(first.state);
+  for (let i = 0; i < 3; i++) { const again = createStore({ storage: st }); assert.equal(JSON.stringify(again.state), snapshot); assert.equal(again.runCheck(T('2027-09-15 00:00')).created.length, 0); }
+  assert.equal(first.state.notifications.length, 0);                                  // the old unread alert is not carried over, so nothing can repeat
+  assert.deepEqual(first.child('E_NAV', 'E_NAV').offsets_enabled, [20160]);            // 14 days -> minutes
+});

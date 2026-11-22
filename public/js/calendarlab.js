@@ -121,7 +121,7 @@ export function reminderSimulation(T) {
         h('button', { type: 'button', class: 'btn', onclick: () => { resetStore(); draw(); } }, 'รีเซ็ตการจำลอง')),
       h('div', { class: 'card flat stack' },
         h('b', {}, '9 · Due / Not Due ต่อ offset ที่เวลาจำลอง ' + thaiMin(sim.now)),
-        followed && ex && ex.rows.length ? h('div', { class: 'scroll-x' }, h('table', {}, h('thead', {}, h('tr', {}, ['offset', 'เปิด', 'due', 'expires (exclusive)', 'รหัสผลลัพธ์'].map((t) => h('th', {}, t)))),
+        followed && ex && ex.rows.length ? h('div', { class: 'scroll-x' }, h('table', { class: 'sim-table' }, h('thead', {}, h('tr', {}, ['offset', 'เปิด', 'due', 'expires (exclusive)', 'รหัสผลลัพธ์'].map((t) => h('th', {}, t)))),
           h('tbody', {}, ex.rows.map((r) => h('tr', {}, h('td', {}, offLabel(r.offset)), h('td', {}, r.enabled ? '✓' : '—'), h('td', { class: 'small' }, r.due != null ? fmtBkk(r.due) : '—'), h('td', { class: 'small' }, r.expires != null ? fmtBkk(r.expires) : '—'),
             h('td', {}, h('b', {}, r.code), h('div', { class: 'small faint' }, CODE_TH[r.code] || '')))))))
           : h('div', { class: 'small faint' }, followed ? 'ไม่มีรอบที่ยังมีประโยชน์ ณ เวลานี้' : 'ยังไม่ได้ติดตาม (NOT_FOLLOWED)'),
