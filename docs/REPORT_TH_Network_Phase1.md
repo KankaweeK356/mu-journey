@@ -26,7 +26,7 @@
 4. **Exclusions change viable subgraph:** ตัวอย่างผู้ใช้เลือก W05 และไม่ต้องการเทพฮินดูไม่เหลือ candidate จึงต้องตอบว่าไม่มีรายการ ไม่แอบแนะนำเทพที่ขัดข้อกำหนด
 
 ## 5. Model Evaluation (จำแนกความหมายของผลให้ตรง)
-- **Structural acceptance fixtures จำนวน 15 โปรไฟล์** (label ที่ผู้จัดทำเลือกจาก SAME knowledge graph; *ไม่ใช่ independent user ground truth*). NDCG@5: Popularity **0.6880**, Direct Two-hop **0.6831**, PPR **0.7622**, PPR+Coverage **0.7622**. คะแนนเฉลี่ยนี้คิดเฉพาะ fixture ที่มี labels ผ่านเงื่อนไข; ไม่ใช่ accuracy จากผู้ใช้จริง
+- **Structural acceptance fixtures จำนวน 15 โปรไฟล์ (NDCG คิดได้ 14 โปรไฟล์; 13 จาก 15 เลือกเรื่องเดียว)** (label ที่ผู้จัดทำเลือกจาก SAME knowledge graph; *ไม่ใช่ independent user ground truth*). NDCG@5: Popularity **0.6880**, Direct Two-hop **0.6831**, PPR **0.7622**, PPR+Coverage **0.7622**. คะแนนเฉลี่ยนี้คิดเฉพาะ fixture ที่มี labels ผ่านเงื่อนไข; ไม่ใช่ accuracy จากผู้ใช้จริง
 - **Graph edge holdout test จำนวน 48 ตัวอย่าง**: PPR Hit@5 **66.67%** และ Degree Hit@5 **81.25%** → Degree ชนะในโจทย์ทำนาย Edge ที่ซ่อน; จึงอ้างว่า PPR เหนือกว่าเทคนิคทั่วไปทุกกรณีไม่ได้
 - **Acceptance 75 โปรไฟล์จำลอง:** exclusion violations = **0**; explanation paths ไม่ขาด; เลือกทริปเดิมโดยไม่มี re-route. แนะนำ Trip Love 26, Career 21, Wealth 22 และ Abstain **6** ราย
 - **Sensitivity:** ลองเปลี่ยนสัดส่วน PPR 0.50/0.75/0.90 สำหรับ fixture 15 ราย ผล Top-1 ยังเหมือนเดิมในชุดนี้; ไม่สามารถอ้าง robustness ทั่วไปจากตัวอย่างเล็กได้
@@ -49,7 +49,7 @@
 |---|---|---|
 | Problem Framing & Business Relevance | User→Wish→Deity→Place; Fixed-trip top-1 decision; no rerouting | สาธิตและยืนยัน business ownership |
 | Data Collection & Graph Construction | Master IDs, 114 source edges, QA, provenance, alias links | Audit source rights/ToS, sample-check unsupported claims and venue info |
-| Network Analysis & Analytical Rigor | Degree, Betweenness, Closeness, Density, Components, Community, PPR, routing, baselines, sensitivity | Independent expert/real-user labels and holdout redesign |
+| Network Analysis & Analytical Rigor | Degree, Betweenness, Closeness, Density, Components, Community, PPR, routing, baselines, sensitivity; **ภาคผนวก: bootstrap CI, leave-one-edge-out 28 เส้น, วัดผล Coverage 175 ชุด (ภาคผนวก §11)** | Independent expert/real-user labels |
 | Technology & AI Integration | NetworkX runnable; Neo4j-compatible CSV and sample Cypher included | Neo4j code not yet executed on a running DB; no real LLM GraphRAG deployed |
 | Business Impact & Responsible Use | 3 fixed mock products, Top-5/Top-1 rules, exclusion zero in tests, abstention | Paid-tour operations, actual prices, cost savings/conversion validation |
 
@@ -78,3 +78,17 @@ python make_deliverables.py
 - Trip Design: https://docs.google.com/spreadsheets/d/1Jqr6cf0J0LzsBcKI6u1RDQov-gHSywSj91nE6DAcD6Y/edit
 - User mock: https://docs.google.com/spreadsheets/d/1hn4BL-DFqriKOJfdRAjtdMRgE3wQ4eL12SRQZAQPUDo/edit
 - Course: Course Syllabus MADT7202 from supplied Network.zip
+
+## 11. ภาคผนวก: ความเข้มงวดทางสถิติ (เพิ่มภายหลัง Phase 1, อ่านอย่างเดียว)
+รายละเอียดเต็มใน `docs/RIGOR_ADDENDUM_TH.md` (`scripts/evaluate_rigor.py`, ผลใน `model/results/rigor_addendum_v1.json`) ไม่แก้โมเดลและไม่ทับผลเดิม
+- **Fixtures:** PPR − Popularity = +0.074 NDCG@5 แต่ช่วงความเชื่อมั่น 95% [−0.010, +0.196] ครอบคลุมศูนย์ → ยังสรุปว่าดีกว่าไม่ได้
+- **Holdout แบบ leave-one-edge-out (28 เส้น):** PPR 78.6% เทียบ Degree 82.1%, McNemar p = 1.0 → ไม่มีความต่างที่มีนัย (ผลเดิมที่ Degree นำ 14.6 จุดมาจากการสุ่มซ้ำ 6 รอบจาก 28 เส้น)
+- **Coverage re-ranking:** ไม่เปลี่ยน Top 5 เมื่อเลือก 1–2 เรื่อง เมื่อเลือก 3 เรื่องเพิ่มความครอบคลุมใน 8/120 ชุด ไม่เคยลดลง (95.8% → 98.1%)
+- **ข้อจำกัดคงเดิม:** ป้ายผลลัพธ์มาจากกราฟเดียวกัน
+
+## 12. ส่วนขยายหลัง Phase 1 (เว็บแอปที่ deploy)
+- **เว็บแอป 2 แท็บ** (Vercel + Google Sheets): Tab 1 เดินสาธิต 7 ขั้น, Tab 2 Network Analytics 5 หัวข้อ ใช้เอนจินเดียวกัน ตรวจความตรงกันอัตโนมัติ
+- **ชั้นกิจกรรม (EVENT_RANKING_V1):** จัดอันดับกิจกรรมสายมู 37 รายการจากเครือข่ายเดิมโดยไม่แก้สูตร ทุกกิจกรรมมีเส้นทางจริง เรื่อง→เทพ→สถานที่→กิจกรรม รายงานความเสถียรของอันดับและความเสมอกันอย่างเปิดเผย
+- **Calendar v3:** วันสำคัญที่ตรวจตามปฏิทิน (วาเลนไทน์) เตือนได้ ส่วนกิจกรรมจริงที่ยังไม่ยืนยันกำหนดการ ติดตามได้แต่ไม่เตือน ข้อมูลคอนเสิร์ต/สอบเป็นข้อมูลสมมติ ใช้เฉพาะโหมดจำลองใน Tab 2 ระบบเตือนเป็น in-app on-open (ดู `docs/CALENDAR_V3_REMINDER_RULES.md`)
+- **ทดสอบอัตโนมัติ:** Python + Node รวมกว่า 120 ข้อ และชุดทดสอบ Reminder 60 แถว (ไม่แก้ค่าที่คาด)
+- **ข้อมูลส่วนบุคคล:** วันเกิดอยู่ในหน่วยความจำของหน้าเท่านั้น feedback ต้องยินยอมก่อนส่ง
