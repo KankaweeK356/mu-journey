@@ -1,6 +1,6 @@
-tests/
-scripts/
-docs/
+/tests/
+/scripts/
+/docs/
 docs_REPORT_TH.md
 model/test_network_phase1.py
 
@@ -8,4 +8,5 @@ model/hko_lunar/
 
 model/calendar_v3/
 
-data/
+# Anchored on purpose: an unanchored "data/" also matches public/data/ (the JSON the pages load) and made them 404 in production.
+/data/
