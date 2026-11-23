@@ -50,24 +50,114 @@
   "info": "P001,P002,P014,P019,P029 vs P001,P002,P014,P019,P029"
  },
  {
-  "name": "Matching Input: uses the profile from the Lab (the trip shown is computed from the same input)",
-  "ok": true,
-  "info": "matched=TRIP_LOVE"
- },
- {
-  "name": "Matching Output: matched trip equals the production recommendation endpoint",
-  "ok": true,
-  "info": "page/trace=TRIP_LOVE endpoint=TRIP_LOVE"
- },
- {
-  "name": "Matching Output: result is rendered without error",
-  "ok": true,
-  "info": "len=2240"
- },
- {
-  "name": "Matching Output: the matched trip id is shown",
+  "name": "UI proxy: \"ลองกรอกคำขอ (Demo)\" button exists",
   "ok": true,
   "info": ""
+ },
+ {
+  "name": "UI proxy: preview shows the sample name/request and says no real provider",
+  "ok": true,
+  "info": "ตัวอย่างสรุปคำขอ (Demo) บริการ: แพ็กเกจฝากมูจำลอง ณ วัดพระศรีมหาอุมาเทวี (วัดแขก สีลม) · ว"
+ },
+ {
+  "name": "UI proxy: no network request was made while using the form",
+  "ok": true,
+  "info": ""
+ },
+ {
+  "name": "UI proxy: nothing written to browser storage",
+  "ok": true,
+  "info": "[]| -> []|"
+ },
+ {
+  "name": "UI proxy: values are cleared after closing (reopen is empty)",
+  "ok": true,
+  "info": "{\"name\":\"\",\"wish\":\"\",\"preview\":false}"
+ },
+ {
+  "name": "UI form: title is \"แสดงความสนใจและให้คะแนนคำแนะนำ (Demo)\"",
+  "ok": true,
+  "info": "แสดงความสนใจและให้คะแนนคำแนะนำ (Demo)"
+ },
+ {
+  "name": "UI rating: question asks how well the recommendation matches the interest, per service",
+  "ok": true,
+  "info": "{\"title\":\"แสดงความสนใจและให้คะแนนคำแนะนำ (Demo)\",\"ไปมูเอง\":{\"rating\":\"สถานที่ที่แนะนำนี้ตรงกับความสนใจของคุณมากน้อยแค่ไหน (1 = ไม่ตรงเลย, 5 = ตรงมาก)\",\"interest\":\"คุณสนใจสถานที่ที่แนะนำนี้หรือไม่\",\"ch"
+ },
+ {
+  "name": "UI interest: \"คุณสนใจ{ทริป/บริการ/สถานที่}ที่แนะนำนี้หรือไม่\" with สนใจ/ยังไม่แน่ใจ/ไม่สนใจ",
+  "ok": true,
+  "info": "[\"คุณสนใจสถานที่ที่แนะนำนี้หรือไม่\",\"คุณสนใจทริปที่แนะนำนี้หรือไม่\",\"คุณสนใจบริการฝากมูที่แนะนำนี้หรือไม่\"]"
+ },
+ {
+  "name": "UI send status [saved]: shown as saved, with thanks",
+  "ok": true,
+  "info": "💜 ขอบคุณสำหรับความคิดเห็น บันทึกความคิดเห็นแล้ว ข้อมูลโปรไฟล์ของคุณยังอยู่ ไปต่"
+ },
+ {
+  "name": "UI interest: required before sending",
+  "ok": true,
+  "info": "กรุณาเลือกว่าสนใจหรือไม่"
+ },
+ {
+  "name": "UI interest: request carries would_use_again=MAYBE and the interest question version, and the rating question version",
+  "ok": true,
+  "info": "{\"kind\":\"proxy\",\"rating\":4,\"rating_question\":\"V2_RELEVANCE\",\"would_use_again\":\"MAYBE\",\"interest_question\":\"V1_PREUSE_INTEREST\",\"comment\":\"ทดสอบ\",\"consent\":true,\"wish_ids\":[\"W02\",\"W03\"],\"place_ids\":[\"P001\",\"P002\",\"P014\",\"P025\",\"P018\"],\"trip_id\":\"TRIP_CAREER\",\"offer_id\":\"OFR_DEMO_001\"}"
+ },
+ {
+  "name": "UI interest: no personal field is sent",
+  "ok": true,
+  "info": "kind,rating,rating_question,would_use_again,interest_question,comment,consent,wish_ids,place_ids,trip_id,offer_id"
+ },
+ {
+  "name": "UI send status [not_configured]: NOT shown as saved (no thanks / no saved text)",
+  "ok": true,
+  "info": "⚠️ ยังไม่ได้บันทึกความคิดเห็น ไม่สามารถบันทึกได้ ระบบนี้ยังไม่ได้เชื่อมที่เก็บความคิดเห็น (โหมดสาธิต) ข้อมูลโปรไฟล์ของคุ"
+ },
+ {
+  "name": "UI send status [not_configured]: says the system is not connected (demo mode)",
+  "ok": true,
+  "info": "⚠️ ยังไม่ได้บันทึกความคิดเห็น ไม่สามารถบันทึกได้ ระบบนี้ยังไม่ได้เชื่อมที่เก็บความคิดเห็น (โหมดสาธิต) ข้อมูลโปรไฟล์ของคุ"
+ },
+ {
+  "name": "UI send status [bad_webhook_host]: NOT shown as saved (no thanks / no saved text)",
+  "ok": true,
+  "info": "⚠️ ยังไม่ได้บันทึกความคิดเห็น ไม่สามารถบันทึกได้ การตั้งค่าที่เก็บความคิดเห็นของระบบไม่ถูกต้อง ผู้ดูแลระบบต้องแก้ไข ข้อม"
+ },
+ {
+  "name": "UI send status [bad_webhook_host]: says the configuration is wrong, no retry",
+  "ok": true,
+  "info": "⚠️ ยังไม่ได้บันทึกความคิดเห็น ไม่สามารถบันทึกได้ การตั้งค่าที่เก็บความคิดเห็นของระบบไม่ถูกต้อง ผู้ดูแลระบบต้องแก้ไข ข้อม"
+ },
+ {
+  "name": "UI send status [rejected]: NOT shown as saved (no thanks / no saved text)",
+  "ok": true,
+  "info": "⚠️ ยังไม่ได้บันทึกความคิดเห็น ไม่สามารถบันทึกได้ ที่เก็บความคิดเห็นปฏิเสธข้อมูลนี้ ผู้ดูแลระบบต้องตรวจสอบ ข้อมูลโปรไฟล์ข"
+ },
+ {
+  "name": "UI send status [rejected]: says the store rejected it, no retry",
+  "ok": true,
+  "info": "⚠️ ยังไม่ได้บันทึกความคิดเห็น ไม่สามารถบันทึกได้ ที่เก็บความคิดเห็นปฏิเสธข้อมูลนี้ ผู้ดูแลระบบต้องตรวจสอบ ข้อมูลโปรไฟล์ข"
+ },
+ {
+  "name": "UI send status [unreachable]: NOT shown as saved (no thanks / no saved text)",
+  "ok": true,
+  "info": "⚠️ ยังไม่ได้บันทึกความคิดเห็น ยังบันทึกไม่ได้ เชื่อมต่อที่เก็บความคิดเห็นไม่ได้ชั่วคราว ลองส่งใหม่อีกครั้งได้ ข้อมูลโปรไ"
+ },
+ {
+  "name": "UI send status [unreachable]: temporary problem, retry offered and the answers are kept",
+  "ok": true,
+  "info": "{\"interest\":\"MAYBE\",\"stars\":4,\"comment\":\"ทดสอบ\"}"
+ },
+ {
+  "name": "UI send status [request_failed]: NOT shown as saved (no thanks / no saved text)",
+  "ok": true,
+  "info": "แสดงความสนใจและให้คะแนนคำแนะนำ (Demo) ✕ ประเภทบริการที่สนใจ ไปมูเอง ทริปบริษัท ฝากมู คุณสนใจบริการฝากมูที่แนะนำนี้หรือไม"
+ },
+ {
+  "name": "UI send status [request_failed]: says nothing was saved, no thanks",
+  "ok": true,
+  "info": "แสดงความสนใจและให้คะแนนคำแนะนำ (Demo) ✕ ประเภทบริการที่สนใจ ไปมูเอง ทริปบริษัท ฝากมู คุณสนใจบริการฝากมูที่แนะนำนี้หรือไม"
  },
  {
   "name": "UI proxy: \"ลองกรอกคำขอ (Demo)\" button exists",
@@ -95,39 +185,89 @@
   "info": "{\"name\":\"\",\"wish\":\"\",\"preview\":false}"
  },
  {
-  "name": "UI rating: question asks how well the recommendation matches the interest, per service",
+  "name": "UI form: title is \"แสดงความสนใจและให้คะแนนคำแนะนำ (Demo)\"",
   "ok": true,
-  "info": "{\"ไปมูเอง\":\"สถานที่ที่แนะนำนี้ตรงกับความสนใจของคุณมากน้อยแค่ไหน (1 = ไม่ตรงเลย, 5 = ตรงมาก)\",\"ทริปบริษัท\":\"ทริปที่แนะนำนี้ตรงกับความสนใจของคุณมากน้อยแค่ไหน (1 = ไม่ตรงเลย, 5 = ตรงมาก)\",\"ฝากมู\":\"บริการฝากมูที่แนะนำนี้ตรงก"
- },
- {
-  "name": "UI proxy: \"ลองกรอกคำขอ (Demo)\" button exists",
-  "ok": true,
-  "info": ""
- },
- {
-  "name": "UI proxy: preview shows the sample name/request and says no real provider",
-  "ok": true,
-  "info": "ตัวอย่างสรุปคำขอ (Demo) บริการ: แพ็กเกจฝากมูจำลอง ณ วัดพระศรีมหาอุมาเทวี (วัดแขก สีลม) · ว"
- },
- {
-  "name": "UI proxy: no network request was made while using the form",
-  "ok": true,
-  "info": ""
- },
- {
-  "name": "UI proxy: nothing written to browser storage",
-  "ok": true,
-  "info": "[]| -> []|"
- },
- {
-  "name": "UI proxy: values are cleared after closing (reopen is empty)",
-  "ok": true,
-  "info": "{\"name\":\"\",\"wish\":\"\",\"preview\":false}"
+  "info": "แสดงความสนใจและให้คะแนนคำแนะนำ (Demo)"
  },
  {
   "name": "UI rating: question asks how well the recommendation matches the interest, per service",
   "ok": true,
-  "info": "{\"ไปมูเอง\":\"สถานที่ที่แนะนำนี้ตรงกับความสนใจของคุณมากน้อยแค่ไหน (1 = ไม่ตรงเลย, 5 = ตรงมาก)\",\"ทริปบริษัท\":\"ทริปที่แนะนำนี้ตรงกับความสนใจของคุณมากน้อยแค่ไหน (1 = ไม่ตรงเลย, 5 = ตรงมาก)\",\"ฝากมู\":\"บริการฝากมูที่แนะนำนี้ตรงก"
+  "info": "{\"title\":\"แสดงความสนใจและให้คะแนนคำแนะนำ (Demo)\",\"ไปมูเอง\":{\"rating\":\"สถานที่ที่แนะนำนี้ตรงกับความสนใจของคุณมากน้อยแค่ไหน (1 = ไม่ตรงเลย, 5 = ตรงมาก)\",\"interest\":\"คุณสนใจสถานที่ที่แนะนำนี้หรือไม่\",\"ch"
+ },
+ {
+  "name": "UI interest: \"คุณสนใจ{ทริป/บริการ/สถานที่}ที่แนะนำนี้หรือไม่\" with สนใจ/ยังไม่แน่ใจ/ไม่สนใจ",
+  "ok": true,
+  "info": "[\"คุณสนใจสถานที่ที่แนะนำนี้หรือไม่\",\"คุณสนใจทริปที่แนะนำนี้หรือไม่\",\"คุณสนใจบริการฝากมูที่แนะนำนี้หรือไม่\"]"
+ },
+ {
+  "name": "UI send status [saved]: shown as saved, with thanks",
+  "ok": true,
+  "info": "💜 ขอบคุณสำหรับความคิดเห็น บันทึกความคิดเห็นแล้ว ข้อมูลโปรไฟล์ของคุณยังอยู่ ไปต่"
+ },
+ {
+  "name": "UI interest: required before sending",
+  "ok": true,
+  "info": "กรุณาเลือกว่าสนใจหรือไม่"
+ },
+ {
+  "name": "UI interest: request carries would_use_again=MAYBE and the interest question version, and the rating question version",
+  "ok": true,
+  "info": "{\"kind\":\"proxy\",\"rating\":4,\"rating_question\":\"V2_RELEVANCE\",\"would_use_again\":\"MAYBE\",\"interest_question\":\"V1_PREUSE_INTEREST\",\"comment\":\"ทดสอบ\",\"consent\":true,\"wish_ids\":[\"W02\",\"W03\"],\"place_ids\":[\"P001\",\"P002\",\"P014\",\"P025\",\"P018\"],\"trip_id\":\"TRIP_CAREER\",\"offer_id\":\"OFR_DEMO_001\"}"
+ },
+ {
+  "name": "UI interest: no personal field is sent",
+  "ok": true,
+  "info": "kind,rating,rating_question,would_use_again,interest_question,comment,consent,wish_ids,place_ids,trip_id,offer_id"
+ },
+ {
+  "name": "UI send status [not_configured]: NOT shown as saved (no thanks / no saved text)",
+  "ok": true,
+  "info": "⚠️ ยังไม่ได้บันทึกความคิดเห็น ไม่สามารถบันทึกได้ ระบบนี้ยังไม่ได้เชื่อมที่เก็บความคิดเห็น (โหมดสาธิต) ข้อมูลโปรไฟล์ของคุ"
+ },
+ {
+  "name": "UI send status [not_configured]: says the system is not connected (demo mode)",
+  "ok": true,
+  "info": "⚠️ ยังไม่ได้บันทึกความคิดเห็น ไม่สามารถบันทึกได้ ระบบนี้ยังไม่ได้เชื่อมที่เก็บความคิดเห็น (โหมดสาธิต) ข้อมูลโปรไฟล์ของคุ"
+ },
+ {
+  "name": "UI send status [bad_webhook_host]: NOT shown as saved (no thanks / no saved text)",
+  "ok": true,
+  "info": "⚠️ ยังไม่ได้บันทึกความคิดเห็น ไม่สามารถบันทึกได้ การตั้งค่าที่เก็บความคิดเห็นของระบบไม่ถูกต้อง ผู้ดูแลระบบต้องแก้ไข ข้อม"
+ },
+ {
+  "name": "UI send status [bad_webhook_host]: says the configuration is wrong, no retry",
+  "ok": true,
+  "info": "⚠️ ยังไม่ได้บันทึกความคิดเห็น ไม่สามารถบันทึกได้ การตั้งค่าที่เก็บความคิดเห็นของระบบไม่ถูกต้อง ผู้ดูแลระบบต้องแก้ไข ข้อม"
+ },
+ {
+  "name": "UI send status [rejected]: NOT shown as saved (no thanks / no saved text)",
+  "ok": true,
+  "info": "⚠️ ยังไม่ได้บันทึกความคิดเห็น ไม่สามารถบันทึกได้ ที่เก็บความคิดเห็นปฏิเสธข้อมูลนี้ ผู้ดูแลระบบต้องตรวจสอบ ข้อมูลโปรไฟล์ข"
+ },
+ {
+  "name": "UI send status [rejected]: says the store rejected it, no retry",
+  "ok": true,
+  "info": "⚠️ ยังไม่ได้บันทึกความคิดเห็น ไม่สามารถบันทึกได้ ที่เก็บความคิดเห็นปฏิเสธข้อมูลนี้ ผู้ดูแลระบบต้องตรวจสอบ ข้อมูลโปรไฟล์ข"
+ },
+ {
+  "name": "UI send status [unreachable]: NOT shown as saved (no thanks / no saved text)",
+  "ok": true,
+  "info": "⚠️ ยังไม่ได้บันทึกความคิดเห็น ยังบันทึกไม่ได้ เชื่อมต่อที่เก็บความคิดเห็นไม่ได้ชั่วคราว ลองส่งใหม่อีกครั้งได้ ข้อมูลโปรไ"
+ },
+ {
+  "name": "UI send status [unreachable]: temporary problem, retry offered and the answers are kept",
+  "ok": true,
+  "info": "{\"interest\":\"MAYBE\",\"stars\":4,\"comment\":\"ทดสอบ\"}"
+ },
+ {
+  "name": "UI send status [request_failed]: NOT shown as saved (no thanks / no saved text)",
+  "ok": true,
+  "info": "แสดงความสนใจและให้คะแนนคำแนะนำ (Demo) ✕ ประเภทบริการที่สนใจ ไปมูเอง ทริปบริษัท ฝากมู คุณสนใจบริการฝากมูที่แนะนำนี้หรือไม"
+ },
+ {
+  "name": "UI send status [request_failed]: says nothing was saved, no thanks",
+  "ok": true,
+  "info": "แสดงความสนใจและให้คะแนนคำแนะนำ (Demo) ✕ ประเภทบริการที่สนใจ ไปมูเอง ทริปบริษัท ฝากมู คุณสนใจบริการฝากมูที่แนะนำนี้หรือไม"
  },
  {
   "name": "UI stations: Tab 1 shows names, not codes",

@@ -1,0 +1,357 @@
+[
+ {
+  "name": "Persona A (Lab -> Matching) Input: page profile equals acceptance persona A",
+  "ok": true,
+  "info": "{\"wish_ids\":[\"W01\",\"W02\",\"W03\"],\"birthdate\":\"2000-03-12\",\"exclusions\":{\"tradition_groups\":[],\"deity_ids\":[],\"place_ids\":[]}}"
+ },
+ {
+  "name": "Persona A (Lab -> Matching) Input: the request the Lab sent equals the profile the page uses",
+  "ok": true,
+  "info": ""
+ },
+ {
+  "name": "Persona A (Lab -> Matching) Reference: model decision is a matched trip",
+  "ok": true,
+  "info": "PROVISIONAL_MATCH_NOT_BOOKABLE TRIP_LOVE"
+ },
+ {
+  "name": "Persona A (Lab -> Matching) Input: wish chips on the page equal the model's wish names",
+  "ok": true,
+  "info": "page=[\"ความรัก\",\"การงาน\",\"การเงิน/โชคลาภ\",\"◇ ตัวอย่างข้อมูลจำลอง\",\"ผลลัพธ์: ความรักและเสริมมงคล\"] model=[\"ความรัก\",\"การงาน\",\"การเงิน/โชคลาภ\"]"
+ },
+ {
+  "name": "Persona A (Lab -> Matching) Output: result chip shows the model's choice",
+  "ok": true,
+  "info": "want \"ผลลัพธ์: ความรักและเสริมมงคล\" got [\"ความรัก\",\"การงาน\",\"การเงิน/โชคลาภ\",\"◇ ตัวอย่างข้อมูลจำลอง\",\"ผลลัพธ์: ความรักและเสริมมงคล\"]"
+ },
+ {
+  "name": "Persona A (Lab -> Matching) Output: exactly the model's trip is starred",
+  "ok": true,
+  "info": "[\"ความรักและเสริมมงคล\"]"
+ },
+ {
+  "name": "Persona A (Lab -> Matching) Output: 3 trip cards are displayed",
+  "ok": true,
+  "info": "cards=3"
+ },
+ {
+  "name": "Persona A (Lab -> Matching) Output TRIP_LOVE: every displayed number is present",
+  "ok": true,
+  "info": ""
+ },
+ {
+  "name": "Persona A (Lab -> Matching) Output TRIP_LOVE: Graph Relevance / Wish Coverage / score on the page equal the model (page rounding)",
+  "ok": false,
+  "info": "page={\"graph\":\"0.513\",\"cover\":\"100%\",\"eqGraph\":\"0.513\",\"eqCover\":\"1.00\",\"score\":\"0.645\"} model={\"graph\":\"0.513\",\"cover\":\"100%\",\"eqGraph\":\"0.513\",\"eqCover\":\"1.00\",\"score\":\"0.635\"}"
+ },
+ {
+  "name": "Persona A (Lab -> Matching) Output TRIP_LOVE: displayed values are within the rounding step of the unrounded model value",
+  "ok": false,
+  "info": ""
+ },
+ {
+  "name": "Persona A (Lab -> Matching) Output TRIP_LOVE: eligibility badge",
+  "ok": true,
+  "info": "★ ได้รับเลือก want ได้รับเลือก"
+ },
+ {
+  "name": "Persona A (Lab -> Matching) Output TRIP_LOVE: passes all conditions",
+  "ok": true,
+  "info": ""
+ },
+ {
+  "name": "Persona A (Lab -> Matching) Output TRIP_CAREER: every displayed number is present",
+  "ok": true,
+  "info": ""
+ },
+ {
+  "name": "Persona A (Lab -> Matching) Output TRIP_CAREER: Graph Relevance / Wish Coverage / score on the page equal the model (page rounding)",
+  "ok": false,
+  "info": "page={\"graph\":\"0.462\",\"cover\":\"100%\",\"eqGraph\":\"0.462\",\"eqCover\":\"1.00\",\"score\":\"0.607\"} model={\"graph\":\"0.462\",\"cover\":\"100%\",\"eqGraph\":\"0.462\",\"eqCover\":\"1.00\",\"score\":\"0.597\"}"
+ },
+ {
+  "name": "Persona A (Lab -> Matching) Output TRIP_CAREER: displayed values are within the rounding step of the unrounded model value",
+  "ok": false,
+  "info": ""
+ },
+ {
+  "name": "Persona A (Lab -> Matching) Output TRIP_CAREER: eligibility badge",
+  "ok": true,
+  "info": "ผ่านเกณฑ์ want ผ่านเกณฑ์"
+ },
+ {
+  "name": "Persona A (Lab -> Matching) Output TRIP_CAREER: passes all conditions",
+  "ok": true,
+  "info": ""
+ },
+ {
+  "name": "Persona A (Lab -> Matching) Output TRIP_WEALTH: every displayed number is present",
+  "ok": true,
+  "info": ""
+ },
+ {
+  "name": "Persona A (Lab -> Matching) Output TRIP_WEALTH: Graph Relevance / Wish Coverage / score on the page equal the model (page rounding)",
+  "ok": false,
+  "info": "page={\"graph\":\"0.236\",\"cover\":\"33%\",\"eqGraph\":\"0.236\",\"eqCover\":\"0.33\",\"score\":\"0.270\"} model={\"graph\":\"0.236\",\"cover\":\"33%\",\"eqGraph\":\"0.236\",\"eqCover\":\"0.33\",\"score\":\"0.260\"}"
+ },
+ {
+  "name": "Persona A (Lab -> Matching) Output TRIP_WEALTH: displayed values are within the rounding step of the unrounded model value",
+  "ok": false,
+  "info": ""
+ },
+ {
+  "name": "Persona A (Lab -> Matching) Output TRIP_WEALTH: eligibility badge",
+  "ok": true,
+  "info": "ผ่านเกณฑ์ want ผ่านเกณฑ์"
+ },
+ {
+  "name": "Persona A (Lab -> Matching) Output TRIP_WEALTH: passes all conditions",
+  "ok": true,
+  "info": ""
+ },
+ {
+  "name": "Persona A (Lab -> Matching) Output: no error box on the page",
+  "ok": true,
+  "info": "errors=0"
+ },
+ {
+  "name": "Persona C (Lab -> Matching) Input: page profile equals acceptance persona C",
+  "ok": true,
+  "info": "{\"wish_ids\":[\"W05\"],\"birthdate\":\"2000-03-12\",\"exclusions\":{\"tradition_groups\":[\"ฮินดู\"],\"deity_ids\":[],\"place_ids\":[]}}"
+ },
+ {
+  "name": "Persona C (Lab -> Matching) Input: the request the Lab sent equals the profile the page uses",
+  "ok": true,
+  "info": ""
+ },
+ {
+  "name": "Persona C (Lab -> Matching) Reference: model decision is NO_ELIGIBLE_SIGNATURE_TRIP",
+  "ok": true,
+  "info": "NO_ELIGIBLE_SIGNATURE_TRIP null"
+ },
+ {
+  "name": "Persona C (Lab -> Matching) Input: wish chips on the page equal the model's wish names",
+  "ok": true,
+  "info": "page=[\"บัตรคอน/กิจกรรมติ่ง\",\"◇ ตัวอย่างข้อมูลจำลอง\",\"ผลลัพธ์: NO_ELIGIBLE_SIGNATURE_TRIP\"] model=[\"บัตรคอน/กิจกรรมติ่ง\"]"
+ },
+ {
+  "name": "Persona C (Lab -> Matching) Output: result chip shows the model's choice",
+  "ok": true,
+  "info": "want \"ผลลัพธ์: NO_ELIGIBLE_SIGNATURE_TRIP\" got [\"บัตรคอน/กิจกรรมติ่ง\",\"◇ ตัวอย่างข้อมูลจำลอง\",\"ผลลัพธ์: NO_ELIGIBLE_SIGNATURE_TRIP\"]"
+ },
+ {
+  "name": "Persona C (Lab -> Matching) Output: exactly the model's trip is starred",
+  "ok": true,
+  "info": "[]"
+ },
+ {
+  "name": "Persona C (Lab -> Matching) Output: the page says NO_ELIGIBLE_SIGNATURE_TRIP explanation",
+  "ok": true,
+  "info": ""
+ },
+ {
+  "name": "Persona C (Lab -> Matching) Output: 3 trip cards are displayed",
+  "ok": true,
+  "info": "cards=3"
+ },
+ {
+  "name": "Persona C (Lab -> Matching) Output TRIP_CAREER: every displayed number is present",
+  "ok": true,
+  "info": ""
+ },
+ {
+  "name": "Persona C (Lab -> Matching) Output TRIP_CAREER: Graph Relevance / Wish Coverage / score on the page equal the model (page rounding)",
+  "ok": false,
+  "info": "page={\"graph\":\"0.000\",\"cover\":\"0%\",\"eqGraph\":\"0.000\",\"eqCover\":\"0.00\",\"score\":\"0.010\"} model={\"graph\":\"0.000\",\"cover\":\"0%\",\"eqGraph\":\"0.000\",\"eqCover\":\"0.00\",\"score\":\"0.000\"}"
+ },
+ {
+  "name": "Persona C (Lab -> Matching) Output TRIP_CAREER: displayed values are within the rounding step of the unrounded model value",
+  "ok": false,
+  "info": ""
+ },
+ {
+  "name": "Persona C (Lab -> Matching) Output TRIP_CAREER: eligibility badge",
+  "ok": true,
+  "info": "ไม่ผ่าน want ไม่ผ่าน"
+ },
+ {
+  "name": "Persona C (Lab -> Matching) Output TRIP_CAREER: shows the reason it failed",
+  "ok": true,
+  "info": ""
+ },
+ {
+  "name": "Persona C (Lab -> Matching) Output TRIP_LOVE: every displayed number is present",
+  "ok": true,
+  "info": ""
+ },
+ {
+  "name": "Persona C (Lab -> Matching) Output TRIP_LOVE: Graph Relevance / Wish Coverage / score on the page equal the model (page rounding)",
+  "ok": false,
+  "info": "page={\"graph\":\"0.000\",\"cover\":\"0%\",\"eqGraph\":\"0.000\",\"eqCover\":\"0.00\",\"score\":\"0.010\"} model={\"graph\":\"0.000\",\"cover\":\"0%\",\"eqGraph\":\"0.000\",\"eqCover\":\"0.00\",\"score\":\"0.000\"}"
+ },
+ {
+  "name": "Persona C (Lab -> Matching) Output TRIP_LOVE: displayed values are within the rounding step of the unrounded model value",
+  "ok": false,
+  "info": ""
+ },
+ {
+  "name": "Persona C (Lab -> Matching) Output TRIP_LOVE: eligibility badge",
+  "ok": true,
+  "info": "ไม่ผ่าน want ไม่ผ่าน"
+ },
+ {
+  "name": "Persona C (Lab -> Matching) Output TRIP_LOVE: shows the reason it failed",
+  "ok": true,
+  "info": ""
+ },
+ {
+  "name": "Persona C (Lab -> Matching) Output TRIP_WEALTH: every displayed number is present",
+  "ok": true,
+  "info": ""
+ },
+ {
+  "name": "Persona C (Lab -> Matching) Output TRIP_WEALTH: Graph Relevance / Wish Coverage / score on the page equal the model (page rounding)",
+  "ok": false,
+  "info": "page={\"graph\":\"0.000\",\"cover\":\"0%\",\"eqGraph\":\"0.000\",\"eqCover\":\"0.00\",\"score\":\"0.010\"} model={\"graph\":\"0.000\",\"cover\":\"0%\",\"eqGraph\":\"0.000\",\"eqCover\":\"0.00\",\"score\":\"0.000\"}"
+ },
+ {
+  "name": "Persona C (Lab -> Matching) Output TRIP_WEALTH: displayed values are within the rounding step of the unrounded model value",
+  "ok": false,
+  "info": ""
+ },
+ {
+  "name": "Persona C (Lab -> Matching) Output TRIP_WEALTH: eligibility badge",
+  "ok": true,
+  "info": "ไม่ผ่าน want ไม่ผ่าน"
+ },
+ {
+  "name": "Persona C (Lab -> Matching) Output TRIP_WEALTH: shows the reason it failed",
+  "ok": true,
+  "info": ""
+ },
+ {
+  "name": "Persona C (Lab -> Matching) Output: no error box on the page",
+  "ok": true,
+  "info": "errors=0"
+ },
+ {
+  "name": "Matching run button exists on a fresh page and sends its own request",
+  "ok": true,
+  "info": "{\"req\":{\"wish_ids\":[\"W01\",\"W02\",\"W03\"],\"birthdate\":\"2000-03-12\",\"exclusions\":{\"tradition_groups\":[],\"deity_ids\":[],\"place_ids\":[]}}}"
+ },
+ {
+  "name": "Persona A (Matching button) Input: page profile equals acceptance persona A",
+  "ok": true,
+  "info": "{\"wish_ids\":[\"W01\",\"W02\",\"W03\"],\"birthdate\":\"2000-03-12\",\"exclusions\":{\"tradition_groups\":[],\"deity_ids\":[],\"place_ids\":[]}}"
+ },
+ {
+  "name": "Persona A (Matching button) Input: the request the Lab sent equals the profile the page uses",
+  "ok": true,
+  "info": ""
+ },
+ {
+  "name": "Persona A (Matching button) Reference: model decision is a matched trip",
+  "ok": true,
+  "info": "PROVISIONAL_MATCH_NOT_BOOKABLE TRIP_LOVE"
+ },
+ {
+  "name": "Persona A (Matching button) Input: wish chips on the page equal the model's wish names",
+  "ok": true,
+  "info": "page=[\"ความรัก\",\"การงาน\",\"การเงิน/โชคลาภ\",\"◇ ตัวอย่างข้อมูลจำลอง\",\"ผลลัพธ์: ความรักและเสริมมงคล\"] model=[\"ความรัก\",\"การงาน\",\"การเงิน/โชคลาภ\"]"
+ },
+ {
+  "name": "Persona A (Matching button) Output: result chip shows the model's choice",
+  "ok": true,
+  "info": "want \"ผลลัพธ์: ความรักและเสริมมงคล\" got [\"ความรัก\",\"การงาน\",\"การเงิน/โชคลาภ\",\"◇ ตัวอย่างข้อมูลจำลอง\",\"ผลลัพธ์: ความรักและเสริมมงคล\"]"
+ },
+ {
+  "name": "Persona A (Matching button) Output: exactly the model's trip is starred",
+  "ok": true,
+  "info": "[\"ความรักและเสริมมงคล\"]"
+ },
+ {
+  "name": "Persona A (Matching button) Output: 3 trip cards are displayed",
+  "ok": true,
+  "info": "cards=3"
+ },
+ {
+  "name": "Persona A (Matching button) Output TRIP_LOVE: every displayed number is present",
+  "ok": true,
+  "info": ""
+ },
+ {
+  "name": "Persona A (Matching button) Output TRIP_LOVE: Graph Relevance / Wish Coverage / score on the page equal the model (page rounding)",
+  "ok": false,
+  "info": "page={\"graph\":\"0.513\",\"cover\":\"100%\",\"eqGraph\":\"0.513\",\"eqCover\":\"1.00\",\"score\":\"0.645\"} model={\"graph\":\"0.513\",\"cover\":\"100%\",\"eqGraph\":\"0.513\",\"eqCover\":\"1.00\",\"score\":\"0.635\"}"
+ },
+ {
+  "name": "Persona A (Matching button) Output TRIP_LOVE: displayed values are within the rounding step of the unrounded model value",
+  "ok": false,
+  "info": ""
+ },
+ {
+  "name": "Persona A (Matching button) Output TRIP_LOVE: eligibility badge",
+  "ok": true,
+  "info": "★ ได้รับเลือก want ได้รับเลือก"
+ },
+ {
+  "name": "Persona A (Matching button) Output TRIP_LOVE: passes all conditions",
+  "ok": true,
+  "info": ""
+ },
+ {
+  "name": "Persona A (Matching button) Output TRIP_CAREER: every displayed number is present",
+  "ok": true,
+  "info": ""
+ },
+ {
+  "name": "Persona A (Matching button) Output TRIP_CAREER: Graph Relevance / Wish Coverage / score on the page equal the model (page rounding)",
+  "ok": false,
+  "info": "page={\"graph\":\"0.462\",\"cover\":\"100%\",\"eqGraph\":\"0.462\",\"eqCover\":\"1.00\",\"score\":\"0.607\"} model={\"graph\":\"0.462\",\"cover\":\"100%\",\"eqGraph\":\"0.462\",\"eqCover\":\"1.00\",\"score\":\"0.597\"}"
+ },
+ {
+  "name": "Persona A (Matching button) Output TRIP_CAREER: displayed values are within the rounding step of the unrounded model value",
+  "ok": false,
+  "info": ""
+ },
+ {
+  "name": "Persona A (Matching button) Output TRIP_CAREER: eligibility badge",
+  "ok": true,
+  "info": "ผ่านเกณฑ์ want ผ่านเกณฑ์"
+ },
+ {
+  "name": "Persona A (Matching button) Output TRIP_CAREER: passes all conditions",
+  "ok": true,
+  "info": ""
+ },
+ {
+  "name": "Persona A (Matching button) Output TRIP_WEALTH: every displayed number is present",
+  "ok": true,
+  "info": ""
+ },
+ {
+  "name": "Persona A (Matching button) Output TRIP_WEALTH: Graph Relevance / Wish Coverage / score on the page equal the model (page rounding)",
+  "ok": false,
+  "info": "page={\"graph\":\"0.236\",\"cover\":\"33%\",\"eqGraph\":\"0.236\",\"eqCover\":\"0.33\",\"score\":\"0.270\"} model={\"graph\":\"0.236\",\"cover\":\"33%\",\"eqGraph\":\"0.236\",\"eqCover\":\"0.33\",\"score\":\"0.260\"}"
+ },
+ {
+  "name": "Persona A (Matching button) Output TRIP_WEALTH: displayed values are within the rounding step of the unrounded model value",
+  "ok": false,
+  "info": ""
+ },
+ {
+  "name": "Persona A (Matching button) Output TRIP_WEALTH: eligibility badge",
+  "ok": true,
+  "info": "ผ่านเกณฑ์ want ผ่านเกณฑ์"
+ },
+ {
+  "name": "Persona A (Matching button) Output TRIP_WEALTH: passes all conditions",
+  "ok": true,
+  "info": ""
+ },
+ {
+  "name": "Persona A (Matching button) Output: no error box on the page",
+  "ok": true,
+  "info": "errors=0"
+ }
+]

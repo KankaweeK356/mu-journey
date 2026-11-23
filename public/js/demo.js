@@ -318,14 +318,14 @@ export async function renderDemo(root) {
           h('ol', { class: 'timeline' }, T.detail.stops.map((s) => h('li', {}, h('div', { class: 't' }, `${s.arrival}–${s.finish} · ${s.station_name}`), h('div', {}, s.name)))),
           h('div', { class: 'callout small', 'data-trip-tbd': 'true' }, h('b', {}, 'รายละเอียดการจอง (Demo)'),
             h('div', {}, 'ราคา: ยังไม่กำหนด · วันเดินทาง: ยังไม่กำหนด · การจองล่วงหน้า: ยังไม่เปิดจอง'),
-            h('div', {}, 'ปุ่มด้านล่างเป็นการลงทะเบียนความสนใจเพื่อทดสอบระบบ ไม่ใช่การจอง ไม่รับชำระเงินจริง ไม่มีที่นั่งถูกสำรอง')),
-          h('div', { class: 'row' }, h('button', { class: 'btn primary', onclick: () => openFeedback({ service: 'trip' }) }, 'ลงทะเบียนสนใจทริป (Demo)'), h('button', { class: 'btn', onclick: () => go(6) }, 'ดูเหตุผลที่แนะนำทริปนี้'))) : h('div', { class: 'callout warn' }, 'ไม่มีทริปที่ผ่านเงื่อนไขสำหรับโปรไฟล์นี้ ลองเลือก "ไปมูเอง"'));
+            h('div', {}, 'ปุ่มด้านล่างเป็นการแสดงความสนใจเพื่อทดสอบระบบ ไม่ใช่การลงทะเบียนหรือการจอง ไม่รับชำระเงินจริง ไม่มีที่นั่งถูกสำรอง')),
+          h('div', { class: 'row' }, h('button', { class: 'btn primary', onclick: () => openFeedback({ service: 'trip' }) }, 'แสดงความสนใจทริป (Demo)'), h('button', { class: 'btn', onclick: () => go(6) }, 'ดูเหตุผลที่แนะนำทริปนี้'))) : h('div', { class: 'callout warn' }, 'ไม่มีทริปที่ผ่านเงื่อนไขสำหรับโปรไฟล์นี้ ลองเลือก "ไปมูเอง"'));
       } else if (svc === 'proxy') {
         const box = h('div', { class: 'stack' }, h('p', { class: 'muted' }, 'กำลังโหลดรายการ…'));
         panel.append(h('h3', {}, 'ฝากมู (Demo)'), box);
         API.offers(S.picked.size ? [...S.picked] : R.top5.map((p) => p.place_id), activeWishes()).then((O) => {
           clear(box).append(...(O.offers.length ? O.offers.slice(0, 6).map((o) => h('div', { class: 'path' }, h('b', {}, o.title), h('div', { class: 'small muted' }, `${o.place_name} · ${o.wish_name} · ${o.price_thb} บาท · ล่วงหน้า ${o.lead_time_days} วัน`),
-            h('div', { class: 'row', style: 'margin-top:4px' }, h('button', { class: 'btn sm', onclick: () => openProxyDemo(o) }, 'ลองกรอกคำขอ (Demo)'), h('button', { class: 'btn sm primary', onclick: () => openFeedback({ service: 'proxy', offer_id: o.offer_id }) }, 'ลงทะเบียนสนใจบริการ (Demo)')))) : [h('div', { class: 'callout' }, 'ไม่มีบริการฝากมูสำหรับสถานที่ที่เลือก')]),
+            h('div', { class: 'row', style: 'margin-top:4px' }, h('button', { class: 'btn sm', onclick: () => openProxyDemo(o) }, 'ลองกรอกคำขอ (Demo)'), h('button', { class: 'btn sm primary', onclick: () => openFeedback({ service: 'proxy', offer_id: o.offer_id }) }, 'แสดงความสนใจบริการ (Demo)')))) : [h('div', { class: 'callout' }, 'ไม่มีบริการฝากมูสำหรับสถานที่ที่เลือก')]),
             h('div', { class: 'callout warn small' }, 'ข้อมูลจำลอง ไม่มีการยืนยันผู้ให้บริการหรือการอนุญาตจากสถานที่จริง ไม่สร้างรายการจองหรือคำสั่งซื้อ'));
         }).catch((e) => clear(box).append(h('div', { class: 'callout bad' }, 'โหลดไม่สำเร็จ: ' + e.message)));
       }
@@ -358,11 +358,24 @@ export async function renderDemo(root) {
     draw();
     window.scrollTo({ top: 0 });
   }
+  /* What the user is told after sending. Success is shown ONLY when the answer was really stored; every other outcome says what happened. */
+  const SEND_STATUS = {
+    saved: 'บันทึกความคิดเห็นแล้ว',
+    not_configured: 'ไม่สามารถบันทึกได้ ระบบนี้ยังไม่ได้เชื่อมที่เก็บความคิดเห็น (โหมดสาธิต)',
+    bad_webhook_host: 'ไม่สามารถบันทึกได้ การตั้งค่าที่เก็บความคิดเห็นของระบบไม่ถูกต้อง ผู้ดูแลระบบต้องแก้ไข',
+    rejected: 'ไม่สามารถบันทึกได้ ที่เก็บความคิดเห็นปฏิเสธข้อมูลนี้ ผู้ดูแลระบบต้องตรวจสอบ',
+    unreachable: 'ยังบันทึกไม่ได้ เชื่อมต่อที่เก็บความคิดเห็นไม่ได้ชั่วคราว ลองส่งใหม่อีกครั้งได้',
+  };
+  const statusText = (r) => (r && r.saved === true ? SEND_STATUS.saved : (r && SEND_STATUS[r.mode]) || 'ไม่สามารถบันทึกได้ ไม่ทราบสาเหตุ');
+  const isSaved = (r) => !!r && r.saved === true && r.mode === 'saved';
+  const canRetry = (r) => !!r && r.saved !== true && r.mode === 'unreachable';          // only a temporary connection problem is worth resending
   function thanks(r) {
-    clear(dlg).append(h('div', { class: 'dlg-b stack', style: 'text-align:center;padding:26px 22px' },
-      h('div', { style: 'font-size:46px' }, '💜'), h('h3', {}, 'ขอบคุณสำหรับความคิดเห็น'),
-      h('div', { class: r.saved ? 'callout ok' : 'callout warn' }, r.saved ? 'บันทึกความคิดเห็นแล้ว' : r.message),
+    const ok = isSaved(r);
+    clear(dlg).append(h('div', { class: 'dlg-b stack', 'data-send-status': ok ? 'saved' : (r && r.mode) || 'unknown', style: 'text-align:center;padding:26px 22px' },
+      h('div', { style: 'font-size:46px' }, ok ? '💜' : '⚠️'), h('h3', {}, ok ? 'ขอบคุณสำหรับความคิดเห็น' : 'ยังไม่ได้บันทึกความคิดเห็น'),
+      h('div', { class: ok ? 'callout ok' : 'callout warn', role: 'status' }, statusText(r)),
       h('p', { class: 'muted', style: 'margin:0' }, 'ข้อมูลโปรไฟล์ของคุณยังอยู่ ไปต่อได้เลย'),
+      canRetry(r) ? h('button', { type: 'button', class: 'btn', 'data-retry': 'true', onclick: () => openFeedback(lastFeedback.pre, lastFeedback.draft) }, 'ลองส่งใหม่') : null,
       // step 04 lists all 10 wishes, so "another topic" is always step 04 (the profile in steps 01-03 stays)
       h('button', { type: 'button', class: 'btn primary', onclick: () => startNewRound(4) }, 'มูเรื่องอื่นต่อ'),
       h('button', { type: 'button', class: 'btn ghost', onclick: () => { dlg.close(); resetAll(); } }, 'กลับหน้าแรก (ล้างข้อมูลของฉัน)')));
@@ -392,9 +405,12 @@ export async function renderDemo(root) {
   }
 
   const RATING_QUESTION = { self: 'สถานที่ที่แนะนำ', trip: 'ทริปที่แนะนำ', proxy: 'บริการฝากมูที่แนะนำ' };
-  function openFeedback(pre = {}) {
+  const INTEREST_TARGET = { self: 'สถานที่', trip: 'ทริป', proxy: 'บริการฝากมู' };
+  const INTEREST_CHOICES = [['YES', 'สนใจ'], ['MAYBE', 'ยังไม่แน่ใจ'], ['NO', 'ไม่สนใจ']];        // sent as would_use_again = pre-use interest (INTEREST_Q=V1_PREUSE_INTEREST)
+  let lastFeedback = null;                                                                       // kept only in memory so a temporary connection failure can be retried
+  function openFeedback(pre = {}, draft = {}) {
     const R = S.result;
-    let service = pre.service || 'self', rating = 0;
+    let service = draft.service || pre.service || 'self', rating = draft.rating || 0, interest = draft.interest || '';
     const msg = h('div', { role: 'status' });
     const stars = h('div', { class: 'stars', role: 'radiogroup', 'aria-label': 'ให้คะแนน 1 ถึง 5 ดาว' });
     const drawStars = () => { clear(stars); for (let i = 1; i <= 5; i++) stars.append(h('button', { type: 'button', role: 'radio', 'aria-checked': String(rating === i), 'aria-label': i + ' ดาว', class: i <= rating ? 'on' : '', onclick: () => { rating = i; drawStars(); } }, '★')); };
@@ -403,26 +419,37 @@ export async function renderDemo(root) {
     // Rating question V2 (from 2026-11-23): "how well does this recommendation match your interest?" (users have not travelled yet, so not "satisfied / disappointed")
     const question = h('div', { class: 'lbl', 'data-rating-question': 'V2_RELEVANCE' });
     const drawQuestion = () => { question.textContent = `${RATING_QUESTION[service]}นี้ตรงกับความสนใจของคุณมากน้อยแค่ไหน (1 = ไม่ตรงเลย, 5 = ตรงมาก)`; };
-    const drawSeg = () => { clear(svcSeg); SERVICES.forEach(([id, , , t]) => svcSeg.append(h('button', { type: 'button', 'aria-pressed': String(service === id), onclick: () => { service = id; drawSeg(); drawQuestion(); } }, t))); };
-    drawSeg(); drawQuestion();
+    // Interest question: "are you interested in what was recommended?" asked before any real use (not repeat usage)
+    const interestQ = h('div', { class: 'lbl', 'data-interest-question': 'V1_PREUSE_INTEREST' });
+    const interestSeg = h('div', { class: 'seg', role: 'radiogroup', 'aria-label': 'ความสนใจต่อสิ่งที่แนะนำ' });
+    const drawInterest = () => {
+      interestQ.textContent = `คุณสนใจ${INTEREST_TARGET[service]}ที่แนะนำนี้หรือไม่`;
+      clear(interestSeg); INTEREST_CHOICES.forEach(([v, t]) => interestSeg.append(h('button', { type: 'button', role: 'radio', 'data-interest': v, 'aria-checked': String(interest === v), 'aria-pressed': String(interest === v), onclick: () => { interest = v; drawInterest(); } }, t)));
+    };
+    const drawSeg = () => { clear(svcSeg); SERVICES.forEach(([id, , , t]) => svcSeg.append(h('button', { type: 'button', 'aria-pressed': String(service === id), onclick: () => { service = id; drawSeg(); drawQuestion(); drawInterest(); } }, t))); };
+    drawSeg(); drawQuestion(); drawInterest();
     const ta = h('textarea', { maxlength: '300', placeholder: 'แชร์ความรู้สึกหรือสิ่งที่คุณชอบ / อยากให้ปรับ (ไม่บังคับ) — อย่าใส่ข้อมูลส่วนตัว' });
+    ta.value = draft.comment || '';
     const cnt = h('span', { class: 'small faint' }, '0/300');
     ta.addEventListener('input', () => { cnt.textContent = `${ta.value.length}/300`; });
     const consent = h('input', { type: 'checkbox', id: 'fb-consent' });
     const send = h('button', { type: 'button', class: 'btn primary', onclick: async () => {
+      if (!interest) { msg.replaceChildren(h('div', { class: 'callout bad', role: 'alert' }, 'กรุณาเลือกว่าสนใจหรือไม่')); return; }
       if (!rating) { msg.replaceChildren(h('div', { class: 'callout bad', role: 'alert' }, 'กรุณาให้คะแนน 1–5 ดาว')); return; }
       if (!consent.checked) { msg.replaceChildren(h('div', { class: 'callout bad', role: 'alert' }, 'กรุณาติ๊กยินยอมให้เก็บความคิดเห็นก่อนส่ง')); return; }
       send.disabled = true;
+      lastFeedback = { pre, draft: { service, rating, interest, comment: ta.value } };
       try {
-        const r = await API.feedback({ kind: { self: 'places', trip: 'trip', proxy: 'proxy' }[service], rating, rating_question: 'V2_RELEVANCE', comment: ta.value, consent: true, wish_ids: activeWishes(),
+        const r = await API.feedback({ kind: { self: 'places', trip: 'trip', proxy: 'proxy' }[service], rating, rating_question: 'V2_RELEVANCE', would_use_again: interest, interest_question: 'V1_PREUSE_INTEREST',
+          comment: ta.value, consent: true, wish_ids: activeWishes(),
           place_ids: R ? R.top5.map((p) => p.place_id) : [], trip_id: (R && R.trip.matched ? R.trip.matched.trip_id : ''), offer_id: pre.offer_id || '' });
         thanks(r);
-      } catch (e) { msg.replaceChildren(h('div', { class: 'callout bad', role: 'alert' }, e.message)); send.disabled = false; }
+      } catch (e) { msg.replaceChildren(h('div', { class: 'callout bad', role: 'alert', 'data-send-status': 'request_failed' }, 'ส่งไม่สำเร็จ ยังไม่ได้บันทึกความคิดเห็น: ' + e.message)); send.disabled = false; }
     } }, '✈ ส่งความคิดเห็น');
-    clear(dlg).append(h('div', { class: 'dlg-h' }, h('h3', {}, 'เล่าประสบการณ์ให้ MUMU ฟัง'), h('button', { class: 'btn sm', 'aria-label': 'ปิด', onclick: () => dlg.close() }, '✕')),
-      h('div', { class: 'dlg-b stack' }, h('div', { class: 'field' }, h('span', { class: 'lbl' }, 'ประเภทบริการที่สนใจ'), svcSeg), question, stars, h('div', {}, ta, h('div', { style: 'text-align:right' }, cnt)),
+    clear(dlg).append(h('div', { class: 'dlg-h' }, h('h3', {}, 'แสดงความสนใจและให้คะแนนคำแนะนำ (Demo)'), h('button', { class: 'btn sm', 'aria-label': 'ปิด', onclick: () => dlg.close() }, '✕')),
+      h('div', { class: 'dlg-b stack' }, h('div', { class: 'field' }, h('span', { class: 'lbl' }, 'ประเภทบริการที่สนใจ'), svcSeg), interestQ, interestSeg, question, stars, h('div', {}, ta, h('div', { style: 'text-align:right' }, cnt)),
         h('label', { class: 'row small', style: 'align-items:flex-start;flex-wrap:nowrap' }, consent, h('span', {}, 'ฉันยินยอมให้เก็บคะแนนและข้อความนี้ พร้อมเรื่องที่เลือกและสถานที่ที่ระบบเสนอ เพื่อประเมินความน่าใช้ของ Demo (ไม่เก็บวันเกิด และไม่ใช้ปรับโมเดลโดยอัตโนมัติ)')),
-        h('div', { class: 'callout small' }, 'ปุ่ม "ลงทะเบียนสนใจ" คือการบอกว่าสนใจและให้ความคิดเห็นต่อ Demo ไม่ใช่การจองหรือสั่งซื้อ ไม่ใช่การประเมินบริการจริง ไม่มีการจอง การชำระเงิน หรือพิธีกรรมเกิดขึ้น'), msg,
+        h('div', { class: 'callout small' }, 'ปุ่ม "แสดงความสนใจ" คือการบอกว่าสนใจสิ่งที่แนะนำและให้ความคิดเห็นต่อ Demo ไม่ใช่การลงทะเบียน จอง หรือสั่งซื้อ ไม่ใช่การประเมินบริการจริง ไม่มีการจอง การชำระเงิน หรือพิธีกรรมเกิดขึ้น'), msg,
         h('div', { class: 'row', style: 'justify-content:flex-end' }, h('button', { class: 'btn', onclick: () => dlg.close() }, 'ยกเลิก'), send)));
     dlg.showModal();
   }

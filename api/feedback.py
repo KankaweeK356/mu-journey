@@ -22,6 +22,15 @@ from _http import read_json, send_json
 import _engine as E
 
 
+STATUS_MESSAGES = {
+    "saved": "บันทึกความคิดเห็นแล้ว",
+    "not_configured": "ไม่สามารถบันทึกได้ ระบบนี้ยังไม่ได้เชื่อมที่เก็บความคิดเห็น (โหมดสาธิต)",
+    "bad_webhook_host": "ไม่สามารถบันทึกได้ การตั้งค่าที่เก็บความคิดเห็นของระบบไม่ถูกต้อง ผู้ดูแลระบบต้องแก้ไข",
+    "rejected": "ไม่สามารถบันทึกได้ ที่เก็บความคิดเห็นปฏิเสธข้อมูลนี้ ผู้ดูแลระบบต้องตรวจสอบ",
+    "unreachable": "ยังบันทึกไม่ได้ เชื่อมต่อที่เก็บความคิดเห็นไม่ได้ชั่วคราว ลองส่งใหม่อีกครั้งได้",
+}
+
+
 def _forward(row: dict) -> tuple[bool, str]:
     url = os.environ.get("FEEDBACK_WEBHOOK_URL", "")
     token = os.environ.get("FEEDBACK_TOKEN", "")
@@ -48,8 +57,9 @@ class handler(BaseHTTPRequestHandler):
         row = dict(clean, submitted_at=datetime.now(timezone.utc).isoformat(timespec="seconds"),
                    wish_ids=",".join(clean["wish_ids"]), place_ids=",".join(clean["place_ids"]))
         saved, mode = _forward(row)
-        send_json(self, 200, {"saved": saved, "mode": mode,
-                              "message": "ขอบคุณสำหรับความคิดเห็น" if saved else "รับข้อมูลแล้ว (โหมดสาธิต ยังไม่ได้เชื่อม Google Sheet)"})
+        # The message always says what really happened. Only a temporary connection problem is worth retrying: the other causes are configuration or
+        # rejection on the system side, and resending the same answer cannot fix them.
+        send_json(self, 200, {"saved": saved, "mode": mode, "retryable": mode == "unreachable", "message": STATUS_MESSAGES.get(mode, STATUS_MESSAGES["unreachable"])})
 
     def log_message(self, *args):
         pass

@@ -56,17 +56,7 @@ async function tab2() {
   const ref = await ev(`fetch('/api/mumu/recommendations',{method:'POST',headers:{'content-type':'application/json'},body:${JSON.stringify(JSON.stringify(lab.input))}}).then(r=>r.json()).then(j=>j.top5.map(p=>p.place_id))`);
   check('Lab Output equals the production recommendation endpoint for the same input', JSON.stringify(ref) === JSON.stringify(lab.topIds), `${ref.join(',')} vs ${lab.topIds.join(',')}`);
 
-  // ---- Trip Matching: same profile -> trip result
-  await W(`document.getElementById('a2-t-matching').click(); await w(1200); const b=document.getElementById('mt-run'); if (b) { window.__calls.length=0; b.click(); await until(()=>document.getElementById('a2-p-matching').innerText.length>900); } await w(3500); return 1;`);
-  const mt = await W(`const p=document.getElementById('a2-p-matching'); const tr=window.__calls.find(c=>/\\/api\\/trace/.test(c.url)&&c.json)||null;
-    return {ranAgain:!!tr, matched:tr?(tr.json.trip_matching.result.matched_trip||{}).trip_id:null, text:p.innerText, errors:[...p.querySelectorAll('.callout.bad')].filter(e=>e.offsetParent&&e.textContent.trim()).length}`);
-  const expected = await ev(`fetch('/api/trace',{method:'POST',headers:{'content-type':'application/json'},body:${JSON.stringify(JSON.stringify(lab.input))}}).then(r=>r.json()).then(j=>(j.trip_matching.result.matched_trip||{}).trip_id||null)`);
-  mt.matched = mt.matched || expected;
-  check('Matching Input: uses the profile from the Lab (the trip shown is computed from the same input)', mt.text.includes('Matching') || mt.text.length > 900, `matched=${mt.matched}`);
-  const tref = await ev(`fetch('/api/mumu/recommendations',{method:'POST',headers:{'content-type':'application/json'},body:${JSON.stringify(JSON.stringify(mt.input || lab.input))}}).then(r=>r.json()).then(j=>j.trip.matched?j.trip.matched.trip_id:null)`);
-  check('Matching Output: matched trip equals the production recommendation endpoint', (mt.matched || null) === tref, `page/trace=${mt.matched} endpoint=${tref}`);
-  check('Matching Output: result is rendered without error', mt.text.length > 900 && mt.errors === 0, `len=${mt.text.length}`);
-  if (mt.matched) check('Matching Output: the matched trip id is shown', mt.text.includes(mt.matched) || /ทริป/.test(mt.text));
+  // Trip Matching is verified strictly (page values vs the unmodified model, personas A and C, no fallback) in tests/e2e/matching_strict.mjs
 }
 
 async function ui() {
@@ -94,9 +84,40 @@ async function ui() {
       const re = await W(`const d=document.querySelector('dialog[open]'); const r={name:d.querySelector('input').value, wish:d.querySelector('textarea').value, preview:!!d.querySelector('[data-proxy-preview]')}; btn('ปิดและล้างค่า',d).click(); return r;`);
       check('UI proxy: values are cleared after closing (reopen is empty)', re.name === '' && re.wish === '' && !re.preview, JSON.stringify(re));
     }
-    // rating question V2 (open the form, never submit)
-    const q = await W(`btn('ลงทะเบียนสนใจบริการ (Demo)').click(); await w(400); const d=document.querySelector('dialog[open]'); const out={}; for (const t of ['ไปมูเอง','ทริปบริษัท','ฝากมู']) { [...d.querySelectorAll('.seg button')].find(b=>b.textContent.includes(t)).click(); await w(100); out[t]=d.querySelector('[data-rating-question]').textContent; } out.old=/สมหวัง|ผิดหวัง/.test(d.innerText); d.querySelector('.dlg-h button').click(); return out;`);
-    check('UI rating: question asks how well the recommendation matches the interest, per service', Object.entries(q).filter(([k]) => k !== 'old').every(([, v]) => v.includes('นี้ตรงกับความสนใจของคุณมากน้อยแค่ไหน')) && q.old === false, JSON.stringify(q).slice(0, 220));
+    // rating + interest questions per service (open the form, never submit)
+    const q = await W(`btn('แสดงความสนใจบริการ (Demo)').click(); await w(400); const d=document.querySelector('dialog[open]'); const out={title:d.querySelector('.dlg-h h3').textContent}; for (const t of ['ไปมูเอง','ทริปบริษัท','ฝากมู']) { [...d.querySelectorAll('[aria-label="ประเภทบริการที่สนใจ"] button')].find(b=>b.textContent.includes(t)).click(); await w(100); out[t]={rating:d.querySelector('[data-rating-question]').textContent, interest:d.querySelector('[data-interest-question]').textContent, choices:[...d.querySelectorAll('[data-interest]')].map(b=>b.textContent.trim()).join('/')}; } out.old=/สมหวัง|ผิดหวัง/.test(d.innerText); d.querySelector('.dlg-h button').click(); return out;`);
+    const svc = ['ไปมูเอง', 'ทริปบริษัท', 'ฝากมู'];
+    check('UI form: title is "แสดงความสนใจและให้คะแนนคำแนะนำ (Demo)"', q.title === 'แสดงความสนใจและให้คะแนนคำแนะนำ (Demo)', q.title);
+    check('UI rating: question asks how well the recommendation matches the interest, per service', svc.every((t) => q[t].rating.includes('นี้ตรงกับความสนใจของคุณมากน้อยแค่ไหน')) && q.old === false, JSON.stringify(q).slice(0, 200));
+    check('UI interest: "คุณสนใจ{ทริป/บริการ/สถานที่}ที่แนะนำนี้หรือไม่" with สนใจ/ยังไม่แน่ใจ/ไม่สนใจ', q['ไปมูเอง'].interest === 'คุณสนใจสถานที่ที่แนะนำนี้หรือไม่' && q['ทริปบริษัท'].interest === 'คุณสนใจทริปที่แนะนำนี้หรือไม่' && q['ฝากมู'].interest === 'คุณสนใจบริการฝากมูที่แนะนำนี้หรือไม่' && svc.every((t) => q[t].choices === 'สนใจ/ยังไม่แน่ใจ/ไม่สนใจ'), JSON.stringify(svc.map((t) => q[t].interest)));
+
+    // status after sending, for every outcome. The browser answers in place of the server: NOTHING is sent anywhere.
+    const outcomes = [['saved', true], ['not_configured', false], ['bad_webhook_host', false], ['rejected', false], ['unreachable', false], ['request_failed', false]];
+    for (const [mode] of outcomes) {
+      const r = await W(`window.__fbBodies=[]; const real=window.__realFetch||(window.__realFetch=window.fetch); window.fetch=async function(u,o){ if(String(u).includes('demo-feedback')){ window.__fbBodies.push(JSON.parse(o.body)); const m=${JSON.stringify(mode)}; if(m==='request_failed') throw new TypeError('Failed to fetch'); return new Response(JSON.stringify({saved:m==='saved',mode:m,retryable:m==='unreachable',message:'x'}),{status:200,headers:{'content-type':'application/json'}}); } return real.apply(this,arguments); };
+        btn('แสดงความสนใจบริการ (Demo)').click(); await w(300); const d=document.querySelector('dialog[open]');
+        const sendBtn=()=>btn('ส่งความคิดเห็น',d); sendBtn().click(); await w(150); const noInterest=d.querySelector('[role=alert]')?.textContent||'';
+        d.querySelector('[data-interest=MAYBE]').click(); await w(100); d.querySelector('[aria-label="4 ดาว"]').click(); await w(100); d.querySelector('textarea').value='ทดสอบ'; d.querySelector('#fb-consent').click(); sendBtn().click(); await w(700);
+        const box=document.querySelector('dialog[open]'); const st=box.querySelector('[data-send-status]'); const r={noInterest, status:st?st.getAttribute('data-send-status'):null, head:box.querySelector('h3,.callout[role=alert]')?.textContent||'', text:box.innerText.replace(/\\s+/g,' '), icon:box.innerText.includes('💜'), warn:box.innerText.includes('⚠️'), retry:!!box.querySelector('[data-retry]'), body:window.__fbBodies[0]||null};
+        if(r.retry){ box.querySelector('[data-retry]').click(); await w(300); const d2=document.querySelector('dialog[open]'); r.kept={interest:d2.querySelector('[data-interest][aria-pressed=true]')?.dataset.interest, stars:d2.querySelectorAll('.stars .on').length, comment:d2.querySelector('textarea').value}; }
+        document.querySelector('dialog[open]')?.close(); window.fetch=real; return r;`);
+      const label = `UI send status [${mode}]`;
+      if (mode === 'saved') {
+        check(`${label}: shown as saved, with thanks`, r.status === 'saved' && r.text.includes('บันทึกความคิดเห็นแล้ว') && r.text.includes('ขอบคุณสำหรับความคิดเห็น') && r.icon, r.text.slice(0, 80));
+      } else {
+        check(`${label}: NOT shown as saved (no thanks / no saved text)`, !r.text.includes('ขอบคุณสำหรับความคิดเห็น') && !r.text.includes('บันทึกความคิดเห็นแล้ว') && !r.icon, r.text.slice(0, 120));
+      }
+      if (mode === 'not_configured') check(`${label}: says the system is not connected (demo mode)`, r.text.includes('ระบบนี้ยังไม่ได้เชื่อมที่เก็บความคิดเห็น') && !r.retry, r.text.slice(0, 120));
+      if (mode === 'bad_webhook_host') check(`${label}: says the configuration is wrong, no retry`, r.text.includes('การตั้งค่าที่เก็บความคิดเห็นของระบบไม่ถูกต้อง') && !r.retry, r.text.slice(0, 120));
+      if (mode === 'rejected') check(`${label}: says the store rejected it, no retry`, r.text.includes('ปฏิเสธข้อมูลนี้') && !r.retry, r.text.slice(0, 120));
+      if (mode === 'unreachable') check(`${label}: temporary problem, retry offered and the answers are kept`, r.text.includes('เชื่อมต่อที่เก็บความคิดเห็นไม่ได้ชั่วคราว') && r.retry && r.kept && r.kept.interest === 'MAYBE' && r.kept.stars === 4 && r.kept.comment === 'ทดสอบ', JSON.stringify(r.kept));
+      if (mode === 'request_failed') check(`${label}: says nothing was saved, no thanks`, r.text.includes('ส่งไม่สำเร็จ ยังไม่ได้บันทึกความคิดเห็น') && !r.retry && r.status === 'request_failed', r.text.slice(0, 120));
+      if (mode === 'saved') {
+        check('UI interest: required before sending', r.noInterest.includes('กรุณาเลือกว่าสนใจหรือไม่'), r.noInterest);
+        check('UI interest: request carries would_use_again=MAYBE and the interest question version, and the rating question version', r.body && r.body.would_use_again === 'MAYBE' && r.body.interest_question === 'V1_PREUSE_INTEREST' && r.body.rating_question === 'V2_RELEVANCE' && r.body.rating === 4 && r.body.consent === true, JSON.stringify(r.body));
+        check('UI interest: no personal field is sent', r.body && !('birthdate' in r.body) && Object.keys(r.body).every((k) => ['kind', 'rating', 'rating_question', 'would_use_again', 'interest_question', 'comment', 'consent', 'wish_ids', 'place_ids', 'trip_id', 'offer_id'].includes(k)), Object.keys(r.body || {}).join(','));
+      }
+    }
   }
   // station names in Tab 1 step 07 and Tab 2 designer
   await load();

@@ -409,6 +409,9 @@ FEEDBACK_KINDS = {"places", "trip", "proxy"}
 # Never analyse V1 and V2 ratings together as one scale.
 RATING_QUESTIONS = {"V1_GENERAL", "V2_RELEVANCE"}
 RATING_QUESTION_V2_FROM = "2026-11-23"
+# V1_PREUSE_INTEREST: `would_use_again` (YES / MAYBE / NO) answers "are you interested in what was recommended?" BEFORE any real use.
+# It is NOT repeat usage. Rows without |INTEREST_Q= have no such answer in this field.
+INTEREST_QUESTIONS = {"V1_PREUSE_INTEREST"}
 REASON_TAGS = {"RELEVANT", "NOT_RELEVANT", "TOO_FAR", "TOO_LONG", "PRICE", "COMMUNICATION", "OTHER"}
 
 
@@ -442,8 +445,14 @@ def validate_feedback(body: dict) -> dict:
     question = body.get("rating_question") or "V1_GENERAL"           # a client that does not say which question it showed is the old one
     if question not in RATING_QUESTIONS:
         raise ValueError("invalid rating_question")
+    interest_q = body.get("interest_question") or ""
+    if interest_q and interest_q not in INTEREST_QUESTIONS:
+        raise ValueError("invalid interest_question")
+    if again and not interest_q:
+        raise ValueError("interest_question is required when would_use_again is sent")   # the field means 'pre-use interest' only when this says so
     comment = str(body.get("comment") or "").strip()[:300]
-    # The sheet schema is unchanged: the question version travels inside the existing `scope` text, so old and new ratings can be told apart.
+    # The sheet schema is unchanged: the meaning versions travel inside the existing `scope` text, so old and new answers can be told apart.
+    scope = f"DEMO_UX_FEEDBACK_NOT_REAL_SERVICE|RATING_Q={question}" + (f"|INTEREST_Q={interest_q}" if interest_q else "")
     return {"kind": kind, "rating": rating, "wish_ids": wishes, "place_ids": places, "trip_id": trip_id,
             "offer_id": offer_id, "reason_tag": reason, "would_use_again": again, "comment": comment,
-            "scope": f"DEMO_UX_FEEDBACK_NOT_REAL_SERVICE|RATING_Q={question}", "data_origin": "DEMO_USER_INPUT", "consent": "YES"}
+            "scope": scope, "data_origin": "DEMO_USER_INPUT", "consent": "YES"}

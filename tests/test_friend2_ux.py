@@ -46,10 +46,11 @@ class StationNames(unittest.TestCase):
 
 class WordingAndLegend(unittest.TestCase):
     def test_interest_buttons_say_register_interest_not_booking(self):
-        self.assertIn("ลงทะเบียนสนใจทริป (Demo)", DEMO)
-        self.assertIn("ลงทะเบียนสนใจบริการ (Demo)", DEMO)
+        self.assertIn("แสดงความสนใจทริป (Demo)", DEMO)
+        self.assertIn("แสดงความสนใจบริการ (Demo)", DEMO)
+        self.assertNotIn("ลงทะเบียนสนใจ", DEMO.replace("ไม่ใช่การลงทะเบียน", ""))
         self.assertNotIn("'ทดลองสนใจทริป'", DEMO)
-        self.assertIn("ไม่ใช่การจองหรือสั่งซื้อ", DEMO)
+        self.assertIn("ไม่ใช่การลงทะเบียน จอง หรือสั่งซื้อ", DEMO)
 
     def test_trip_price_date_booking_are_stated_as_not_set(self):
         self.assertIn("ราคา: ยังไม่กำหนด · วันเดินทาง: ยังไม่กำหนด · การจองล่วงหน้า: ยังไม่เปิดจอง", DEMO)
