@@ -1,0 +1,72 @@
+[
+ {
+  "name": "T2 explorer: opens, content loaded, no spinner/error",
+  "ok": true,
+  "info": "{\"visible\":true,\"len\":3940,\"spinners\":0,\"errors\":[]}"
+ },
+ {
+  "name": "T2 lab: opens, content loaded, no spinner/error",
+  "ok": true,
+  "info": "{\"visible\":true,\"len\":624,\"spinners\":0,\"errors\":[]}"
+ },
+ {
+  "name": "T2 designer: opens, content loaded, no spinner/error",
+  "ok": true,
+  "info": "{\"visible\":true,\"len\":1424,\"spinners\":0,\"errors\":[]}"
+ },
+ {
+  "name": "T2 matching: opens, content loaded, no spinner/error",
+  "ok": true,
+  "info": "{\"visible\":true,\"len\":361,\"spinners\":0,\"errors\":[]}"
+ },
+ {
+  "name": "T2 evaluation: opens, content loaded, no spinner/error",
+  "ok": true,
+  "info": "{\"visible\":true,\"len\":6960,\"spinners\":0,\"errors\":[]}"
+ },
+ {
+  "name": "T2 no request failed (404/401/5xx) while opening the 5 sections",
+  "ok": true,
+  "info": ""
+ },
+ {
+  "name": "Lab Input: profile sent to the engine has wishes",
+  "ok": true,
+  "info": "{\"wish_ids\":[\"W01\",\"W02\",\"W03\"],\"birthdate\":\"2000-03-12\",\"exclusions\":{\"tradition_groups\":[],\"deity_ids\":[],\"place_ids\":[]}}"
+ },
+ {
+  "name": "Lab Network Processing: engine answered 200 and matches the reference model",
+  "ok": true,
+  "info": "status=200 matches_reference=true"
+ },
+ {
+  "name": "Lab Output: every Top 5 place is shown on the page",
+  "ok": true,
+  "info": "วัดพระศรีมหาอุมาเทวี (วัดแขก สีลม) | วัดวิษณุ (สมาคมฮินดูธรรมสภา) | เทวสถานโบสถ์พราหมณ์ | วัดมหาบุศย์ (แม่นาคพระโขนง) | ศาลเจ้าแม่ทับทิม (สะพานซังฮี้)"
+ },
+ {
+  "name": "Lab Output equals the production recommendation endpoint for the same input",
+  "ok": true,
+  "info": "P001,P002,P014,P019,P029 vs P001,P002,P014,P019,P029"
+ },
+ {
+  "name": "Matching Input: uses the profile from the Lab (the trip shown is computed from the same input)",
+  "ok": true,
+  "info": "matched=TRIP_LOVE"
+ },
+ {
+  "name": "Matching Output: matched trip equals the production recommendation endpoint",
+  "ok": true,
+  "info": "page/trace=TRIP_LOVE endpoint=TRIP_LOVE"
+ },
+ {
+  "name": "Matching Output: result is rendered without error",
+  "ok": true,
+  "info": "len=2240"
+ },
+ {
+  "name": "Matching Output: the matched trip id is shown",
+  "ok": true,
+  "info": ""
+ }
+]

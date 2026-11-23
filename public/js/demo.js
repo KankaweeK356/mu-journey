@@ -325,7 +325,7 @@ export async function renderDemo(root) {
         panel.append(h('h3', {}, 'ฝากมู (Demo)'), box);
         API.offers(S.picked.size ? [...S.picked] : R.top5.map((p) => p.place_id), activeWishes()).then((O) => {
           clear(box).append(...(O.offers.length ? O.offers.slice(0, 6).map((o) => h('div', { class: 'path' }, h('b', {}, o.title), h('div', { class: 'small muted' }, `${o.place_name} · ${o.wish_name} · ${o.price_thb} บาท · ล่วงหน้า ${o.lead_time_days} วัน`),
-            h('div', { class: 'row', style: 'margin-top:4px' }, h('button', { class: 'btn sm primary', onclick: () => openFeedback({ service: 'proxy', offer_id: o.offer_id }) }, 'ลงทะเบียนสนใจบริการ (Demo)')))) : [h('div', { class: 'callout' }, 'ไม่มีบริการฝากมูสำหรับสถานที่ที่เลือก')]),
+            h('div', { class: 'row', style: 'margin-top:4px' }, h('button', { class: 'btn sm', onclick: () => openProxyDemo(o) }, 'ลองกรอกคำขอ (Demo)'), h('button', { class: 'btn sm primary', onclick: () => openFeedback({ service: 'proxy', offer_id: o.offer_id }) }, 'ลงทะเบียนสนใจบริการ (Demo)')))) : [h('div', { class: 'callout' }, 'ไม่มีบริการฝากมูสำหรับสถานที่ที่เลือก')]),
             h('div', { class: 'callout warn small' }, 'ข้อมูลจำลอง ไม่มีการยืนยันผู้ให้บริการหรือการอนุญาตจากสถานที่จริง ไม่สร้างรายการจองหรือคำสั่งซื้อ'));
         }).catch((e) => clear(box).append(h('div', { class: 'callout bad' }, 'โหลดไม่สำเร็จ: ' + e.message)));
       }
@@ -368,6 +368,30 @@ export async function renderDemo(root) {
       h('button', { type: 'button', class: 'btn ghost', onclick: () => { dlg.close(); resetAll(); } }, 'กลับหน้าแรก (ล้างข้อมูลของฉัน)')));
   }
 
+  /* Demo-only sample request form for "ฝากมู". Values live only in these DOM nodes: nothing is sent (no API call), nothing is stored
+     (no database, no Google Sheet, no localStorage), and everything is dropped when the dialog closes. There is no real provider behind it. */
+  function openProxyDemo(offer) {
+    const name = h('input', { type: 'text', maxlength: '40', autocomplete: 'off', 'aria-label': 'ชื่อผู้ฝาก (ชื่อสมมติ)', placeholder: 'ชื่อสมมติ เช่น "สมชาย ทดสอบ"' });
+    const wish = h('textarea', { maxlength: '200', autocomplete: 'off', 'aria-label': 'คำขอพร (ตัวอย่าง)', placeholder: 'คำขอพรตัวอย่าง เช่น "ขอให้สอบผ่าน" (อย่าใส่เรื่องส่วนตัว)' });
+    const out = h('div', { role: 'status' });
+    const show = () => {
+      const n = name.value.trim(), w = wish.value.trim();
+      clear(out).append(h('div', { class: 'card flat stack', 'data-proxy-preview': 'true' }, h('b', {}, 'ตัวอย่างสรุปคำขอ (Demo)'),
+        h('div', { class: 'small' }, 'บริการ: ' + offer.title + ' · ' + offer.place_name), h('div', { class: 'small' }, 'ชื่อผู้ฝาก: ' + (n || '—') + ' (ชื่อสมมติ)'), h('div', { class: 'small' }, 'คำขอพร: ' + (w || '—')),
+        h('div', { class: 'small muted' }, 'ยังไม่มีผู้ให้บริการรับคำขอนี้จริง ข้อมูลไม่ถูกส่งหรือบันทึก และจะหายเมื่อปิดหน้าต่าง')));
+    };
+    const close = () => { name.value = ''; wish.value = ''; clear(out); dlg.close(); };
+    clear(dlg).append(h('div', { class: 'dlg-h' }, h('h3', {}, 'ตัวอย่างขั้นตอนฝากมู (Demo)'), h('button', { class: 'btn sm', 'aria-label': 'ปิด', onclick: close }, '✕')),
+      h('div', { class: 'dlg-b stack' }, h('div', { class: 'callout warn small' }, 'นี่คือแบบฟอร์มสาธิตเพื่อดูขั้นตอนเท่านั้น ไม่มีผู้ให้บริการรับคำขอจริง ไม่มีการจองหรือชำระเงิน ใช้ชื่อสมมติและอย่าใส่ข้อมูลส่วนตัว'),
+        h('div', { class: 'small' }, offer.title + ' · ' + offer.place_name),
+        h('label', { class: 'field' }, h('span', { class: 'lbl' }, 'ชื่อผู้ฝาก (ชื่อสมมติ)'), name),
+        h('label', { class: 'field' }, h('span', { class: 'lbl' }, 'คำขอพร (ตัวอย่าง)'), wish), out,
+        h('div', { class: 'row', style: 'justify-content:flex-end' }, h('button', { class: 'btn', onclick: close }, 'ปิดและล้างค่า'), h('button', { class: 'btn primary', onclick: show }, 'ดูตัวอย่างสรุป'))));
+    dlg.addEventListener('close', () => { name.value = ''; wish.value = ''; }, { once: true });
+    dlg.showModal();
+  }
+
+  const RATING_QUESTION = { self: 'สถานที่ที่แนะนำ', trip: 'ทริปที่แนะนำ', proxy: 'บริการฝากมูที่แนะนำ' };
   function openFeedback(pre = {}) {
     const R = S.result;
     let service = pre.service || 'self', rating = 0;
@@ -376,8 +400,11 @@ export async function renderDemo(root) {
     const drawStars = () => { clear(stars); for (let i = 1; i <= 5; i++) stars.append(h('button', { type: 'button', role: 'radio', 'aria-checked': String(rating === i), 'aria-label': i + ' ดาว', class: i <= rating ? 'on' : '', onclick: () => { rating = i; drawStars(); } }, '★')); };
     drawStars();
     const svcSeg = h('div', { class: 'seg', role: 'group', 'aria-label': 'ประเภทบริการที่สนใจ' });
-    const drawSeg = () => { clear(svcSeg); SERVICES.forEach(([id, , , t]) => svcSeg.append(h('button', { type: 'button', 'aria-pressed': String(service === id), onclick: () => { service = id; drawSeg(); } }, t))); };
-    drawSeg();
+    // Rating question V2 (from 2026-11-23): "how well does this recommendation match your interest?" (users have not travelled yet, so not "satisfied / disappointed")
+    const question = h('div', { class: 'lbl', 'data-rating-question': 'V2_RELEVANCE' });
+    const drawQuestion = () => { question.textContent = `${RATING_QUESTION[service]}นี้ตรงกับความสนใจของคุณมากน้อยแค่ไหน (1 = ไม่ตรงเลย, 5 = ตรงมาก)`; };
+    const drawSeg = () => { clear(svcSeg); SERVICES.forEach(([id, , , t]) => svcSeg.append(h('button', { type: 'button', 'aria-pressed': String(service === id), onclick: () => { service = id; drawSeg(); drawQuestion(); } }, t))); };
+    drawSeg(); drawQuestion();
     const ta = h('textarea', { maxlength: '300', placeholder: 'แชร์ความรู้สึกหรือสิ่งที่คุณชอบ / อยากให้ปรับ (ไม่บังคับ) — อย่าใส่ข้อมูลส่วนตัว' });
     const cnt = h('span', { class: 'small faint' }, '0/300');
     ta.addEventListener('input', () => { cnt.textContent = `${ta.value.length}/300`; });
@@ -387,13 +414,13 @@ export async function renderDemo(root) {
       if (!consent.checked) { msg.replaceChildren(h('div', { class: 'callout bad', role: 'alert' }, 'กรุณาติ๊กยินยอมให้เก็บความคิดเห็นก่อนส่ง')); return; }
       send.disabled = true;
       try {
-        const r = await API.feedback({ kind: { self: 'places', trip: 'trip', proxy: 'proxy' }[service], rating, comment: ta.value, consent: true, wish_ids: activeWishes(),
+        const r = await API.feedback({ kind: { self: 'places', trip: 'trip', proxy: 'proxy' }[service], rating, rating_question: 'V2_RELEVANCE', comment: ta.value, consent: true, wish_ids: activeWishes(),
           place_ids: R ? R.top5.map((p) => p.place_id) : [], trip_id: (R && R.trip.matched ? R.trip.matched.trip_id : ''), offer_id: pre.offer_id || '' });
         thanks(r);
       } catch (e) { msg.replaceChildren(h('div', { class: 'callout bad', role: 'alert' }, e.message)); send.disabled = false; }
     } }, '✈ ส่งความคิดเห็น');
     clear(dlg).append(h('div', { class: 'dlg-h' }, h('h3', {}, 'เล่าประสบการณ์ให้ MUMU ฟัง'), h('button', { class: 'btn sm', 'aria-label': 'ปิด', onclick: () => dlg.close() }, '✕')),
-      h('div', { class: 'dlg-b stack' }, h('div', { class: 'field' }, h('span', { class: 'lbl' }, 'ประเภทบริการที่สนใจ'), svcSeg), stars, h('div', {}, ta, h('div', { style: 'text-align:right' }, cnt)),
+      h('div', { class: 'dlg-b stack' }, h('div', { class: 'field' }, h('span', { class: 'lbl' }, 'ประเภทบริการที่สนใจ'), svcSeg), question, stars, h('div', {}, ta, h('div', { style: 'text-align:right' }, cnt)),
         h('label', { class: 'row small', style: 'align-items:flex-start;flex-wrap:nowrap' }, consent, h('span', {}, 'ฉันยินยอมให้เก็บคะแนนและข้อความนี้ พร้อมเรื่องที่เลือกและสถานที่ที่ระบบเสนอ เพื่อประเมินความน่าใช้ของ Demo (ไม่เก็บวันเกิด และไม่ใช้ปรับโมเดลโดยอัตโนมัติ)')),
         h('div', { class: 'callout small' }, 'ปุ่ม "ลงทะเบียนสนใจ" คือการบอกว่าสนใจและให้ความคิดเห็นต่อ Demo ไม่ใช่การจองหรือสั่งซื้อ ไม่ใช่การประเมินบริการจริง ไม่มีการจอง การชำระเงิน หรือพิธีกรรมเกิดขึ้น'), msg,
         h('div', { class: 'row', style: 'justify-content:flex-end' }, h('button', { class: 'btn', onclick: () => dlg.close() }, 'ยกเลิก'), send)));

@@ -405,6 +405,10 @@ def trace(profile: dict) -> dict:
 
 # ---------------------------------------------------------------- feedback validation (no personal data accepted)
 FEEDBACK_KINDS = {"places", "trip", "proxy"}
+# V1_GENERAL: before 2026-11-23, general rating of the demo. V2_RELEVANCE: from 2026-11-23, "how well does this recommendation match your interest" (1-5).
+# Never analyse V1 and V2 ratings together as one scale.
+RATING_QUESTIONS = {"V1_GENERAL", "V2_RELEVANCE"}
+RATING_QUESTION_V2_FROM = "2026-11-23"
 REASON_TAGS = {"RELEVANT", "NOT_RELEVANT", "TOO_FAR", "TOO_LONG", "PRICE", "COMMUNICATION", "OTHER"}
 
 
@@ -435,7 +439,11 @@ def validate_feedback(body: dict) -> dict:
         raise ValueError("invalid would_use_again")
     if body.get("consent") is not True:
         raise ValueError("consent is required to store feedback")
+    question = body.get("rating_question") or "V1_GENERAL"           # a client that does not say which question it showed is the old one
+    if question not in RATING_QUESTIONS:
+        raise ValueError("invalid rating_question")
     comment = str(body.get("comment") or "").strip()[:300]
+    # The sheet schema is unchanged: the question version travels inside the existing `scope` text, so old and new ratings can be told apart.
     return {"kind": kind, "rating": rating, "wish_ids": wishes, "place_ids": places, "trip_id": trip_id,
             "offer_id": offer_id, "reason_tag": reason, "would_use_again": again, "comment": comment,
-            "scope": "DEMO_UX_FEEDBACK_NOT_REAL_SERVICE", "data_origin": "DEMO_USER_INPUT", "consent": "YES"}
+            "scope": f"DEMO_UX_FEEDBACK_NOT_REAL_SERVICE|RATING_Q={question}", "data_origin": "DEMO_USER_INPUT", "consent": "YES"}
