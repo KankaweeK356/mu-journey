@@ -158,6 +158,13 @@ export async function renderDemo(root) {
     h('div', { class: 'small' }, `คำนวณชั่วคราวจากเรื่อง "${wishName[S.topic]}" ของกิจกรรมนี้ ไม่ใช่จากความสนใจที่คุณเลือกไว้ในขั้น 02 (ความสนใจเดิมไม่ถูกแก้ไข)`),
     h('div', { class: 'row', style: 'margin-top:6px' }, h('button', { type: 'button', class: 'btn sm primary', onclick: backToInterests }, 'กลับไปความสนใจเดิม'),
       S.wishes.length ? null : h('span', { class: 'small' }, 'คุณยังไม่ได้เลือกความสนใจ ปุ่มนี้จะพาไปเลือกในขั้น 02'))));
+  /* What the small labels mean (shown under the place cards and in step 04). The weekday note says honestly what the birth date is used for. */
+  const legend = () => h('details', { class: 'small', 'data-legend': 'true' }, h('summary', {}, 'ป้ายต่าง ๆ หมายถึงอะไร'),
+    h('div', { class: 'inner stack' },
+      h('div', {}, h('span', { class: 'chip' }, 'ป้ายเทา'), ' เรื่องที่คุณเลือก (เช่น ความรัก การงาน) ที่สถานที่นี้เชื่อมถึง'),
+      h('div', {}, h('span', { class: 'chip pink' }, 'ป้ายชมพู'), ' สิ่งศักดิ์สิทธิ์ที่เชื่อมกับสถานที่นี้ตามฐานข้อมูล'),
+      h('div', {}, h('span', { class: 'chip gold' }, 'ป้ายทอง "เกิดวัน…"'), ' วันเกิดในสัปดาห์ที่ใช้เป็นสัญญาณรอง รอบนี้ระบบใช้เฉพาะวันเกิดในสัปดาห์ ยังไม่ใช้เดือนเกิด ราศี หรือปีนักษัตร'),
+      h('div', {}, 'ลูกศร เรื่อง → สิ่งศักดิ์สิทธิ์ → สถานที่ คือเส้นทางในเครือข่ายที่ทำให้ระบบแนะนำสถานที่นั้น')));
   const summary = (R) => h('div', { class: 'row', style: 'margin-bottom:12px' }, activeWishes().map((w) => h('span', { class: 'chip' }, wishIcon(w).e + ' ' + wishName[w])),
     R.profile.weekday ? h('span', { class: 'chip gold', title: 'วันเกิดใช้เป็นสัญญาณรอง' }, 'เกิด' + R.profile.weekday) : null,
     R.profile.applied_exclusions.deity_ids.length || R.profile.applied_exclusions.place_ids.length ? h('span', { class: 'chip pink' }, `ตัดสิ่งศักดิ์สิทธิ์ ${R.profile.applied_exclusions.deity_ids.length} · สถานที่ ${R.profile.applied_exclusions.place_ids.length}`) : null);
@@ -210,6 +217,7 @@ export async function renderDemo(root) {
           h('div', { class: 'wish-grid', style: 'grid-template-columns:repeat(auto-fill,minmax(180px,1fr))' }, cards)),
         h('div', { class: 'card stack' }, h('h3', {}, '✨ คำแนะนำเบื้องต้นสำหรับคุณ'), preview,
           h('div', { class: 'callout info small' }, 'การเลือกการ์ดเปลี่ยนแค่วิธีแสดงตัวอย่างนี้ ไม่เปลี่ยนคะแนนเครือข่าย อันดับ Top 5 หรือการจับคู่ทริป และไม่คำนวณใหม่')),
+        legend(),
         discoverySection(R, { today: todayISO(), focus, onDetail: () => go(5), redraw: draw }),
         fixedCalendarSection({ wishes: activeWishes(), focus, redraw: draw }),
         h('div', { class: 'row small' }, h('button', { class: 'btn sm', onclick: () => go(2) }, 'เปลี่ยนความสนใจ'), h('button', { class: 'btn sm', onclick: () => go(3) }, 'แก้ข้อจำกัด')),
@@ -252,7 +260,7 @@ export async function renderDemo(root) {
       return h('div', { class: 'fade-in stack' }, title(5, 'สถานที่ที่เหมาะกับคุณ', 'คำแนะนำสูงสุด 5 แห่ง จากความสนใจของคุณ'), modeBanner(), summary(R),
         !R.top5.length ? h('div', { class: 'callout warn' }, h('b', {}, 'ไม่พบสถานที่ที่ผ่านเงื่อนไข'), h('p', { class: 'small', style: 'margin:.3em 0 0' }, 'ระบบไม่แนะนำสิ่งที่ขัดกับที่คุณไม่ต้องการ และไม่เติมรายการให้ครบ ลองแก้ข้อจำกัดหรือความสนใจ')) :
           R.limited_results ? h('div', { class: 'callout' }, `แสดง ${R.top5.length} แห่ง (น้อยกว่า 5) — ${R.limited_reason || 'ไม่มีเส้นทางที่มีแหล่งอ้างอิงเพิ่ม'} ระบบไม่เติมรายการให้ครบ`) : null,
-        ...cardsOut, eventsBlock(R),
+        ...cardsOut, legend(), eventsBlock(R),
         h('div', { class: 'callout small' }, 'ผลลัพธ์มาจากความสัมพันธ์ในฐานข้อมูล ไม่ใช่การรับรองความศักดิ์สิทธิ์หรือผลของการขอพร การเลือก "สนใจ" ไม่เปลี่ยนอันดับ บางความสัมพันธ์ยังรอตรวจสอบ ดูสถานะรายเส้นทางได้ใน "ดูรายละเอียด"'),
         foot({ fn: () => go(4) }, { label: 'ดูทริปที่เหมาะกับฉัน', fn: () => go(6) }));
     });
@@ -279,7 +287,7 @@ export async function renderDemo(root) {
         body = h('div', { class: 'stack' },
           h('div', { class: 'trip-hero' }, h('span', { class: 'tag' }, '✨ ทริปแนะนำสำหรับคุณ'), h('h3', {}, D.title), h('p', {}, `${TRIP_TH[D.trip_id]} · เหมาะกับ: ${covered || '—'}`),
             h('div', { class: 'stops' }, D.stops.map((s) => h('div', { class: 'stop' }, h('i', {}, s.order), h('div', {}, s.name)))),
-            h('div', { class: 'row', style: 'margin-top:12px' }, h('span', { class: 'tag' }, '🚆 BTS/MRT + เดิน'), h('span', { class: 'tag' }, `⏱ ประมาณ ${Math.round(D.duration_min)} นาที · จบ ~${D.finish_clock}`), h('span', { class: 'tag' }, `คะแนนจับคู่ ${f(M.matching_score, 2)}`), h('span', { class: 'tag' }, 'Demo · ยังไม่เปิดจองจริง'))),
+            h('div', { class: 'row', style: 'margin-top:12px' }, h('span', { class: 'tag' }, '🚆 BTS/MRT + เดิน'), h('span', { class: 'tag' }, `⏱ ประมาณ ${Math.round(D.duration_min)} นาที · จบ ~${D.finish_clock}`), h('span', { class: 'tag' }, `คะแนนจับคู่ ${f(M.matching_score, 2)}`), h('span', { class: 'tag' }, 'Demo · ยังไม่เปิดจองจริง'), h('span', { class: 'tag' }, 'ราคา/วันเดินทาง: ยังไม่กำหนด'))),
           h('div', { class: 'card' }, h('h3', {}, 'จุดแวะตามลำดับ'), h('ol', { class: 'timeline', style: 'margin-top:10px' }, D.stops.map((s) => h('li', {},
             h('div', { class: 't' }, `${s.arrival}–${s.finish} · ${s.station_name} (${s.station_id}) · ${s.access_mode === 'skywalk' ? 'Skywalk' : 'เดิน'}`),
             h('div', {}, h('b', {}, s.name)), h('div', { class: 'small muted' }, 'พิธีเด่น: ' + s.featured_deity))))),
@@ -301,21 +309,23 @@ export async function renderDemo(root) {
       if (svc === 'self') {
         const ids = S.picked.size ? [...S.picked] : R.top5.map((p) => p.place_id);
         panel.append(h('h3', {}, 'ไปมูเอง'), h('p', { class: 'sub' }, S.picked.size ? 'สถานที่ที่คุณสนใจ' : 'คุณยังไม่ได้เลือกสถานที่ แสดงทั้งหมดที่ระบบเสนอ'),
-          ...ids.map((id) => { const p = R.top5.find((x) => x.place_id === id); return h('div', { class: 'path' }, h('b', {}, p.name), h('div', { class: 'small muted' }, `สถานีใกล้สุด ${p.station_id} · เข้าถึงประมาณ ${p.access_min} นาที (ประมาณการ) · เปิด ${p.hours.open}–${p.hours.close}`), h('div', { class: 'row', style: 'margin-top:4px' }, h('button', { class: 'btn sm', onclick: () => openPlace(id) }, 'ข้อมูลสถานที่และวิธีมู'))); }),
+          ...ids.map((id) => { const p = R.top5.find((x) => x.place_id === id); return h('div', { class: 'path' }, h('b', {}, p.name), h('div', { class: 'small muted' }, `สถานีใกล้สุด ${p.station_name || p.station_id} · เข้าถึงประมาณ ${p.access_min} นาที (ประมาณการ) · เปิด ${p.hours.open}–${p.hours.close}`), h('div', { class: 'row', style: 'margin-top:4px' }, h('button', { class: 'btn sm', onclick: () => openPlace(id) }, 'ข้อมูลสถานที่และวิธีมู'))); }),
           h('div', { class: 'callout small' }, 'ยังไม่มีการจองจริง เวลาเปิดบางแห่งเป็นข้อมูลจำลองหรือรอตรวจ ควรตรวจกับสถานที่ก่อนเดินทาง'),
           h('div', { class: 'row' }, h('button', { class: 'btn primary', onclick: () => openFeedback({ service: 'self' }) }, 'ให้ความคิดเห็นต่อ Demo')));
       } else if (svc === 'trip') {
         const T = R.trip;
         panel.append(h('h3', {}, 'ทริปบริษัท (Demo)'), T.matched ? h('div', { class: 'stack' }, h('p', { class: 'sub' }, `${TRIP_TH[T.matched.trip_id]} · ${T.detail.title}`),
           h('ol', { class: 'timeline' }, T.detail.stops.map((s) => h('li', {}, h('div', { class: 't' }, `${s.arrival}–${s.finish} · ${s.station_name}`), h('div', {}, s.name)))),
-          h('div', { class: 'callout small' }, 'ไม่รับจองและไม่รับชำระเงินจริง ราคา ที่นั่ง และวันเดินทางยังไม่กำหนด'),
-          h('div', { class: 'row' }, h('button', { class: 'btn primary', onclick: () => openFeedback({ service: 'trip' }) }, 'ทดลองสนใจทริป'), h('button', { class: 'btn', onclick: () => go(6) }, 'ดูเหตุผลที่แนะนำทริปนี้'))) : h('div', { class: 'callout warn' }, 'ไม่มีทริปที่ผ่านเงื่อนไขสำหรับโปรไฟล์นี้ ลองเลือก "ไปมูเอง"'));
+          h('div', { class: 'callout small', 'data-trip-tbd': 'true' }, h('b', {}, 'รายละเอียดการจอง (Demo)'),
+            h('div', {}, 'ราคา: ยังไม่กำหนด · วันเดินทาง: ยังไม่กำหนด · การจองล่วงหน้า: ยังไม่เปิดจอง'),
+            h('div', {}, 'ปุ่มด้านล่างเป็นการลงทะเบียนความสนใจเพื่อทดสอบระบบ ไม่ใช่การจอง ไม่รับชำระเงินจริง ไม่มีที่นั่งถูกสำรอง')),
+          h('div', { class: 'row' }, h('button', { class: 'btn primary', onclick: () => openFeedback({ service: 'trip' }) }, 'ลงทะเบียนสนใจทริป (Demo)'), h('button', { class: 'btn', onclick: () => go(6) }, 'ดูเหตุผลที่แนะนำทริปนี้'))) : h('div', { class: 'callout warn' }, 'ไม่มีทริปที่ผ่านเงื่อนไขสำหรับโปรไฟล์นี้ ลองเลือก "ไปมูเอง"'));
       } else if (svc === 'proxy') {
         const box = h('div', { class: 'stack' }, h('p', { class: 'muted' }, 'กำลังโหลดรายการ…'));
         panel.append(h('h3', {}, 'ฝากมู (Demo)'), box);
         API.offers(S.picked.size ? [...S.picked] : R.top5.map((p) => p.place_id), activeWishes()).then((O) => {
           clear(box).append(...(O.offers.length ? O.offers.slice(0, 6).map((o) => h('div', { class: 'path' }, h('b', {}, o.title), h('div', { class: 'small muted' }, `${o.place_name} · ${o.wish_name} · ${o.price_thb} บาท · ล่วงหน้า ${o.lead_time_days} วัน`),
-            h('div', { class: 'row', style: 'margin-top:4px' }, h('button', { class: 'btn sm primary', onclick: () => openFeedback({ service: 'proxy', offer_id: o.offer_id }) }, 'ทดลองสนใจบริการ')))) : [h('div', { class: 'callout' }, 'ไม่มีบริการฝากมูสำหรับสถานที่ที่เลือก')]),
+            h('div', { class: 'row', style: 'margin-top:4px' }, h('button', { class: 'btn sm primary', onclick: () => openFeedback({ service: 'proxy', offer_id: o.offer_id }) }, 'ลงทะเบียนสนใจบริการ (Demo)')))) : [h('div', { class: 'callout' }, 'ไม่มีบริการฝากมูสำหรับสถานที่ที่เลือก')]),
             h('div', { class: 'callout warn small' }, 'ข้อมูลจำลอง ไม่มีการยืนยันผู้ให้บริการหรือการอนุญาตจากสถานที่จริง ไม่สร้างรายการจองหรือคำสั่งซื้อ'));
         }).catch((e) => clear(box).append(h('div', { class: 'callout bad' }, 'โหลดไม่สำเร็จ: ' + e.message)));
       }
@@ -385,7 +395,7 @@ export async function renderDemo(root) {
     clear(dlg).append(h('div', { class: 'dlg-h' }, h('h3', {}, 'เล่าประสบการณ์ให้ MUMU ฟัง'), h('button', { class: 'btn sm', 'aria-label': 'ปิด', onclick: () => dlg.close() }, '✕')),
       h('div', { class: 'dlg-b stack' }, h('div', { class: 'field' }, h('span', { class: 'lbl' }, 'ประเภทบริการที่สนใจ'), svcSeg), stars, h('div', {}, ta, h('div', { style: 'text-align:right' }, cnt)),
         h('label', { class: 'row small', style: 'align-items:flex-start;flex-wrap:nowrap' }, consent, h('span', {}, 'ฉันยินยอมให้เก็บคะแนนและข้อความนี้ พร้อมเรื่องที่เลือกและสถานที่ที่ระบบเสนอ เพื่อประเมินความน่าใช้ของ Demo (ไม่เก็บวันเกิด และไม่ใช้ปรับโมเดลโดยอัตโนมัติ)')),
-        h('div', { class: 'callout small' }, 'เป็นความคิดเห็นต่อ Demo ไม่ใช่การประเมินบริการจริง ไม่มีการจอง การชำระเงิน หรือพิธีกรรมเกิดขึ้น'), msg,
+        h('div', { class: 'callout small' }, 'ปุ่ม "ลงทะเบียนสนใจ" คือการบอกว่าสนใจและให้ความคิดเห็นต่อ Demo ไม่ใช่การจองหรือสั่งซื้อ ไม่ใช่การประเมินบริการจริง ไม่มีการจอง การชำระเงิน หรือพิธีกรรมเกิดขึ้น'), msg,
         h('div', { class: 'row', style: 'justify-content:flex-end' }, h('button', { class: 'btn', onclick: () => dlg.close() }, 'ยกเลิก'), send)));
     dlg.showModal();
   }
@@ -401,7 +411,7 @@ export async function renderDemo(root) {
       const P = await API.place(id);
       clear(dlg).append(h('div', { class: 'dlg-h' }, h('div', {}, h('h3', {}, P.name), h('div', { class: 'small muted' }, P.district + ' · ' + P.address)), h('button', { class: 'btn sm', onclick: () => dlg.close() }, 'ปิด')),
         h('div', { class: 'dlg-b stack' },
-          h('div', { class: 'row' }, h('span', { class: 'chip' }, `เปิด ${P.hours.open}–${P.hours.close}`), statusChip(P.hours.status, 'เวลาเปิด'), h('span', { class: 'chip st-unv' }, 'พิกัด: สถานี ' + P.station.id + ' ไม่ใช่ตำแหน่งสถานที่จริง'), h('span', { class: 'chip' }, `เดินทางประมาณ ${P.station.access_min_candidate} นาทีจากสถานี (ประมาณการ)`)),
+          h('div', { class: 'row' }, h('span', { class: 'chip' }, `เปิด ${P.hours.open}–${P.hours.close}`), statusChip(P.hours.status, 'เวลาเปิด'), h('span', { class: 'chip st-unv' }, 'พิกัด: สถานี ' + (P.station.name_th || P.station.id) + ' ไม่ใช่ตำแหน่งสถานที่จริง'), h('span', { class: 'chip' }, `เดินทางประมาณ ${P.station.access_min_candidate} นาทีจากสถานี (ประมาณการ)`)),
           P.caution ? h('div', { class: 'callout warn small' }, P.caution) : null,
           h('div', {}, h('h4', {}, 'สิ่งศักดิ์สิทธิ์และเรื่องมูที่เชื่อมโยง'), h('div', { class: 'scroll-x' }, h('table', {}, h('thead', {}, h('tr', {}, ['สิ่งศักดิ์สิทธิ์', 'ความเชื่อ', 'เรื่องที่ขอ', 'สถานะ'].map((t) => h('th', {}, t)))),
             h('tbody', {}, P.sacred_entities.map((e) => h('tr', {}, h('td', {}, e.deity_name), h('td', {}, e.tradition), h('td', {}, e.wish_names.join(', ')), h('td', {}, statusChip(e.place_link_status, 'เทพ–สถานที่')))))))),

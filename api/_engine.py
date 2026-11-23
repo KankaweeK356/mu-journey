@@ -66,6 +66,13 @@ STATUS_TH = {
 }
 
 
+STATION_NAME_TH = {s["station_id"]: s["name_th"] for s in m.D["stations"]}   # display only: the model's routing is untouched
+
+
+def station_name(station_id) -> str | None:
+    return STATION_NAME_TH.get(station_id)
+
+
 def place_hours_status(place: dict) -> str:
     return {"SYNTHETIC_DEMO_HOURS": "SYNTHETIC"}.get(place["hours_origin"], "CANDIDATE")
 
@@ -131,7 +138,7 @@ def place_detail(place_id: str) -> dict:
     trips_here = [t["trip_id"] for t in m.CATALOG.values() if place_id in t["place_ids"]]
     return {
         "place_id": place_id, "name": p["place_name"], "district": p["district"], "address": p["address"],
-        "station": {"id": p["routing_station_id"], "access_min_candidate": p["access_min_candidate"],
+        "station": {"id": p["routing_station_id"], "name_th": station_name(p["routing_station_id"]), "access_min_candidate": p["access_min_candidate"],
                     "lat": p["station_anchor_lat"], "lon": p["station_anchor_lon"],
                     "coordinate_type": p["coordinate_type"],
                     "note": "พิกัดนี้คือสถานีที่ใกล้ที่สุด ไม่ใช่พิกัดสถานที่จริง"},
@@ -226,7 +233,7 @@ def recommend(profile: dict) -> dict:
             "matched_wishes": [m.W[w]["wish_th"] for w in item["matched_wish_ids"]],
             "paths": paths, "deity_ids": deity_ids,
             "hours": {"open": pl["demo_open"], "close": pl["demo_close"], "status": place_hours_status(pl)},
-            "station_id": pl["routing_station_id"], "access_min": pl["access_min_candidate"],
+            "station_id": pl["routing_station_id"], "station_name": station_name(pl["routing_station_id"]), "access_min": pl["access_min_candidate"],
             "rituals": _rituals_for(pid, deity_ids),
             "note": item["note"],
         })
