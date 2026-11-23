@@ -43,6 +43,14 @@ class Step04Layout(unittest.TestCase):
             self.assertNotIn(forbidden, STEP4.replace("S.focus = mode ? 'ALL'", ""), forbidden)
 
 
+class SeeAllPreview(unittest.TestCase):
+    def test_see_all_shows_one_place_per_interest_from_the_computed_top5(self):
+        self.assertIn("const many = focus === 'ALL' && activeWishes().length > 1;", STEP4)
+        self.assertIn("R.top5.find((x) => x.matched_wish_ids.includes(w))", STEP4)
+        self.assertIn("data-missing-wishes", STEP4)                           # an interest with no place in the Top 5 is named, not hidden
+        self.assertNotIn("ensureResult(", STEP4)
+
+
 class ActivityMode(unittest.TestCase):
     def test_continue_with_never_writes_step02_interests(self):
         self.assertNotIn("S.wishes =", CONTINUE)

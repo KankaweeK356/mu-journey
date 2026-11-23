@@ -35,6 +35,11 @@
   "info": "{\"before\":\"＋ บันทึกไว้\",\"after\":\"✓ บันทึกไว้แล้ว\",\"boxes\":0,\"reason\":true}"
  },
  {
+  "name": "T1f \"ดูทุกเรื่อง\" preview represents every interest that has a Top 5 place",
+  "ok": true,
+  "info": "{\"covered\":true,\"got\":1,\"want\":3,\"miss\":[]}"
+ },
+ {
   "name": "T1c switching cards made 0 recommendation calls",
   "ok": true,
   "info": "calls 2->2"
@@ -143,6 +148,11 @@
   "name": "T4 network event: \"บันทึกไว้\" wording, no checkboxes, reason shown",
   "ok": true,
   "info": "{\"before\":\"＋ บันทึกไว้\",\"after\":\"✓ บันทึกไว้แล้ว\",\"boxes\":0,\"reason\":true}"
+ },
+ {
+  "name": "T1f \"ดูทุกเรื่อง\" preview represents every interest that has a Top 5 place",
+  "ok": true,
+  "info": "{\"covered\":true,\"got\":1,\"want\":3,\"miss\":[]}"
  },
  {
   "name": "T1c switching cards made 0 recommendation calls",

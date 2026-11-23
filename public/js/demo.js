@@ -173,19 +173,35 @@ export async function renderDemo(root) {
       const focus = S.focus;
       const setFocus = (v) => { S.focus = v; draw(); };
       const list = focus === 'ALL' ? R.top5 : R.top5.filter((p) => p.matched_wish_ids.includes(focus));
-      const shown = list.slice(0, 2);
+      // "ดูทุกเรื่อง" with several interests: the best place of EACH interest (taken from the Top 5 already computed), so no chosen interest is left out.
+      // One focused interest (or a single wish): the first 2 places of that interest. Presentation only, nothing is recomputed.
+      const many = focus === 'ALL' && activeWishes().length > 1;
+      const missing = [];
+      const shown = [];
+      if (many) {
+        activeWishes().forEach((w) => {
+          const p = R.top5.find((x) => x.matched_wish_ids.includes(w));
+          if (!p) { missing.push(w); return; }
+          const e = shown.find((x) => x.place === p);
+          e ? e.wishes.push(w) : shown.push({ place: p, wishes: [w] });
+        });
+      } else list.slice(0, 2).forEach((p) => shown.push({ place: p, wishes: focus === 'ALL' ? activeWishes() : [focus] }));
       const cards = mode ? [] : S.wishes.map((w) => { const ic = wishIcon(w); return h('button', { type: 'button', class: 'wish-card sm', 'data-focus': w, 'aria-pressed': String(focus === w), onclick: () => setFocus(w) }, h('span', { class: 'ic', style: `background:${ic.bg}` }, ic.e), wishName[w]); });
       if (!mode && S.wishes.length > 1) cards.unshift(h('button', { type: 'button', class: 'wish-card sm', 'data-focus': 'ALL', 'aria-pressed': String(focus === 'ALL'), onclick: () => setFocus('ALL') }, h('span', { class: 'ic', style: 'background:#ede7f6' }, '🌐'), 'ดูทุกเรื่อง'));
       let preview;
       if (!R.top5.length) {
         preview = h('div', { class: 'callout warn' }, h('b', {}, 'ยังไม่พบสถานที่ที่ผ่านเงื่อนไข'), h('p', { class: 'small', style: 'margin:.3em 0 0' }, 'เรื่องที่เลือกกับสิ่งที่คุณไม่ต้องการทำให้ไม่เหลือเส้นทาง เรื่องที่ขอ → สิ่งศักดิ์สิทธิ์ → สถานที่ ที่มีในฐานข้อมูล ลองเอาข้อจำกัดบางข้อออก หรือเลือกเรื่องอื่นเพิ่ม'));
       } else if (!shown.length) {
-        preview = h('div', { class: 'callout' }, `ใน Top 5 ที่คำนวณไว้ ยังไม่มีสถานที่ที่เชื่อมกับเรื่อง "${wishName[focus]}" โดยตรง (ไม่ได้แปลว่าเครือข่ายไม่มีเลย) ลองเลือก "ดูทุกเรื่อง" เพื่อดูภาพรวม`);
+        preview = h('div', { class: 'callout' }, focus === 'ALL' ? 'ใน Top 5 ที่คำนวณไว้ ยังไม่มีสถานที่ที่เชื่อมกับเรื่องที่เลือกโดยตรง (ไม่ได้แปลว่าเครือข่ายไม่มีเลย)'
+          : `ใน Top 5 ที่คำนวณไว้ ยังไม่มีสถานที่ที่เชื่อมกับเรื่อง "${wishName[focus]}" โดยตรง (ไม่ได้แปลว่าเครือข่ายไม่มีเลย) ลองเลือก "ดูทุกเรื่อง" เพื่อดูภาพรวม`);
       } else {
         const names = (focus === 'ALL' ? activeWishes() : [focus]).map((w) => wishName[w]).join(' และ ');
         preview = h('div', { class: 'stack' },
           h('p', { style: 'margin:0' }, `จากความสนใจของคุณ MUMU พบสถานที่ที่เชื่อมโยงกับเรื่อง${names}ผ่านความสัมพันธ์ของสิ่งศักดิ์สิทธิ์และสถานที่ในฐานข้อมูล`),
-          ...shown.map((p) => h('div', { class: 'card flat' }, h('b', {}, p.name), (focus === 'ALL' ? p.paths : p.paths.filter((z) => z.wish_id === focus)).slice(0, 2).map((z) => h('div', { class: 'path' }, z.wish_name, h('span', { class: 'ar' }, '→'), z.deity_name, h('span', { class: 'ar' }, '→'), p.name)))),
+          ...shown.map(({ place: p, wishes }) => h('div', { class: 'card flat', 'data-preview-place': p.place_id }, h('b', {}, p.name),
+            (many ? wishes.flatMap((w) => p.paths.filter((z) => z.wish_id === w).slice(0, 1)) : (focus === 'ALL' ? p.paths : p.paths.filter((z) => z.wish_id === focus)).slice(0, 2))
+              .map((z) => h('div', { class: 'path' }, z.wish_name, h('span', { class: 'ar' }, '→'), z.deity_name, h('span', { class: 'ar' }, '→'), p.name)))),
+          missing.length ? h('p', { class: 'small faint', style: 'margin:0', 'data-missing-wishes': missing.join(',') }, `เรื่อง ${missing.map((w) => wishName[w]).join(', ')} ยังไม่มีสถานที่ใน Top 5 ที่คำนวณไว้ (ไม่ได้แปลว่าเครือข่ายไม่มีเลย)`) : null,
           focus !== 'ALL' && list.length === 1 ? h('p', { class: 'small faint', style: 'margin:0' }, 'นี่คือรายการที่เกี่ยวข้องกับเรื่องที่โฟกัส จากสถานที่ที่คำนวณไว้ ไม่ได้แปลว่าเครือข่ายพบได้เพียงแห่งเดียว') : null);
       }
       return h('div', { class: 'fade-in stack' }, title(4, 'สำรวจความเชื่อมโยงของเรื่องที่คุณสนใจ', 'เลือกการ์ดเพื่อดูคำแนะนำเบื้องต้นแต่ละเรื่อง โดยสถานที่ Top 5 ในขั้นตอนถัดไปจะพิจารณาจากทุกเรื่องที่คุณเลือกไว้'), modeBanner(), summary(R),

@@ -81,6 +81,14 @@ async function run(W_, H_) {
   const rec0 = await ev(`window.__rec`);
   await W(`${HELP} const names=[...document.querySelectorAll('[data-focus]')].map(b=>b.dataset.focus); for (const f of names.concat(names.slice().reverse(), ['ALL'])) { document.querySelector('[data-focus="'+f+'"]').click(); await w(150);} return 1;`);
   const rec1 = await ev(`window.__rec`);
+  // "ดูทุกเรื่อง": every chosen interest that has a place in the computed Top 5 is represented in the preview
+  await W(`document.querySelector('[data-focus=ALL]').click(); await w(200); return 1;`);
+  const rep = await W(`${HELP} const top=await fetch('/api/mumu/recommendations',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({wish_ids:${JSON.stringify(['W02', 'W03', 'W04'])},birthdate:null,exclusions:{tradition_groups:[],deity_ids:[],place_ids:[]}})}).then(r=>r.json()); window.__rec--;
+    const want=['W02','W03','W04'].filter(x=>top.top5.some(p=>p.matched_wish_ids.includes(x))); const got=[...document.querySelectorAll('[data-preview-place]')].map(e=>e.dataset.previewPlace);
+    const miss=(document.querySelector('[data-missing-wishes]')?.dataset.missingWishes||'').split(',').filter(Boolean);
+    const covered=want.every(x=>{ const p=top.top5.find(p=>p.matched_wish_ids.includes(x)); return got.includes(p.place_id); });
+    return {covered, got:got.length, want:want.length, miss};`);
+  check('T1f "ดูทุกเรื่อง" preview represents every interest that has a Top 5 place', rep.covered && rep.got >= 1 && rep.got <= 3 && rep.miss.length === ([...['W02', 'W03', 'W04']].length - rep.want), JSON.stringify(rep));
   const defaultAll = await W(`return document.querySelector('[data-focus=ALL]').getAttribute('aria-pressed')`);
   check('T1c switching cards made 0 recommendation calls', rec1 === rec0, `calls ${rec0}->${rec1}`);
   check('T1d "ดูทุกเรื่อง" selected after cycling back', defaultAll === 'true');
