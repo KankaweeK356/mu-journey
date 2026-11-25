@@ -28,7 +28,8 @@ const results = []; const check = (name, ok, info = '') => { results.push({ name
 const HELP = `const w=(m)=>new Promise(r=>setTimeout(r,m)); const until=async(fn,t=20000)=>{const s=Date.now(); while(Date.now()-s<t){ if(fn()) return true; await w(100);} return false;};
 const txt=(b)=>b.textContent.trim(); const q=(s,r=document)=>r.querySelector(s); const qa=(s,r=document)=>[...r.querySelectorAll(s)]; const btn=(t,r=document)=>qa('button',r).find(b=>txt(b).includes(t));
 const ready=async()=>{ await until(()=>!qa('.app1 .spinner').length); await w(250); };
-const next=async(t)=>{ btn(t).click(); await w(300); await ready(); };`;
+const next=async(t)=>{ btn(t).click(); await w(300); await ready(); };
+const step6=async()=>{ qa('.progress li button')[5].click(); await w(300); await ready(); };`;
 const W = (js) => ev(`(async()=>{${HELP} ${js} })()`);
 
 /** Health scan of whatever is on screen now. */
@@ -93,7 +94,7 @@ async function tab1(label) {
     check(`${label} #5 step 06 shows 4 legs with BTS/MRT, travel and access time apart`, !s6.none && s6.legs.length === 4 && s6.legs.every((t) => /(BTS|MRT)/.test(t) && /เข้าถึงสถานที่/.test(t)) && /เดินทางด้วยรถไฟฟ้าประมาณ \d+ นาที · เดินเข้าถึงสถานที่ประมาณ \d+ นาที/.test(s6.times), JSON.stringify(s6).slice(0, 400));
     check(`${label} #7 step 06 credits OpenStreetMap`, s6.osm.startsWith('https://www.openstreetmap.org/copyright'), s6.osm);
   }
-  await W(`await next(btn('ดูรายละเอียดทริปและบริการ')?'ดูรายละเอียดทริปและบริการ':'ไปมูเอง / บริการอื่น'); return 1;`);
+  await W(`await next(btn('ดูรายละเอียดทริปและบริการ')?'ดูรายละเอียดทริปและบริการ':'ดูวิธีมูแบบอื่น'); return 1;`);
   for (const [name, key] of [['ไปมูเอง', 'self'], ['ทริปบริษัท', 'trip'], ['ฝากมู', 'proxy']]) {
     await W(`qa('.svc').find(b=>txt(b).includes('${name}')).click(); await w(1200); return 1;`);
     await scan(`${label} step 07 ${key}`);
@@ -122,6 +123,36 @@ async function birthStatuses() {
     return { code:document.body.textContent.includes('NO_ELIGIBLE_SIGNATURE_TRIP'), legs:qa('[data-leg]').length };`);
   check('E no eligible trip: says NO_ELIGIBLE_SIGNATURE_TRIP and shows no route', none.code && none.legs === 0, JSON.stringify(none));
   await scan('no-trip profile step 06');
+  await noTripScreens();
+}
+
+/** The three no-trip situations: reason, buttons and where they lead, and the trip service in step 07. */
+async function noTripScreens() {
+  const cases = [
+    { name: 'topic not covered', wish: 'บ้าน/ที่ดิน', groups: [], cause: 'COVERAGE', primary: '7', secondary: '2' },
+    { name: 'exclusions, places left', wish: 'การงาน', groups: ['ฮินดู'], cause: 'EXCLUSION', primary: '7', secondary: '3' },
+    { name: 'no places left', wish: 'บ้าน/ที่ดิน', groups: ['ฮินดู', 'จีนและกลุ่มผสมจีน', 'พุทธและความเชื่อไทย', 'พราหมณ์/โหราศาสตร์'], cause: 'NO_PLACES', primary: '3', secondary: null },
+  ];
+  for (const [width, height] of [[1366, 800], [375, 812]]) for (const c of cases) {
+    const tag = `no trip (${c.name}, ${width}px)`;
+    await load(width, height);
+    const toStep6 = `btn('เริ่มมูของฉัน').click(); await w(300); qa('.wish-card').find(b=>txt(b).includes('${c.wish}')).click(); await w(100); btn('ถัดไป').click(); await w(300);
+      for(const g of ${JSON.stringify(c.groups)}) qa('.tchip').find(b=>txt(b)===g).click(); btn('ถัดไป').click(); await w(300); await ready(); await next('ดูสถานที่ที่เหมาะกับคุณ'); await next('ดูทริปที่เหมาะกับฉัน');`;
+    const s6 = await W(`${toStep6} const box=q('[data-no-trip]'); return { cause:box?.dataset.noTrip, title:q('[data-no-trip] h3')?.textContent, primary:q('[data-no-trip-primary]')?.dataset.noTripPrimary, secondary:q('[data-no-trip-secondary]')?.dataset.noTripSecondary||null,
+      open:q('[data-no-trip] details')?.open, rows:qa('[data-no-trip] details tbody tr').length, backs:qa('.app1 button').filter(b=>/ย้อนกลับ|กลับไปดูสถานที่/.test(txt(b))).length };`);
+    check(`${tag}: reason, buttons, details folded, one back button`, s6.cause === c.cause && s6.primary === c.primary && s6.secondary === c.secondary && /ยังไม่พบทริป/.test(s6.title || '') && s6.open === false && s6.rows === 3 && s6.backs === 1, JSON.stringify(s6));
+    await scan(`${tag} step 06`);
+    if (c.primary === '7') {
+      const s7 = await W(`q('[data-no-trip-primary]').click(); await w(300); await ready(); const trip=q('[data-svc="trip"]'); const out={ step:q('.progress li.on .lab')?.textContent, tripOff:trip?.disabled, label:trip?.textContent, others:[q('[data-svc="self"]').disabled, q('[data-svc="proxy"]').disabled] };
+        q('[data-svc="self"]').click(); await w(500); out.places=qa('.app1 .card .path').length; return out;`);
+      check(`${tag}: primary goes to step 07, company trip disabled, self-visit lists places`, s7.step?.startsWith('7.') && s7.tripOff === true && s7.label.includes('ยังไม่มีทริปที่ตรง') && s7.others.every((x) => !x) && s7.places > 0, JSON.stringify(s7));
+      await scan(`${tag} step 07`);
+      await W(`await step6(); return 1;`);
+    }
+    const back = c.secondary || c.primary;
+    const dest = await W(`const sel='${c.secondary ? '[data-no-trip-secondary]' : '[data-no-trip-primary]'}'; q(sel).click(); await w(500); return q('.progress li.on .lab')?.textContent;`);
+    check(`${tag}: ${c.secondary ? 'secondary' : 'primary'} button goes to step 0${back}`, dest?.startsWith(back + '.'), dest);
+  }
 }
 
 async function tab2(label) {

@@ -1,6 +1,6 @@
 // Tab 1 — MUMU user demo: 7 steps. Every number and every place comes from the engine (via /api/mumu/*).
 import { h, clear, put, f, pct, statusChip, statusLegend, TRIP_TH, MONTHS_TH, bar, toast } from './util.js';
-import { userNote, userSourceName, userVerification, userCaution, userLimitedReason, stationText, accessText, legLines, birthText } from './usertext.js';
+import { userNote, userSourceName, userVerification, userCaution, userLimitedReason, stationText, accessText, legLines, birthText, noTripPlan } from './usertext.js';
 import { osmCredit } from './osm.js';
 import { API } from './api.js';
 import { S, subscribe, invalidate, ensureResult, profile, birthdateISO, activeWishes, catalogNames, todayISO } from './state.js';
@@ -281,15 +281,27 @@ export async function renderDemo(root) {
   const tripTimes = (D) => h('div', { class: 'small', 'data-trip-times': 'true' },
     h('div', {}, `เดินทางด้วยรถไฟฟ้าประมาณ ${Math.round(D.rail_min)} นาที · เดินเข้าถึงสถานที่ประมาณ ${Math.round(D.walk_min)} นาที`),
     h('div', { class: 'faint' }, `ในเวลารวมประมาณ ${Math.round(D.duration_min)} นาที ยังมีเวลารอรถ ${Math.round(D.train_wait_min)} (สมมติ) รอสถานที่เปิด ${Math.round(D.opening_wait_min)} บรีฟกลุ่ม ${Math.round(D.group_briefing_min)} พัก ${Math.round(D.midday_break_min)} และเวลาที่จุดแวะ ${Math.round(D.dwell_min)} นาที ทุกค่าเป็นค่าประมาณ`));
+  /* No matching trip: why, what to do next, and the technical reasons folded away. */
+  function noTrip(R) {
+    const T = R.trip, exc = R.profile.applied_exclusions;
+    const plan = noTripPlan({ hasPlaces: R.top5.length > 0, hasExclusions: !!(exc.deity_ids.length || exc.place_ids.length),
+      reasonCodes: T.all_scores.flatMap((s) => s.reason_codes), wishNames: activeWishes().map((w) => wishName[w]) });
+    // choosing interests again ends the temporary activity mode, otherwise the activity's topic would still replace the new choice
+    const to = (n) => () => { if (n === 2 && S.topic) { S.topic = null; S.eventContext = null; invalidate(); } go(n); };
+    return h('div', { class: 'stack', 'data-no-trip': plan.cause },
+      h('div', { class: 'callout warn' }, h('h3', {}, plan.title), h('p', { style: 'margin:.4em 0 0' }, plan.text)),
+      h('div', { class: 'row' }, h('button', { type: 'button', class: 'btn primary', 'data-no-trip-primary': String(plan.primary.step), onclick: to(plan.primary.step) }, plan.primary.label + ' →'),
+        plan.secondary ? h('button', { type: 'button', class: 'btn', 'data-no-trip-secondary': String(plan.secondary.step), onclick: to(plan.secondary.step) }, plan.secondary.label) : null),
+      h('details', {}, h('summary', {}, 'ดูเหตุผลของแต่ละทริป'), h('div', { class: 'inner stack' },
+        h('p', { class: 'small', style: 'margin:0' }, 'ทริปทั้ง 3 ของบริษัทไม่ผ่านเงื่อนไขอย่างน้อยหนึ่งข้อ ระบบจึงไม่เลือกทริปให้ และไม่สร้างทริปใหม่'),
+        h('div', { class: 'small faint mono' }, 'NO_ELIGIBLE_SIGNATURE_TRIP'), scoreTable(T))));
+  }
   function step6() {
     return gate(6, 'ทริปที่ใช่สำหรับคุณ', 'MUMU เลือกทริปที่เหมาะจาก 3 ทริปของบริษัท', () => {
       const R = S.result, T = R.trip;
       let body;
       if (!T.matched) {
-        body = h('div', { class: 'stack' }, h('div', { class: 'callout warn' }, h('b', {}, 'ไม่มีทริปที่ตรงกับเงื่อนไขที่เลือก'), h('div', { class: 'mono', style: 'margin:4px 0' }, 'NO_ELIGIBLE_SIGNATURE_TRIP'),
-          h('p', { class: 'small', style: 'margin:0' }, 'ทริปทั้ง 3 ของบริษัทไม่ผ่านเงื่อนไขอย่างน้อยหนึ่งข้อ ระบบจึงไม่เลือกทริปที่ขัดกับที่คุณไม่ต้องการ และไม่สร้างทริปใหม่ให้ แต่คุณยังเลือกสถานที่เพื่อไปมูเองได้')),
-        h('div', { class: 'card' }, h('h3', {}, 'เหตุผลของแต่ละทริป'), scoreTable(T)),
-        h('div', { class: 'row' }, h('button', { class: 'btn', onclick: () => go(5) }, '← กลับไปดูสถานที่'), h('button', { class: 'btn primary', onclick: () => go(7) }, 'ไปมูเอง / บริการอื่น →')));
+        body = noTrip(R);
       } else {
         const D = T.detail, M = T.matched, covered = M.user_wishes_covered.map((w) => wishName[w]).join(', ');
         body = h('div', { class: 'stack' },
@@ -312,7 +324,8 @@ export async function renderDemo(root) {
   /* ------------------------------------------------ 07 services + feedback */
   function step7() {
     return gate(7, 'อยากไปมูแบบไหนดี?', 'เลือกใช้บริการตามความสะดวก', () => {
-      const R = S.result, svc = S.service, ctx = S.eventContext;
+      const R = S.result, ctx = S.eventContext, noMatch = !R.trip.matched;
+      const svc = S.service === 'trip' && noMatch ? null : S.service;            // a trip chosen earlier cannot stay open when nothing matches now
       if (ctx && ctx.place_id && !S.picked.size && R.top5.some((p) => p.place_id === ctx.place_id)) S.picked.add(ctx.place_id);
       const panel = h('div', { class: 'card stack fade-in' });
       if (svc === 'self') {
@@ -329,7 +342,7 @@ export async function renderDemo(root) {
           h('div', { class: 'callout small', 'data-trip-tbd': 'true' }, h('b', {}, 'รายละเอียดการจอง (Demo)'),
             h('div', {}, 'ราคา: ยังไม่กำหนด · วันเดินทาง: ยังไม่กำหนด · การจองล่วงหน้า: ยังไม่เปิดจอง'),
             h('div', {}, 'ปุ่มด้านล่างเป็นการแสดงความสนใจเพื่อทดสอบระบบ ไม่ใช่การลงทะเบียนหรือการจอง ไม่รับชำระเงินจริง ไม่มีที่นั่งถูกสำรอง')),
-          h('div', { class: 'row' }, h('button', { class: 'btn primary', onclick: () => openFeedback({ service: 'trip' }) }, 'แสดงความสนใจทริป (Demo)'), h('button', { class: 'btn', onclick: () => go(6) }, 'ดูเหตุผลที่แนะนำทริปนี้'))) : h('div', { class: 'callout warn' }, 'ไม่มีทริปที่ผ่านเงื่อนไขสำหรับโปรไฟล์นี้ ลองเลือก "ไปมูเอง"'));
+          h('div', { class: 'row' }, h('button', { class: 'btn primary', onclick: () => openFeedback({ service: 'trip' }) }, 'แสดงความสนใจทริป (Demo)'), h('button', { class: 'btn', onclick: () => go(6) }, 'ดูเหตุผลที่แนะนำทริปนี้'))) : null);
       } else if (svc === 'proxy') {
         const box = h('div', { class: 'stack' }, h('p', { class: 'muted' }, 'กำลังโหลดรายการ…'));
         panel.append(h('h3', {}, 'ฝากมู (Demo)'), box);
@@ -342,7 +355,7 @@ export async function renderDemo(root) {
       return h('div', { class: 'fade-in stack' }, title(7, 'อยากไปมูแบบไหนดี?', 'เลือกใช้บริการตามความสะดวก'),
         modeBanner(),
         ctx && !S.topic ? h('div', { class: 'callout info' }, h('b', {}, 'มูต่อจากกิจกรรม: ' + ctx.name), ctx.place_name ? ` · ${ctx.place_name}` : '', h('div', { class: 'small' }, 'เลือกไปมูเอง ทริปบริษัท หรือฝากมู ด้านล่าง')) : null,
-        h('div', { class: 'svc-grid', role: 'group', 'aria-label': 'รูปแบบบริการ' }, SERVICES.map(([id, e, bg, t, sub]) => h('button', { type: 'button', class: 'svc', 'aria-pressed': String(svc === id), onclick: () => { S.service = svc === id ? null : id; draw(); } }, h('span', { class: 'ic', style: `background:${bg}` }, e), t, h('small', {}, sub)))),
+        h('div', { class: 'svc-grid', role: 'group', 'aria-label': 'รูปแบบบริการ' }, SERVICES.map(([id, e, bg, t, sub]) => { const off = id === 'trip' && noMatch; return h('button', { type: 'button', class: 'svc', 'data-svc': id, disabled: off, 'aria-pressed': String(svc === id), onclick: () => { S.service = svc === id ? null : id; draw(); } }, h('span', { class: 'ic', style: `background:${bg}` }, e), t, h('small', {}, off ? 'ยังไม่มีทริปที่ตรง' : sub)); })),
         svc ? panel : h('div', { class: 'callout info' }, 'เลือกรูปแบบด้านบนเพื่อดูรายละเอียด'),
         calendarCard(),
         h('div', { class: 'callout small' }, 'ทุกบริการในหน้านี้เป็น Demo ไม่มีการจอง ชำระเงิน หรือพิธีกรรมจริง'),

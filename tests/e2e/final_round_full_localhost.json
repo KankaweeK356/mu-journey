@@ -1,7 +1,7 @@
 {
- "base": "http://localhost:3100/",
- "passed": 153,
- "total": 153,
+ "base": "http://localhost:3188/",
+ "passed": 199,
+ "total": 199,
  "results": [
   {
    "name": "desktop 1366 step 01: no null / undefined text",
@@ -747,6 +747,236 @@
    "name": "no-trip profile step 06: buttons, fields and images are named; ids unique",
    "ok": true,
    "info": "{\"u\":[],\"f\":[],\"alt\":0,\"d\":[]}"
+  },
+  {
+   "name": "no trip (topic not covered, 1366px): reason, buttons, details folded, one back button",
+   "ok": true,
+   "info": "{\"cause\":\"COVERAGE\",\"title\":\"ยังไม่พบทริปที่ตรงกับคุณ\",\"primary\":\"7\",\"secondary\":\"2\",\"open\":false,\"rows\":3,\"backs\":1}"
+  },
+  {
+   "name": "no trip (topic not covered, 1366px) step 06: no null / undefined text",
+   "ok": true,
+   "info": ""
+  },
+  {
+   "name": "no trip (topic not covered, 1366px) step 06: no horizontal page scroll",
+   "ok": true,
+   "info": "0px"
+  },
+  {
+   "name": "no trip (topic not covered, 1366px) step 06: buttons, fields and images are named; ids unique",
+   "ok": true,
+   "info": "{\"u\":[],\"f\":[],\"alt\":0,\"d\":[]}"
+  },
+  {
+   "name": "no trip (topic not covered, 1366px): primary goes to step 07, company trip disabled, self-visit lists places",
+   "ok": true,
+   "info": "{\"step\":\"7. บริการ\",\"tripOff\":true,\"label\":\"🚆ทริปบริษัทยังไม่มีทริปที่ตรง\",\"others\":[false,false],\"places\":2}"
+  },
+  {
+   "name": "no trip (topic not covered, 1366px) step 07: no null / undefined text",
+   "ok": true,
+   "info": ""
+  },
+  {
+   "name": "no trip (topic not covered, 1366px) step 07: no horizontal page scroll",
+   "ok": true,
+   "info": "0px"
+  },
+  {
+   "name": "no trip (topic not covered, 1366px) step 07: buttons, fields and images are named; ids unique",
+   "ok": true,
+   "info": "{\"u\":[],\"f\":[],\"alt\":0,\"d\":[]}"
+  },
+  {
+   "name": "no trip (topic not covered, 1366px): secondary button goes to step 02",
+   "ok": true,
+   "info": "2. ความสนใจ"
+  },
+  {
+   "name": "no trip (exclusions, places left, 1366px): reason, buttons, details folded, one back button",
+   "ok": true,
+   "info": "{\"cause\":\"EXCLUSION\",\"title\":\"ยังไม่พบทริปที่ตรงกับคุณ\",\"primary\":\"7\",\"secondary\":\"3\",\"open\":false,\"rows\":3,\"backs\":1}"
+  },
+  {
+   "name": "no trip (exclusions, places left, 1366px) step 06: no null / undefined text",
+   "ok": true,
+   "info": ""
+  },
+  {
+   "name": "no trip (exclusions, places left, 1366px) step 06: no horizontal page scroll",
+   "ok": true,
+   "info": "0px"
+  },
+  {
+   "name": "no trip (exclusions, places left, 1366px) step 06: buttons, fields and images are named; ids unique",
+   "ok": true,
+   "info": "{\"u\":[],\"f\":[],\"alt\":0,\"d\":[]}"
+  },
+  {
+   "name": "no trip (exclusions, places left, 1366px): primary goes to step 07, company trip disabled, self-visit lists places",
+   "ok": true,
+   "info": "{\"step\":\"7. บริการ\",\"tripOff\":true,\"label\":\"🚆ทริปบริษัทยังไม่มีทริปที่ตรง\",\"others\":[false,false],\"places\":5}"
+  },
+  {
+   "name": "no trip (exclusions, places left, 1366px) step 07: no null / undefined text",
+   "ok": true,
+   "info": ""
+  },
+  {
+   "name": "no trip (exclusions, places left, 1366px) step 07: no horizontal page scroll",
+   "ok": true,
+   "info": "0px"
+  },
+  {
+   "name": "no trip (exclusions, places left, 1366px) step 07: buttons, fields and images are named; ids unique",
+   "ok": true,
+   "info": "{\"u\":[],\"f\":[],\"alt\":0,\"d\":[]}"
+  },
+  {
+   "name": "no trip (exclusions, places left, 1366px): secondary button goes to step 03",
+   "ok": true,
+   "info": "3. ข้อจำกัด"
+  },
+  {
+   "name": "no trip (no places left, 1366px): reason, buttons, details folded, one back button",
+   "ok": true,
+   "info": "{\"cause\":\"NO_PLACES\",\"title\":\"ยังไม่พบทริปและสถานที่ที่ตรงกับคุณ\",\"primary\":\"3\",\"secondary\":null,\"open\":false,\"rows\":3,\"backs\":1}"
+  },
+  {
+   "name": "no trip (no places left, 1366px) step 06: no null / undefined text",
+   "ok": true,
+   "info": ""
+  },
+  {
+   "name": "no trip (no places left, 1366px) step 06: no horizontal page scroll",
+   "ok": true,
+   "info": "0px"
+  },
+  {
+   "name": "no trip (no places left, 1366px) step 06: buttons, fields and images are named; ids unique",
+   "ok": true,
+   "info": "{\"u\":[],\"f\":[],\"alt\":0,\"d\":[]}"
+  },
+  {
+   "name": "no trip (no places left, 1366px): primary button goes to step 03",
+   "ok": true,
+   "info": "3. ข้อจำกัด"
+  },
+  {
+   "name": "no trip (topic not covered, 375px): reason, buttons, details folded, one back button",
+   "ok": true,
+   "info": "{\"cause\":\"COVERAGE\",\"title\":\"ยังไม่พบทริปที่ตรงกับคุณ\",\"primary\":\"7\",\"secondary\":\"2\",\"open\":false,\"rows\":3,\"backs\":1}"
+  },
+  {
+   "name": "no trip (topic not covered, 375px) step 06: no null / undefined text",
+   "ok": true,
+   "info": ""
+  },
+  {
+   "name": "no trip (topic not covered, 375px) step 06: no horizontal page scroll",
+   "ok": true,
+   "info": "0px"
+  },
+  {
+   "name": "no trip (topic not covered, 375px) step 06: buttons, fields and images are named; ids unique",
+   "ok": true,
+   "info": "{\"u\":[],\"f\":[],\"alt\":0,\"d\":[]}"
+  },
+  {
+   "name": "no trip (topic not covered, 375px): primary goes to step 07, company trip disabled, self-visit lists places",
+   "ok": true,
+   "info": "{\"step\":\"7. บริการ\",\"tripOff\":true,\"label\":\"🚆ทริปบริษัทยังไม่มีทริปที่ตรง\",\"others\":[false,false],\"places\":2}"
+  },
+  {
+   "name": "no trip (topic not covered, 375px) step 07: no null / undefined text",
+   "ok": true,
+   "info": ""
+  },
+  {
+   "name": "no trip (topic not covered, 375px) step 07: no horizontal page scroll",
+   "ok": true,
+   "info": "0px"
+  },
+  {
+   "name": "no trip (topic not covered, 375px) step 07: buttons, fields and images are named; ids unique",
+   "ok": true,
+   "info": "{\"u\":[],\"f\":[],\"alt\":0,\"d\":[]}"
+  },
+  {
+   "name": "no trip (topic not covered, 375px): secondary button goes to step 02",
+   "ok": true,
+   "info": "2. ความสนใจ"
+  },
+  {
+   "name": "no trip (exclusions, places left, 375px): reason, buttons, details folded, one back button",
+   "ok": true,
+   "info": "{\"cause\":\"EXCLUSION\",\"title\":\"ยังไม่พบทริปที่ตรงกับคุณ\",\"primary\":\"7\",\"secondary\":\"3\",\"open\":false,\"rows\":3,\"backs\":1}"
+  },
+  {
+   "name": "no trip (exclusions, places left, 375px) step 06: no null / undefined text",
+   "ok": true,
+   "info": ""
+  },
+  {
+   "name": "no trip (exclusions, places left, 375px) step 06: no horizontal page scroll",
+   "ok": true,
+   "info": "0px"
+  },
+  {
+   "name": "no trip (exclusions, places left, 375px) step 06: buttons, fields and images are named; ids unique",
+   "ok": true,
+   "info": "{\"u\":[],\"f\":[],\"alt\":0,\"d\":[]}"
+  },
+  {
+   "name": "no trip (exclusions, places left, 375px): primary goes to step 07, company trip disabled, self-visit lists places",
+   "ok": true,
+   "info": "{\"step\":\"7. บริการ\",\"tripOff\":true,\"label\":\"🚆ทริปบริษัทยังไม่มีทริปที่ตรง\",\"others\":[false,false],\"places\":5}"
+  },
+  {
+   "name": "no trip (exclusions, places left, 375px) step 07: no null / undefined text",
+   "ok": true,
+   "info": ""
+  },
+  {
+   "name": "no trip (exclusions, places left, 375px) step 07: no horizontal page scroll",
+   "ok": true,
+   "info": "0px"
+  },
+  {
+   "name": "no trip (exclusions, places left, 375px) step 07: buttons, fields and images are named; ids unique",
+   "ok": true,
+   "info": "{\"u\":[],\"f\":[],\"alt\":0,\"d\":[]}"
+  },
+  {
+   "name": "no trip (exclusions, places left, 375px): secondary button goes to step 03",
+   "ok": true,
+   "info": "3. ข้อจำกัด"
+  },
+  {
+   "name": "no trip (no places left, 375px): reason, buttons, details folded, one back button",
+   "ok": true,
+   "info": "{\"cause\":\"NO_PLACES\",\"title\":\"ยังไม่พบทริปและสถานที่ที่ตรงกับคุณ\",\"primary\":\"3\",\"secondary\":null,\"open\":false,\"rows\":3,\"backs\":1}"
+  },
+  {
+   "name": "no trip (no places left, 375px) step 06: no null / undefined text",
+   "ok": true,
+   "info": ""
+  },
+  {
+   "name": "no trip (no places left, 375px) step 06: no horizontal page scroll",
+   "ok": true,
+   "info": "0px"
+  },
+  {
+   "name": "no trip (no places left, 375px) step 06: buttons, fields and images are named; ids unique",
+   "ok": true,
+   "info": "{\"u\":[],\"f\":[],\"alt\":0,\"d\":[]}"
+  },
+  {
+   "name": "no trip (no places left, 375px): primary button goes to step 03",
+   "ok": true,
+   "info": "3. ข้อจำกัด"
   },
   {
    "name": "page declares its language",

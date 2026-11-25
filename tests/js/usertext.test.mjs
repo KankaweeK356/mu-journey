@@ -2,7 +2,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { userNote, userSourceName, userVerification, userCaution, userLimitedReason, stationText, accessText, legLines, birthText, BIRTH_STATUS_TH, UNSOURCED } from '../../public/js/usertext.js';
+import { userNote, userSourceName, userVerification, userCaution, userLimitedReason, stationText, accessText, legLines, birthText, BIRTH_STATUS_TH, UNSOURCED, noTripPlan } from '../../public/js/usertext.js';
 
 const rows = JSON.parse(readFileSync(new URL('../../model/ritual_claims.json', import.meta.url), 'utf-8')).rows;
 const INTERNAL = /ในไฟล์|ในรายงาน|จากรายงานโครงการ|แหล่งที่ค้น|จากการค้น|Top_Deities|search gap|general Hindu practice|needs_verification|single_source|multi_source/;
@@ -59,4 +59,20 @@ test('birth sentence for each status', () => {
   const ex = birthText({ ...base, weekday: 'วันจันทร์', status: 'EXCLUDED', excluded: [{ name: 'พระแม่อุมา', by_deity_choice: false, by_groups: ['ฮินดู'] }] });
   assert.match(ex, /พระแม่อุมา \(กลุ่มความเชื่อ "ฮินดู"\)/);
   assert.deepEqual(Object.keys(BIRTH_STATUS_TH), ['NOT_PROVIDED', 'APPLIED', 'NO_ELIGIBLE_DATA', 'EXCLUDED']);
+});
+
+test('no matching trip: the reason and the two buttons depend on places and exclusions', () => {
+  const base = { hasPlaces: true, hasExclusions: false, reasonCodes: ['INSUFFICIENT_USER_WISH_COVERAGE'], wishNames: ['บ้าน/ที่ดิน/คดีความ'] };
+  const cover = noTripPlan(base);
+  assert.deepEqual([cover.cause, cover.primary.step, cover.secondary.step], ['COVERAGE', 7, 2]);
+  assert.match(cover.text, /ยังไม่ครอบคลุมเรื่อง บ้าน\/ที่ดิน\/คดีความ/);
+  const blocked = noTripPlan({ ...base, hasExclusions: true, reasonCodes: ['PLACE_EXCLUSION'] });
+  assert.deepEqual([blocked.cause, blocked.primary.step, blocked.secondary.step], ['EXCLUSION', 7, 3]);
+  assert.match(blocked.text, /สิ่งที่คุณไม่ต้องการ/);
+  assert.match(noTripPlan({ ...base, hasExclusions: true }).text, /ภายใต้ข้อจำกัดที่เลือก/);
+  for (const hasExclusions of [true, false]) {
+    const none = noTripPlan({ ...base, hasPlaces: false, hasExclusions });
+    assert.deepEqual([none.cause, none.primary.step, none.secondary], ['NO_PLACES', hasExclusions ? 3 : 2, null]);
+    assert.doesNotMatch(none.text, /บริการอื่น/);
+  }
 });

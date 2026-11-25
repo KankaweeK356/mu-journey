@@ -2,7 +2,7 @@
  {
   "name": "T2 explorer: opens, content loaded, no spinner/error",
   "ok": true,
-  "info": "{\"visible\":true,\"len\":3940,\"spinners\":0,\"errors\":[]}"
+  "info": "{\"visible\":true,\"len\":6836,\"spinners\":0,\"errors\":[]}"
  },
  {
   "name": "T2 lab: opens, content loaded, no spinner/error",
@@ -12,7 +12,7 @@
  {
   "name": "T2 designer: opens, content loaded, no spinner/error",
   "ok": true,
-  "info": "{\"visible\":true,\"len\":1424,\"spinners\":0,\"errors\":[]}"
+  "info": "{\"visible\":true,\"len\":1572,\"spinners\":0,\"errors\":[]}"
  },
  {
   "name": "T2 matching: opens, content loaded, no spinner/error",

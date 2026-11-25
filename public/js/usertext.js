@@ -66,3 +66,21 @@ export function birthText(signal) {
 export const BIRTH_STATUS_TH = {
   NOT_PROVIDED: 'ไม่ได้ระบุวันเกิด', APPLIED: 'ใช้สัญญาณวันเกิด', NO_ELIGIBLE_DATA: 'ไม่มีข้อมูลที่ผ่านเกณฑ์สำหรับวันนี้', EXCLUDED: 'ถูกตัดด้วยข้อจำกัดของผู้ใช้',
 };
+
+/* ------------------------------------------------------------------ no matching company trip: say why and offer a way forward */
+/** Display only: the matching decision is already made by the model. Returns the sentence and where the two buttons lead (step numbers). */
+export function noTripPlan({ hasPlaces, hasExclusions, reasonCodes, wishNames }) {
+  const wishes = wishNames.join(', ');
+  const edit = hasExclusions ? { label: 'แก้ข้อจำกัด', step: 3 } : { label: 'เปลี่ยนเรื่องที่สนใจ', step: 2 };
+  if (!hasPlaces) {
+    return { cause: 'NO_PLACES', title: 'ยังไม่พบทริปและสถานที่ที่ตรงกับคุณ',
+      text: `ยังไม่มีสถานที่สำหรับเรื่อง ${wishes} ${hasExclusions ? 'ภายใต้ข้อจำกัดที่เลือก' : 'ในฐานข้อมูล'} ลองปรับความสนใจหรือข้อจำกัด`,
+      primary: { label: 'แก้ความสนใจหรือข้อจำกัด', step: edit.step }, secondary: null };
+  }
+  const blocked = reasonCodes.some((c) => c === 'PLACE_EXCLUSION' || c.startsWith('FEATURED_RITUAL_EXCLUSION'));
+  const why = !hasExclusions ? `ทริปของเรายังไม่ครอบคลุมเรื่อง ${wishes}`
+    : blocked ? 'ทริปของเรามีสิ่งที่คุณไม่ต้องการ หรือยังไม่ครอบคลุมเรื่องที่เลือก'
+      : `ภายใต้ข้อจำกัดที่เลือก ทริปของเรายังไม่ครอบคลุมเรื่อง ${wishes}`;
+  return { cause: hasExclusions ? 'EXCLUSION' : 'COVERAGE', title: 'ยังไม่พบทริปที่ตรงกับคุณ', text: `${why} แต่คุณยังมูเรื่องนี้ได้ด้วยบริการอื่น`,
+    primary: { label: 'ดูวิธีมูแบบอื่น', step: 7 }, secondary: edit };
+}

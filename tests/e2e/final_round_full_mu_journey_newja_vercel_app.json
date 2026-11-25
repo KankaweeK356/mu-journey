@@ -1,0 +1,772 @@
+{
+ "base": "https://mu-journey-newja.vercel.app/",
+ "passed": 153,
+ "total": 153,
+ "results": [
+  {
+   "name": "desktop 1366 step 01: no null / undefined text",
+   "ok": true,
+   "info": ""
+  },
+  {
+   "name": "desktop 1366 step 01: no horizontal page scroll",
+   "ok": true,
+   "info": "0px"
+  },
+  {
+   "name": "desktop 1366 step 01: buttons, fields and images are named; ids unique",
+   "ok": true,
+   "info": "{\"u\":[],\"f\":[],\"alt\":0,\"d\":[]}"
+  },
+  {
+   "name": "desktop 1366 step 02: no null / undefined text",
+   "ok": true,
+   "info": ""
+  },
+  {
+   "name": "desktop 1366 step 02: no horizontal page scroll",
+   "ok": true,
+   "info": "0px"
+  },
+  {
+   "name": "desktop 1366 step 02: buttons, fields and images are named; ids unique",
+   "ok": true,
+   "info": "{\"u\":[],\"f\":[],\"alt\":0,\"d\":[]}"
+  },
+  {
+   "name": "desktop 1366 step 03: no null / undefined text",
+   "ok": true,
+   "info": ""
+  },
+  {
+   "name": "desktop 1366 step 03: no horizontal page scroll",
+   "ok": true,
+   "info": "0px"
+  },
+  {
+   "name": "desktop 1366 step 03: buttons, fields and images are named; ids unique",
+   "ok": true,
+   "info": "{\"u\":[],\"f\":[],\"alt\":0,\"d\":[]}"
+  },
+  {
+   "name": "desktop 1366 step 04: no null / undefined text",
+   "ok": true,
+   "info": ""
+  },
+  {
+   "name": "desktop 1366 step 04: no horizontal page scroll",
+   "ok": true,
+   "info": "0px"
+  },
+  {
+   "name": "desktop 1366 step 04: buttons, fields and images are named; ids unique",
+   "ok": true,
+   "info": "{\"u\":[],\"f\":[],\"alt\":0,\"d\":[]}"
+  },
+  {
+   "name": "desktop 1366 #13 step 04 says the birth signal was applied",
+   "ok": true,
+   "info": "{\"status\":\"APPLIED\",\"text\":\"🎂 เกิดวันจันทร์ — ใช้ความเชื่อประจำวันจันทร์ (พระแม่อุมาเทวี) เป็นสัญญาณรองน้ำหนักน้อย ความสนใจที่คุณเลือกยังเป็นหลัก อันดับอาจเปลี่ยนหรือไม่เปลี่ยนก็ได้\"}"
+  },
+  {
+   "name": "desktop 1366 #6 reminder choices show the date they fall due",
+   "ok": true,
+   "info": "{\"card\":true,\"dates\":[\"2027-02-07  · เตือนวันที่ 7 ก.พ. 2570\",\"2027-02-13  · เตือนวันที่ 13 ก.พ. 2570\"]}"
+  },
+  {
+   "name": "desktop 1366 step 05: no null / undefined text",
+   "ok": true,
+   "info": ""
+  },
+  {
+   "name": "desktop 1366 step 05: no horizontal page scroll",
+   "ok": true,
+   "info": "0px"
+  },
+  {
+   "name": "desktop 1366 step 05: buttons, fields and images are named; ids unique",
+   "ok": true,
+   "info": "{\"u\":[],\"f\":[],\"alt\":0,\"d\":[]}"
+  },
+  {
+   "name": "desktop 1366 #13 step 05 shows the same birth status",
+   "ok": true,
+   "info": "{\"status\":\"APPLIED\"}"
+  },
+  {
+   "name": "desktop 1366 place dialog 1: no null / undefined text",
+   "ok": true,
+   "info": ""
+  },
+  {
+   "name": "desktop 1366 place dialog 1: no horizontal page scroll",
+   "ok": true,
+   "info": "0px"
+  },
+  {
+   "name": "desktop 1366 place dialog 1: buttons, fields and images are named; ids unique",
+   "ok": true,
+   "info": "{\"u\":[],\"f\":[],\"alt\":0,\"d\":[]}"
+  },
+  {
+   "name": "desktop 1366 place dialog 2: no null / undefined text",
+   "ok": true,
+   "info": ""
+  },
+  {
+   "name": "desktop 1366 place dialog 2: no horizontal page scroll",
+   "ok": true,
+   "info": "0px"
+  },
+  {
+   "name": "desktop 1366 place dialog 2: buttons, fields and images are named; ids unique",
+   "ok": true,
+   "info": "{\"u\":[],\"f\":[],\"alt\":0,\"d\":[]}"
+  },
+  {
+   "name": "desktop 1366 place dialog 3: no null / undefined text",
+   "ok": true,
+   "info": ""
+  },
+  {
+   "name": "desktop 1366 place dialog 3: no horizontal page scroll",
+   "ok": true,
+   "info": "0px"
+  },
+  {
+   "name": "desktop 1366 place dialog 3: buttons, fields and images are named; ids unique",
+   "ok": true,
+   "info": "{\"u\":[],\"f\":[],\"alt\":0,\"d\":[]}"
+  },
+  {
+   "name": "desktop 1366 place dialog 4: no null / undefined text",
+   "ok": true,
+   "info": ""
+  },
+  {
+   "name": "desktop 1366 place dialog 4: no horizontal page scroll",
+   "ok": true,
+   "info": "0px"
+  },
+  {
+   "name": "desktop 1366 place dialog 4: buttons, fields and images are named; ids unique",
+   "ok": true,
+   "info": "{\"u\":[],\"f\":[],\"alt\":0,\"d\":[]}"
+  },
+  {
+   "name": "desktop 1366 place dialog 5: no null / undefined text",
+   "ok": true,
+   "info": ""
+  },
+  {
+   "name": "desktop 1366 place dialog 5: no horizontal page scroll",
+   "ok": true,
+   "info": "0px"
+  },
+  {
+   "name": "desktop 1366 place dialog 5: buttons, fields and images are named; ids unique",
+   "ok": true,
+   "info": "{\"u\":[],\"f\":[],\"alt\":0,\"d\":[]}"
+  },
+  {
+   "name": "desktop 1366 #3 #4 place dialogs: status explanation present, no internal wording",
+   "ok": true,
+   "info": "cards=5 bad="
+  },
+  {
+   "name": "desktop 1366 step 06: no null / undefined text",
+   "ok": true,
+   "info": ""
+  },
+  {
+   "name": "desktop 1366 step 06: no horizontal page scroll",
+   "ok": true,
+   "info": "0px"
+  },
+  {
+   "name": "desktop 1366 step 06: buttons, fields and images are named; ids unique",
+   "ok": true,
+   "info": "{\"u\":[],\"f\":[],\"alt\":0,\"d\":[]}"
+  },
+  {
+   "name": "desktop 1366 #5 step 06 shows 4 legs with BTS/MRT, travel and access time apart",
+   "ok": true,
+   "info": "{\"legs\":[\"🚆 ไม่ต้องนั่งรถไฟฟ้า (อยู่ที่สถานี BTS สยาม)🚶 เข้าถึงสถานที่ (Skywalk) ประมาณ 5 นาที\",\"🚆 ไม่ต้องนั่งรถไฟฟ้า (อยู่ที่สถานี BTS ชิดลม)🚶 เข้าถึงสถานที่ (Skywalk) ประมาณ 9 นาที\",\"🚆 BTS: ชิดลม → ศาลาแดง · เวลาเดินทางประมาณ 7.7 นาที + รอรถ 5 นาที (ค่าสมมติ)🚶 เข้าถึงสถานที่ (เดิน) ประมาณ 12 นาที\",\"🚆 MRT: สีลม → วัดมังกร · เวลาเดินทางประมาณ 7.1 นาที + รอรถ 5 นาที (ค่าสมมติ)🚶 เข้าถึงสถานท"
+  },
+  {
+   "name": "desktop 1366 #7 step 06 credits OpenStreetMap",
+   "ok": true,
+   "info": "https://www.openstreetmap.org/copyright"
+  },
+  {
+   "name": "desktop 1366 step 07 self: no null / undefined text",
+   "ok": true,
+   "info": ""
+  },
+  {
+   "name": "desktop 1366 step 07 self: no horizontal page scroll",
+   "ok": true,
+   "info": "0px"
+  },
+  {
+   "name": "desktop 1366 step 07 self: buttons, fields and images are named; ids unique",
+   "ok": true,
+   "info": "{\"u\":[],\"f\":[],\"alt\":0,\"d\":[]}"
+  },
+  {
+   "name": "desktop 1366 step 07 trip: no null / undefined text",
+   "ok": true,
+   "info": ""
+  },
+  {
+   "name": "desktop 1366 step 07 trip: no horizontal page scroll",
+   "ok": true,
+   "info": "0px"
+  },
+  {
+   "name": "desktop 1366 step 07 trip: buttons, fields and images are named; ids unique",
+   "ok": true,
+   "info": "{\"u\":[],\"f\":[],\"alt\":0,\"d\":[]}"
+  },
+  {
+   "name": "desktop 1366 #5 #7 step 07 trip: legs and OSM credit",
+   "ok": true,
+   "info": "{\"legs\":4,\"osm\":true}"
+  },
+  {
+   "name": "desktop 1366 step 07 proxy: no null / undefined text",
+   "ok": true,
+   "info": ""
+  },
+  {
+   "name": "desktop 1366 step 07 proxy: no horizontal page scroll",
+   "ok": true,
+   "info": "0px"
+  },
+  {
+   "name": "desktop 1366 step 07 proxy: buttons, fields and images are named; ids unique",
+   "ok": true,
+   "info": "{\"u\":[],\"f\":[],\"alt\":0,\"d\":[]}"
+  },
+  {
+   "name": "desktop 1366 Tab2 explorer: no null / undefined text",
+   "ok": true,
+   "info": ""
+  },
+  {
+   "name": "desktop 1366 Tab2 explorer: no horizontal page scroll",
+   "ok": true,
+   "info": "0px"
+  },
+  {
+   "name": "desktop 1366 Tab2 explorer: buttons, fields and images are named; ids unique",
+   "ok": true,
+   "info": "{\"u\":[],\"f\":[],\"alt\":0,\"d\":[]}"
+  },
+  {
+   "name": "desktop 1366 #1 details of all 101 nodes have no null / internal wording",
+   "ok": true,
+   "info": "{\"n\":101,\"bad\":[]}"
+  },
+  {
+   "name": "desktop 1366 #2 wish filter shows only that wish's network (10 wishes)",
+   "ok": true,
+   "info": ""
+  },
+  {
+   "name": "desktop 1366 #3 explorer explains SOURCE / CANDIDATE / UNVERIFIED",
+   "ok": true,
+   "info": "{\"legend\":true,\"degree\":4,\"comm\":9,\"names\":[\"ใช้หมายเลขกลุ่ม\",\"ใช้หมายเลขกลุ่ม\",\"ใช้หมายเลขกลุ่ม\",\"ใช้หมายเลขกลุ่ม\",\"ใช้หมายเลขกลุ่ม\",\"ใช้หมายเลขกลุ่ม\",\"ใช้หมายเลขกลุ่ม\",\"ใช้หมายเลขกลุ่ม\",\"ใช้หมายเลขกลุ่ม\"],\"verdict\":\"fail\",\"rows\":4}"
+  },
+  {
+   "name": "desktop 1366 #8 #9 #10 four degree tables, 9 communities by number, random-graph table",
+   "ok": true,
+   "info": "{\"legend\":true,\"degree\":4,\"comm\":9,\"names\":[\"ใช้หมายเลขกลุ่ม\",\"ใช้หมายเลขกลุ่ม\",\"ใช้หมายเลขกลุ่ม\",\"ใช้หมายเลขกลุ่ม\",\"ใช้หมายเลขกลุ่ม\",\"ใช้หมายเลขกลุ่ม\",\"ใช้หมายเลขกลุ่ม\",\"ใช้หมายเลขกลุ่ม\",\"ใช้หมายเลขกลุ่ม\"],\"verdict\":\"fail\",\"rows\":4}"
+  },
+  {
+   "name": "desktop 1366 Tab2 lab: no null / undefined text",
+   "ok": true,
+   "info": ""
+  },
+  {
+   "name": "desktop 1366 Tab2 lab: no horizontal page scroll",
+   "ok": true,
+   "info": "0px"
+  },
+  {
+   "name": "desktop 1366 Tab2 lab: buttons, fields and images are named; ids unique",
+   "ok": true,
+   "info": "{\"u\":[],\"f\":[],\"alt\":0,\"d\":[]}"
+  },
+  {
+   "name": "desktop 1366 #13 Lab: persona A (born on a Sunday) has no eligible data",
+   "ok": true,
+   "info": "NO_ELIGIBLE_DATA"
+  },
+  {
+   "name": "desktop 1366 #13 Lab shows status and seeds before and after normalising",
+   "ok": true,
+   "info": "{\"s\":\"APPLIED\",\"head\":[\"โหนดเริ่ม\",\"ชนิด\",\"ก่อน Normalize\",\"หลัง Normalize\"],\"foot\":[\"รวม\",\"1.0500\",\"1.0000\"]}"
+  },
+  {
+   "name": "desktop 1366 Tab2 designer: no null / undefined text",
+   "ok": true,
+   "info": ""
+  },
+  {
+   "name": "desktop 1366 Tab2 designer: no horizontal page scroll",
+   "ok": true,
+   "info": "0px"
+  },
+  {
+   "name": "desktop 1366 Tab2 designer: buttons, fields and images are named; ids unique",
+   "ok": true,
+   "info": "{\"u\":[],\"f\":[],\"alt\":0,\"d\":[]}"
+  },
+  {
+   "name": "desktop 1366 #7 designer credits OpenStreetMap",
+   "ok": true,
+   "info": ""
+  },
+  {
+   "name": "desktop 1366 Tab2 matching: no null / undefined text",
+   "ok": true,
+   "info": ""
+  },
+  {
+   "name": "desktop 1366 Tab2 matching: no horizontal page scroll",
+   "ok": true,
+   "info": "0px"
+  },
+  {
+   "name": "desktop 1366 Tab2 matching: buttons, fields and images are named; ids unique",
+   "ok": true,
+   "info": "{\"u\":[],\"f\":[],\"alt\":0,\"d\":[]}"
+  },
+  {
+   "name": "desktop 1366 Tab2 evaluation: no null / undefined text",
+   "ok": true,
+   "info": ""
+  },
+  {
+   "name": "desktop 1366 Tab2 evaluation: no horizontal page scroll",
+   "ok": true,
+   "info": "0px"
+  },
+  {
+   "name": "desktop 1366 Tab2 evaluation: buttons, fields and images are named; ids unique",
+   "ok": true,
+   "info": "{\"u\":[],\"f\":[],\"alt\":0,\"d\":[]}"
+  },
+  {
+   "name": "phone 375 step 01: no null / undefined text",
+   "ok": true,
+   "info": ""
+  },
+  {
+   "name": "phone 375 step 01: no horizontal page scroll",
+   "ok": true,
+   "info": "0px"
+  },
+  {
+   "name": "phone 375 step 01: buttons, fields and images are named; ids unique",
+   "ok": true,
+   "info": "{\"u\":[],\"f\":[],\"alt\":0,\"d\":[]}"
+  },
+  {
+   "name": "phone 375 step 02: no null / undefined text",
+   "ok": true,
+   "info": ""
+  },
+  {
+   "name": "phone 375 step 02: no horizontal page scroll",
+   "ok": true,
+   "info": "0px"
+  },
+  {
+   "name": "phone 375 step 02: buttons, fields and images are named; ids unique",
+   "ok": true,
+   "info": "{\"u\":[],\"f\":[],\"alt\":0,\"d\":[]}"
+  },
+  {
+   "name": "phone 375 step 03: no null / undefined text",
+   "ok": true,
+   "info": ""
+  },
+  {
+   "name": "phone 375 step 03: no horizontal page scroll",
+   "ok": true,
+   "info": "0px"
+  },
+  {
+   "name": "phone 375 step 03: buttons, fields and images are named; ids unique",
+   "ok": true,
+   "info": "{\"u\":[],\"f\":[],\"alt\":0,\"d\":[]}"
+  },
+  {
+   "name": "phone 375 step 04: no null / undefined text",
+   "ok": true,
+   "info": ""
+  },
+  {
+   "name": "phone 375 step 04: no horizontal page scroll",
+   "ok": true,
+   "info": "0px"
+  },
+  {
+   "name": "phone 375 step 04: buttons, fields and images are named; ids unique",
+   "ok": true,
+   "info": "{\"u\":[],\"f\":[],\"alt\":0,\"d\":[]}"
+  },
+  {
+   "name": "phone 375 #13 step 04 says the birth signal was applied",
+   "ok": true,
+   "info": "{\"status\":\"APPLIED\",\"text\":\"🎂 เกิดวันจันทร์ — ใช้ความเชื่อประจำวันจันทร์ (พระแม่อุมาเทวี) เป็นสัญญาณรองน้ำหนักน้อย ความสนใจที่คุณเลือกยังเป็นหลัก อันดับอาจเปลี่ยนหรือไม่เปลี่ยนก็ได้\"}"
+  },
+  {
+   "name": "phone 375 #6 reminder choices show the date they fall due",
+   "ok": true,
+   "info": "{\"card\":true,\"dates\":[\"2027-02-07  · เตือนวันที่ 7 ก.พ. 2570\",\"2027-02-13  · เตือนวันที่ 13 ก.พ. 2570\"]}"
+  },
+  {
+   "name": "phone 375 step 05: no null / undefined text",
+   "ok": true,
+   "info": ""
+  },
+  {
+   "name": "phone 375 step 05: no horizontal page scroll",
+   "ok": true,
+   "info": "0px"
+  },
+  {
+   "name": "phone 375 step 05: buttons, fields and images are named; ids unique",
+   "ok": true,
+   "info": "{\"u\":[],\"f\":[],\"alt\":0,\"d\":[]}"
+  },
+  {
+   "name": "phone 375 #13 step 05 shows the same birth status",
+   "ok": true,
+   "info": "{\"status\":\"APPLIED\"}"
+  },
+  {
+   "name": "phone 375 place dialog 1: no null / undefined text",
+   "ok": true,
+   "info": ""
+  },
+  {
+   "name": "phone 375 place dialog 1: no horizontal page scroll",
+   "ok": true,
+   "info": "0px"
+  },
+  {
+   "name": "phone 375 place dialog 1: buttons, fields and images are named; ids unique",
+   "ok": true,
+   "info": "{\"u\":[],\"f\":[],\"alt\":0,\"d\":[]}"
+  },
+  {
+   "name": "phone 375 place dialog 2: no null / undefined text",
+   "ok": true,
+   "info": ""
+  },
+  {
+   "name": "phone 375 place dialog 2: no horizontal page scroll",
+   "ok": true,
+   "info": "0px"
+  },
+  {
+   "name": "phone 375 place dialog 2: buttons, fields and images are named; ids unique",
+   "ok": true,
+   "info": "{\"u\":[],\"f\":[],\"alt\":0,\"d\":[]}"
+  },
+  {
+   "name": "phone 375 place dialog 3: no null / undefined text",
+   "ok": true,
+   "info": ""
+  },
+  {
+   "name": "phone 375 place dialog 3: no horizontal page scroll",
+   "ok": true,
+   "info": "0px"
+  },
+  {
+   "name": "phone 375 place dialog 3: buttons, fields and images are named; ids unique",
+   "ok": true,
+   "info": "{\"u\":[],\"f\":[],\"alt\":0,\"d\":[]}"
+  },
+  {
+   "name": "phone 375 place dialog 4: no null / undefined text",
+   "ok": true,
+   "info": ""
+  },
+  {
+   "name": "phone 375 place dialog 4: no horizontal page scroll",
+   "ok": true,
+   "info": "0px"
+  },
+  {
+   "name": "phone 375 place dialog 4: buttons, fields and images are named; ids unique",
+   "ok": true,
+   "info": "{\"u\":[],\"f\":[],\"alt\":0,\"d\":[]}"
+  },
+  {
+   "name": "phone 375 place dialog 5: no null / undefined text",
+   "ok": true,
+   "info": ""
+  },
+  {
+   "name": "phone 375 place dialog 5: no horizontal page scroll",
+   "ok": true,
+   "info": "0px"
+  },
+  {
+   "name": "phone 375 place dialog 5: buttons, fields and images are named; ids unique",
+   "ok": true,
+   "info": "{\"u\":[],\"f\":[],\"alt\":0,\"d\":[]}"
+  },
+  {
+   "name": "phone 375 #3 #4 place dialogs: status explanation present, no internal wording",
+   "ok": true,
+   "info": "cards=5 bad="
+  },
+  {
+   "name": "phone 375 step 06: no null / undefined text",
+   "ok": true,
+   "info": ""
+  },
+  {
+   "name": "phone 375 step 06: no horizontal page scroll",
+   "ok": true,
+   "info": "0px"
+  },
+  {
+   "name": "phone 375 step 06: buttons, fields and images are named; ids unique",
+   "ok": true,
+   "info": "{\"u\":[],\"f\":[],\"alt\":0,\"d\":[]}"
+  },
+  {
+   "name": "phone 375 #5 step 06 shows 4 legs with BTS/MRT, travel and access time apart",
+   "ok": true,
+   "info": "{\"legs\":[\"🚆 ไม่ต้องนั่งรถไฟฟ้า (อยู่ที่สถานี BTS สยาม)🚶 เข้าถึงสถานที่ (Skywalk) ประมาณ 5 นาที\",\"🚆 ไม่ต้องนั่งรถไฟฟ้า (อยู่ที่สถานี BTS ชิดลม)🚶 เข้าถึงสถานที่ (Skywalk) ประมาณ 9 นาที\",\"🚆 BTS: ชิดลม → ศาลาแดง · เวลาเดินทางประมาณ 7.7 นาที + รอรถ 5 นาที (ค่าสมมติ)🚶 เข้าถึงสถานที่ (เดิน) ประมาณ 12 นาที\",\"🚆 MRT: สีลม → วัดมังกร · เวลาเดินทางประมาณ 7.1 นาที + รอรถ 5 นาที (ค่าสมมติ)🚶 เข้าถึงสถานท"
+  },
+  {
+   "name": "phone 375 #7 step 06 credits OpenStreetMap",
+   "ok": true,
+   "info": "https://www.openstreetmap.org/copyright"
+  },
+  {
+   "name": "phone 375 step 07 self: no null / undefined text",
+   "ok": true,
+   "info": ""
+  },
+  {
+   "name": "phone 375 step 07 self: no horizontal page scroll",
+   "ok": true,
+   "info": "0px"
+  },
+  {
+   "name": "phone 375 step 07 self: buttons, fields and images are named; ids unique",
+   "ok": true,
+   "info": "{\"u\":[],\"f\":[],\"alt\":0,\"d\":[]}"
+  },
+  {
+   "name": "phone 375 step 07 trip: no null / undefined text",
+   "ok": true,
+   "info": ""
+  },
+  {
+   "name": "phone 375 step 07 trip: no horizontal page scroll",
+   "ok": true,
+   "info": "0px"
+  },
+  {
+   "name": "phone 375 step 07 trip: buttons, fields and images are named; ids unique",
+   "ok": true,
+   "info": "{\"u\":[],\"f\":[],\"alt\":0,\"d\":[]}"
+  },
+  {
+   "name": "phone 375 #5 #7 step 07 trip: legs and OSM credit",
+   "ok": true,
+   "info": "{\"legs\":4,\"osm\":true}"
+  },
+  {
+   "name": "phone 375 step 07 proxy: no null / undefined text",
+   "ok": true,
+   "info": ""
+  },
+  {
+   "name": "phone 375 step 07 proxy: no horizontal page scroll",
+   "ok": true,
+   "info": "0px"
+  },
+  {
+   "name": "phone 375 step 07 proxy: buttons, fields and images are named; ids unique",
+   "ok": true,
+   "info": "{\"u\":[],\"f\":[],\"alt\":0,\"d\":[]}"
+  },
+  {
+   "name": "phone 375 Tab2 explorer: no null / undefined text",
+   "ok": true,
+   "info": ""
+  },
+  {
+   "name": "phone 375 Tab2 explorer: no horizontal page scroll",
+   "ok": true,
+   "info": "0px"
+  },
+  {
+   "name": "phone 375 Tab2 explorer: buttons, fields and images are named; ids unique",
+   "ok": true,
+   "info": "{\"u\":[],\"f\":[],\"alt\":0,\"d\":[]}"
+  },
+  {
+   "name": "phone 375 #1 details of all 101 nodes have no null / internal wording",
+   "ok": true,
+   "info": "{\"n\":101,\"bad\":[]}"
+  },
+  {
+   "name": "phone 375 #2 wish filter shows only that wish's network (10 wishes)",
+   "ok": true,
+   "info": ""
+  },
+  {
+   "name": "phone 375 #3 explorer explains SOURCE / CANDIDATE / UNVERIFIED",
+   "ok": true,
+   "info": "{\"legend\":true,\"degree\":4,\"comm\":9,\"names\":[\"ใช้หมายเลขกลุ่ม\",\"ใช้หมายเลขกลุ่ม\",\"ใช้หมายเลขกลุ่ม\",\"ใช้หมายเลขกลุ่ม\",\"ใช้หมายเลขกลุ่ม\",\"ใช้หมายเลขกลุ่ม\",\"ใช้หมายเลขกลุ่ม\",\"ใช้หมายเลขกลุ่ม\",\"ใช้หมายเลขกลุ่ม\"],\"verdict\":\"fail\",\"rows\":4}"
+  },
+  {
+   "name": "phone 375 #8 #9 #10 four degree tables, 9 communities by number, random-graph table",
+   "ok": true,
+   "info": "{\"legend\":true,\"degree\":4,\"comm\":9,\"names\":[\"ใช้หมายเลขกลุ่ม\",\"ใช้หมายเลขกลุ่ม\",\"ใช้หมายเลขกลุ่ม\",\"ใช้หมายเลขกลุ่ม\",\"ใช้หมายเลขกลุ่ม\",\"ใช้หมายเลขกลุ่ม\",\"ใช้หมายเลขกลุ่ม\",\"ใช้หมายเลขกลุ่ม\",\"ใช้หมายเลขกลุ่ม\"],\"verdict\":\"fail\",\"rows\":4}"
+  },
+  {
+   "name": "phone 375 Tab2 lab: no null / undefined text",
+   "ok": true,
+   "info": ""
+  },
+  {
+   "name": "phone 375 Tab2 lab: no horizontal page scroll",
+   "ok": true,
+   "info": "0px"
+  },
+  {
+   "name": "phone 375 Tab2 lab: buttons, fields and images are named; ids unique",
+   "ok": true,
+   "info": "{\"u\":[],\"f\":[],\"alt\":0,\"d\":[]}"
+  },
+  {
+   "name": "phone 375 #13 Lab: persona A (born on a Sunday) has no eligible data",
+   "ok": true,
+   "info": "NO_ELIGIBLE_DATA"
+  },
+  {
+   "name": "phone 375 #13 Lab shows status and seeds before and after normalising",
+   "ok": true,
+   "info": "{\"s\":\"APPLIED\",\"head\":[\"โหนดเริ่ม\",\"ชนิด\",\"ก่อน Normalize\",\"หลัง Normalize\"],\"foot\":[\"รวม\",\"1.0500\",\"1.0000\"]}"
+  },
+  {
+   "name": "phone 375 Tab2 designer: no null / undefined text",
+   "ok": true,
+   "info": ""
+  },
+  {
+   "name": "phone 375 Tab2 designer: no horizontal page scroll",
+   "ok": true,
+   "info": "0px"
+  },
+  {
+   "name": "phone 375 Tab2 designer: buttons, fields and images are named; ids unique",
+   "ok": true,
+   "info": "{\"u\":[],\"f\":[],\"alt\":0,\"d\":[]}"
+  },
+  {
+   "name": "phone 375 #7 designer credits OpenStreetMap",
+   "ok": true,
+   "info": ""
+  },
+  {
+   "name": "phone 375 Tab2 matching: no null / undefined text",
+   "ok": true,
+   "info": ""
+  },
+  {
+   "name": "phone 375 Tab2 matching: no horizontal page scroll",
+   "ok": true,
+   "info": "0px"
+  },
+  {
+   "name": "phone 375 Tab2 matching: buttons, fields and images are named; ids unique",
+   "ok": true,
+   "info": "{\"u\":[],\"f\":[],\"alt\":0,\"d\":[]}"
+  },
+  {
+   "name": "phone 375 Tab2 evaluation: no null / undefined text",
+   "ok": true,
+   "info": ""
+  },
+  {
+   "name": "phone 375 Tab2 evaluation: no horizontal page scroll",
+   "ok": true,
+   "info": "0px"
+  },
+  {
+   "name": "phone 375 Tab2 evaluation: buttons, fields and images are named; ids unique",
+   "ok": true,
+   "info": "{\"u\":[],\"f\":[],\"alt\":0,\"d\":[]}"
+  },
+  {
+   "name": "#13 Tab 1 status NO_ELIGIBLE_DATA in steps 04 and 05, no \"used\" badge",
+   "ok": true,
+   "info": "{\"s\":\"NO_ELIGIBLE_DATA\",\"t\":\"🎂 เกิดวันพุธ — เวอร์ชันนี้ยังไม่มีข้อมูลความเชื่อประจำวันพุธที่ผ่านเกณฑ์ ระบบจึงแนะนำจากความสนใจที่คุณเลือกเป็นหลัก\",\"gold\":0,\"s5\":\"NO_ELIGIBLE_DATA\"}"
+  },
+  {
+   "name": "#13 Tab 1 status EXCLUDED in steps 04 and 05, no \"used\" badge",
+   "ok": true,
+   "info": "{\"s\":\"EXCLUDED\",\"t\":\"🎂 เกิดวันจันทร์ — สิ่งศักดิ์สิทธิ์ที่เกี่ยวกับวันจันทร์ถูกตัดออกตามข้อจำกัดของคุณ: พระแม่อุมาเทวี (กลุ่มความเชื่อ \\\"ฮินดู\\\") จึงไม่ใช้สัญญาณวันเกิด\",\"gold\":0,\"s5\":\"EXCLUDED\"}"
+  },
+  {
+   "name": "#13 Tab 1 status NOT_PROVIDED in steps 04 and 05, no \"used\" badge",
+   "ok": true,
+   "info": "{\"s\":\"NOT_PROVIDED\",\"t\":\"🎂 ไม่ได้ระบุวันเกิด ระบบแนะนำจากความสนใจที่คุณเลือก\",\"gold\":0,\"s5\":\"NOT_PROVIDED\"}"
+  },
+  {
+   "name": "E no eligible trip: says NO_ELIGIBLE_SIGNATURE_TRIP and shows no route",
+   "ok": true,
+   "info": "{\"code\":true,\"legs\":0}"
+  },
+  {
+   "name": "no-trip profile step 06: no null / undefined text",
+   "ok": true,
+   "info": ""
+  },
+  {
+   "name": "no-trip profile step 06: no horizontal page scroll",
+   "ok": true,
+   "info": "0px"
+  },
+  {
+   "name": "no-trip profile step 06: buttons, fields and images are named; ids unique",
+   "ok": true,
+   "info": "{\"u\":[],\"f\":[],\"alt\":0,\"d\":[]}"
+  },
+  {
+   "name": "page declares its language",
+   "ok": true,
+   "info": "th"
+  },
+  {
+   "name": "no console errors",
+   "ok": true,
+   "info": ""
+  },
+  {
+   "name": "no failed requests",
+   "ok": true,
+   "info": ""
+  },
+  {
+   "name": "no feedback request left the browser",
+   "ok": true,
+   "info": "0"
+  }
+ ]
+}

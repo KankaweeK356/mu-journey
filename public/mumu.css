@@ -160,6 +160,7 @@ dialog::backdrop { background: rgba(43, 31, 63, .55); }
 .svc { border: 2px solid var(--lav-line); background: #fff; border-radius: 18px; padding: 16px 8px; text-align: center; cursor: pointer; font-weight: 600; display: flex; flex-direction: column; align-items: center; gap: 6px; }
 .svc .ic { width: 56px; height: 56px; border-radius: 16px; display: grid; place-items: center; font-size: 28px; }
 .svc small { color: var(--ink-3); font-weight: 500; }
+.svc:disabled { cursor: not-allowed; opacity: .55; box-shadow: none; }
 .svc[aria-pressed="true"] { border-color: var(--purple-2); background: #f7f2ff; box-shadow: 0 6px 18px rgba(109, 63, 176, .18); }
 @media (max-width: 480px) { .svc { font-size: 13px; padding: 12px 4px; } }
 .stars { display: flex; gap: 6px; justify-content: center; }
