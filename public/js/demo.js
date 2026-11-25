@@ -1,5 +1,6 @@
 // Tab 1 — MUMU user demo: 7 steps. Every number and every place comes from the engine (via /api/mumu/*).
-import { h, clear, put, f, pct, statusChip, statusLegend, TRIP_TH, MONTHS_TH, bar, toast } from './util.js';
+import { h, clear, put, f, pct, statusChip, statusLegend, TRIP_TH, MONTHS_TH, bar, toast, getJSON } from './util.js';
+import { priceText, roundLabel, productOf, upcomingRounds, chosenRound } from './tripproduct.js';
 import { userNote, userSourceName, userVerification, userCaution, userLimitedReason, stationText, accessText, legLines, birthText, noTripPlan } from './usertext.js';
 import { osmCredit } from './osm.js';
 import { API } from './api.js';
@@ -33,7 +34,6 @@ export async function renderDemo(root) {
 
   cat.wishes.forEach((w) => { catalogNames.wish[w.id] = w.label; });
   setHooks({
-    showBar: () => S.step >= 4,
     // "มูเรื่องนี้ต่อ": straight to step 07, where the user picks self / company trip / proxy. Step 06 stays reachable from there.
     continueWith: (f) => {
       // The Step 02 interests (S.wishes) are never written here. A wish outside them becomes a TEMPORARY topic (S.topic) until the user goes back.
@@ -86,7 +86,7 @@ export async function renderDemo(root) {
         h('div', { class: 'card flat stack', style: 'text-align:left;margin-top:14px' },
           h('div', { class: 'field' }, h('span', { class: 'lbl' }, '🎂 วันเกิดของคุณ ', h('span', { class: 'hint' }, '(ไม่บังคับ)')),
             h('div', { class: 'dp' }, era, sel('d', Array.from({ length: 31 }, (_, i) => [i + 1, i + 1]), 'วัน'), sel('m', MONTHS_TH.map((m, i) => [i + 1, m]), 'เดือน'), sel('y', years.map((y) => [y, y]), 'ปี'))),
-          h('p', { class: 'small muted', style: 'margin:0' }, 'วันเกิดเป็นข้อมูลเสริมเท่านั้น ระบบใช้เฉพาะความเชื่อที่เชื่อมกับข้อมูลหลักได้ ไม่ต้องล็อกอิน และไม่บันทึกวันเกิดของคุณ (อยู่ในหน่วยความจำของหน้านี้เท่านั้น) ถ้ากด "ติดตาม" กิจกรรม เบราว์เซอร์นี้จะจำเฉพาะกิจกรรมที่ติดตามและการตั้งเตือน (ไม่มีวันเกิด) ลบได้ด้วยปุ่ม "ล้างข้อมูลของฉัน"'),
+          h('p', { class: 'small muted', style: 'margin:0' }, 'วันเกิดเป็นข้อมูลเสริมเท่านั้น ระบบใช้เฉพาะความเชื่อที่เชื่อมกับข้อมูลหลักได้ ไม่ต้องล็อกอิน และไม่บันทึกวันเกิดของคุณ (อยู่ในหน่วยความจำของหน้านี้เท่านั้น) ถ้ากด "บันทึกไว้" เบราว์เซอร์นี้จะจำเฉพาะรายการที่บันทึก (ไม่มีวันเกิดและความสนใจ) ลบได้ด้วยปุ่ม "ล้างข้อมูลของฉัน"'),
           err),
         h('div', { class: 'foot', style: 'justify-content:center' }, h('button', { type: 'button', class: 'btn primary', style: 'max-width:none;flex:0 1 320px;margin:0', onclick: () => {
           if (birthdateISO() === false) { err.textContent = 'วันเกิดไม่ถูกต้อง กรุณากรอกวัน เดือน ปี ให้ครบและเป็นวันที่ที่มีจริง หรือเว้นว่างทั้งหมด'; err.hidden = false; return; }
@@ -209,7 +209,7 @@ export async function renderDemo(root) {
         const names = (focus === 'ALL' ? activeWishes() : [focus]).map((w) => wishName[w]).join(' และ ');
         preview = h('div', { class: 'stack' },
           h('p', { style: 'margin:0' }, `จากความสนใจของคุณ MUMU พบสถานที่ที่เชื่อมโยงกับเรื่อง${names}ผ่านความสัมพันธ์ของสิ่งศักดิ์สิทธิ์และสถานที่ในฐานข้อมูล`),
-          ...shown.map(({ place: p, wishes }) => h('div', { class: 'card flat', 'data-preview-place': p.place_id }, h('b', {}, p.name),
+          ...shown.map(({ place: p, wishes }) => h('div', { class: 'card flat', 'data-preview-place': p.place_id }, h('div', { class: 'row', style: 'justify-content:space-between' }, h('b', {}, p.name), h('span', { class: 'chip', 'data-rank': String(p.rank) }, `อันดับ ${p.rank} ใน Top 5`)),
             (many ? wishes.flatMap((w) => p.paths.filter((z) => z.wish_id === w).slice(0, 1)) : (focus === 'ALL' ? p.paths : p.paths.filter((z) => z.wish_id === focus)).slice(0, 2))
               .map((z) => h('div', { class: 'path' }, z.wish_name, h('span', { class: 'ar' }, '→'), z.deity_name, h('span', { class: 'ar' }, '→'), p.name)))),
           missing.length ? h('p', { class: 'small faint', style: 'margin:0', 'data-missing-wishes': missing.join(',') }, `เรื่อง ${missing.map((w) => wishName[w]).join(', ')} ยังไม่มีสถานที่ใน Top 5 ที่คำนวณไว้ (ไม่ได้แปลว่าเครือข่ายไม่มีเลย)`) : null,
@@ -281,6 +281,43 @@ export async function renderDemo(root) {
   const tripTimes = (D) => h('div', { class: 'small', 'data-trip-times': 'true' },
     h('div', {}, `เดินทางด้วยรถไฟฟ้าประมาณ ${Math.round(D.rail_min)} นาที · เดินเข้าถึงสถานที่ประมาณ ${Math.round(D.walk_min)} นาที`),
     h('div', { class: 'faint' }, `ในเวลารวมประมาณ ${Math.round(D.duration_min)} นาที ยังมีเวลารอรถ ${Math.round(D.train_wait_min)} (สมมติ) รอสถานที่เปิด ${Math.round(D.opening_wait_min)} บรีฟกลุ่ม ${Math.round(D.group_briefing_min)} พัก ${Math.round(D.midday_break_min)} และเวลาที่จุดแวะ ${Math.round(D.dwell_min)} นาที ทุกค่าเป็นค่าประมาณ`));
+  /* Price and rounds (mock catalogue). Loaded once; until it is here, or if it fails, no price or date is shown. */
+  let products = null, productError = false, productLoading = false;
+  function loadProducts() {
+    if (products || productLoading || productError) return;
+    productLoading = true;
+    getJSON('/data/trip_products.json').then((x) => { products = x; }).catch(() => { productError = true; })
+      .finally(() => { productLoading = false; if ((S.step === 6 || S.step === 7) && host.isConnected) draw(); });
+  }
+  const NOT_BOOKABLE = 'ราคาและรอบเดินทางเป็นข้อมูลจำลอง ยังไม่เปิดรับจองจริง';
+  function productCard(tripId) {
+    loadProducts();
+    const P = productOf(products, tripId);
+    if (!P) return h('div', { class: 'card', 'data-product': productError || products ? 'missing' : 'loading' }, h('p', { class: 'small muted', style: 'margin:0' }, productError || products ? 'ยังไม่มีข้อมูลราคาและรอบเดินทางของทริปนี้' : 'กำลังโหลดราคาและรอบเดินทาง…'));
+    const rounds = upcomingRounds(products, tripId, todayISO()), picked = chosenRound(products, tripId, todayISO(), S.tripDate);
+    return h('div', { class: 'card stack product', 'data-product': tripId },
+      h('div', { class: 'row', style: 'justify-content:space-between;align-items:baseline' }, h('h3', {}, 'ราคาและรอบเดินทาง'), h('div', { class: 'price', 'data-price': String(P.price_thb) }, priceText(P.price_thb), h('small', {}, ' / คน'))),
+      h('div', { class: 'row' }, h('span', { class: 'chip', 'data-time': 'true' }, `⏱ ${P.start_time}–${P.end_time} น.`), h('span', { class: 'chip', 'data-capacity': 'true' }, `👥 รับสูงสุด ${P.capacity} คน/รอบ`), h('span', { class: 'chip', 'data-meeting': 'true' }, `📍 จุดนัดพบ ${P.meeting_point}`)),
+      rounds.length ? h('div', { class: 'stack' },
+        h('div', { 'data-next-round': rounds[0].service_date }, h('b', {}, 'รอบถัดไป: '), roundLabel(rounds[0].service_date)),
+        h('div', { class: 'small' }, 'เลือกวันที่ต้องการเข้าร่วม'),
+        h('div', { class: 'tchips', role: 'group', 'aria-label': 'เลือกวันเดินทาง' }, rounds.map((r) => h('button', { type: 'button', class: 'tchip', 'data-round': r.service_date, 'aria-pressed': String(!!picked && picked.service_date === r.service_date),
+          onclick: () => { S.tripDate = S.tripDate === r.service_date ? null : r.service_date; draw(); } }, roundLabel(r.service_date)))),
+        h('div', { class: 'small', role: 'status' }, picked ? `วันที่เลือก: ${roundLabel(picked.service_date)}` : 'ยังไม่ได้เลือกวันเดินทาง'))
+        : h('div', { class: 'callout warn small', 'data-no-round': 'true' }, 'ตอนนี้ยังไม่มีรอบเดินทางในอนาคต กรุณารอประกาศรอบใหม่'),
+      h('div', { class: 'small faint' }, `เวลาให้บริการรวมเวลาเผื่อ ${P.buffer_min} นาทีจากเวลาตามแบบจำลอง ${P.model_duration_min} นาที`),
+      h('div', { class: 'callout warn small' }, NOT_BOOKABLE));
+  }
+  function bookingNote(tripId) {
+    loadProducts();
+    const P = productOf(products, tripId), picked = chosenRound(products, tripId, todayISO(), S.tripDate);
+    return h('div', { class: 'callout small', 'data-trip-tbd': 'true' }, h('b', {}, 'รายละเอียดการจอง (Demo)'),
+      P ? h('div', {}, `ราคา ${priceText(P.price_thb)} / คน · เวลา ${P.start_time}–${P.end_time} น. · รับสูงสุด ${P.capacity} คน/รอบ`) : h('div', {}, 'ยังไม่มีข้อมูลราคาและรอบเดินทาง'),
+      P ? h('div', { 'data-chosen-date': picked ? picked.service_date : '' }, picked ? `วันเดินทางที่เลือก: ${roundLabel(picked.service_date)} (อยู่ในหน้านี้เท่านั้น ไม่ถูกส่งหรือบันทึก)` : 'ยังไม่ได้เลือกวันเดินทาง เลือกได้ที่ขั้น 06') : null,
+      h('div', {}, NOT_BOOKABLE + ' · การจองล่วงหน้า: ยังไม่เปิดจอง'),
+      h('div', {}, 'ปุ่มด้านล่างเป็นการแสดงความสนใจเพื่อทดสอบระบบ ไม่ใช่การลงทะเบียนหรือการจอง ไม่รับชำระเงินจริง ไม่มีที่นั่งถูกสำรอง'));
+  }
+
   /* No matching trip: why, what to do next, and the technical reasons folded away. */
   function noTrip(R) {
     const T = R.trip, exc = R.profile.applied_exclusions;
@@ -307,7 +344,8 @@ export async function renderDemo(root) {
         body = h('div', { class: 'stack' },
           h('div', { class: 'trip-hero' }, h('span', { class: 'tag' }, '✨ ทริปแนะนำสำหรับคุณ'), h('h3', {}, D.title), h('p', {}, `${TRIP_TH[D.trip_id]} · เหมาะกับ: ${covered || '—'}`),
             h('div', { class: 'stops' }, D.stops.map((s) => h('div', { class: 'stop' }, h('i', {}, s.order), h('div', {}, s.name)))),
-            h('div', { class: 'row', style: 'margin-top:12px' }, h('span', { class: 'tag' }, '🚆 BTS/MRT + เดิน'), h('span', { class: 'tag' }, `⏱ ประมาณ ${Math.round(D.duration_min)} นาที · จบ ~${D.finish_clock}`), h('span', { class: 'tag' }, `คะแนนจับคู่ ${f(M.matching_score, 2)}`), h('span', { class: 'tag' }, 'Demo · ยังไม่เปิดจองจริง'), h('span', { class: 'tag' }, 'ราคา/วันเดินทาง: ยังไม่กำหนด'))),
+            h('div', { class: 'row', style: 'margin-top:12px' }, h('span', { class: 'tag' }, '🚆 BTS/MRT + เดิน'), h('span', { class: 'tag' }, `คะแนนจับคู่ ${f(M.matching_score, 2)}`), h('span', { class: 'tag' }, 'Demo · ยังไม่เปิดจองจริง'))),
+          productCard(D.trip_id),
           h('div', { class: 'card' }, h('h3', {}, 'จุดแวะตามลำดับ'), h('ol', { class: 'timeline', style: 'margin-top:10px' }, D.stops.map((s) => h('li', {},
             h('div', { class: 't' }, `${s.arrival}–${s.finish}`),
             h('div', {}, h('b', {}, s.name)), h('div', { class: 'small', 'data-leg': String(s.order) }, legLines(D.legs[s.order - 1], s.access_mode).map((t) => h('div', {}, t))), h('div', { class: 'small muted' }, 'พิธีเด่น: ' + s.featured_deity)))),
@@ -339,9 +377,7 @@ export async function renderDemo(root) {
         panel.append(h('h3', {}, 'ทริปบริษัท (Demo)'), T.matched ? h('div', { class: 'stack' }, h('p', { class: 'sub' }, `${TRIP_TH[T.matched.trip_id]} · ${T.detail.title}`),
           h('ol', { class: 'timeline' }, T.detail.stops.map((s) => h('li', {}, h('div', { class: 't' }, `${s.arrival}–${s.finish}`), h('div', {}, s.name), h('div', { class: 'small muted', 'data-leg': String(s.order) }, legLines(T.detail.legs[s.order - 1], s.access_mode).map((t) => h('div', {}, t)))))),
           tripTimes(T.detail), osmCredit(),
-          h('div', { class: 'callout small', 'data-trip-tbd': 'true' }, h('b', {}, 'รายละเอียดการจอง (Demo)'),
-            h('div', {}, 'ราคา: ยังไม่กำหนด · วันเดินทาง: ยังไม่กำหนด · การจองล่วงหน้า: ยังไม่เปิดจอง'),
-            h('div', {}, 'ปุ่มด้านล่างเป็นการแสดงความสนใจเพื่อทดสอบระบบ ไม่ใช่การลงทะเบียนหรือการจอง ไม่รับชำระเงินจริง ไม่มีที่นั่งถูกสำรอง')),
+          bookingNote(T.matched.trip_id),
           h('div', { class: 'row' }, h('button', { class: 'btn primary', onclick: () => openFeedback({ service: 'trip' }) }, 'แสดงความสนใจทริป (Demo)'), h('button', { class: 'btn', onclick: () => go(6) }, 'ดูเหตุผลที่แนะนำทริปนี้'))) : null);
       } else if (svc === 'proxy') {
         const box = h('div', { class: 'stack' }, h('p', { class: 'muted' }, 'กำลังโหลดรายการ…'));
@@ -365,7 +401,7 @@ export async function renderDemo(root) {
 
   /* Steps 01-03 are the user's core profile; step 04 is "what to focus on this round". After feedback we go back to 04. */
   function startNewRound(toStep) {
-    S.picked.clear(); S.service = null; S.focus = 'ALL';
+    S.picked.clear(); S.service = null; S.focus = 'ALL'; S.tripDate = null;
     if (S.topic) { S.topic = null; invalidate(); }
     S.eventContext = null;
     dlg.close();
@@ -375,7 +411,7 @@ export async function renderDemo(root) {
     Object.assign(S, { d: '', m: '', y: '', wishes: [], focus: 'ALL', topic: null, eventContext: null, maxStep: 1, step: 1 });
     S.groups.clear(); S.deities.clear(); S.places.clear();
     resetDismissed(); resetFixedDismissed();
-    clearAllNotifyData();                 // also removes followed events and alerts kept in this browser
+    clearAllNotifyData();                 // also removes saved items kept in this browser
     invalidate();
     toast('ล้างข้อมูลของคุณแล้ว');
     draw();

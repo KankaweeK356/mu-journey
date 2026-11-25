@@ -5,9 +5,9 @@
   "info": ""
  },
  {
-  "name": "A1 a reminder exists after following Valentine",
+  "name": "A1 the bell counts related items by itself (nothing followed or ticked)",
   "ok": true,
-  "info": "badge=1"
+  "info": "badge=5"
  },
  {
   "name": "T1a no dropdown in step 04",
@@ -120,9 +120,9 @@
   "info": ""
  },
  {
-  "name": "A1 a reminder exists after following Valentine",
+  "name": "A1 the bell counts related items by itself (nothing followed or ticked)",
   "ok": true,
-  "info": "badge=1"
+  "info": "badge=5"
  },
  {
   "name": "T1a no dropdown in step 04",

@@ -2,9 +2,9 @@
 // Separate from the network-based event cards: matched by the user's wish (W01), not through the network, no PPR score, no place path.
 // It says only what the data says: the date is a calendar fact. It never claims a special event at any place.
 import { h, getJSON } from './util.js';
-import { store, nowMinute } from './state.js';
+import { nowMinute } from './state.js';
 import { parseBkk, dateBkk } from './reminder.js';
-import { thaiDate, offsetControls, changed } from './notifyui.js';
+import { thaiDate, saveButton } from './notifyui.js';
 
 let cache = null, loading = false;
 const dismissed = new Set();
@@ -27,22 +27,22 @@ export function fixedCalendarSection({ wishes, focus = 'ALL', redraw }) {
     if (!loading) { loading = true; getJSON('/data/calendar_fixed.json').then((d) => { cache = d; redraw(); }).catch(() => { cache = { fixed_days: [] }; }); }
     return null;
   }
-  const now = nowMinute(), st = store();
+  const now = nowMinute();
   const days = (cache.fixed_days || []).filter((d) => d.visibility_scope === 'NORMAL_CALENDAR' && d.data_origin !== 'SYNTHETIC_DEMO' && wishes.includes(d.wish_id)
     && (focus === 'ALL' || focus === d.wish_id) && !dismissed.has(d.calendar_item_id));
   if (!days.length) return null;
   const card = (day) => {
-    const t = nextOccurrence(day, now), left = t == null ? null : Math.floor((t - now) / 1440), followed = st.isFollowed(day.calendar_item_id);
+    const t = nextOccurrence(day, now);
     const when = t == null ? '' : dateBkk(now) === dateBkk(t) ? 'วันนี้' : `อีก ${Math.max(1, Math.ceil((t - now) / 1440))} วัน`;
     return h('div', { class: 'card flat stack fixed-card' },
       h('div', { class: 'row', style: 'justify-content:space-between;align-items:flex-start;flex-wrap:nowrap' },
         h('div', { style: 'min-width:0' }, h('div', {}, h('b', {}, day.event_name)), h('div', { class: 'small muted' }, `วันสำคัญตามปฏิทิน · ${thaiDate(dateBkk(t))}${when ? ' · ' + when : ''}`)),
         h('div', { class: 'row', style: 'flex-wrap:nowrap' },
-          h('button', { type: 'button', class: 'btn sm' + (followed ? ' primary' : ''), 'aria-pressed': String(followed), onclick: () => { followed ? st.unfollow(day.calendar_item_id) : st.follow(parentFromFixed(day), nowMinute()); changed(); redraw(); } }, followed ? '✓ ติดตามอยู่' : '＋ ติดตาม'),
+          h('span', { onclick: () => redraw() }, saveButton(parentFromFixed(day))),
           h('button', { type: 'button', class: 'btn sm ghost', 'aria-label': 'ปิดการ์ดนี้', title: 'ปิดการ์ดนี้', onclick: () => { dismissed.add(day.calendar_item_id); redraw(); } }, '✕'))),
       h('div', { class: 'row' }, h('span', { class: 'chip ok' }, 'วันที่ตรวจตามปฏิทินแล้ว'), h('span', { class: 'small faint' }, 'จับคู่ตรงจากเรื่องที่คุณเลือก ไม่ผ่านเครือข่าย')),
       day.disclaimer ? h('div', { class: 'small faint' }, day.disclaimer) : null,
-      followed ? offsetControls(day.calendar_item_id, day.calendar_item_id) : null);
+      h('div', { class: 'small faint' }, 'รายการนี้ขึ้นที่กระดิ่ง 🔔 ให้เองเมื่ออยู่ภายใน 90 วัน ไม่ต้องตั้งค่า'));
   };
   return h('div', { class: 'card stack', role: 'region', 'aria-label': 'วันสำคัญที่เกี่ยวกับความสนใจของคุณ' }, h('h3', {}, '🎀 วันสำคัญที่เกี่ยวกับความสนใจของคุณ'), ...days.map(card));
 }

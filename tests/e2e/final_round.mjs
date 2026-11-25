@@ -69,8 +69,7 @@ async function tab1(label) {
   if (FULL) {
     const s4 = await W(`return { status:q('[data-birth-status]')?.dataset.birthStatus, text:q('[data-birth-status]')?.textContent||'' };`);
     check(`${label} #13 step 04 says the birth signal was applied`, s4.status === 'APPLIED' && s4.text.includes('เกิดวันจันทร์'), JSON.stringify(s4));
-    const rem = await W(`const b=qa('.fixed-card button').find(x=>txt(x).includes('ติดตาม')); if(!b) return {card:false}; b.click(); await w(600); return { card:true, dates:qa('.fixed-card [data-remind-date]').map(e=>e.dataset.remindDate+' '+e.textContent) };`);
-    check(`${label} #6 reminder choices show the date they fall due`, rem.card && rem.dates.length >= 2 && rem.dates.every((d) => /^\d{4}-\d{2}-\d{2} .*(เตือนวันที่|ครบกำหนดแล้ว)/.test(d)), JSON.stringify(rem));
+    // #6 (reminder dates) moved to tests/e2e/price_bell.mjs, which fixes the clock: the dates now live in the bell.
   }
   await W(`await next('ดูสถานที่ที่เหมาะกับคุณ'); return 1;`);
   await scan(`${label} step 05`);

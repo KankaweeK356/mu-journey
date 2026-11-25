@@ -54,8 +54,11 @@ class WordingAndLegend(unittest.TestCase):
         self.assertNotIn("'ทดลองสนใจทริป'", DEMO)
         self.assertIn("ไม่ใช่การลงทะเบียน จอง หรือสั่งซื้อ", DEMO)
 
-    def test_trip_price_date_booking_are_stated_as_not_set(self):
-        self.assertIn("ราคา: ยังไม่กำหนด · วันเดินทาง: ยังไม่กำหนด · การจองล่วงหน้า: ยังไม่เปิดจอง", DEMO)
+    def test_trip_price_and_date_are_labelled_mock_and_booking_stays_closed(self):
+        # superseded 2026-11-25: price and rounds now come from the mock catalogue (tests/test_trip_products.py)
+        self.assertNotIn("ยังไม่กำหนด", DEMO)
+        self.assertIn("ราคาและรอบเดินทางเป็นข้อมูลจำลอง ยังไม่เปิดรับจองจริง", DEMO)
+        self.assertIn("การจองล่วงหน้า: ยังไม่เปิดจอง", DEMO)
         self.assertEqual(E.trip_detail("TRIP_LOVE")["commercial_status"], "PRICE_AND_CAPACITY_TBD")   # the claim comes from the data, no invented price
         self.assertNotRegex(DEMO, r"ราคา[^'`\n]{0,12}\d{2,}\s*บาท.{0,20}ทริป")
 

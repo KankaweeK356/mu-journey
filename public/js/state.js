@@ -11,6 +11,7 @@ export const S = {
   eventContext: null,                 // set by "มูเรื่องนี้ต่อ": the event the user continues with into step 07
   result: null, resultKey: null, status: 'idle', error: null,
   picked: new Set(), service: null,
+  tripDate: null,                     // travel date chosen on a trip card: page memory only, never sent or stored
   lab: { profile: null, source: null, trace: null, key: null },
 };
 
@@ -42,7 +43,7 @@ export function profile() {
 export const keyOf = (p) => JSON.stringify([p.wish_ids, p.birthdate, p.exclusions.tradition_groups, p.exclusions.deity_ids, p.exclusions.place_ids]);
 
 /** Any change to birth date, wishes or exclusions invalidates the computed result. Focus does not. */
-export function invalidate() { S.result = null; S.resultKey = null; S.status = 'idle'; S.error = null; S.picked.clear(); S.service = null; }
+export function invalidate() { S.result = null; S.resultKey = null; S.status = 'idle'; S.error = null; S.picked.clear(); S.service = null; S.tripDate = null; }
 
 let ticket = 0;
 export async function ensureResult(force = false) {

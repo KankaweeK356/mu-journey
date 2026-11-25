@@ -39,7 +39,7 @@ export function eventTrace(T) {
         st.scenarios ? h('div', { class: 'small muted' }, Object.entries(st.scenarios).filter(([k]) => k !== 'baseline_50_50').map(([k, v]) => `${k}: top5 overlap ${v.top5_overlap ?? '—'} · Spearman ${v.spearman == null ? '—' : f(v.spearman, 3)}`).join(' | ')) : null,
         h('div', { class: 'small faint' }, 'เกณฑ์ 0.80 เป็นเกณฑ์ภายในสำหรับสาธิต ไม่ใช่ความแม่นยำ คะแนนที่เท่ากันเพราะหลายกิจกรรมใช้เทพและสถานที่คู่เดียวกัน')),
       h('div', { class: 'small faint' }, `ปฏิทินจันทรคติ: ${R.lunar_source.source_name} · ${R.lunar_source.provider} · ดึงเมื่อ ${R.lunar_source.retrieved_at} · ${R.lunar_source.leap_month_check} · `, h('a', { href: R.lunar_source.source_url, target: '_blank', rel: 'noopener noreferrer' }, 'แหล่งข้อมูล'), ' · วันที่ตรวจแล้วไม่ได้แปลว่ากำหนดการจัดงานยืนยันแล้ว'),
-      h('div', { class: 'callout small' }, 'กฎการเตือน: ต้องติดตาม + เปิดเตือน + วันที่ตรวจแล้ว + กำหนดการยืนยันแล้ว กิจกรรมจริงทั้ง 37 รายการยังไม่ผ่านข้อสุดท้าย จึงเป็นข้อมูลเท่านั้น (ผู้เชี่ยวชาญเลือกทาง ก) กิจกรรมจำลองทดสอบเตือนได้เฉพาะใน Reminder Simulation ของ Tab 2 นี้ ศูนย์แจ้งเตือนใน Tab 1 ไม่สร้างแจ้งเตือนจากกิจกรรมที่ยังไม่ยืนยัน'));
+      h('div', { class: 'callout small' }, 'กฎการเตือน: ต้องติดตาม + เปิดเตือน + วันที่ตรวจแล้ว + กำหนดการยืนยันแล้ว กิจกรรมจริงทั้ง 37 รายการยังไม่ผ่านข้อสุดท้าย จึงไม่มีการเตือน (ผู้เชี่ยวชาญเลือกทาง ก) กระดิ่งใน Tab 1 แสดงกิจกรรมเหล่านี้เป็นรายการที่เกี่ยวข้องพร้อมป้าย "กำหนดการยังไม่ยืนยัน" ไม่มีวันเตือนล่วงหน้า การเตือนล่วงหน้าสาธิตด้วยข้อมูลจำลองในส่วน I'));
   };
   draw(today);
   return step('H', `Event Recommendation Trace (${R.counts.eligible} กิจกรรม)`, body);

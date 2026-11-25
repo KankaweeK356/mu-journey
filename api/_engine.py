@@ -34,7 +34,8 @@ VERSIONS = {
     "model": MODEL_VERSION,
     "dataset_title": _snapshot_meta.get("dataset_title"),
     "data_as_of": _snapshot_meta.get("data_as_of"),
-    "snapshot_sha256": hashlib.sha256(_snapshot_bytes).hexdigest()[:12],
+    # line endings are normalised so a Windows checkout (CRLF) reports the same fingerprint as the committed file (LF)
+    "snapshot_sha256": hashlib.sha256(_snapshot_bytes.replace(b"\r\n", b"\n")).hexdigest()[:12],
     "trip_design": m.TRIP_DATA.get("version"),
 }
 del _snapshot_bytes, _snapshot_meta

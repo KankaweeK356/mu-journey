@@ -1,0 +1,287 @@
+{
+ "base": "http://localhost:3199/",
+ "passed": 56,
+ "total": 56,
+ "results": [
+  {
+   "name": "desktop AC01 TRIP_LOVE: price shown correctly and clearly",
+   "ok": true,
+   "info": "{\"trip\":\"TRIP_LOVE\",\"price\":\"899\",\"shown\":\"899 บาท / คน\",\"size\":28,\"time\":\"⏱ 09:00–13:15 น.\",\"cap\":\"👥 รับสูงสุด 10 คน/รอบ\",\"meet\":\"📍 จุดนัดพบ BTS สยาม\",\"next\":\"2026-12-05\",\"rounds\":[\"2026-12-05\",\"2026-12-06\",\"2026-12-12\",\"2026-12-13\",\"2026-12-19\",\"2026-12-20\",\"2026-12-26\",\"2026-12-27\"],\"chosen\":0,\"mock\":true,\"old\":false}"
+  },
+  {
+   "name": "desktop AC02 TRIP_LOVE: next round and 8 weekend rounds from the schedule",
+   "ok": true,
+   "info": "[\"2026-12-05\",\"2026-12-06\",\"2026-12-12\",\"2026-12-13\",\"2026-12-19\",\"2026-12-20\",\"2026-12-26\",\"2026-12-27\"]"
+  },
+  {
+   "name": "desktop AC04 TRIP_LOVE: time, capacity 10, meeting point, mock label",
+   "ok": true,
+   "info": "{\"trip\":\"TRIP_LOVE\",\"price\":\"899\",\"shown\":\"899 บาท / คน\",\"size\":28,\"time\":\"⏱ 09:00–13:15 น.\",\"cap\":\"👥 รับสูงสุด 10 คน/รอบ\",\"meet\":\"📍 จุดนัดพบ BTS สยาม\",\"next\":\"2026-12-05\",\"rounds\":[\"2026-12-05\",\"2026-12-06\",\"2026-12-12\",\"2026-12-13\",\"2026-12-19\",\"2026-12-20\",\"2026-12-26\",\"2026-12-27\"],\"chosen\":0,\"mock\":true,\"old\":false}"
+  },
+  {
+   "name": "desktop AC03 TRIP_LOVE: date can be chosen and follows to step 07 with price; interest button kept",
+   "ok": true,
+   "info": "{\"pressed\":[\"2026-12-12\"],\"status\":\"วันที่เลือก: เสาร์ 12 ธ.ค. 2569\",\"s7\":\"2026-12-12\",\"note\":\"รายละเอียดการจอง (Demo)ราคา 899 บาท / คน · เวลา 09:00–13:15 น. · รับสูงสุด 10 คน/รอบวันเดินทางที่เลือก: เสาร์ 12 ธ.ค. 2569 (อยู่ในหน้านี้เท่านั้น ไม่ถูกส่งหรือบันทึก)ราคาและรอบเดินทางเป็นข้อมูลจำลอง ยังไม่เปิดรับจองจริง · การจองล่วงหน้า: ยังไม่เปิดจองปุ่มด้านล่างเป็นการแสดงความสนใจเพื่อทดสอบระบบ ไม่ใช่กา"
+  },
+  {
+   "name": "desktop TRIP_LOVE step 07: no null text, no horizontal scroll, buttons named",
+   "ok": true,
+   "info": "{\"bad\":[],\"overflow\":0,\"unnamed\":0}"
+  },
+  {
+   "name": "desktop AC01 TRIP_CAREER: price shown correctly and clearly",
+   "ok": true,
+   "info": "{\"trip\":\"TRIP_CAREER\",\"price\":\"1099\",\"shown\":\"1,099 บาท / คน\",\"size\":28,\"time\":\"⏱ 09:00–14:00 น.\",\"cap\":\"👥 รับสูงสุด 10 คน/รอบ\",\"meet\":\"📍 จุดนัดพบ BTS สยาม\",\"next\":\"2026-12-05\",\"rounds\":[\"2026-12-05\",\"2026-12-06\",\"2026-12-12\",\"2026-12-13\",\"2026-12-19\",\"2026-12-20\",\"2026-12-26\",\"2026-12-27\"],\"chosen\":0,\"mock\":true,\"old\":false}"
+  },
+  {
+   "name": "desktop AC02 TRIP_CAREER: next round and 8 weekend rounds from the schedule",
+   "ok": true,
+   "info": "[\"2026-12-05\",\"2026-12-06\",\"2026-12-12\",\"2026-12-13\",\"2026-12-19\",\"2026-12-20\",\"2026-12-26\",\"2026-12-27\"]"
+  },
+  {
+   "name": "desktop AC04 TRIP_CAREER: time, capacity 10, meeting point, mock label",
+   "ok": true,
+   "info": "{\"trip\":\"TRIP_CAREER\",\"price\":\"1099\",\"shown\":\"1,099 บาท / คน\",\"size\":28,\"time\":\"⏱ 09:00–14:00 น.\",\"cap\":\"👥 รับสูงสุด 10 คน/รอบ\",\"meet\":\"📍 จุดนัดพบ BTS สยาม\",\"next\":\"2026-12-05\",\"rounds\":[\"2026-12-05\",\"2026-12-06\",\"2026-12-12\",\"2026-12-13\",\"2026-12-19\",\"2026-12-20\",\"2026-12-26\",\"2026-12-27\"],\"chosen\":0,\"mock\":true,\"old\":false}"
+  },
+  {
+   "name": "desktop AC03 TRIP_CAREER: date can be chosen and follows to step 07 with price; interest button kept",
+   "ok": true,
+   "info": "{\"pressed\":[\"2026-12-12\"],\"status\":\"วันที่เลือก: เสาร์ 12 ธ.ค. 2569\",\"s7\":\"2026-12-12\",\"note\":\"รายละเอียดการจอง (Demo)ราคา 1,099 บาท / คน · เวลา 09:00–14:00 น. · รับสูงสุด 10 คน/รอบวันเดินทางที่เลือก: เสาร์ 12 ธ.ค. 2569 (อยู่ในหน้านี้เท่านั้น ไม่ถูกส่งหรือบันทึก)ราคาและรอบเดินทางเป็นข้อมูลจำลอง ยังไม่เปิดรับจองจริง · การจองล่วงหน้า: ยังไม่เปิดจองปุ่มด้านล่างเป็นการแสดงความสนใจเพื่อทดสอบระบบ ไม่ใช่"
+  },
+  {
+   "name": "desktop TRIP_CAREER step 07: no null text, no horizontal scroll, buttons named",
+   "ok": true,
+   "info": "{\"bad\":[],\"overflow\":0,\"unnamed\":0}"
+  },
+  {
+   "name": "desktop AC01 TRIP_WEALTH: price shown correctly and clearly",
+   "ok": true,
+   "info": "{\"trip\":\"TRIP_WEALTH\",\"price\":\"999\",\"shown\":\"999 บาท / คน\",\"size\":28,\"time\":\"⏱ 09:00–13:15 น.\",\"cap\":\"👥 รับสูงสุด 10 คน/รอบ\",\"meet\":\"📍 จุดนัดพบ BTS สยาม\",\"next\":\"2026-12-05\",\"rounds\":[\"2026-12-05\",\"2026-12-06\",\"2026-12-12\",\"2026-12-13\",\"2026-12-19\",\"2026-12-20\",\"2026-12-26\",\"2026-12-27\"],\"chosen\":0,\"mock\":true,\"old\":false}"
+  },
+  {
+   "name": "desktop AC02 TRIP_WEALTH: next round and 8 weekend rounds from the schedule",
+   "ok": true,
+   "info": "[\"2026-12-05\",\"2026-12-06\",\"2026-12-12\",\"2026-12-13\",\"2026-12-19\",\"2026-12-20\",\"2026-12-26\",\"2026-12-27\"]"
+  },
+  {
+   "name": "desktop AC04 TRIP_WEALTH: time, capacity 10, meeting point, mock label",
+   "ok": true,
+   "info": "{\"trip\":\"TRIP_WEALTH\",\"price\":\"999\",\"shown\":\"999 บาท / คน\",\"size\":28,\"time\":\"⏱ 09:00–13:15 น.\",\"cap\":\"👥 รับสูงสุด 10 คน/รอบ\",\"meet\":\"📍 จุดนัดพบ BTS สยาม\",\"next\":\"2026-12-05\",\"rounds\":[\"2026-12-05\",\"2026-12-06\",\"2026-12-12\",\"2026-12-13\",\"2026-12-19\",\"2026-12-20\",\"2026-12-26\",\"2026-12-27\"],\"chosen\":0,\"mock\":true,\"old\":false}"
+  },
+  {
+   "name": "desktop AC03 TRIP_WEALTH: date can be chosen and follows to step 07 with price; interest button kept",
+   "ok": true,
+   "info": "{\"pressed\":[\"2026-12-12\"],\"status\":\"วันที่เลือก: เสาร์ 12 ธ.ค. 2569\",\"s7\":\"2026-12-12\",\"note\":\"รายละเอียดการจอง (Demo)ราคา 999 บาท / คน · เวลา 09:00–13:15 น. · รับสูงสุด 10 คน/รอบวันเดินทางที่เลือก: เสาร์ 12 ธ.ค. 2569 (อยู่ในหน้านี้เท่านั้น ไม่ถูกส่งหรือบันทึก)ราคาและรอบเดินทางเป็นข้อมูลจำลอง ยังไม่เปิดรับจองจริง · การจองล่วงหน้า: ยังไม่เปิดจองปุ่มด้านล่างเป็นการแสดงความสนใจเพื่อทดสอบระบบ ไม่ใช่กา"
+  },
+  {
+   "name": "desktop TRIP_WEALTH step 07: no null text, no horizontal scroll, buttons named",
+   "ok": true,
+   "info": "{\"bad\":[],\"overflow\":0,\"unnamed\":0}"
+  },
+  {
+   "name": "desktop AC06 no eligible trip: unchanged, no price or round",
+   "ok": true,
+   "info": "{\"cause\":\"COVERAGE\",\"price\":false,\"code\":true}"
+  },
+  {
+   "name": "desktop bell: empty before interests, counts by itself at step 04",
+   "ok": true,
+   "info": "0 -> 3"
+  },
+  {
+   "name": "desktop bell: related items in two groups, badge cleared on open, no tick boxes / follow / bottom bar",
+   "ok": true,
+   "info": "{\"items\":3,\"ids\":[\"CAL_VALENTINE\",\"E_TRIMURTI_WEEKLY\",\"E_LAKSHMI_WEEKLY\"],\"groups\":[\"DAY\",\"EVENT\"],\"badge\":0,\"dates\":[\"2027-02-07\"],\"unconfirmed\":true,\"why\":true,\"go\":true,\"boxes\":0,\"bar\":false,\"follow\":false}"
+  },
+  {
+   "name": "desktop bell #6: confirmed day says when it will be marked near; unconfirmed activities say no reminder date",
+   "ok": true,
+   "info": "{\"items\":3,\"ids\":[\"CAL_VALENTINE\",\"E_TRIMURTI_WEEKLY\",\"E_LAKSHMI_WEEKLY\"],\"groups\":[\"DAY\",\"EVENT\"],\"badge\":0,\"dates\":[\"2027-02-07\"],\"unconfirmed\":true,\"why\":true,\"go\":true,\"boxes\":0,\"bar\":false,\"follow\":false}"
+  },
+  {
+   "name": "desktop bell: no null text, no horizontal scroll, buttons named",
+   "ok": true,
+   "info": "{\"bad\":[],\"overflow\":0,\"unnamed\":0}"
+  },
+  {
+   "name": "desktop bell: a dismissed item leaves the list",
+   "ok": true,
+   "info": "E_TRIMURTI_WEEKLY,E_LAKSHMI_WEEKLY"
+  },
+  {
+   "name": "desktop Tab 2 I: proposes from the interest, technical panel folded, one tap shows the schedule",
+   "ok": true,
+   "info": "{\"suggest\":[\"VALENTINE\"],\"folded\":true,\"timelines\":0,\"rows\":[\"7 ก.พ. 2570 00:00 น.🔔 ใกล้ถึง · อีก 7 วัน\",\"13 ก.พ. 2570 00:00 น.🔔 ใกล้ถึง · อีก 1 วัน\"]}"
+  },
+  {
+   "name": "desktop Tab 2 I: no null text, no horizontal scroll, buttons named",
+   "ok": true,
+   "info": "{\"bad\":[],\"overflow\":0,\"unnamed\":0}"
+  },
+  {
+   "name": "desktop Tab 2 I: exam and concert interests get their own schedule",
+   "ok": true,
+   "info": "{\"suggest\":[\"EXAM_DATE\",\"TICKET\"],\"exam\":3,\"ticket\":3}"
+  },
+  {
+   "name": "desktop Tab 2 I: the 11-item test panel is still there",
+   "ok": true,
+   "info": "{\"open\":true,\"run\":true}"
+  },
+  {
+   "name": "desktop AC08: no feedback request was made",
+   "ok": true,
+   "info": ""
+  },
+  {
+   "name": "mobile AC01 TRIP_LOVE: price shown correctly and clearly",
+   "ok": true,
+   "info": "{\"trip\":\"TRIP_LOVE\",\"price\":\"899\",\"shown\":\"899 บาท / คน\",\"size\":28,\"time\":\"⏱ 09:00–13:15 น.\",\"cap\":\"👥 รับสูงสุด 10 คน/รอบ\",\"meet\":\"📍 จุดนัดพบ BTS สยาม\",\"next\":\"2026-12-05\",\"rounds\":[\"2026-12-05\",\"2026-12-06\",\"2026-12-12\",\"2026-12-13\",\"2026-12-19\",\"2026-12-20\",\"2026-12-26\",\"2026-12-27\"],\"chosen\":0,\"mock\":true,\"old\":false}"
+  },
+  {
+   "name": "mobile AC02 TRIP_LOVE: next round and 8 weekend rounds from the schedule",
+   "ok": true,
+   "info": "[\"2026-12-05\",\"2026-12-06\",\"2026-12-12\",\"2026-12-13\",\"2026-12-19\",\"2026-12-20\",\"2026-12-26\",\"2026-12-27\"]"
+  },
+  {
+   "name": "mobile AC04 TRIP_LOVE: time, capacity 10, meeting point, mock label",
+   "ok": true,
+   "info": "{\"trip\":\"TRIP_LOVE\",\"price\":\"899\",\"shown\":\"899 บาท / คน\",\"size\":28,\"time\":\"⏱ 09:00–13:15 น.\",\"cap\":\"👥 รับสูงสุด 10 คน/รอบ\",\"meet\":\"📍 จุดนัดพบ BTS สยาม\",\"next\":\"2026-12-05\",\"rounds\":[\"2026-12-05\",\"2026-12-06\",\"2026-12-12\",\"2026-12-13\",\"2026-12-19\",\"2026-12-20\",\"2026-12-26\",\"2026-12-27\"],\"chosen\":0,\"mock\":true,\"old\":false}"
+  },
+  {
+   "name": "mobile AC03 TRIP_LOVE: date can be chosen and follows to step 07 with price; interest button kept",
+   "ok": true,
+   "info": "{\"pressed\":[\"2026-12-12\"],\"status\":\"วันที่เลือก: เสาร์ 12 ธ.ค. 2569\",\"s7\":\"2026-12-12\",\"note\":\"รายละเอียดการจอง (Demo)ราคา 899 บาท / คน · เวลา 09:00–13:15 น. · รับสูงสุด 10 คน/รอบวันเดินทางที่เลือก: เสาร์ 12 ธ.ค. 2569 (อยู่ในหน้านี้เท่านั้น ไม่ถูกส่งหรือบันทึก)ราคาและรอบเดินทางเป็นข้อมูลจำลอง ยังไม่เปิดรับจองจริง · การจองล่วงหน้า: ยังไม่เปิดจองปุ่มด้านล่างเป็นการแสดงความสนใจเพื่อทดสอบระบบ ไม่ใช่กา"
+  },
+  {
+   "name": "mobile TRIP_LOVE step 07: no null text, no horizontal scroll, buttons named",
+   "ok": true,
+   "info": "{\"bad\":[],\"overflow\":0,\"unnamed\":0}"
+  },
+  {
+   "name": "mobile AC01 TRIP_CAREER: price shown correctly and clearly",
+   "ok": true,
+   "info": "{\"trip\":\"TRIP_CAREER\",\"price\":\"1099\",\"shown\":\"1,099 บาท / คน\",\"size\":28,\"time\":\"⏱ 09:00–14:00 น.\",\"cap\":\"👥 รับสูงสุด 10 คน/รอบ\",\"meet\":\"📍 จุดนัดพบ BTS สยาม\",\"next\":\"2026-12-05\",\"rounds\":[\"2026-12-05\",\"2026-12-06\",\"2026-12-12\",\"2026-12-13\",\"2026-12-19\",\"2026-12-20\",\"2026-12-26\",\"2026-12-27\"],\"chosen\":0,\"mock\":true,\"old\":false}"
+  },
+  {
+   "name": "mobile AC02 TRIP_CAREER: next round and 8 weekend rounds from the schedule",
+   "ok": true,
+   "info": "[\"2026-12-05\",\"2026-12-06\",\"2026-12-12\",\"2026-12-13\",\"2026-12-19\",\"2026-12-20\",\"2026-12-26\",\"2026-12-27\"]"
+  },
+  {
+   "name": "mobile AC04 TRIP_CAREER: time, capacity 10, meeting point, mock label",
+   "ok": true,
+   "info": "{\"trip\":\"TRIP_CAREER\",\"price\":\"1099\",\"shown\":\"1,099 บาท / คน\",\"size\":28,\"time\":\"⏱ 09:00–14:00 น.\",\"cap\":\"👥 รับสูงสุด 10 คน/รอบ\",\"meet\":\"📍 จุดนัดพบ BTS สยาม\",\"next\":\"2026-12-05\",\"rounds\":[\"2026-12-05\",\"2026-12-06\",\"2026-12-12\",\"2026-12-13\",\"2026-12-19\",\"2026-12-20\",\"2026-12-26\",\"2026-12-27\"],\"chosen\":0,\"mock\":true,\"old\":false}"
+  },
+  {
+   "name": "mobile AC03 TRIP_CAREER: date can be chosen and follows to step 07 with price; interest button kept",
+   "ok": true,
+   "info": "{\"pressed\":[\"2026-12-12\"],\"status\":\"วันที่เลือก: เสาร์ 12 ธ.ค. 2569\",\"s7\":\"2026-12-12\",\"note\":\"รายละเอียดการจอง (Demo)ราคา 1,099 บาท / คน · เวลา 09:00–14:00 น. · รับสูงสุด 10 คน/รอบวันเดินทางที่เลือก: เสาร์ 12 ธ.ค. 2569 (อยู่ในหน้านี้เท่านั้น ไม่ถูกส่งหรือบันทึก)ราคาและรอบเดินทางเป็นข้อมูลจำลอง ยังไม่เปิดรับจองจริง · การจองล่วงหน้า: ยังไม่เปิดจองปุ่มด้านล่างเป็นการแสดงความสนใจเพื่อทดสอบระบบ ไม่ใช่"
+  },
+  {
+   "name": "mobile TRIP_CAREER step 07: no null text, no horizontal scroll, buttons named",
+   "ok": true,
+   "info": "{\"bad\":[],\"overflow\":0,\"unnamed\":0}"
+  },
+  {
+   "name": "mobile AC01 TRIP_WEALTH: price shown correctly and clearly",
+   "ok": true,
+   "info": "{\"trip\":\"TRIP_WEALTH\",\"price\":\"999\",\"shown\":\"999 บาท / คน\",\"size\":28,\"time\":\"⏱ 09:00–13:15 น.\",\"cap\":\"👥 รับสูงสุด 10 คน/รอบ\",\"meet\":\"📍 จุดนัดพบ BTS สยาม\",\"next\":\"2026-12-05\",\"rounds\":[\"2026-12-05\",\"2026-12-06\",\"2026-12-12\",\"2026-12-13\",\"2026-12-19\",\"2026-12-20\",\"2026-12-26\",\"2026-12-27\"],\"chosen\":0,\"mock\":true,\"old\":false}"
+  },
+  {
+   "name": "mobile AC02 TRIP_WEALTH: next round and 8 weekend rounds from the schedule",
+   "ok": true,
+   "info": "[\"2026-12-05\",\"2026-12-06\",\"2026-12-12\",\"2026-12-13\",\"2026-12-19\",\"2026-12-20\",\"2026-12-26\",\"2026-12-27\"]"
+  },
+  {
+   "name": "mobile AC04 TRIP_WEALTH: time, capacity 10, meeting point, mock label",
+   "ok": true,
+   "info": "{\"trip\":\"TRIP_WEALTH\",\"price\":\"999\",\"shown\":\"999 บาท / คน\",\"size\":28,\"time\":\"⏱ 09:00–13:15 น.\",\"cap\":\"👥 รับสูงสุด 10 คน/รอบ\",\"meet\":\"📍 จุดนัดพบ BTS สยาม\",\"next\":\"2026-12-05\",\"rounds\":[\"2026-12-05\",\"2026-12-06\",\"2026-12-12\",\"2026-12-13\",\"2026-12-19\",\"2026-12-20\",\"2026-12-26\",\"2026-12-27\"],\"chosen\":0,\"mock\":true,\"old\":false}"
+  },
+  {
+   "name": "mobile AC03 TRIP_WEALTH: date can be chosen and follows to step 07 with price; interest button kept",
+   "ok": true,
+   "info": "{\"pressed\":[\"2026-12-12\"],\"status\":\"วันที่เลือก: เสาร์ 12 ธ.ค. 2569\",\"s7\":\"2026-12-12\",\"note\":\"รายละเอียดการจอง (Demo)ราคา 999 บาท / คน · เวลา 09:00–13:15 น. · รับสูงสุด 10 คน/รอบวันเดินทางที่เลือก: เสาร์ 12 ธ.ค. 2569 (อยู่ในหน้านี้เท่านั้น ไม่ถูกส่งหรือบันทึก)ราคาและรอบเดินทางเป็นข้อมูลจำลอง ยังไม่เปิดรับจองจริง · การจองล่วงหน้า: ยังไม่เปิดจองปุ่มด้านล่างเป็นการแสดงความสนใจเพื่อทดสอบระบบ ไม่ใช่กา"
+  },
+  {
+   "name": "mobile TRIP_WEALTH step 07: no null text, no horizontal scroll, buttons named",
+   "ok": true,
+   "info": "{\"bad\":[],\"overflow\":0,\"unnamed\":0}"
+  },
+  {
+   "name": "mobile AC06 no eligible trip: unchanged, no price or round",
+   "ok": true,
+   "info": "{\"cause\":\"COVERAGE\",\"price\":false,\"code\":true}"
+  },
+  {
+   "name": "mobile bell: empty before interests, counts by itself at step 04",
+   "ok": true,
+   "info": "0 -> 3"
+  },
+  {
+   "name": "mobile bell: related items in two groups, badge cleared on open, no tick boxes / follow / bottom bar",
+   "ok": true,
+   "info": "{\"items\":3,\"ids\":[\"CAL_VALENTINE\",\"E_TRIMURTI_WEEKLY\",\"E_LAKSHMI_WEEKLY\"],\"groups\":[\"DAY\",\"EVENT\"],\"badge\":0,\"dates\":[\"2027-02-07\"],\"unconfirmed\":true,\"why\":true,\"go\":true,\"boxes\":0,\"bar\":false,\"follow\":false}"
+  },
+  {
+   "name": "mobile bell #6: confirmed day says when it will be marked near; unconfirmed activities say no reminder date",
+   "ok": true,
+   "info": "{\"items\":3,\"ids\":[\"CAL_VALENTINE\",\"E_TRIMURTI_WEEKLY\",\"E_LAKSHMI_WEEKLY\"],\"groups\":[\"DAY\",\"EVENT\"],\"badge\":0,\"dates\":[\"2027-02-07\"],\"unconfirmed\":true,\"why\":true,\"go\":true,\"boxes\":0,\"bar\":false,\"follow\":false}"
+  },
+  {
+   "name": "mobile bell: no null text, no horizontal scroll, buttons named",
+   "ok": true,
+   "info": "{\"bad\":[],\"overflow\":0,\"unnamed\":0}"
+  },
+  {
+   "name": "mobile bell: a dismissed item leaves the list",
+   "ok": true,
+   "info": "E_TRIMURTI_WEEKLY,E_LAKSHMI_WEEKLY"
+  },
+  {
+   "name": "mobile Tab 2 I: proposes from the interest, technical panel folded, one tap shows the schedule",
+   "ok": true,
+   "info": "{\"suggest\":[\"VALENTINE\"],\"folded\":true,\"timelines\":0,\"rows\":[\"7 ก.พ. 2570 00:00 น.🔔 ใกล้ถึง · อีก 7 วัน\",\"13 ก.พ. 2570 00:00 น.🔔 ใกล้ถึง · อีก 1 วัน\"]}"
+  },
+  {
+   "name": "mobile Tab 2 I: no null text, no horizontal scroll, buttons named",
+   "ok": true,
+   "info": "{\"bad\":[],\"overflow\":0,\"unnamed\":0}"
+  },
+  {
+   "name": "mobile Tab 2 I: exam and concert interests get their own schedule",
+   "ok": true,
+   "info": "{\"suggest\":[\"EXAM_DATE\",\"TICKET\"],\"exam\":3,\"ticket\":3}"
+  },
+  {
+   "name": "mobile Tab 2 I: the 11-item test panel is still there",
+   "ok": true,
+   "info": "{\"open\":true,\"run\":true}"
+  },
+  {
+   "name": "mobile AC08: no feedback request was made",
+   "ok": true,
+   "info": ""
+  },
+  {
+   "name": "desktop no future round: message shown, no date invented",
+   "ok": true,
+   "info": "{\"msg\":\"ตอนนี้ยังไม่มีรอบเดินทางในอนาคต กรุณารอประกาศรอบใหม่\",\"rounds\":0,\"next\":false,\"price\":\"899\"}"
+  },
+  {
+   "name": "mobile no future round: message shown, no date invented",
+   "ok": true,
+   "info": "{\"msg\":\"ตอนนี้ยังไม่มีรอบเดินทางในอนาคต กรุณารอประกาศรอบใหม่\",\"rounds\":0,\"next\":false,\"price\":\"899\"}"
+  },
+  {
+   "name": "no console errors",
+   "ok": true,
+   "info": ""
+  },
+  {
+   "name": "no feedback request left the browser",
+   "ok": true,
+   "info": ""
+  }
+ ]
+}

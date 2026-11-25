@@ -161,6 +161,8 @@ dialog::backdrop { background: rgba(43, 31, 63, .55); }
 .svc .ic { width: 56px; height: 56px; border-radius: 16px; display: grid; place-items: center; font-size: 28px; }
 .svc small { color: var(--ink-3); font-weight: 500; }
 .svc:disabled { cursor: not-allowed; opacity: .55; box-shadow: none; }
+@media (max-width: 480px) { .product .tchip { font-size: 13px; padding: 7px 10px; } }
+.product .price { font-size: 28px; font-weight: 700; color: var(--purple); } .product .price small { font-size: 14px; font-weight: 500; color: var(--ink-2); }
 .svc[aria-pressed="true"] { border-color: var(--purple-2); background: #f7f2ff; box-shadow: 0 6px 18px rgba(109, 63, 176, .18); }
 @media (max-width: 480px) { .svc { font-size: 13px; padding: 12px 4px; } }
 .stars { display: flex; gap: 6px; justify-content: center; }
@@ -225,26 +227,19 @@ dialog::backdrop { background: rgba(43, 31, 63, .55); }
 .hbtn .badge { position: absolute; top: -2px; right: -2px; min-width: 18px; height: 18px; padding: 0 5px; border-radius: 999px; background: #e0457b; color: #fff; font-size: 11px; font-weight: 700; display: grid; place-items: center; }
 .demo-banner { background: #2b1f3f; color: #fff; font-size: 13px; padding: 6px 0; }
 .demo-banner .btn { padding: 2px 10px; }
-.nbar { position: fixed; left: 50%; bottom: 14px; transform: translateX(-50%); z-index: 40; display: flex; align-items: center; gap: 4px; max-width: calc(100vw - 24px);
   background: #2b1f3f; color: #fff; border-radius: 999px; padding: 4px 6px 4px 6px; box-shadow: 0 8px 28px rgba(43, 31, 63, .4); }
-.nbar-main { border: 0; background: none; color: #fff; font-weight: 600; font-size: 14px; padding: 8px 14px; cursor: pointer; border-radius: 999px; }
-.nbar-main:hover { background: rgba(255, 255, 255, .14); }
-.nbar-x { border: 0; background: none; color: #cbbdf0; cursor: pointer; width: 28px; height: 28px; border-radius: 50%; }
 dialog.nc { border: 0; border-radius: var(--r); padding: 0; width: min(520px, calc(100vw - 24px)); max-height: 86vh; box-shadow: 0 20px 60px rgba(43, 31, 63, .35); background: var(--surface); color: var(--ink); }
 dialog.nc::backdrop { background: rgba(43, 31, 63, .45); }
 dialog.nc .dlg-h { display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 14px 16px; border-bottom: 1px solid var(--lav-line); }
 dialog.nc .dlg-b { padding: 14px 16px 18px; overflow: auto; max-height: calc(86vh - 60px); }
-.nc-item.read { opacity: .7; }
 .ev-card .path { overflow-wrap: anywhere; }
 @media (max-width: 640px) { .hdr-tools { margin-left: 0; } .tagline { display: none; } }
 
 /* ---- mobile fixes for follow / reminder controls (Calendar v3 QA) ---- */
 .fixed-card .btn, .ev-card .btn, .disc-card .btn { white-space: nowrap; flex-shrink: 0; }
 .fixed-card > .row:first-child > div:first-child, .ev-card > .row:first-child > div:first-child { flex: 1 1 160px; min-width: 0; }
-.fixed-card label.row, .ev-card label.row, .path label.row { min-height: 32px; padding: 4px 0; }
 @media (max-width: 640px) {
   .fixed-card > .row:first-child, .ev-card > .row:first-child { flex-wrap: wrap !important; }
-  .fixed-card input[type=checkbox], .ev-card input[type=checkbox], .path input[type=checkbox] { width: 20px; height: 20px; }
 }
 .lab-step .chip, .nc-item .chip, .card .row > .chip { white-space: normal; text-align: left; }
 .lab-step select { max-width: 100%; }

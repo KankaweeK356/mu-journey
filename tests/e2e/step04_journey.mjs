@@ -51,9 +51,9 @@ async function run(W_, H_) {
     btn('ถัดไป').click(); await w(300); btn('ถัดไป').click(); await w(300); await ready(); return step();`);
   const hasValentine = await W(`const c=document.querySelector('.fixed-card'); return !!c;`);
   check('A0 Valentine card shows in step 04 when W01 chosen', hasValentine);
-  await W(`document.querySelector('.fixed-card [aria-pressed]').click(); await w(300); const cb=document.querySelector('.fixed-card input[type=checkbox]'); cb.click(); await w(400); return 1;`);
   const unread = await W(`return document.querySelector('.hdr-tools .badge')?.textContent || '0'`);
-  check('A1 a reminder exists after following Valentine', Number(unread) >= 1, 'badge=' + unread);
+  check('A1 the bell counts related items by itself (nothing followed or ticked)', Number(unread) >= 1, 'badge=' + unread);
+  await W(`document.querySelector('.fixed-card [data-save]').click(); await w(400); return 1;`);   // saved, so it stays listed when the interests change
 
   // ---- B: change interests to W02,W03,W04 (W01 off) and read the baseline Top 5
   await W(`${HELP} await goStep(2); wishBtns().find(b=>txt(b).includes(${JSON.stringify(lab('W01'))})).click(); await w(100);
@@ -73,7 +73,7 @@ async function run(W_, H_) {
   const evc = await W(`const m=await import('/js/notifyui.js'); let e=null; for (const wid of ['W02','W03','W04','W05','W06','W07','W08','W09','W10']) { const R=await fetch('/api/mumu/recommendations',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({wish_ids:[wid],birthdate:null,exclusions:{tradition_groups:[],deity_ids:[],place_ids:[]}})}).then(r=>r.json()); window.__rec--; e=(R.events&&R.events.eligible||[])[0]; if(e) break; }
     if(!e) return {none:true}; const card=m.eventCard(m.snapNetwork(e),{}); document.body.append(card); const b=card.querySelector('button'); const t0=b.textContent; b.click(); await w(300); card.remove();
     const card2=m.eventCard(m.snapNetwork(e),{}); document.body.append(card2);   // the page redraws after a follow; draw the same card again
-    const out={before:t0, after:card2.querySelector('button').textContent, boxes:card2.querySelectorAll('input[type=checkbox]').length, reason:card2.textContent.includes('ไม่มีการแจ้งเตือน เพราะ')}; card2.remove(); (await import('/js/state.js')).store().unfollow(e.event_id); return out;`);
+    const out={before:t0, after:card2.querySelector('button').textContent, boxes:card2.querySelectorAll('input[type=checkbox]').length, reason:card2.textContent.includes('ไม่มีวันเตือนล่วงหน้า เพราะ')}; card2.remove(); (await import('/js/state.js')).store().unfollow(e.event_id); return out;`);
   check('T4 network event: "บันทึกไว้" wording, no checkboxes, reason shown', evc.none ? true : (evc.before.includes('บันทึกไว้') && evc.after.includes('บันทึกไว้แล้ว') && evc.boxes === 0 && evc.reason), JSON.stringify(evc));
 
   // ---- Acceptance 1: switching cards = 0 recompute, Top 5 unchanged
@@ -100,7 +100,7 @@ async function run(W_, H_) {
 
   // ---- Acceptance 2: "มูเรื่องนี้ต่อ" from an activity outside the interests
   const R0 = await ev(`window.__rec`);
-  await W(`document.querySelector('.hdr-tools button').click(); await w(400); const b=[...document.querySelectorAll('dialog.nc button')].find(b=>b.textContent.includes('มูเรื่องนี้ต่อ')); b.click(); await w(300); await ready(); return 1;`);
+  await W(`document.querySelector('.hdr-tools button').click(); await w(400); const b=[...document.querySelectorAll('[data-inbox-item="CAL_VALENTINE"] button')].find(b=>b.textContent.includes('มูเรื่องนี้ต่อ')); b.click(); await w(300); await ready(); return 1;`);
   const inMode = await W(`${HELP} return {step:step(), banner: document.querySelector('[data-activity-mode]')?.textContent||''}`);
   const R1 = await ev(`window.__rec`);
   check('Acc2a exactly 1 recompute after "มูเรื่องนี้ต่อ"', R1 - R0 === 1, `calls ${R0}->${R1}`);
@@ -122,7 +122,7 @@ async function run(W_, H_) {
   // ---- Acceptance 5: enter/leave several times
   let stable = true, last = null;
   for (let i = 0; i < 3; i++) {
-    await W(`document.querySelector('.hdr-tools button').click(); await w(300); [...document.querySelectorAll('dialog.nc button')].find(b=>b.textContent.includes('มูเรื่องนี้ต่อ')).click(); await w(300); await ready(); return 1;`);
+    await W(`document.querySelector('.hdr-tools button').click(); await w(300); [...document.querySelectorAll('[data-inbox-item="CAL_VALENTINE"] button')].find(b=>b.textContent.includes('มูเรื่องนี้ต่อ')).click(); await w(300); await ready(); return 1;`);
     const inTop = await W(`${HELP} await goStep(5); await ready(); return {top:top5(), mode:!!document.querySelector('[data-activity-mode]')}`);
     if (!inTop.mode || (last && JSON.stringify(inTop.top) !== JSON.stringify(last))) stable = false;
     last = inTop.top;
@@ -132,10 +132,10 @@ async function run(W_, H_) {
   }
   check('Acc5 3 enter/leave cycles: activity Top 5 stable, original Top 5 restored, Step 02 untouched', stable);
 
-  // ---- Acceptance 4: no interests at all (page reload keeps the followed Valentine + reminder)
+  // ---- Acceptance 4: no interests at all (page reload keeps the saved Valentine in the bell)
   await send('Page.navigate', { url: BASE }); await sleep(2500);
   await W(`${HELP} btn('เริ่มมูของฉัน').click(); await w(300); return 1;`);
-  await W(`document.querySelector('.hdr-tools button').click(); await w(400); const b=[...document.querySelectorAll('dialog.nc button')].find(b=>b.textContent.includes('มูเรื่องนี้ต่อ')); if(!b) return 'nobtn'; b.click(); await w(300); await ready(); return 1;`);
+  await W(`document.querySelector('.hdr-tools button').click(); await w(400); const b=[...document.querySelectorAll('[data-inbox-item="CAL_VALENTINE"] button')].find(b=>b.textContent.includes('มูเรื่องนี้ต่อ')); if(!b) return 'nobtn'; b.click(); await w(300); await ready(); return 1;`);
   const st4 = await W(`${HELP} const r={step:step(), banner:!!document.querySelector('[data-activity-mode]')}; await goStep(2); r.s2=sel(); return r;`);
   check('Acc4a no interests + "มูเรื่องนี้ต่อ": temporary mode on, Step 02 still empty', st4.banner === true && st4.s2.length === 0, JSON.stringify(st4));
   await W(`${HELP} await goStep(5); await ready(); btn('กลับไปความสนใจเดิม').click(); await w(300); return 1;`);

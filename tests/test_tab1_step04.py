@@ -85,19 +85,27 @@ class FriendFeedback(unittest.TestCase):
         self.assertIn("statusChip(P.hours.status", DEMO)
         self.assertIn("statusChip(e.place_link_status", DEMO)
 
-    def test_checkboxes_hidden_with_reason_when_blocked(self):
-        fn = block(UI, "export function offsetControls", "export const canRemindNetwork")
-        self.assertLess(fn.index("if (block) return"), fn.index("type: 'checkbox'"))
-        self.assertNotIn("disabled:", fn)
-        self.assertIn("ไม่มีการแจ้งเตือน เพราะ", fn)
-
-    def test_save_wording_for_events_that_cannot_remind_and_follow_for_valentine(self):
-        self.assertIn("'＋ บันทึกไว้'", UI)
-        self.assertIn("'✓ บันทึกไว้แล้ว'", UI)
-        self.assertIn("'เลิกบันทึก'", UI)
+    # Superseded 2026-11-25 (proactive bell): the user no longer follows items or ticks reminder offsets in Tab 1.
+    def test_no_offset_checkboxes_follow_button_or_bottom_bar_in_tab1(self):
         fixed = (JS / "fixedcal.js").read_text(encoding="utf-8")
-        self.assertIn("'＋ ติดตาม'", fixed)
-        self.assertIn("offsetControls(day.calendar_item_id", fixed)
+        for src in (UI, fixed, DEMO):
+            for gone in ("offsetControls", "'＋ ติดตาม'", "nbar", "เตือนล่วงหน้า:"):
+                self.assertNotIn(gone, src, gone)
+        self.assertNotIn("type: 'checkbox'", UI)
+        self.assertNotIn("runCheck(", UI)                      # Tab 1 creates no reminder records and pushes nothing
+        self.assertNotIn("setOffsets(", UI + fixed + DEMO)
+
+    def test_saving_is_the_only_stored_action(self):
+        for text in ("'＋ บันทึกไว้'", "'✓ บันทึกไว้แล้ว'", "'เลิกบันทึก'", "ไม่มีวันเตือนล่วงหน้า เพราะกำหนดการยังไม่ยืนยันกับผู้จัด"):
+            self.assertIn(text, UI)
+        self.assertIn("saveButton(parentFromFixed(day))", (JS / "fixedcal.js").read_text(encoding="utf-8"))
+
+    def test_bell_lists_real_data_only_and_keeps_the_unconfirmed_label(self):
+        inbox = (JS / "inbox.js").read_text(encoding="utf-8")
+        for banned in ("calendar_demo", "simulation_events", "localStorage", "fetch(", "notify.js"):
+            self.assertNotIn(banned, inbox, banned)
+        self.assertIn("กิจกรรมที่อาจเกี่ยวข้อง (${UNCONFIRMED})", UI)
+        self.assertIn("if (child.synthetic) continue" if False else "child.synthetic) continue", inbox)
 
 
 if __name__ == "__main__":
