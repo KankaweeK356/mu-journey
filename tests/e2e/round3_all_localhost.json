@@ -50,14 +50,14 @@
   "info": "P001,P002,P014,P019,P029 vs P001,P002,P014,P019,P029"
  },
  {
-  "name": "UI proxy: \"จองฝากมู (จำลอง)\" button exists",
+  "name": "UI proxy: \"จอง\" button exists",
   "ok": true,
   "info": ""
  },
  {
-  "name": "UI proxy: simulated success shows the sample name/request and says no real provider",
+  "name": "UI proxy: the card turns to booked and says no real provider; the sample name/request are not kept",
   "ok": true,
-  "info": "บริการ: แพ็กเกจฝากมูจำลอง ณ วัดพระศรีมหาอุมาเทวี (วัดแขก สีลม) สถานที่: วัดพระศรีมหาอุมาเท"
+  "info": "✓ จองสำเร็จ ผู้ให้บริการฝากมูจำลอง 01 · 199 บาท แพ็กเกจฝากมูจำลอง ณ วัดพระศรีมหาอุมาเทวี ("
  },
  {
   "name": "UI proxy: no network request was made while booking",
@@ -70,9 +70,9 @@
   "info": "[]| -> []|"
  },
  {
-  "name": "UI proxy: values are cleared afterwards (reopen is empty)",
+  "name": "UI proxy: cancelling restores the offer and the form is empty again",
   "ok": true,
-  "info": "{\"name\":\"\",\"wish\":\"\",\"booked\":false}"
+  "info": "{\"name\":\"\",\"wish\":\"\"}"
  },
  {
   "name": "UI form: title is \"แสดงความสนใจและให้คะแนนคำแนะนำ (Demo)\"",
@@ -160,14 +160,14 @@
   "info": "แสดงความสนใจและให้คะแนนคำแนะนำ (Demo) ✕ ประเภทบริการที่สนใจ ไปมูเอง ทริปบริษัท ฝากมู คุณสนใจบริการฝากมูที่แนะนำนี้หรือไม"
  },
  {
-  "name": "UI proxy: \"จองฝากมู (จำลอง)\" button exists",
+  "name": "UI proxy: \"จอง\" button exists",
   "ok": true,
   "info": ""
  },
  {
-  "name": "UI proxy: simulated success shows the sample name/request and says no real provider",
+  "name": "UI proxy: the card turns to booked and says no real provider; the sample name/request are not kept",
   "ok": true,
-  "info": "บริการ: แพ็กเกจฝากมูจำลอง ณ วัดพระศรีมหาอุมาเทวี (วัดแขก สีลม) สถานที่: วัดพระศรีมหาอุมาเท"
+  "info": "✓ จองสำเร็จ ผู้ให้บริการฝากมูจำลอง 01 · 199 บาท แพ็กเกจฝากมูจำลอง ณ วัดพระศรีมหาอุมาเทวี ("
  },
  {
   "name": "UI proxy: no network request was made while booking",
@@ -180,9 +180,9 @@
   "info": "[]| -> []|"
  },
  {
-  "name": "UI proxy: values are cleared afterwards (reopen is empty)",
+  "name": "UI proxy: cancelling restores the offer and the form is empty again",
   "ok": true,
-  "info": "{\"name\":\"\",\"wish\":\"\",\"booked\":false}"
+  "info": "{\"name\":\"\",\"wish\":\"\"}"
  },
  {
   "name": "UI form: title is \"แสดงความสนใจและให้คะแนนคำแนะนำ (Demo)\"",

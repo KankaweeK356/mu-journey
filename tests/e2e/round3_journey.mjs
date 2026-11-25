@@ -66,22 +66,22 @@ async function ui() {
     await W(`btn('เริ่มมูของฉัน').click(); await w(300); const g=[...document.querySelectorAll('.wish-grid .wish-card')]; g[1].click(); g[2].click(); btn('ถัดไป').click(); await w(300); btn('ถัดไป').click(); await until(()=>!document.querySelector('.spinner')); await w(300);
       btn('ดูสถานที่ที่เหมาะกับคุณ').click(); await until(()=>!document.querySelector('.spinner')); await w(300); btn('ดูทริปที่เหมาะกับฉัน').click(); await until(()=>!document.querySelector('.spinner')); await w(300); btn('ดูรายละเอียดทริปและบริการ').click(); await until(()=>!document.querySelector('.spinner')); await w(300); return 1;`);
     console.log(`-- ${w}x${h}`);
-    // proxy demo form -> simulated booking
+    // proxy demo form -> simulated booking with a status on the card
     await W(`[...document.querySelectorAll('.svc')].find(b=>b.textContent.includes('ฝากมู')).click(); await w(1500); return 1;`);
     const hasBtn = await W(`return !!document.querySelector('[data-book-proxy]')`);
-    check('UI proxy: "จองฝากมู (จำลอง)" button exists', hasBtn);
+    check('UI proxy: "จอง" button exists', hasBtn);
     if (hasBtn) {
       const before = await ev(`JSON.stringify(Object.keys(localStorage).sort())+'|'+document.cookie`);
-      await W(`window.__calls.length=0; document.querySelector('[data-book-proxy]').click(); await w(400); const d=document.querySelector('dialog[open]'); d.querySelector('input').value='สมชาย ทดสอบ'; d.querySelector('textarea').value='ขอให้สอบผ่าน'; d.querySelector('[data-confirm-proxy]').click(); await w(300); return 1;`);
-      const shown = await W(`const d=document.querySelector('dialog[open]'); return {preview:d.querySelector('[data-mock-booked="proxy"]')?.innerText||'', warn:d.innerText.includes('ไม่มีผู้ให้บริการรับคำขอจริง'), head:d.querySelector('h3').textContent}`);
-      check('UI proxy: simulated success shows the sample name/request and says no real provider', shown.head.includes('จองจำลองสำเร็จ') && shown.preview.includes('สมชาย ทดสอบ') && shown.preview.includes('ขอให้สอบผ่าน') && shown.warn, shown.preview.replace(/\s+/g, ' ').slice(0, 90));
-      await W(`document.querySelector('dialog[open] .dlg-h button').click(); await w(300); return 1;`);
+      const id = await ev(`document.querySelector('[data-book-proxy]').dataset.bookProxy`);
+      await W(`window.__calls.length=0; document.querySelector('[data-book-proxy]').click(); await w(400); const d=document.querySelector('dialog[open]'); d.querySelector('input').value='สมชาย ทดสอบ'; d.querySelector('textarea').value='ขอให้สอบผ่าน'; d.querySelector('[data-confirm-proxy]').click(); await w(500); return 1;`);
+      const shown = await W(`const c=document.querySelector('[data-booking="proxy:${id}"]'); return {open:!!document.querySelector('dialog[open]'), status:c?.dataset.bookingStatus, text:c?.innerText||'', page:document.body.innerText.includes('สมชาย ทดสอบ')||document.body.innerText.includes('ขอให้สอบผ่าน')}`);
+      check('UI proxy: the card turns to booked and says no real provider; the sample name/request are not kept', !shown.open && shown.status === 'booked' && shown.text.includes('จองสำเร็จ') && shown.text.includes('ระบบสาธิต ไม่มีการจองหรือชำระเงินจริง') && !shown.page, shown.text.replace(/\s+/g, ' ').slice(0, 90));
       const after = await ev(`JSON.stringify(Object.keys(localStorage).sort())+'|'+document.cookie`);
       const calls = await ev(`window.__calls.map(c=>c.method+' '+c.url)`);
       check('UI proxy: no network request was made while booking', calls.length === 0, calls.join(' ; '));
       check('UI proxy: nothing written to browser storage', before === after, before + ' -> ' + after);
-      const re = await W(`document.querySelector('[data-book-proxy]').click(); await w(300); const d=document.querySelector('dialog[open]'); const r={name:d.querySelector('input').value, wish:d.querySelector('textarea').value, booked:!!d.querySelector('[data-mock-booked]')}; btn('ปิดและล้างค่า',d).click(); return r;`);
-      check('UI proxy: values are cleared afterwards (reopen is empty)', re.name === '' && re.wish === '' && !re.booked, JSON.stringify(re));
+      const re = await W(`document.querySelector('[data-cancel-booking="proxy:${id}"]').click(); await w(400); document.querySelector('[data-book-proxy="${id}"]').click(); await w(300); const d=document.querySelector('dialog[open]'); const r={name:d.querySelector('input').value, wish:d.querySelector('textarea').value}; btn('ปิดและล้างค่า',d).click(); return r;`);
+      check('UI proxy: cancelling restores the offer and the form is empty again', re.name === '' && re.wish === '', JSON.stringify(re));
     }
     // rating + interest questions per service (open the form, never submit)
     const q = await W(`btn('แสดงความสนใจบริการ (Demo)').click(); await w(400); const d=document.querySelector('dialog[open]'); const out={title:d.querySelector('.dlg-h h3').textContent}; for (const t of ['ไปมูเอง','ทริปบริษัท','ฝากมู']) { [...d.querySelectorAll('[aria-label="ประเภทบริการที่สนใจ"] button')].find(b=>b.textContent.includes(t)).click(); await w(100); out[t]={rating:d.querySelector('[data-rating-question]').textContent, interest:d.querySelector('[data-interest-question]').textContent, choices:[...d.querySelectorAll('[data-interest]')].map(b=>b.textContent.trim()).join('/')}; } out.old=/สมหวัง|ผิดหวัง/.test(d.innerText); d.querySelector('.dlg-h button').click(); return out;`);

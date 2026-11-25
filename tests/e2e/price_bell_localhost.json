@@ -1,7 +1,7 @@
 {
  "base": "http://localhost:3199/",
- "passed": 72,
- "total": 72,
+ "passed": 90,
+ "total": 90,
  "results": [
   {
    "name": "desktop AC01 TRIP_LOVE: price shown correctly and clearly",
@@ -21,7 +21,7 @@
   {
    "name": "desktop AC03 TRIP_LOVE: date can be chosen and follows to step 07 with price; interest button kept",
    "ok": true,
-   "info": "{\"pressed\":[\"2026-12-12\"],\"status\":\"วันที่เลือก: เสาร์ 12 ธ.ค. 2569\",\"s7\":\"2026-12-12\",\"note\":\"รายละเอียดการจอง (Demo)ราคา 899 บาท / คน · เวลา 09:00–13:15 น. · รับสูงสุด 10 คน/รอบวันเดินทางที่เลือก: เสาร์ 12 ธ.ค. 2569 (อยู่ในหน้านี้เท่านั้น ไม่ถูกส่งหรือบันทึก)ราคาและรอบเดินทางเป็นข้อมูลจำลอง ยังไม่เปิดรับจองจริง · การจองล่วงหน้า: ยังไม่เปิดจองปุ่มด้านล่างเป็นการสาธิตขั้นตอนและการแสดงความสนใจเพื่อ"
+   "info": "{\"pressed\":[\"2026-12-12\"],\"status\":\"วันที่เลือก: เสาร์ 12 ธ.ค. 2569\",\"s7\":\"2026-12-12\",\"note\":\"899 บาท / คน · 09:00–13:15 น. · นัดพบ BTS สยาม · สูงสุด 10 คน/รอบวันเดินทางที่เลือก: เสาร์ 12 ธ.ค. 2569ราคาและรอบเดินทางเป็นข้อมูลจำลอง ยังไม่เปิดรับจองจริง ไม่รับชำระเงินจริง\",\"interest\":true}"
   },
   {
    "name": "desktop TRIP_LOVE step 07: no null text, no horizontal scroll, buttons named",
@@ -46,7 +46,7 @@
   {
    "name": "desktop AC03 TRIP_CAREER: date can be chosen and follows to step 07 with price; interest button kept",
    "ok": true,
-   "info": "{\"pressed\":[\"2026-12-12\"],\"status\":\"วันที่เลือก: เสาร์ 12 ธ.ค. 2569\",\"s7\":\"2026-12-12\",\"note\":\"รายละเอียดการจอง (Demo)ราคา 1,099 บาท / คน · เวลา 09:00–14:00 น. · รับสูงสุด 10 คน/รอบวันเดินทางที่เลือก: เสาร์ 12 ธ.ค. 2569 (อยู่ในหน้านี้เท่านั้น ไม่ถูกส่งหรือบันทึก)ราคาและรอบเดินทางเป็นข้อมูลจำลอง ยังไม่เปิดรับจองจริง · การจองล่วงหน้า: ยังไม่เปิดจองปุ่มด้านล่างเป็นการสาธิตขั้นตอนและการแสดงความสนใจเพื"
+   "info": "{\"pressed\":[\"2026-12-12\"],\"status\":\"วันที่เลือก: เสาร์ 12 ธ.ค. 2569\",\"s7\":\"2026-12-12\",\"note\":\"1,099 บาท / คน · 09:00–14:00 น. · นัดพบ BTS สยาม · สูงสุด 10 คน/รอบวันเดินทางที่เลือก: เสาร์ 12 ธ.ค. 2569ราคาและรอบเดินทางเป็นข้อมูลจำลอง ยังไม่เปิดรับจองจริง ไม่รับชำระเงินจริง\",\"interest\":true}"
   },
   {
    "name": "desktop TRIP_CAREER step 07: no null text, no horizontal scroll, buttons named",
@@ -71,7 +71,7 @@
   {
    "name": "desktop AC03 TRIP_WEALTH: date can be chosen and follows to step 07 with price; interest button kept",
    "ok": true,
-   "info": "{\"pressed\":[\"2026-12-12\"],\"status\":\"วันที่เลือก: เสาร์ 12 ธ.ค. 2569\",\"s7\":\"2026-12-12\",\"note\":\"รายละเอียดการจอง (Demo)ราคา 999 บาท / คน · เวลา 09:00–13:15 น. · รับสูงสุด 10 คน/รอบวันเดินทางที่เลือก: เสาร์ 12 ธ.ค. 2569 (อยู่ในหน้านี้เท่านั้น ไม่ถูกส่งหรือบันทึก)ราคาและรอบเดินทางเป็นข้อมูลจำลอง ยังไม่เปิดรับจองจริง · การจองล่วงหน้า: ยังไม่เปิดจองปุ่มด้านล่างเป็นการสาธิตขั้นตอนและการแสดงความสนใจเพื่อ"
+   "info": "{\"pressed\":[\"2026-12-12\"],\"status\":\"วันที่เลือก: เสาร์ 12 ธ.ค. 2569\",\"s7\":\"2026-12-12\",\"note\":\"999 บาท / คน · 09:00–13:15 น. · นัดพบ BTS สยาม · สูงสุด 10 คน/รอบวันเดินทางที่เลือก: เสาร์ 12 ธ.ค. 2569ราคาและรอบเดินทางเป็นข้อมูลจำลอง ยังไม่เปิดรับจองจริง ไม่รับชำระเงินจริง\",\"interest\":true}"
   },
   {
    "name": "desktop TRIP_WEALTH step 07: no null text, no horizontal scroll, buttons named",
@@ -79,24 +79,39 @@
    "info": "{\"bad\":[],\"overflow\":0,\"unnamed\":0}"
   },
   {
-   "name": "desktop booking: needs a date first; the chosen date shows a tick, not a cross",
+   "name": "desktop booking: the button always works, opens a pop-up, asks for a date there, and marks it with a tick",
    "ok": true,
-   "info": "{\"disabled\":true,\"label\":\"จองทริป (จำลอง) · เลือกวันก่อน\",\"mark\":\"\\\"✓ \\\"\",\"bg\":\"rgb(243, 236, 255)\",\"enabled\":true}"
+   "info": "{\"disabled\":false,\"label\":\"จองทริป\",\"popup\":true,\"preset\":0,\"error\":\"กรุณาเลือกวันเดินทางก่อน\",\"booked\":false,\"mark\":\"\\\"✓ \\\"\",\"cleared\":true}"
   },
   {
-   "name": "desktop booking: simulated success with date, time, meeting point, price and \"no real booking\"",
-   "ok": true,
-   "info": "{\"head\":\"✅ จองจำลองสำเร็จ\",\"text\":\"✅ จองจำลองสำเร็จ✕ทริป: Love & Blessingsวันเดินทาง: อาทิตย์ 6 ธ.ค. 2569เวลา: 09:00–13:15 น.จุดนัดพบ: BTS สยามราคา: 899 บาท / คน (ข้อมูลจำลอง)ไม่มีการจองจริง ไม่มีที่นั่งถูกสำรอง ไม่ต้องชำระเงินปิดจำลอง\",\"used\":true,\"net\":0,\"sent\":0}"
-  },
-  {
-   "name": "desktop booking: feedback opens for the trip, says it rates the demo, nothing pre-answered or sent",
-   "ok": true,
-   "info": "{\"note\":\"จำลองว่าใช้บริการเสร็จแล้ว · ความคิดเห็นนี้ประเมินคำแนะนำและขั้นตอนของ Demo ไม่ใช่บริการจริง\",\"service\":[\"ทริปบริษัท\"],\"interest\":0,\"stars\":0,\"consent\":false,\"sent\":0}"
-  },
-  {
-   "name": "desktop booking feedback: no null text, no horizontal scroll, buttons named",
+   "name": "desktop trip pop-up: no null text, no horizontal scroll, buttons named",
    "ok": true,
    "info": "{\"bad\":[],\"overflow\":0,\"unnamed\":0}"
+  },
+  {
+   "name": "desktop booking: confirm goes to step 07 on the company trip and shows \"booked\" with the details",
+   "ok": true,
+   "info": "{\"step\":\"7.\",\"dialog\":false,\"svc\":\"true\",\"c\":{\"status\":\"booked\",\"text\":\"✓ จองสำเร็จLove & Blessings · อาทิตย์ 6 ธ.ค. 256909:00–13:15 น. · นัดพบ BTS สยาม · 899 บาท / คนระบบสาธิต ไม่มีการจองหรือชำระเงินจริงใช้บริการยกเลิกการ\",\"use\":true,\"rate\":false,\"cancel\":true},\"note\":false,\"again\":false,\"interest\":false,\"why\":false,\"planFolded\":true,\"legs\":4,\"osm\":true,\"fake\":false,\"net\":0,\"sent\":0}"
+  },
+  {
+   "name": "desktop booked trip: no null text, no horizontal scroll, buttons named",
+   "ok": true,
+   "info": "{\"bad\":[],\"overflow\":0,\"unnamed\":0}"
+  },
+  {
+   "name": "desktop booking: step 06 shows the status instead of booking twice, and leads back to step 07",
+   "ok": true,
+   "info": "{\"here\":\"booked\",\"chips\":0,\"book\":false,\"back\":\"7.\"}"
+  },
+  {
+   "name": "desktop booking: \"use\" marks it used and opens the feedback form with nothing pre-answered or sent",
+   "ok": true,
+   "info": "{\"c\":\"used\",\"note\":\"ความคิดเห็นนี้ประเมินคำแนะนำและขั้นตอนของระบบสาธิต ไม่ใช่บริการจริง\",\"service\":[\"ทริปบริษัท\"],\"interest\":0,\"stars\":0,\"consent\":false,\"sent\":0}"
+  },
+  {
+   "name": "desktop booking: a closed or unsaved form can be opened again; only a saved answer marks it rated",
+   "ok": true,
+   "info": "{\"kept\":true,\"first\":true,\"rate\":false}"
   },
   {
    "name": "desktop booking: only the usual feedback fields would be sent (no date, no booking data)",
@@ -109,14 +124,44 @@
    "info": ""
   },
   {
-   "name": "desktop proxy booking: simulated success, no provider, no payment, nothing sent",
+   "name": "desktop booking from step 07: pop-up keeps the earlier date, can change it, and stays on step 07",
    "ok": true,
-   "info": "{\"id\":\"OFR_DEMO_001\",\"head\":\"✅ จองจำลองสำเร็จ\",\"text\":\"✅ จองจำลองสำเร็จ✕บริการ: แพ็กเกจฝากมูจำลอง ณ วัดพระศรีมหาอุมาเทวี (วัดแขก สีลม)สถานที่: วัดพระศรีมหาอุมาเทวี (วัดแขก สีลม)ราคา: 199 บาท (ข้อมูลจำลอง)ล่วงหน้า: 1 วัน (ข้อมูลจำลอง)ชื่อผู้ฝาก: สมมติ ทดสอ\",\"net\":0}"
+   "info": "{\"button\":\"จองทริป\",\"buttons\":[\"จองทริป\",\"แสดงความสนใจทริป (Demo)\",\"ดูเหตุผลที่แนะนำทริปนี้\"],\"preset\":[\"2026-12-06\"],\"step\":\"7.\",\"c\":true}"
   },
   {
-   "name": "desktop proxy booking: feedback for the offer, without the sample name or request",
+   "name": "desktop proxy: the chosen provider's card turns to booked; no provider, no payment, name and request not kept",
    "ok": true,
-   "info": "{\"service\":[\"ฝากมู\"],\"comment\":\"\",\"b\":{\"kind\":\"proxy\",\"rating\":3,\"rating_question\":\"V2_RELEVANCE\",\"would_use_again\":\"MAYBE\",\"interest_question\":\"V1_PREUSE_INTEREST\",\"comment\":\"\",\"consent\":true,\"wish_ids\":[\"W01\"],\"place_ids\":[\"P001\",\"P019\",\"P029\",\"P014\",\"P002\"],\"trip_id\":\"TRIP_LOVE\",\"offer_id\":\"OFR_DEMO_001\"}}"
+   "info": "{\"id\":\"OFR_DEMO_001\",\"provider\":\"ผู้ให้บริการฝากมูจำลอง 01\",\"dialog\":false,\"c\":\"✓ จองสำเร็จผู้ให้บริการฝากมูจำลอง 01 · 199 บาทแพ็กเกจฝากมูจำลอง ณ วัดพระศรีมหาอุมาเทวี (วัดแขก สีลม)วัดพระศรีมหาอุมาเทวี (วัดแขก สีลม) · ล่วงหน้า 1 วั\",\"net\":0,\"leaked\":false}"
+  },
+  {
+   "name": "desktop booked proxy: no null text, no horizontal scroll, buttons named",
+   "ok": true,
+   "info": "{\"bad\":[],\"overflow\":0,\"unnamed\":0}"
+  },
+  {
+   "name": "desktop proxy: use opens feedback for that offer, without the sample name or request",
+   "ok": true,
+   "info": "{\"kind\":\"proxy\",\"rating\":3,\"rating_question\":\"V2_RELEVANCE\",\"would_use_again\":\"YES\",\"interest_question\":\"V1_PREUSE_INTEREST\",\"comment\":\"\",\"consent\":true,\"wish_ids\":[\"W01\"],\"place_ids\":[\"P001\",\"P019\",\"P029\",\"P014\",\"P002\"],\"trip_id\":\"TRIP_LOVE\",\"offer_id\":\"OFR_DEMO_001\"}"
+  },
+  {
+   "name": "desktop two bookings: after feedback on one, a button leads to the other that is still waiting, on step 07",
+   "ok": true,
+   "info": "{\"waiting\":\"trip:TRIP_LOVE\",\"label\":\"ไปที่การจองทริป →\",\"note\":\"คุณยังมีการจองทริปที่ยังไม่ได้ใช้บริการ\",\"stay\":true,\"open\":false,\"step\":\"7.\",\"svc\":\"true\",\"trip\":\"booked\"}"
+  },
+  {
+   "name": "desktop second booking: no null text, no horizontal scroll, buttons named",
+   "ok": true,
+   "info": "{\"bad\":[],\"overflow\":0,\"unnamed\":0}"
+  },
+  {
+   "name": "desktop two bookings: \"back to services\" stays on step 07 and keeps both statuses",
+   "ok": true,
+   "info": "{\"waiting\":false,\"stay\":\"กลับไปหน้าบริการ\",\"open\":false,\"step\":\"7.\",\"trip\":\"used\",\"proxy\":\"used\"}"
+  },
+  {
+   "name": "desktop booking: cancel returns the offer; clearing my data removes every status",
+   "ok": true,
+   "info": "{\"offer\":true,\"proxy\":null,\"reset\":true}"
   },
   {
    "name": "desktop AC06 no eligible trip: unchanged, no price or round",
@@ -191,7 +236,7 @@
   {
    "name": "mobile AC03 TRIP_LOVE: date can be chosen and follows to step 07 with price; interest button kept",
    "ok": true,
-   "info": "{\"pressed\":[\"2026-12-12\"],\"status\":\"วันที่เลือก: เสาร์ 12 ธ.ค. 2569\",\"s7\":\"2026-12-12\",\"note\":\"รายละเอียดการจอง (Demo)ราคา 899 บาท / คน · เวลา 09:00–13:15 น. · รับสูงสุด 10 คน/รอบวันเดินทางที่เลือก: เสาร์ 12 ธ.ค. 2569 (อยู่ในหน้านี้เท่านั้น ไม่ถูกส่งหรือบันทึก)ราคาและรอบเดินทางเป็นข้อมูลจำลอง ยังไม่เปิดรับจองจริง · การจองล่วงหน้า: ยังไม่เปิดจองปุ่มด้านล่างเป็นการสาธิตขั้นตอนและการแสดงความสนใจเพื่อ"
+   "info": "{\"pressed\":[\"2026-12-12\"],\"status\":\"วันที่เลือก: เสาร์ 12 ธ.ค. 2569\",\"s7\":\"2026-12-12\",\"note\":\"899 บาท / คน · 09:00–13:15 น. · นัดพบ BTS สยาม · สูงสุด 10 คน/รอบวันเดินทางที่เลือก: เสาร์ 12 ธ.ค. 2569ราคาและรอบเดินทางเป็นข้อมูลจำลอง ยังไม่เปิดรับจองจริง ไม่รับชำระเงินจริง\",\"interest\":true}"
   },
   {
    "name": "mobile TRIP_LOVE step 07: no null text, no horizontal scroll, buttons named",
@@ -216,7 +261,7 @@
   {
    "name": "mobile AC03 TRIP_CAREER: date can be chosen and follows to step 07 with price; interest button kept",
    "ok": true,
-   "info": "{\"pressed\":[\"2026-12-12\"],\"status\":\"วันที่เลือก: เสาร์ 12 ธ.ค. 2569\",\"s7\":\"2026-12-12\",\"note\":\"รายละเอียดการจอง (Demo)ราคา 1,099 บาท / คน · เวลา 09:00–14:00 น. · รับสูงสุด 10 คน/รอบวันเดินทางที่เลือก: เสาร์ 12 ธ.ค. 2569 (อยู่ในหน้านี้เท่านั้น ไม่ถูกส่งหรือบันทึก)ราคาและรอบเดินทางเป็นข้อมูลจำลอง ยังไม่เปิดรับจองจริง · การจองล่วงหน้า: ยังไม่เปิดจองปุ่มด้านล่างเป็นการสาธิตขั้นตอนและการแสดงความสนใจเพื"
+   "info": "{\"pressed\":[\"2026-12-12\"],\"status\":\"วันที่เลือก: เสาร์ 12 ธ.ค. 2569\",\"s7\":\"2026-12-12\",\"note\":\"1,099 บาท / คน · 09:00–14:00 น. · นัดพบ BTS สยาม · สูงสุด 10 คน/รอบวันเดินทางที่เลือก: เสาร์ 12 ธ.ค. 2569ราคาและรอบเดินทางเป็นข้อมูลจำลอง ยังไม่เปิดรับจองจริง ไม่รับชำระเงินจริง\",\"interest\":true}"
   },
   {
    "name": "mobile TRIP_CAREER step 07: no null text, no horizontal scroll, buttons named",
@@ -241,7 +286,7 @@
   {
    "name": "mobile AC03 TRIP_WEALTH: date can be chosen and follows to step 07 with price; interest button kept",
    "ok": true,
-   "info": "{\"pressed\":[\"2026-12-12\"],\"status\":\"วันที่เลือก: เสาร์ 12 ธ.ค. 2569\",\"s7\":\"2026-12-12\",\"note\":\"รายละเอียดการจอง (Demo)ราคา 999 บาท / คน · เวลา 09:00–13:15 น. · รับสูงสุด 10 คน/รอบวันเดินทางที่เลือก: เสาร์ 12 ธ.ค. 2569 (อยู่ในหน้านี้เท่านั้น ไม่ถูกส่งหรือบันทึก)ราคาและรอบเดินทางเป็นข้อมูลจำลอง ยังไม่เปิดรับจองจริง · การจองล่วงหน้า: ยังไม่เปิดจองปุ่มด้านล่างเป็นการสาธิตขั้นตอนและการแสดงความสนใจเพื่อ"
+   "info": "{\"pressed\":[\"2026-12-12\"],\"status\":\"วันที่เลือก: เสาร์ 12 ธ.ค. 2569\",\"s7\":\"2026-12-12\",\"note\":\"999 บาท / คน · 09:00–13:15 น. · นัดพบ BTS สยาม · สูงสุด 10 คน/รอบวันเดินทางที่เลือก: เสาร์ 12 ธ.ค. 2569ราคาและรอบเดินทางเป็นข้อมูลจำลอง ยังไม่เปิดรับจองจริง ไม่รับชำระเงินจริง\",\"interest\":true}"
   },
   {
    "name": "mobile TRIP_WEALTH step 07: no null text, no horizontal scroll, buttons named",
@@ -249,24 +294,39 @@
    "info": "{\"bad\":[],\"overflow\":0,\"unnamed\":0}"
   },
   {
-   "name": "mobile booking: needs a date first; the chosen date shows a tick, not a cross",
+   "name": "mobile booking: the button always works, opens a pop-up, asks for a date there, and marks it with a tick",
    "ok": true,
-   "info": "{\"disabled\":true,\"label\":\"จองทริป (จำลอง) · เลือกวันก่อน\",\"mark\":\"\\\"✓ \\\"\",\"bg\":\"rgb(243, 236, 255)\",\"enabled\":true}"
+   "info": "{\"disabled\":false,\"label\":\"จองทริป\",\"popup\":true,\"preset\":0,\"error\":\"กรุณาเลือกวันเดินทางก่อน\",\"booked\":false,\"mark\":\"\\\"✓ \\\"\",\"cleared\":true}"
   },
   {
-   "name": "mobile booking: simulated success with date, time, meeting point, price and \"no real booking\"",
-   "ok": true,
-   "info": "{\"head\":\"✅ จองจำลองสำเร็จ\",\"text\":\"✅ จองจำลองสำเร็จ✕ทริป: Love & Blessingsวันเดินทาง: อาทิตย์ 6 ธ.ค. 2569เวลา: 09:00–13:15 น.จุดนัดพบ: BTS สยามราคา: 899 บาท / คน (ข้อมูลจำลอง)ไม่มีการจองจริง ไม่มีที่นั่งถูกสำรอง ไม่ต้องชำระเงินปิดจำลอง\",\"used\":true,\"net\":0,\"sent\":0}"
-  },
-  {
-   "name": "mobile booking: feedback opens for the trip, says it rates the demo, nothing pre-answered or sent",
-   "ok": true,
-   "info": "{\"note\":\"จำลองว่าใช้บริการเสร็จแล้ว · ความคิดเห็นนี้ประเมินคำแนะนำและขั้นตอนของ Demo ไม่ใช่บริการจริง\",\"service\":[\"ทริปบริษัท\"],\"interest\":0,\"stars\":0,\"consent\":false,\"sent\":0}"
-  },
-  {
-   "name": "mobile booking feedback: no null text, no horizontal scroll, buttons named",
+   "name": "mobile trip pop-up: no null text, no horizontal scroll, buttons named",
    "ok": true,
    "info": "{\"bad\":[],\"overflow\":0,\"unnamed\":0}"
+  },
+  {
+   "name": "mobile booking: confirm goes to step 07 on the company trip and shows \"booked\" with the details",
+   "ok": true,
+   "info": "{\"step\":\"7.\",\"dialog\":false,\"svc\":\"true\",\"c\":{\"status\":\"booked\",\"text\":\"✓ จองสำเร็จLove & Blessings · อาทิตย์ 6 ธ.ค. 256909:00–13:15 น. · นัดพบ BTS สยาม · 899 บาท / คนระบบสาธิต ไม่มีการจองหรือชำระเงินจริงใช้บริการยกเลิกการ\",\"use\":true,\"rate\":false,\"cancel\":true},\"note\":false,\"again\":false,\"interest\":false,\"why\":false,\"planFolded\":true,\"legs\":4,\"osm\":true,\"fake\":false,\"net\":0,\"sent\":0}"
+  },
+  {
+   "name": "mobile booked trip: no null text, no horizontal scroll, buttons named",
+   "ok": true,
+   "info": "{\"bad\":[],\"overflow\":0,\"unnamed\":0}"
+  },
+  {
+   "name": "mobile booking: step 06 shows the status instead of booking twice, and leads back to step 07",
+   "ok": true,
+   "info": "{\"here\":\"booked\",\"chips\":0,\"book\":false,\"back\":\"7.\"}"
+  },
+  {
+   "name": "mobile booking: \"use\" marks it used and opens the feedback form with nothing pre-answered or sent",
+   "ok": true,
+   "info": "{\"c\":\"used\",\"note\":\"ความคิดเห็นนี้ประเมินคำแนะนำและขั้นตอนของระบบสาธิต ไม่ใช่บริการจริง\",\"service\":[\"ทริปบริษัท\"],\"interest\":0,\"stars\":0,\"consent\":false,\"sent\":0}"
+  },
+  {
+   "name": "mobile booking: a closed or unsaved form can be opened again; only a saved answer marks it rated",
+   "ok": true,
+   "info": "{\"kept\":true,\"first\":true,\"rate\":false}"
   },
   {
    "name": "mobile booking: only the usual feedback fields would be sent (no date, no booking data)",
@@ -279,14 +339,44 @@
    "info": ""
   },
   {
-   "name": "mobile proxy booking: simulated success, no provider, no payment, nothing sent",
+   "name": "mobile booking from step 07: pop-up keeps the earlier date, can change it, and stays on step 07",
    "ok": true,
-   "info": "{\"id\":\"OFR_DEMO_001\",\"head\":\"✅ จองจำลองสำเร็จ\",\"text\":\"✅ จองจำลองสำเร็จ✕บริการ: แพ็กเกจฝากมูจำลอง ณ วัดพระศรีมหาอุมาเทวี (วัดแขก สีลม)สถานที่: วัดพระศรีมหาอุมาเทวี (วัดแขก สีลม)ราคา: 199 บาท (ข้อมูลจำลอง)ล่วงหน้า: 1 วัน (ข้อมูลจำลอง)ชื่อผู้ฝาก: สมมติ ทดสอ\",\"net\":0}"
+   "info": "{\"button\":\"จองทริป\",\"buttons\":[\"จองทริป\",\"แสดงความสนใจทริป (Demo)\",\"ดูเหตุผลที่แนะนำทริปนี้\"],\"preset\":[\"2026-12-06\"],\"step\":\"7.\",\"c\":true}"
   },
   {
-   "name": "mobile proxy booking: feedback for the offer, without the sample name or request",
+   "name": "mobile proxy: the chosen provider's card turns to booked; no provider, no payment, name and request not kept",
    "ok": true,
-   "info": "{\"service\":[\"ฝากมู\"],\"comment\":\"\",\"b\":{\"kind\":\"proxy\",\"rating\":3,\"rating_question\":\"V2_RELEVANCE\",\"would_use_again\":\"MAYBE\",\"interest_question\":\"V1_PREUSE_INTEREST\",\"comment\":\"\",\"consent\":true,\"wish_ids\":[\"W01\"],\"place_ids\":[\"P001\",\"P019\",\"P029\",\"P014\",\"P002\"],\"trip_id\":\"TRIP_LOVE\",\"offer_id\":\"OFR_DEMO_001\"}}"
+   "info": "{\"id\":\"OFR_DEMO_001\",\"provider\":\"ผู้ให้บริการฝากมูจำลอง 01\",\"dialog\":false,\"c\":\"✓ จองสำเร็จผู้ให้บริการฝากมูจำลอง 01 · 199 บาทแพ็กเกจฝากมูจำลอง ณ วัดพระศรีมหาอุมาเทวี (วัดแขก สีลม)วัดพระศรีมหาอุมาเทวี (วัดแขก สีลม) · ล่วงหน้า 1 วั\",\"net\":0,\"leaked\":false}"
+  },
+  {
+   "name": "mobile booked proxy: no null text, no horizontal scroll, buttons named",
+   "ok": true,
+   "info": "{\"bad\":[],\"overflow\":0,\"unnamed\":0}"
+  },
+  {
+   "name": "mobile proxy: use opens feedback for that offer, without the sample name or request",
+   "ok": true,
+   "info": "{\"kind\":\"proxy\",\"rating\":3,\"rating_question\":\"V2_RELEVANCE\",\"would_use_again\":\"YES\",\"interest_question\":\"V1_PREUSE_INTEREST\",\"comment\":\"\",\"consent\":true,\"wish_ids\":[\"W01\"],\"place_ids\":[\"P001\",\"P019\",\"P029\",\"P014\",\"P002\"],\"trip_id\":\"TRIP_LOVE\",\"offer_id\":\"OFR_DEMO_001\"}"
+  },
+  {
+   "name": "mobile two bookings: after feedback on one, a button leads to the other that is still waiting, on step 07",
+   "ok": true,
+   "info": "{\"waiting\":\"trip:TRIP_LOVE\",\"label\":\"ไปที่การจองทริป →\",\"note\":\"คุณยังมีการจองทริปที่ยังไม่ได้ใช้บริการ\",\"stay\":true,\"open\":false,\"step\":\"7.\",\"svc\":\"true\",\"trip\":\"booked\"}"
+  },
+  {
+   "name": "mobile second booking: no null text, no horizontal scroll, buttons named",
+   "ok": true,
+   "info": "{\"bad\":[],\"overflow\":0,\"unnamed\":0}"
+  },
+  {
+   "name": "mobile two bookings: \"back to services\" stays on step 07 and keeps both statuses",
+   "ok": true,
+   "info": "{\"waiting\":false,\"stay\":\"กลับไปหน้าบริการ\",\"open\":false,\"step\":\"7.\",\"trip\":\"used\",\"proxy\":\"used\"}"
+  },
+  {
+   "name": "mobile booking: cancel returns the offer; clearing my data removes every status",
+   "ok": true,
+   "info": "{\"offer\":true,\"proxy\":null,\"reset\":true}"
   },
   {
    "name": "mobile AC06 no eligible trip: unchanged, no price or round",
