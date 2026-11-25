@@ -1,5 +1,5 @@
 // Tab 2 · event recommendation trace + reminder simulation (Lab steps H and I). Uses the same calendar.js / notify.js as Tab 1.
-import { h, clear, f } from './util.js';
+import { h, clear, put, f } from './util.js';
 import { displayLayer, bangkokToday, isIso } from './calendar.js';
 const SHORT = ['ม.ค.', 'ก.พ.', 'มี.ค.', 'เม.ย.', 'พ.ค.', 'มิ.ย.', 'ก.ค.', 'ส.ค.', 'ก.ย.', 'ต.ค.', 'พ.ย.', 'ธ.ค.'];
 const thaiDate = (iso) => { const [y, m, d] = iso.split('-').map(Number); return `${d} ${SHORT[m - 1]} ${y + 543}`; };
@@ -19,7 +19,7 @@ export function eventTrace(T) {
   const draw = (asOf) => {
     const L = displayLayer(R.eligible, asOf), disp = Object.fromEntries([...L.displayable, ...L.not_displayed].map((r) => [r.event_id, r]));
     const st = R.stability;
-    clear(body).append(
+    put(clear(body),
       h('div', { class: 'row' }, h('span', { class: R.step05_check ? 'chip ok' : 'chip bad' }, R.step05_check ? '✓ คะแนนสถานที่เท่ากับ Step 05' : '✗ คะแนนสถานที่ไม่ตรง Step 05'),
         h('span', { class: 'chip' }, R.version), h('span', { class: 'chip' }, `น้ำหนักเทพ ${R.weights.deity} · สถานที่ ${R.weights.place}`), h('span', { class: 'chip ok' }, `อยู่ในเครือข่าย ${R.counts.eligible} กิจกรรม`), h('span', { class: 'chip' }, `ถูกตัด/ไม่มีเส้นทาง ${R.counts.excluded}`), h('span', { class: 'chip' }, `คู่เทพ–สถานที่ไม่ซ้ำ ${R.counts.distinct_deity_place_pairs}`)),
       h('div', { class: 'formula' }, 'EventScore = 0.5 × DeityScore + 0.5 × PlaceScore', h('br'), 'PlaceScore = คะแนนเดียวกับ Step 05 · DeityScore = PPR ดิบของเทพ ÷ ค่าสูงสุดของเทพที่ผ่านเงื่อนไข · เสมอกันเรียงตาม event_id · ', R.relative_scores_note),

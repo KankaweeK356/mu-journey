@@ -1,5 +1,5 @@
 // Tab 2 · 04 Personalized Trip Matching — picks ONE of the 3 fixed trips (or none) for the Lab profile. Never re-routes.
-import { h, clear, f, pct, TRIP_TH } from './util.js';
+import { h, clear, put, f, pct, TRIP_TH } from './util.js';
 import { API } from './api.js';
 import { S } from './state.js';
 import { ensureTrace, labListeners } from './lab.js';
@@ -26,7 +26,7 @@ export function renderMatching(p, ctx) {
     try { tripInfo = Object.fromEntries((await Promise.all(M.trips.map((t) => API.trip(t.trip_id)))).map((t) => [t.trip_id, t])); } catch (e) { box.append(h('div', { class: 'callout bad' }, e.message)); return; }
     const blocked = new Set(T.profile.blocked_deity_ids), blockedP = new Set(T.profile.blocked_place_ids);
     const reasonText = (c) => c.startsWith('FEATURED_RITUAL_EXCLUSION:') ? 'พิธีเด่นเกี่ยวกับสิ่งที่ไม่ต้องการ: ' + c.split(':')[1].split(',').map((d) => names['D:' + d] || d).join(', ') : c === 'PLACE_EXCLUSION' ? 'มีสถานที่ที่ไม่ต้องการอยู่ในเส้นทาง' : c === 'INSUFFICIENT_USER_WISH_COVERAGE' ? 'ครอบคลุมเรื่องที่เลือกน้อยกว่า 30%' : c;
-    box.append(
+    put(box,
       h('div', { class: 'row' }, T.profile.wish_names.map((w) => h('span', { class: 'chip' }, w)), h('span', { class: S.lab.source.startsWith('persona') ? 'chip st-syn' : 'chip ok' }, S.lab.source === 'demo' ? '✓ โปรไฟล์จาก Demo ผู้ใช้' : S.lab.source.startsWith('persona') ? '◇ ตัวอย่างข้อมูลจำลอง' : 'กรอกเอง'),
         h('span', { class: res.matched_trip ? 'chip ok' : 'chip bad' }, res.matched_trip ? 'ผลลัพธ์: ' + TRIP_TH[res.matched_trip.trip_id] : 'ผลลัพธ์: NO_ELIGIBLE_SIGNATURE_TRIP')),
       h('div', { class: 'card stack' }, h('h3', {}, 'ลำดับการตัดสินใจ'), h('ol', { class: 'small', style: 'margin:0;padding-left:18px' },

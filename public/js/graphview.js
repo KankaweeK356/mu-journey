@@ -1,5 +1,5 @@
 // Layered SVG view of the Wish → Sacred entity → Place graph (101 nodes / 114 edges) with filters.
-import { h, clear } from './util.js';
+import { h, clear, statusLegend } from './util.js';
 import { s } from './icons.js';
 
 const COLORS = { W: '#d6336c', D: '#7c4dcc', P: '#e8a317' };
@@ -7,6 +7,13 @@ const TYPE_TH = { W: 'เรื่องที่ขอ (Wish)', D: 'สิ่�
 const STATUS_CLS = { SOURCE: 'st-source', CANDIDATE: 'st-cand', UNVERIFIED: 'st-unv' };
 const short = (t, n) => (t.length > n ? t.slice(0, n - 1) + '…' : t);
 export const hue = (i) => `hsl(${(i * 137.5) % 360} 55% 48%)`;
+
+/** The part of the network that belongs to one wish: the wish, the entities linked to it, and the places linked to those entities.
+ *  It never walks back from an entity to OTHER wishes. */
+export function wishNetwork(graph, wishId) {
+  const deities = new Set(graph.edges.filter((e) => e.s === wishId).map((e) => e.t));
+  return new Set([wishId, ...deities, ...graph.edges.filter((e) => deities.has(e.s)).map((e) => e.t)]);
+}
 
 /** mountGraph(container, graph, {onSelect}) → {setFilter, setMode, setScores, setGone, setLive, setRanks, select} */
 export function mountGraph(container, graph, { onSelect } = {}) {
@@ -24,8 +31,7 @@ export function mountGraph(container, graph, { onSelect } = {}) {
   function visibleIds() {
     let ids = graph.nodes.filter((n) => filter.types.has(n.type) && (filter.community == null || n.community === filter.community)).map((n) => n.id);
     if (filter.wish) {
-      const keep = new Set([filter.wish]);
-      adj[filter.wish].forEach((d) => { keep.add(d); adj[d].forEach((p) => keep.add(p)); });
+      const keep = wishNetwork(graph, filter.wish);
       ids = ids.filter((id) => keep.has(id));
     }
     if (filter.connectedOnly) ids = ids.filter((id) => byId[id].degree > 0);
@@ -118,7 +124,7 @@ export function mountGraph(container, graph, { onSelect } = {}) {
 }
 
 export function graphLegend() {
-  return h('div', { class: 'legend' },
+  return h('div', { class: 'stack' }, h('div', { class: 'legend' },
     h('span', {}, h('i', { style: 'background:#d6336c' }), 'Wish (เรื่องที่ขอ)'), h('span', {}, h('i', { style: 'background:#7c4dcc' }), 'Deity (สิ่งศักดิ์สิทธิ์)'), h('span', {}, h('i', { style: 'background:#e8a317' }), 'Place (สถานที่)'),
-    h('span', {}, h('s', { style: 'border-color:#2f8f4b' }), 'SOURCE'), h('span', {}, h('s', { style: 'border-color:#c58a12;border-top-style:dashed' }), 'CANDIDATE'), h('span', {}, h('s', { style: 'border-color:#b0a6c4;border-top-style:dotted' }), 'UNVERIFIED'));
+    h('span', {}, h('s', { style: 'border-color:#2f8f4b' }), 'SOURCE'), h('span', {}, h('s', { style: 'border-color:#c58a12;border-top-style:dashed' }), 'CANDIDATE'), h('span', {}, h('s', { style: 'border-color:#b0a6c4;border-top-style:dotted' }), 'UNVERIFIED')), statusLegend(['SOURCE', 'CANDIDATE', 'UNVERIFIED']));
 }

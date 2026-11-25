@@ -1,0 +1,2778 @@
+{
+ "analysis_version": "NETWORK_ANALYSIS_V1",
+ "status": "DRAFT_INTERPRETATION",
+ "graph": {
+  "nodes": 101,
+  "edges": 114,
+  "wish_deity_edges": 48,
+  "deity_place_edges": 66,
+  "model_version": "NETWORK_PHASE1_V2_2026-11-21"
+ },
+ "software": {
+  "networkx": "3.7"
+ },
+ "criteria": {
+  "null_copies": 1000,
+  "swaps_per_edge": 10,
+  "louvain_runs_per_graph": 10,
+  "stability_runs": 100,
+  "stable_confidence_at_least": 0.8,
+  "resolution_values": [
+   0.5,
+   1.0,
+   1.5,
+   2.0
+  ],
+  "runs_per_resolution": 50,
+  "null_seed": 7202,
+  "chance_limit_p": 0.05,
+  "naming_rule": "A community gets a descriptive name only if (1) the whole-graph modularity passes the random-graph check, (2) it contains at least one Wish node, and (3) EVERY member has co-association confidence >= 0.80 over 100 Louvain seeds. Otherwise it is shown by its Community number only. The name is just the Wish labels inside it."
+ },
+ "observed": {
+  "components": 19,
+  "components_with_edges": 3,
+  "largest_component": 81,
+  "modularity_louvain_best10": 0.587412,
+  "communities_louvain_best10": 25,
+  "modularity_greedy": 0.586411,
+  "modularity_shown_partition": 0.586411
+ },
+ "null_model": {
+  "description": "Wish-Deity edges and Deity-Place edges rewired separately; every node keeps its degree in each relation.",
+  "metrics": {
+   "components": {
+    "observed": 19,
+    "null_mean": 20.533,
+    "null_sd": 1.336006,
+    "null_min": 17,
+    "null_p2_5": 18,
+    "null_median": 21,
+    "null_p97_5": 23,
+    "null_max": 25,
+    "copies": 1000,
+    "copies_ge_observed": 942,
+    "copies_le_observed": 225,
+    "p_upper": 0.942058,
+    "p_lower": 0.225774
+   },
+   "components_with_edges": {
+    "observed": 3,
+    "null_mean": 4.533,
+    "null_sd": 1.336006,
+    "null_min": 1,
+    "null_p2_5": 2,
+    "null_median": 5,
+    "null_p97_5": 7,
+    "null_max": 9,
+    "copies": 1000,
+    "copies_ge_observed": 942,
+    "copies_le_observed": 225,
+    "p_upper": 0.942058,
+    "p_lower": 0.225774
+   },
+   "largest_component": {
+    "observed": 81,
+    "null_mean": 77.416,
+    "null_sd": 3.083658,
+    "null_min": 64,
+    "null_p2_5": 71,
+    "null_median": 77,
+    "null_p97_5": 83,
+    "null_max": 85,
+    "copies": 1000,
+    "copies_ge_observed": 190,
+    "copies_le_observed": 942,
+    "p_upper": 0.190809,
+    "p_lower": 0.942058
+   },
+   "modularity_louvain_best10": {
+    "observed": 0.587412,
+    "null_mean": 0.569953,
+    "null_sd": 0.010887,
+    "null_min": 0.537011,
+    "null_p2_5": 0.550362,
+    "null_median": 0.56956,
+    "null_p97_5": 0.592259,
+    "null_max": 0.606417,
+    "copies": 1000,
+    "copies_ge_observed": 54,
+    "copies_le_observed": 947,
+    "p_upper": 0.054945,
+    "p_lower": 0.947053
+   },
+   "communities_louvain_best10": {
+    "observed": 25,
+    "null_mean": 27.302,
+    "null_sd": 1.384484,
+    "null_min": 24,
+    "null_p2_5": 25,
+    "null_median": 27,
+    "null_p97_5": 30,
+    "null_max": 32,
+    "copies": 1000,
+    "copies_ge_observed": 983,
+    "copies_le_observed": 80,
+    "p_upper": 0.983017,
+    "p_lower": 0.080919
+   },
+   "modularity_greedy": {
+    "observed": 0.586411,
+    "null_mean": 0.565002,
+    "null_sd": 0.01175,
+    "null_min": 0.519775,
+    "null_p2_5": 0.54386,
+    "null_median": 0.564404,
+    "null_p97_5": 0.588989,
+    "null_max": 0.604186,
+    "copies": 1000,
+    "copies_ge_observed": 42,
+    "copies_le_observed": 959,
+    "p_upper": 0.042957,
+    "p_lower": 0.959041
+   }
+  },
+  "modularity_above_chance": false,
+  "mean_edges_unchanged_fraction": 0.239254,
+  "min_swaps_done": 1140,
+  "swaps_target": 1140
+ },
+ "stability_over_seeds": {
+  "modularity_min": 0.573253,
+  "modularity_max": 0.590412,
+  "distinct_groups_seen": 63
+ },
+ "resolution_sweep": [
+  {
+   "resolution": 0.5,
+   "communities_in_most_common_split": 23,
+   "communities_with_2plus_nodes": 7,
+   "runs_giving_that_split": 12,
+   "distinct_splits": 24
+  },
+  {
+   "resolution": 1.0,
+   "communities_in_most_common_split": 25,
+   "communities_with_2plus_nodes": 9,
+   "runs_giving_that_split": 7,
+   "distinct_splits": 25
+  },
+  {
+   "resolution": 1.5,
+   "communities_in_most_common_split": 29,
+   "communities_with_2plus_nodes": 13,
+   "runs_giving_that_split": 6,
+   "distinct_splits": 25
+  },
+  {
+   "resolution": 2.0,
+   "communities_in_most_common_split": 29,
+   "communities_with_2plus_nodes": 13,
+   "runs_giving_that_split": 15,
+   "distinct_splits": 17
+  }
+ ],
+ "communities": [
+  {
+   "index": 0,
+   "number": 1,
+   "size": 16,
+   "types": {
+    "W": 1,
+    "D": 10,
+    "P": 5
+   },
+   "internal_edges": {
+    "total": 24,
+    "wish_deity": 2,
+    "deity_place": 22
+   },
+   "external_edges": {
+    "total": 16,
+    "wish_deity": 9,
+    "deity_place": 7
+   },
+   "internal_share_of_degree": 0.75,
+   "modularity_contribution": 0.131733,
+   "wishes": [
+    "การเรียน/สอบ"
+   ],
+   "stability": {
+    "min_confidence": 0.0,
+    "mean_confidence": 0.683,
+    "members_below_threshold": [
+     {
+      "id": "D:D_TRIMURTI",
+      "label": "พระตรีมูรติ",
+      "confidence": 0.285333
+     },
+     {
+      "id": "D:D_UMA",
+      "label": "พระแม่อุมาเทวี",
+      "confidence": 0.0
+     },
+     {
+      "id": "D:D_WENCHANG",
+      "label": "เทพบุ่นเชียง (บุ๋นเชียงตี่กุง)",
+      "confidence": 0.581333
+     },
+     {
+      "id": "P:P030",
+      "label": "ศาลพระตรีมูรติ ลานเซ็นทรัลเวิลด์",
+      "confidence": 0.285333
+     }
+    ],
+    "runs_with_exactly_this_group": 0
+   },
+   "same_group_at_resolution": {
+    "0.5": false,
+    "1.0": false,
+    "1.5": false,
+    "2.0": false
+   },
+   "named": false,
+   "name": null,
+   "not_named_because": [
+    "GRAPH_MODULARITY_NOT_ABOVE_CHANCE",
+    "UNSTABLE_MEMBERS"
+   ],
+   "members": [
+    {
+     "id": "D:D_BRAHMA",
+     "type": "D",
+     "label": "ท้าวมหาพรหม / พระพรหม",
+     "confidence": 0.814667
+    },
+    {
+     "id": "D:D_DURGA",
+     "type": "D",
+     "label": "พระแม่ทุรคา",
+     "confidence": 0.814667
+    },
+    {
+     "id": "D:D_KALI",
+     "type": "D",
+     "label": "พระแม่กาลี",
+     "confidence": 0.814667
+    },
+    {
+     "id": "D:D_SARASWATI",
+     "type": "D",
+     "label": "พระแม่สุรัสวดี",
+     "confidence": 0.814667
+    },
+    {
+     "id": "D:D_SHIVA",
+     "type": "D",
+     "label": "พระศิวะ / พระอิศวร",
+     "confidence": 0.814667
+    },
+    {
+     "id": "D:D_SKANDA",
+     "type": "D",
+     "label": "พระขันธกุมาร",
+     "confidence": 0.814667
+    },
+    {
+     "id": "D:D_TRIMURTI",
+     "type": "D",
+     "label": "พระตรีมูรติ",
+     "confidence": 0.285333
+    },
+    {
+     "id": "D:D_UMA",
+     "type": "D",
+     "label": "พระแม่อุมาเทวี",
+     "confidence": 0.0
+    },
+    {
+     "id": "D:D_VISHNU",
+     "type": "D",
+     "label": "พระวิษณุ / พระนารายณ์",
+     "confidence": 0.814667
+    },
+    {
+     "id": "D:D_WENCHANG",
+     "type": "D",
+     "label": "เทพบุ่นเชียง (บุ๋นเชียงตี่กุง)",
+     "confidence": 0.581333
+    },
+    {
+     "id": "P:P001",
+     "type": "P",
+     "label": "วัดพระศรีมหาอุมาเทวี (วัดแขก สีลม)",
+     "confidence": 0.814667
+    },
+    {
+     "id": "P:P002",
+     "type": "P",
+     "label": "วัดวิษณุ (สมาคมฮินดูธรรมสภา)",
+     "confidence": 0.814667
+    },
+    {
+     "id": "P:P014",
+     "type": "P",
+     "label": "เทวสถานโบสถ์พราหมณ์",
+     "confidence": 0.814667
+    },
+    {
+     "id": "P:P022",
+     "type": "P",
+     "label": "ศาลท้าวมหาพรหม แยกราชประสงค์ (เอราวัณ)",
+     "confidence": 0.814667
+    },
+    {
+     "id": "P:P030",
+     "type": "P",
+     "label": "ศาลพระตรีมูรติ ลานเซ็นทรัลเวิลด์",
+     "confidence": 0.285333
+    },
+    {
+     "id": "W:W04",
+     "type": "W",
+     "label": "การเรียน/สอบ",
+     "confidence": 0.814667
+    }
+   ]
+  },
+  {
+   "index": 1,
+   "number": 2,
+   "size": 16,
+   "types": {
+    "W": 2,
+    "D": 6,
+    "P": 8
+   },
+   "internal_edges": {
+    "total": 16,
+    "wish_deity": 7,
+    "deity_place": 9
+   },
+   "external_edges": {
+    "total": 6,
+    "wish_deity": 5,
+    "deity_place": 1
+   },
+   "internal_share_of_degree": 0.842105,
+   "modularity_contribution": 0.112573,
+   "wishes": [
+    "สุขภาพ/แคล้วคลาด",
+    "ปลดหนี้"
+   ],
+   "stability": {
+    "min_confidence": 0.302667,
+    "mean_confidence": 0.463667,
+    "members_below_threshold": [
+     {
+      "id": "D:D_GUANYIN",
+      "label": "เจ้าแม่กวนอิม",
+      "confidence": 0.539333
+     },
+     {
+      "id": "D:D_LP_SOTHORN_PAKNAM",
+      "label": "หลวงพ่อสด (วัดปากน้ํา)",
+      "confidence": 0.302667
+     },
+     {
+      "id": "D:D_LP_TO",
+      "label": "หลวงพ่อโต",
+      "confidence": 0.341333
+     },
+     {
+      "id": "D:D_MAE_BOONRUEAN",
+      "label": "คุณแม่บุญเรือน โตงบุญเติม",
+      "confidence": 0.539333
+     },
+     {
+      "id": "D:D_SUNTHAREE",
+      "label": "พระสุนทรีวาณี",
+      "confidence": 0.510667
+     },
+     {
+      "id": "D:D_WESSUWAN",
+      "label": "ท้าวเวสสุวรรณ",
+      "confidence": 0.510667
+     },
+     {
+      "id": "P:P003",
+      "label": "วัดอาวุธวิกสิตาราม",
+      "confidence": 0.539333
+     },
+     {
+      "id": "P:P008",
+      "label": "วัดปากน้ํา ภาษีเจริญ",
+      "confidence": 0.302667
+     },
+     {
+      "id": "P:P015",
+      "label": "วัดสุทัศนเทพวรารามราชวรมหาวิหาร",
+      "confidence": 0.510667
+     },
+     {
+      "id": "P:P031",
+      "label": "วัดอินทรวิหาร (บางขุนพรหม)",
+      "confidence": 0.341333
+     },
+     {
+      "id": "P:P038",
+      "label": "วัดราษฎร์ศรัทธาธรรม (วัดบางชัน)",
+      "confidence": 0.510667
+     },
+     {
+      "id": "P:P039",
+      "label": "วัดไผ่เงินโชตนาราม",
+      "confidence": 0.510667
+     },
+     {
+      "id": "P:P041",
+      "label": "วัดกัลยาณมิตรวรมหาวิหาร",
+      "confidence": 0.341333
+     },
+     {
+      "id": "P:P044",
+      "label": "มูลนิธิโรงพยาบาลเทียนฟ้า (ศาลเจ้าแม่กวนอิม)",
+      "confidence": 0.539333
+     },
+     {
+      "id": "W:W06",
+      "label": "สุขภาพ/แคล้วคลาด",
+      "confidence": 0.539333
+     },
+     {
+      "id": "W:W10",
+      "label": "ปลดหนี้",
+      "confidence": 0.539333
+     }
+    ],
+    "runs_with_exactly_this_group": 0
+   },
+   "same_group_at_resolution": {
+    "0.5": false,
+    "1.0": false,
+    "1.5": false,
+    "2.0": false
+   },
+   "named": false,
+   "name": null,
+   "not_named_because": [
+    "GRAPH_MODULARITY_NOT_ABOVE_CHANCE",
+    "UNSTABLE_MEMBERS"
+   ],
+   "members": [
+    {
+     "id": "D:D_GUANYIN",
+     "type": "D",
+     "label": "เจ้าแม่กวนอิม",
+     "confidence": 0.539333
+    },
+    {
+     "id": "D:D_LP_SOTHORN_PAKNAM",
+     "type": "D",
+     "label": "หลวงพ่อสด (วัดปากน้ํา)",
+     "confidence": 0.302667
+    },
+    {
+     "id": "D:D_LP_TO",
+     "type": "D",
+     "label": "หลวงพ่อโต",
+     "confidence": 0.341333
+    },
+    {
+     "id": "D:D_MAE_BOONRUEAN",
+     "type": "D",
+     "label": "คุณแม่บุญเรือน โตงบุญเติม",
+     "confidence": 0.539333
+    },
+    {
+     "id": "D:D_SUNTHAREE",
+     "type": "D",
+     "label": "พระสุนทรีวาณี",
+     "confidence": 0.510667
+    },
+    {
+     "id": "D:D_WESSUWAN",
+     "type": "D",
+     "label": "ท้าวเวสสุวรรณ",
+     "confidence": 0.510667
+    },
+    {
+     "id": "P:P003",
+     "type": "P",
+     "label": "วัดอาวุธวิกสิตาราม",
+     "confidence": 0.539333
+    },
+    {
+     "id": "P:P008",
+     "type": "P",
+     "label": "วัดปากน้ํา ภาษีเจริญ",
+     "confidence": 0.302667
+    },
+    {
+     "id": "P:P015",
+     "type": "P",
+     "label": "วัดสุทัศนเทพวรารามราชวรมหาวิหาร",
+     "confidence": 0.510667
+    },
+    {
+     "id": "P:P031",
+     "type": "P",
+     "label": "วัดอินทรวิหาร (บางขุนพรหม)",
+     "confidence": 0.341333
+    },
+    {
+     "id": "P:P038",
+     "type": "P",
+     "label": "วัดราษฎร์ศรัทธาธรรม (วัดบางชัน)",
+     "confidence": 0.510667
+    },
+    {
+     "id": "P:P039",
+     "type": "P",
+     "label": "วัดไผ่เงินโชตนาราม",
+     "confidence": 0.510667
+    },
+    {
+     "id": "P:P041",
+     "type": "P",
+     "label": "วัดกัลยาณมิตรวรมหาวิหาร",
+     "confidence": 0.341333
+    },
+    {
+     "id": "P:P044",
+     "type": "P",
+     "label": "มูลนิธิโรงพยาบาลเทียนฟ้า (ศาลเจ้าแม่กวนอิม)",
+     "confidence": 0.539333
+    },
+    {
+     "id": "W:W06",
+     "type": "W",
+     "label": "สุขภาพ/แคล้วคลาด",
+     "confidence": 0.539333
+    },
+    {
+     "id": "W:W10",
+     "type": "W",
+     "label": "ปลดหนี้",
+     "confidence": 0.539333
+    }
+   ]
+  },
+  {
+   "index": 2,
+   "number": 3,
+   "size": 14,
+   "types": {
+    "W": 2,
+    "D": 6,
+    "P": 6
+   },
+   "internal_edges": {
+    "total": 13,
+    "wish_deity": 7,
+    "deity_place": 6
+   },
+   "external_edges": {
+    "total": 7,
+    "wish_deity": 7,
+    "deity_place": 0
+   },
+   "internal_share_of_degree": 0.787879,
+   "modularity_contribution": 0.093086,
+   "wishes": [
+    "การงาน",
+    "บ้าน/ที่ดิน/คดีความ"
+   ],
+   "stability": {
+    "min_confidence": 0.529231,
+    "mean_confidence": 0.663736,
+    "members_below_threshold": [
+     {
+      "id": "D:D_CITYPILLAR",
+      "label": "เจ้าพ่อหลักเมือง / เทพารักษ์ 5 องค์",
+      "confidence": 0.738462
+     },
+     {
+      "id": "D:D_GUANYU",
+      "label": "เทพเจ้ากวนอู",
+      "confidence": 0.529231
+     },
+     {
+      "id": "D:D_HANUMAN_MONKEY",
+      "label": "เจ้าพ่อเห้งเจีย (ไต่เสี่ยฮุดโจ้ว)",
+      "confidence": 0.738462
+     },
+     {
+      "id": "D:D_MAE_THORANI",
+      "label": "พระแม่ธรณีบีบมวยผม",
+      "confidence": 0.529231
+     },
+     {
+      "id": "D:D_SOMDET_TO",
+      "label": "สมเด็จพระพุฒาจารย์ (โต พรหมรังสี)",
+      "confidence": 0.738462
+     },
+     {
+      "id": "D:D_TAKSIN",
+      "label": "สมเด็จพระเจ้าตากสินมหาราช",
+      "confidence": 0.738462
+     },
+     {
+      "id": "P:P005",
+      "label": "วัดระฆังโฆสิตารามวรมหาวิหาร",
+      "confidence": 0.738462
+     },
+     {
+      "id": "P:P007",
+      "label": "ศาลเจ้ากวนอู (คลองสาน)",
+      "confidence": 0.529231
+     },
+     {
+      "id": "P:P012",
+      "label": "ศาลหลักเมืองกรุงเทพมหานคร",
+      "confidence": 0.738462
+     },
+     {
+      "id": "P:P026",
+      "label": "ศาลเจ้าพ่อเห้งเจีย (สามย่าน)",
+      "confidence": 0.738462
+     },
+     {
+      "id": "P:P032",
+      "label": "พระบรมราชานุสาวรีย์สมเด็จพระเจ้าตากสินมหาราช (วงเวียนใหญ่)",
+      "confidence": 0.738462
+     },
+     {
+      "id": "P:P051",
+      "label": "ศาลพระแม่ธรณีบีบมวยผม",
+      "confidence": 0.529231
+     },
+     {
+      "id": "W:W02",
+      "label": "การงาน",
+      "confidence": 0.738462
+     },
+     {
+      "id": "W:W07",
+      "label": "บ้าน/ที่ดิน/คดีความ",
+      "confidence": 0.529231
+     }
+    ],
+    "runs_with_exactly_this_group": 32
+   },
+   "same_group_at_resolution": {
+    "0.5": false,
+    "1.0": false,
+    "1.5": false,
+    "2.0": false
+   },
+   "named": false,
+   "name": null,
+   "not_named_because": [
+    "GRAPH_MODULARITY_NOT_ABOVE_CHANCE",
+    "UNSTABLE_MEMBERS"
+   ],
+   "members": [
+    {
+     "id": "D:D_CITYPILLAR",
+     "type": "D",
+     "label": "เจ้าพ่อหลักเมือง / เทพารักษ์ 5 องค์",
+     "confidence": 0.738462
+    },
+    {
+     "id": "D:D_GUANYU",
+     "type": "D",
+     "label": "เทพเจ้ากวนอู",
+     "confidence": 0.529231
+    },
+    {
+     "id": "D:D_HANUMAN_MONKEY",
+     "type": "D",
+     "label": "เจ้าพ่อเห้งเจีย (ไต่เสี่ยฮุดโจ้ว)",
+     "confidence": 0.738462
+    },
+    {
+     "id": "D:D_MAE_THORANI",
+     "type": "D",
+     "label": "พระแม่ธรณีบีบมวยผม",
+     "confidence": 0.529231
+    },
+    {
+     "id": "D:D_SOMDET_TO",
+     "type": "D",
+     "label": "สมเด็จพระพุฒาจารย์ (โต พรหมรังสี)",
+     "confidence": 0.738462
+    },
+    {
+     "id": "D:D_TAKSIN",
+     "type": "D",
+     "label": "สมเด็จพระเจ้าตากสินมหาราช",
+     "confidence": 0.738462
+    },
+    {
+     "id": "P:P005",
+     "type": "P",
+     "label": "วัดระฆังโฆสิตารามวรมหาวิหาร",
+     "confidence": 0.738462
+    },
+    {
+     "id": "P:P007",
+     "type": "P",
+     "label": "ศาลเจ้ากวนอู (คลองสาน)",
+     "confidence": 0.529231
+    },
+    {
+     "id": "P:P012",
+     "type": "P",
+     "label": "ศาลหลักเมืองกรุงเทพมหานคร",
+     "confidence": 0.738462
+    },
+    {
+     "id": "P:P026",
+     "type": "P",
+     "label": "ศาลเจ้าพ่อเห้งเจีย (สามย่าน)",
+     "confidence": 0.738462
+    },
+    {
+     "id": "P:P032",
+     "type": "P",
+     "label": "พระบรมราชานุสาวรีย์สมเด็จพระเจ้าตากสินมหาราช (วงเวียนใหญ่)",
+     "confidence": 0.738462
+    },
+    {
+     "id": "P:P051",
+     "type": "P",
+     "label": "ศาลพระแม่ธรณีบีบมวยผม",
+     "confidence": 0.529231
+    },
+    {
+     "id": "W:W02",
+     "type": "W",
+     "label": "การงาน",
+     "confidence": 0.738462
+    },
+    {
+     "id": "W:W07",
+     "type": "W",
+     "label": "บ้าน/ที่ดิน/คดีความ",
+     "confidence": 0.529231
+    }
+   ]
+  },
+  {
+   "index": 3,
+   "number": 4,
+   "size": 11,
+   "types": {
+    "W": 1,
+    "D": 5,
+    "P": 5
+   },
+   "internal_edges": {
+    "total": 10,
+    "wish_deity": 5,
+    "deity_place": 5
+   },
+   "external_edges": {
+    "total": 10,
+    "wish_deity": 6,
+    "deity_place": 4
+   },
+   "internal_share_of_degree": 0.666667,
+   "modularity_contribution": 0.070406,
+   "wishes": [
+    "ความรัก"
+   ],
+   "stability": {
+    "min_confidence": 0.451,
+    "mean_confidence": 0.671818,
+    "members_below_threshold": [
+     {
+      "id": "D:D_KRISHNA",
+      "label": "พระกฤษณะ",
+      "confidence": 0.666
+     },
+     {
+      "id": "D:D_LAKSHMI",
+      "label": "พระแม่ลักษมี",
+      "confidence": 0.451
+     },
+     {
+      "id": "D:D_MAE_FAENG",
+      "label": "ย่าแฟง (วัดคณิกาผล)",
+      "confidence": 0.748
+     },
+     {
+      "id": "D:D_MAE_NAK",
+      "label": "แม่นาคพระโขนง",
+      "confidence": 0.775
+     },
+     {
+      "id": "D:D_TUBTIM",
+      "label": "เจ้าแม่ทับทิม",
+      "confidence": 0.775
+     },
+     {
+      "id": "P:P019",
+      "label": "วัดมหาบุศย์ (แม่นาคพระโขนง)",
+      "confidence": 0.775
+     },
+     {
+      "id": "P:P023",
+      "label": "พระแม่ลักษมี เกษรวิลเลจ",
+      "confidence": 0.451
+     },
+     {
+      "id": "P:P029",
+      "label": "ศาลเจ้าแม่ทับทิม (สะพานซังฮี้)",
+      "confidence": 0.775
+     },
+     {
+      "id": "P:P040",
+      "label": "โบสถ์เทพมณเฑียร (Dev Mandir)",
+      "confidence": 0.451
+     },
+     {
+      "id": "P:P047",
+      "label": "วัดคณิกาผล (ย่าแฟง)",
+      "confidence": 0.748
+     },
+     {
+      "id": "W:W01",
+      "label": "ความรัก",
+      "confidence": 0.775
+     }
+    ],
+    "runs_with_exactly_this_group": 7
+   },
+   "same_group_at_resolution": {
+    "0.5": false,
+    "1.0": false,
+    "1.5": false,
+    "2.0": false
+   },
+   "named": false,
+   "name": null,
+   "not_named_because": [
+    "GRAPH_MODULARITY_NOT_ABOVE_CHANCE",
+    "UNSTABLE_MEMBERS"
+   ],
+   "members": [
+    {
+     "id": "D:D_KRISHNA",
+     "type": "D",
+     "label": "พระกฤษณะ",
+     "confidence": 0.666
+    },
+    {
+     "id": "D:D_LAKSHMI",
+     "type": "D",
+     "label": "พระแม่ลักษมี",
+     "confidence": 0.451
+    },
+    {
+     "id": "D:D_MAE_FAENG",
+     "type": "D",
+     "label": "ย่าแฟง (วัดคณิกาผล)",
+     "confidence": 0.748
+    },
+    {
+     "id": "D:D_MAE_NAK",
+     "type": "D",
+     "label": "แม่นาคพระโขนง",
+     "confidence": 0.775
+    },
+    {
+     "id": "D:D_TUBTIM",
+     "type": "D",
+     "label": "เจ้าแม่ทับทิม",
+     "confidence": 0.775
+    },
+    {
+     "id": "P:P019",
+     "type": "P",
+     "label": "วัดมหาบุศย์ (แม่นาคพระโขนง)",
+     "confidence": 0.775
+    },
+    {
+     "id": "P:P023",
+     "type": "P",
+     "label": "พระแม่ลักษมี เกษรวิลเลจ",
+     "confidence": 0.451
+    },
+    {
+     "id": "P:P029",
+     "type": "P",
+     "label": "ศาลเจ้าแม่ทับทิม (สะพานซังฮี้)",
+     "confidence": 0.775
+    },
+    {
+     "id": "P:P040",
+     "type": "P",
+     "label": "โบสถ์เทพมณเฑียร (Dev Mandir)",
+     "confidence": 0.451
+    },
+    {
+     "id": "P:P047",
+     "type": "P",
+     "label": "วัดคณิกาผล (ย่าแฟง)",
+     "confidence": 0.748
+    },
+    {
+     "id": "W:W01",
+     "type": "W",
+     "label": "ความรัก",
+     "confidence": 0.775
+    }
+   ]
+  },
+  {
+   "index": 4,
+   "number": 5,
+   "size": 10,
+   "types": {
+    "W": 1,
+    "D": 5,
+    "P": 4
+   },
+   "internal_edges": {
+    "total": 9,
+    "wish_deity": 2,
+    "deity_place": 7
+   },
+   "external_edges": {
+    "total": 3,
+    "wish_deity": 2,
+    "deity_place": 1
+   },
+   "internal_share_of_degree": 0.857143,
+   "modularity_contribution": 0.070464,
+   "wishes": [
+    "แก้ชง/สะเดาะเคราะห์"
+   ],
+   "stability": {
+    "min_confidence": 1.0,
+    "mean_confidence": 1.0,
+    "members_below_threshold": [],
+    "runs_with_exactly_this_group": 70
+   },
+   "same_group_at_resolution": {
+    "0.5": true,
+    "1.0": true,
+    "1.5": false,
+    "2.0": false
+   },
+   "named": false,
+   "name": null,
+   "not_named_because": [
+    "GRAPH_MODULARITY_NOT_ABOVE_CHANCE"
+   ],
+   "members": [
+    {
+     "id": "D:D_CAISHEN",
+     "type": "D",
+     "label": "ไฉ่ซิงเอี๊ย",
+     "confidence": 1.0
+    },
+    {
+     "id": "D:D_HUATUO",
+     "type": "D",
+     "label": "ฮั่วท้อเซียนซือ (หมอเทวดา)",
+     "confidence": 1.0
+    },
+    {
+     "id": "D:D_PAEKONG",
+     "type": "D",
+     "label": "องค์แป๊ะกง / เทพกังหัน",
+     "confidence": 1.0
+    },
+    {
+     "id": "D:D_TAISUI",
+     "type": "D",
+     "label": "ไท้ส่วยเอี๊ย",
+     "confidence": 1.0
+    },
+    {
+     "id": "D:D_TIGERGOD",
+     "type": "D",
+     "label": "เจ้าพ่อเสือ (ตั่วเหล่าเอี๊ย)",
+     "confidence": 1.0
+    },
+    {
+     "id": "P:P013",
+     "type": "P",
+     "label": "ศาลเจ้าพ่อเสือ (เสาชิงช้า)",
+     "confidence": 1.0
+    },
+    {
+     "id": "P:P017",
+     "type": "P",
+     "label": "วัดมังกรกมลาวาส (วัดเล่งเน่ยยี่)",
+     "confidence": 1.0
+    },
+    {
+     "id": "P:P042",
+     "type": "P",
+     "label": "วัดทิพยวารีวิหาร (กัมโล่วยี่)",
+     "confidence": 1.0
+    },
+    {
+     "id": "P:P043",
+     "type": "P",
+     "label": "ศาลเจ้าโจวซือกง (ตลาดน้อย)",
+     "confidence": 1.0
+    },
+    {
+     "id": "W:W08",
+     "type": "W",
+     "label": "แก้ชง/สะเดาะเคราะห์",
+     "confidence": 1.0
+    }
+   ]
+  },
+  {
+   "index": 5,
+   "number": 6,
+   "size": 8,
+   "types": {
+    "W": 2,
+    "D": 3,
+    "P": 3
+   },
+   "internal_edges": {
+    "total": 7,
+    "wish_deity": 4,
+    "deity_place": 3
+   },
+   "external_edges": {
+    "total": 9,
+    "wish_deity": 9,
+    "deity_place": 0
+   },
+   "internal_share_of_degree": 0.608696,
+   "modularity_contribution": 0.051227,
+   "wishes": [
+    "การเงิน/โชคลาภ",
+    "เสี่ยงโชค"
+   ],
+   "stability": {
+    "min_confidence": 0.742857,
+    "mean_confidence": 0.871429,
+    "members_below_threshold": [
+     {
+      "id": "D:D_RAMA5",
+      "label": "พระบาทสมเด็จพระจุลจอมเกล้าเจ้าอยู่หัว (ร.5)",
+      "confidence": 0.742857
+     },
+     {
+      "id": "P:P025",
+      "label": "พระบรมรูปทรงม้า (ลานพระราชวังดุสิต)",
+      "confidence": 0.742857
+     }
+    ],
+    "runs_with_exactly_this_group": 4
+   },
+   "same_group_at_resolution": {
+    "0.5": false,
+    "1.0": false,
+    "1.5": true,
+    "2.0": true
+   },
+   "named": false,
+   "name": null,
+   "not_named_because": [
+    "GRAPH_MODULARITY_NOT_ABOVE_CHANCE",
+    "UNSTABLE_MEMBERS"
+   ],
+   "members": [
+    {
+     "id": "D:D_LP_THONGKHAM",
+     "type": "D",
+     "label": "หลวงพ่อทองคํา (พระพุทธมหาสุวรรณปฏิมากร)",
+     "confidence": 0.914286
+    },
+    {
+     "id": "D:D_RAMA5",
+     "type": "D",
+     "label": "พระบาทสมเด็จพระจุลจอมเกล้าเจ้าอยู่หัว (ร.5)",
+     "confidence": 0.742857
+    },
+    {
+     "id": "D:D_YIKOHONG",
+     "type": "D",
+     "label": "พ่อปู่เจ้ายี่กอฮง",
+     "confidence": 0.914286
+    },
+    {
+     "id": "P:P016",
+     "type": "P",
+     "label": "ศาลพ่อปู่เจ้ายี่กอฮง",
+     "confidence": 0.914286
+    },
+    {
+     "id": "P:P018",
+     "type": "P",
+     "label": "วัดไตรมิตรวิทยารามวรวิหาร",
+     "confidence": 0.914286
+    },
+    {
+     "id": "P:P025",
+     "type": "P",
+     "label": "พระบรมรูปทรงม้า (ลานพระราชวังดุสิต)",
+     "confidence": 0.742857
+    },
+    {
+     "id": "W:W03",
+     "type": "W",
+     "label": "การเงิน/โชคลาภ",
+     "confidence": 0.914286
+    },
+    {
+     "id": "W:W09",
+     "type": "W",
+     "label": "เสี่ยงโชค",
+     "confidence": 0.914286
+    }
+   ]
+  },
+  {
+   "index": 6,
+   "number": 7,
+   "size": 6,
+   "types": {
+    "W": 1,
+    "D": 2,
+    "P": 3
+   },
+   "internal_edges": {
+    "total": 5,
+    "wish_deity": 1,
+    "deity_place": 4
+   },
+   "external_edges": {
+    "total": 5,
+    "wish_deity": 2,
+    "deity_place": 3
+   },
+   "internal_share_of_degree": 0.666667,
+   "modularity_contribution": 0.039531,
+   "wishes": [
+    "บัตรคอน/กิจกรรมติ่ง"
+   ],
+   "stability": {
+    "min_confidence": 1.0,
+    "mean_confidence": 1.0,
+    "members_below_threshold": [],
+    "runs_with_exactly_this_group": 1
+   },
+   "same_group_at_resolution": {
+    "0.5": false,
+    "1.0": false,
+    "1.5": true,
+    "2.0": true
+   },
+   "named": false,
+   "name": null,
+   "not_named_because": [
+    "GRAPH_MODULARITY_NOT_ABOVE_CHANCE"
+   ],
+   "members": [
+    {
+     "id": "D:D_GANESHA",
+     "type": "D",
+     "label": "พระพิฆเนศ",
+     "confidence": 1.0
+    },
+    {
+     "id": "D:D_RAHU",
+     "type": "D",
+     "label": "พระราหู",
+     "confidence": 1.0
+    },
+    {
+     "id": "P:P021",
+     "type": "P",
+     "label": "เทวาลัยพระพิฆเนศ สี่แยกห้วยขวาง",
+     "confidence": 1.0
+    },
+    {
+     "id": "P:P036",
+     "type": "P",
+     "label": "ศาลพระพิฆเนศ ลานเซ็นทรัลเวิลด์",
+     "confidence": 1.0
+    },
+    {
+     "id": "P:P037",
+     "type": "P",
+     "label": "องค์พ่อพระพิฆเนศ ยูเนี่ยนมอลล์",
+     "confidence": 1.0
+    },
+    {
+     "id": "W:W05",
+     "type": "W",
+     "label": "บัตรคอน/กิจกรรมติ่ง",
+     "confidence": 1.0
+    }
+   ]
+  },
+  {
+   "index": 7,
+   "number": 8,
+   "size": 2,
+   "types": {
+    "W": 0,
+    "D": 1,
+    "P": 1
+   },
+   "internal_edges": {
+    "total": 1,
+    "wish_deity": 0,
+    "deity_place": 1
+   },
+   "external_edges": {
+    "total": 0,
+    "wish_deity": 0,
+    "deity_place": 0
+   },
+   "internal_share_of_degree": 1.0,
+   "modularity_contribution": 0.008695,
+   "wishes": [],
+   "stability": {
+    "min_confidence": 1.0,
+    "mean_confidence": 1.0,
+    "members_below_threshold": [],
+    "runs_with_exactly_this_group": 100
+   },
+   "same_group_at_resolution": {
+    "0.5": true,
+    "1.0": true,
+    "1.5": true,
+    "2.0": true
+   },
+   "named": false,
+   "name": null,
+   "not_named_because": [
+    "GRAPH_MODULARITY_NOT_ABOVE_CHANCE",
+    "NO_WISH_IN_GROUP"
+   ],
+   "members": [
+    {
+     "id": "D:D_HIRAN",
+     "type": "D",
+     "label": "ท้าวหิรัญพนาสูร (ท้าวหิรัญพนาสูร รพ.พระมงกุฎเกล้า)",
+     "confidence": 1.0
+    },
+    {
+     "id": "P:P035",
+     "type": "P",
+     "label": "โรงพยาบาลสงฆ์ (จุดทําบุญ)",
+     "confidence": 1.0
+    }
+   ]
+  },
+  {
+   "index": 8,
+   "number": 9,
+   "size": 2,
+   "types": {
+    "W": 0,
+    "D": 1,
+    "P": 1
+   },
+   "internal_edges": {
+    "total": 1,
+    "wish_deity": 0,
+    "deity_place": 1
+   },
+   "external_edges": {
+    "total": 0,
+    "wish_deity": 0,
+    "deity_place": 0
+   },
+   "internal_share_of_degree": 1.0,
+   "modularity_contribution": 0.008695,
+   "wishes": [],
+   "stability": {
+    "min_confidence": 1.0,
+    "mean_confidence": 1.0,
+    "members_below_threshold": [],
+    "runs_with_exactly_this_group": 100
+   },
+   "same_group_at_resolution": {
+    "0.5": true,
+    "1.0": true,
+    "1.5": true,
+    "2.0": true
+   },
+   "named": false,
+   "name": null,
+   "not_named_because": [
+    "GRAPH_MODULARITY_NOT_ABOVE_CHANCE",
+    "NO_WISH_IN_GROUP"
+   ],
+   "members": [
+    {
+     "id": "D:D_PHRAKAEW",
+     "type": "D",
+     "label": "พระแก้วมรกต",
+     "confidence": 1.0
+    },
+    {
+     "id": "P:P045",
+     "type": "P",
+     "label": "วัดพระศรีรัตนศาสดาราม (วัดพระแก้ว)",
+     "confidence": 1.0
+    }
+   ]
+  },
+  {
+   "index": 9,
+   "number": 10,
+   "size": 1,
+   "types": {
+    "W": 0,
+    "D": 0,
+    "P": 1
+   },
+   "internal_edges": {
+    "total": 0,
+    "wish_deity": 0,
+    "deity_place": 0
+   },
+   "external_edges": {
+    "total": 0,
+    "wish_deity": 0,
+    "deity_place": 0
+   },
+   "internal_share_of_degree": null,
+   "modularity_contribution": 0.0,
+   "wishes": [],
+   "stability": null,
+   "same_group_at_resolution": null,
+   "named": false,
+   "name": null,
+   "not_named_because": [
+    "SINGLE_NODE",
+    "GRAPH_MODULARITY_NOT_ABOVE_CHANCE",
+    "NO_WISH_IN_GROUP"
+   ],
+   "members": [
+    {
+     "id": "P:P004",
+     "type": "P",
+     "label": "วัดสุวรรณารามราชวรวิหาร",
+     "confidence": null
+    }
+   ]
+  },
+  {
+   "index": 10,
+   "number": 11,
+   "size": 1,
+   "types": {
+    "W": 0,
+    "D": 0,
+    "P": 1
+   },
+   "internal_edges": {
+    "total": 0,
+    "wish_deity": 0,
+    "deity_place": 0
+   },
+   "external_edges": {
+    "total": 0,
+    "wish_deity": 0,
+    "deity_place": 0
+   },
+   "internal_share_of_degree": null,
+   "modularity_contribution": 0.0,
+   "wishes": [],
+   "stability": null,
+   "same_group_at_resolution": null,
+   "named": false,
+   "name": null,
+   "not_named_because": [
+    "SINGLE_NODE",
+    "GRAPH_MODULARITY_NOT_ABOVE_CHANCE",
+    "NO_WISH_IN_GROUP"
+   ],
+   "members": [
+    {
+     "id": "P:P006",
+     "type": "P",
+     "label": "วัดอรุณราชวรารามราชวรมหาวิหาร",
+     "confidence": null
+    }
+   ]
+  },
+  {
+   "index": 11,
+   "number": 12,
+   "size": 1,
+   "types": {
+    "W": 0,
+    "D": 0,
+    "P": 1
+   },
+   "internal_edges": {
+    "total": 0,
+    "wish_deity": 0,
+    "deity_place": 0
+   },
+   "external_edges": {
+    "total": 0,
+    "wish_deity": 0,
+    "deity_place": 0
+   },
+   "internal_share_of_degree": null,
+   "modularity_contribution": 0.0,
+   "wishes": [],
+   "stability": null,
+   "same_group_at_resolution": null,
+   "named": false,
+   "name": null,
+   "not_named_because": [
+    "SINGLE_NODE",
+    "GRAPH_MODULARITY_NOT_ABOVE_CHANCE",
+    "NO_WISH_IN_GROUP"
+   ],
+   "members": [
+    {
+     "id": "P:P009",
+     "type": "P",
+     "label": "วัดราชโอรสารามราชวรวิหาร",
+     "confidence": null
+    }
+   ]
+  },
+  {
+   "index": 12,
+   "number": 13,
+   "size": 1,
+   "types": {
+    "W": 0,
+    "D": 0,
+    "P": 1
+   },
+   "internal_edges": {
+    "total": 0,
+    "wish_deity": 0,
+    "deity_place": 0
+   },
+   "external_edges": {
+    "total": 0,
+    "wish_deity": 0,
+    "deity_place": 0
+   },
+   "internal_share_of_degree": null,
+   "modularity_contribution": 0.0,
+   "wishes": [],
+   "stability": null,
+   "same_group_at_resolution": null,
+   "named": false,
+   "name": null,
+   "not_named_because": [
+    "SINGLE_NODE",
+    "GRAPH_MODULARITY_NOT_ABOVE_CHANCE",
+    "NO_WISH_IN_GROUP"
+   ],
+   "members": [
+    {
+     "id": "P:P010",
+     "type": "P",
+     "label": "วัดหลวงพ่อโอภาสี",
+     "confidence": null
+    }
+   ]
+  },
+  {
+   "index": 13,
+   "number": 14,
+   "size": 1,
+   "types": {
+    "W": 0,
+    "D": 0,
+    "P": 1
+   },
+   "internal_edges": {
+    "total": 0,
+    "wish_deity": 0,
+    "deity_place": 0
+   },
+   "external_edges": {
+    "total": 0,
+    "wish_deity": 0,
+    "deity_place": 0
+   },
+   "internal_share_of_degree": null,
+   "modularity_contribution": 0.0,
+   "wishes": [],
+   "stability": null,
+   "same_group_at_resolution": null,
+   "named": false,
+   "name": null,
+   "not_named_because": [
+    "SINGLE_NODE",
+    "GRAPH_MODULARITY_NOT_ABOVE_CHANCE",
+    "NO_WISH_IN_GROUP"
+   ],
+   "members": [
+    {
+     "id": "P:P011",
+     "type": "P",
+     "label": "วัดมหาธาตุยุวราชรังสฤษฎิ์ราชวรมหาวิหาร",
+     "confidence": null
+    }
+   ]
+  },
+  {
+   "index": 14,
+   "number": 15,
+   "size": 1,
+   "types": {
+    "W": 0,
+    "D": 0,
+    "P": 1
+   },
+   "internal_edges": {
+    "total": 0,
+    "wish_deity": 0,
+    "deity_place": 0
+   },
+   "external_edges": {
+    "total": 0,
+    "wish_deity": 0,
+    "deity_place": 0
+   },
+   "internal_share_of_degree": null,
+   "modularity_contribution": 0.0,
+   "wishes": [],
+   "stability": null,
+   "same_group_at_resolution": null,
+   "named": false,
+   "name": null,
+   "not_named_because": [
+    "SINGLE_NODE",
+    "GRAPH_MODULARITY_NOT_ABOVE_CHANCE",
+    "NO_WISH_IN_GROUP"
+   ],
+   "members": [
+    {
+     "id": "P:P020",
+     "type": "P",
+     "label": "วัดกระทุ่มเสือปลา",
+     "confidence": null
+    }
+   ]
+  },
+  {
+   "index": 15,
+   "number": 16,
+   "size": 1,
+   "types": {
+    "W": 0,
+    "D": 0,
+    "P": 1
+   },
+   "internal_edges": {
+    "total": 0,
+    "wish_deity": 0,
+    "deity_place": 0
+   },
+   "external_edges": {
+    "total": 0,
+    "wish_deity": 0,
+    "deity_place": 0
+   },
+   "internal_share_of_degree": null,
+   "modularity_contribution": 0.0,
+   "wishes": [],
+   "stability": null,
+   "same_group_at_resolution": null,
+   "named": false,
+   "name": null,
+   "not_named_because": [
+    "SINGLE_NODE",
+    "GRAPH_MODULARITY_NOT_ABOVE_CHANCE",
+    "NO_WISH_IN_GROUP"
+   ],
+   "members": [
+    {
+     "id": "P:P024",
+     "type": "P",
+     "label": "วัดบวรนิเวศราชวรวิหาร",
+     "confidence": null
+    }
+   ]
+  },
+  {
+   "index": 16,
+   "number": 17,
+   "size": 1,
+   "types": {
+    "W": 0,
+    "D": 0,
+    "P": 1
+   },
+   "internal_edges": {
+    "total": 0,
+    "wish_deity": 0,
+    "deity_place": 0
+   },
+   "external_edges": {
+    "total": 0,
+    "wish_deity": 0,
+    "deity_place": 0
+   },
+   "internal_share_of_degree": null,
+   "modularity_contribution": 0.0,
+   "wishes": [],
+   "stability": null,
+   "same_group_at_resolution": null,
+   "named": false,
+   "name": null,
+   "not_named_because": [
+    "SINGLE_NODE",
+    "GRAPH_MODULARITY_NOT_ABOVE_CHANCE",
+    "NO_WISH_IN_GROUP"
+   ],
+   "members": [
+    {
+     "id": "P:P027",
+     "type": "P",
+     "label": "วัดสระเกศราชวรมหาวิหาร (ภูเขาทอง)",
+     "confidence": null
+    }
+   ]
+  },
+  {
+   "index": 17,
+   "number": 18,
+   "size": 1,
+   "types": {
+    "W": 0,
+    "D": 0,
+    "P": 1
+   },
+   "internal_edges": {
+    "total": 0,
+    "wish_deity": 0,
+    "deity_place": 0
+   },
+   "external_edges": {
+    "total": 0,
+    "wish_deity": 0,
+    "deity_place": 0
+   },
+   "internal_share_of_degree": null,
+   "modularity_contribution": 0.0,
+   "wishes": [],
+   "stability": null,
+   "same_group_at_resolution": null,
+   "named": false,
+   "name": null,
+   "not_named_because": [
+    "SINGLE_NODE",
+    "GRAPH_MODULARITY_NOT_ABOVE_CHANCE",
+    "NO_WISH_IN_GROUP"
+   ],
+   "members": [
+    {
+     "id": "P:P028",
+     "type": "P",
+     "label": "วัดราชบพิธสถิตมหาสีมารามราชวรวิหาร",
+     "confidence": null
+    }
+   ]
+  },
+  {
+   "index": 18,
+   "number": 19,
+   "size": 1,
+   "types": {
+    "W": 0,
+    "D": 0,
+    "P": 1
+   },
+   "internal_edges": {
+    "total": 0,
+    "wish_deity": 0,
+    "deity_place": 0
+   },
+   "external_edges": {
+    "total": 0,
+    "wish_deity": 0,
+    "deity_place": 0
+   },
+   "internal_share_of_degree": null,
+   "modularity_contribution": 0.0,
+   "wishes": [],
+   "stability": null,
+   "same_group_at_resolution": null,
+   "named": false,
+   "name": null,
+   "not_named_because": [
+    "SINGLE_NODE",
+    "GRAPH_MODULARITY_NOT_ABOVE_CHANCE",
+    "NO_WISH_IN_GROUP"
+   ],
+   "members": [
+    {
+     "id": "P:P033",
+     "type": "P",
+     "label": "วัดยานนาวา",
+     "confidence": null
+    }
+   ]
+  },
+  {
+   "index": 19,
+   "number": 20,
+   "size": 1,
+   "types": {
+    "W": 0,
+    "D": 0,
+    "P": 1
+   },
+   "internal_edges": {
+    "total": 0,
+    "wish_deity": 0,
+    "deity_place": 0
+   },
+   "external_edges": {
+    "total": 0,
+    "wish_deity": 0,
+    "deity_place": 0
+   },
+   "internal_share_of_degree": null,
+   "modularity_contribution": 0.0,
+   "wishes": [],
+   "stability": null,
+   "same_group_at_resolution": null,
+   "named": false,
+   "name": null,
+   "not_named_because": [
+    "SINGLE_NODE",
+    "GRAPH_MODULARITY_NOT_ABOVE_CHANCE",
+    "NO_WISH_IN_GROUP"
+   ],
+   "members": [
+    {
+     "id": "P:P034",
+     "type": "P",
+     "label": "วัดประยุรวงศาวาสวรวิหาร",
+     "confidence": null
+    }
+   ]
+  },
+  {
+   "index": 20,
+   "number": 21,
+   "size": 1,
+   "types": {
+    "W": 0,
+    "D": 0,
+    "P": 1
+   },
+   "internal_edges": {
+    "total": 0,
+    "wish_deity": 0,
+    "deity_place": 0
+   },
+   "external_edges": {
+    "total": 0,
+    "wish_deity": 0,
+    "deity_place": 0
+   },
+   "internal_share_of_degree": null,
+   "modularity_contribution": 0.0,
+   "wishes": [],
+   "stability": null,
+   "same_group_at_resolution": null,
+   "named": false,
+   "name": null,
+   "not_named_because": [
+    "SINGLE_NODE",
+    "GRAPH_MODULARITY_NOT_ABOVE_CHANCE",
+    "NO_WISH_IN_GROUP"
+   ],
+   "members": [
+    {
+     "id": "P:P046",
+     "type": "P",
+     "label": "วัดสุทธาราม",
+     "confidence": null
+    }
+   ]
+  },
+  {
+   "index": 21,
+   "number": 22,
+   "size": 1,
+   "types": {
+    "W": 0,
+    "D": 0,
+    "P": 1
+   },
+   "internal_edges": {
+    "total": 0,
+    "wish_deity": 0,
+    "deity_place": 0
+   },
+   "external_edges": {
+    "total": 0,
+    "wish_deity": 0,
+    "deity_place": 0
+   },
+   "internal_share_of_degree": null,
+   "modularity_contribution": 0.0,
+   "wishes": [],
+   "stability": null,
+   "same_group_at_resolution": null,
+   "named": false,
+   "name": null,
+   "not_named_because": [
+    "SINGLE_NODE",
+    "GRAPH_MODULARITY_NOT_ABOVE_CHANCE",
+    "NO_WISH_IN_GROUP"
+   ],
+   "members": [
+    {
+     "id": "P:P048",
+     "type": "P",
+     "label": "ศาลเจ้ากวางตุ้ง",
+     "confidence": null
+    }
+   ]
+  },
+  {
+   "index": 22,
+   "number": 23,
+   "size": 1,
+   "types": {
+    "W": 0,
+    "D": 0,
+    "P": 1
+   },
+   "internal_edges": {
+    "total": 0,
+    "wish_deity": 0,
+    "deity_place": 0
+   },
+   "external_edges": {
+    "total": 0,
+    "wish_deity": 0,
+    "deity_place": 0
+   },
+   "internal_share_of_degree": null,
+   "modularity_contribution": 0.0,
+   "wishes": [],
+   "stability": null,
+   "same_group_at_resolution": null,
+   "named": false,
+   "name": null,
+   "not_named_because": [
+    "SINGLE_NODE",
+    "GRAPH_MODULARITY_NOT_ABOVE_CHANCE",
+    "NO_WISH_IN_GROUP"
+   ],
+   "members": [
+    {
+     "id": "P:P049",
+     "type": "P",
+     "label": "ศาลเจ้าหลีตี๊เมี๊ยว",
+     "confidence": null
+    }
+   ]
+  },
+  {
+   "index": 23,
+   "number": 24,
+   "size": 1,
+   "types": {
+    "W": 0,
+    "D": 0,
+    "P": 1
+   },
+   "internal_edges": {
+    "total": 0,
+    "wish_deity": 0,
+    "deity_place": 0
+   },
+   "external_edges": {
+    "total": 0,
+    "wish_deity": 0,
+    "deity_place": 0
+   },
+   "internal_share_of_degree": null,
+   "modularity_contribution": 0.0,
+   "wishes": [],
+   "stability": null,
+   "same_group_at_resolution": null,
+   "named": false,
+   "name": null,
+   "not_named_because": [
+    "SINGLE_NODE",
+    "GRAPH_MODULARITY_NOT_ABOVE_CHANCE",
+    "NO_WISH_IN_GROUP"
+   ],
+   "members": [
+    {
+     "id": "P:P050",
+     "type": "P",
+     "label": "ศาลเจ้าไต้ฮงกง (มูลนิธิป่อเต็กตึ๊ง)",
+     "confidence": null
+    }
+   ]
+  },
+  {
+   "index": 24,
+   "number": 25,
+   "size": 1,
+   "types": {
+    "W": 0,
+    "D": 0,
+    "P": 1
+   },
+   "internal_edges": {
+    "total": 0,
+    "wish_deity": 0,
+    "deity_place": 0
+   },
+   "external_edges": {
+    "total": 0,
+    "wish_deity": 0,
+    "deity_place": 0
+   },
+   "internal_share_of_degree": null,
+   "modularity_contribution": 0.0,
+   "wishes": [],
+   "stability": null,
+   "same_group_at_resolution": null,
+   "named": false,
+   "name": null,
+   "not_named_because": [
+    "SINGLE_NODE",
+    "GRAPH_MODULARITY_NOT_ABOVE_CHANCE",
+    "NO_WISH_IN_GROUP"
+   ],
+   "members": [
+    {
+     "id": "P:P052",
+     "type": "P",
+     "label": "ศาลสิงห์โตทอง มหาวิทยาลัยธรรมศาสตร์ ท่าพระจันทร์",
+     "confidence": null
+    }
+   ]
+  }
+ ],
+ "degree_by_type": [
+  {
+   "id": "D:D_BRAHMA",
+   "type": "D",
+   "label": "ท้าวมหาพรหม / พระพรหม",
+   "wish_links": 3,
+   "deity_links": null,
+   "place_links": 4
+  },
+  {
+   "id": "D:D_CAISHEN",
+   "type": "D",
+   "label": "ไฉ่ซิงเอี๊ย",
+   "wish_links": 1,
+   "deity_links": null,
+   "place_links": 1
+  },
+  {
+   "id": "D:D_CITYPILLAR",
+   "type": "D",
+   "label": "เจ้าพ่อหลักเมือง / เทพารักษ์ 5 องค์",
+   "wish_links": 1,
+   "deity_links": null,
+   "place_links": 1
+  },
+  {
+   "id": "D:D_DURGA",
+   "type": "D",
+   "label": "พระแม่ทุรคา",
+   "wish_links": 0,
+   "deity_links": null,
+   "place_links": 1
+  },
+  {
+   "id": "D:D_GANESHA",
+   "type": "D",
+   "label": "พระพิฆเนศ",
+   "wish_links": 3,
+   "deity_links": null,
+   "place_links": 6
+  },
+  {
+   "id": "D:D_GUANYIN",
+   "type": "D",
+   "label": "เจ้าแม่กวนอิม",
+   "wish_links": 1,
+   "deity_links": null,
+   "place_links": 1
+  },
+  {
+   "id": "D:D_GUANYU",
+   "type": "D",
+   "label": "เทพเจ้ากวนอู",
+   "wish_links": 2,
+   "deity_links": null,
+   "place_links": 1
+  },
+  {
+   "id": "D:D_HANUMAN_MONKEY",
+   "type": "D",
+   "label": "เจ้าพ่อเห้งเจีย (ไต่เสี่ยฮุดโจ้ว)",
+   "wish_links": 1,
+   "deity_links": null,
+   "place_links": 1
+  },
+  {
+   "id": "D:D_HIRAN",
+   "type": "D",
+   "label": "ท้าวหิรัญพนาสูร (ท้าวหิรัญพนาสูร รพ.พระมงกุฎเกล้า)",
+   "wish_links": 0,
+   "deity_links": null,
+   "place_links": 1
+  },
+  {
+   "id": "D:D_HUATUO",
+   "type": "D",
+   "label": "ฮั่วท้อเซียนซือ (หมอเทวดา)",
+   "wish_links": 0,
+   "deity_links": null,
+   "place_links": 1
+  },
+  {
+   "id": "D:D_KALI",
+   "type": "D",
+   "label": "พระแม่กาลี",
+   "wish_links": 0,
+   "deity_links": null,
+   "place_links": 1
+  },
+  {
+   "id": "D:D_KRISHNA",
+   "type": "D",
+   "label": "พระกฤษณะ",
+   "wish_links": 2,
+   "deity_links": null,
+   "place_links": 1
+  },
+  {
+   "id": "D:D_LAKSHMI",
+   "type": "D",
+   "label": "พระแม่ลักษมี",
+   "wish_links": 2,
+   "deity_links": null,
+   "place_links": 5
+  },
+  {
+   "id": "D:D_LP_SOTHORN_PAKNAM",
+   "type": "D",
+   "label": "หลวงพ่อสด (วัดปากน้ํา)",
+   "wish_links": 2,
+   "deity_links": null,
+   "place_links": 1
+  },
+  {
+   "id": "D:D_LP_THONGKHAM",
+   "type": "D",
+   "label": "หลวงพ่อทองคํา (พระพุทธมหาสุวรรณปฏิมากร)",
+   "wish_links": 1,
+   "deity_links": null,
+   "place_links": 1
+  },
+  {
+   "id": "D:D_LP_TO",
+   "type": "D",
+   "label": "หลวงพ่อโต",
+   "wish_links": 2,
+   "deity_links": null,
+   "place_links": 2
+  },
+  {
+   "id": "D:D_MAE_BOONRUEAN",
+   "type": "D",
+   "label": "คุณแม่บุญเรือน โตงบุญเติม",
+   "wish_links": 3,
+   "deity_links": null,
+   "place_links": 1
+  },
+  {
+   "id": "D:D_MAE_FAENG",
+   "type": "D",
+   "label": "ย่าแฟง (วัดคณิกาผล)",
+   "wish_links": 2,
+   "deity_links": null,
+   "place_links": 1
+  },
+  {
+   "id": "D:D_MAE_NAK",
+   "type": "D",
+   "label": "แม่นาคพระโขนง",
+   "wish_links": 1,
+   "deity_links": null,
+   "place_links": 1
+  },
+  {
+   "id": "D:D_MAE_THORANI",
+   "type": "D",
+   "label": "พระแม่ธรณีบีบมวยผม",
+   "wish_links": 1,
+   "deity_links": null,
+   "place_links": 1
+  },
+  {
+   "id": "D:D_PAEKONG",
+   "type": "D",
+   "label": "องค์แป๊ะกง / เทพกังหัน",
+   "wish_links": 0,
+   "deity_links": null,
+   "place_links": 1
+  },
+  {
+   "id": "D:D_PHRAKAEW",
+   "type": "D",
+   "label": "พระแก้วมรกต",
+   "wish_links": 0,
+   "deity_links": null,
+   "place_links": 1
+  },
+  {
+   "id": "D:D_RAHU",
+   "type": "D",
+   "label": "พระราหู",
+   "wish_links": 0,
+   "deity_links": null,
+   "place_links": 1
+  },
+  {
+   "id": "D:D_RAMA5",
+   "type": "D",
+   "label": "พระบาทสมเด็จพระจุลจอมเกล้าเจ้าอยู่หัว (ร.5)",
+   "wish_links": 2,
+   "deity_links": null,
+   "place_links": 1
+  },
+  {
+   "id": "D:D_SARASWATI",
+   "type": "D",
+   "label": "พระแม่สุรัสวดี",
+   "wish_links": 1,
+   "deity_links": null,
+   "place_links": 3
+  },
+  {
+   "id": "D:D_SHIVA",
+   "type": "D",
+   "label": "พระศิวะ / พระอิศวร",
+   "wish_links": 1,
+   "deity_links": null,
+   "place_links": 3
+  },
+  {
+   "id": "D:D_SKANDA",
+   "type": "D",
+   "label": "พระขันธกุมาร",
+   "wish_links": 0,
+   "deity_links": null,
+   "place_links": 2
+  },
+  {
+   "id": "D:D_SOMDET_TO",
+   "type": "D",
+   "label": "สมเด็จพระพุฒาจารย์ (โต พรหมรังสี)",
+   "wish_links": 1,
+   "deity_links": null,
+   "place_links": 1
+  },
+  {
+   "id": "D:D_SUNTHAREE",
+   "type": "D",
+   "label": "พระสุนทรีวาณี",
+   "wish_links": 0,
+   "deity_links": null,
+   "place_links": 1
+  },
+  {
+   "id": "D:D_TAISUI",
+   "type": "D",
+   "label": "ไท้ส่วยเอี๊ย",
+   "wish_links": 1,
+   "deity_links": null,
+   "place_links": 3
+  },
+  {
+   "id": "D:D_TAKSIN",
+   "type": "D",
+   "label": "สมเด็จพระเจ้าตากสินมหาราช",
+   "wish_links": 1,
+   "deity_links": null,
+   "place_links": 1
+  },
+  {
+   "id": "D:D_TIGERGOD",
+   "type": "D",
+   "label": "เจ้าพ่อเสือ (ตั่วเหล่าเอี๊ย)",
+   "wish_links": 2,
+   "deity_links": null,
+   "place_links": 1
+  },
+  {
+   "id": "D:D_TRIMURTI",
+   "type": "D",
+   "label": "พระตรีมูรติ",
+   "wish_links": 1,
+   "deity_links": null,
+   "place_links": 2
+  },
+  {
+   "id": "D:D_TUBTIM",
+   "type": "D",
+   "label": "เจ้าแม่ทับทิม",
+   "wish_links": 1,
+   "deity_links": null,
+   "place_links": 1
+  },
+  {
+   "id": "D:D_UMA",
+   "type": "D",
+   "label": "พระแม่อุมาเทวี",
+   "wish_links": 2,
+   "deity_links": null,
+   "place_links": 3
+  },
+  {
+   "id": "D:D_VISHNU",
+   "type": "D",
+   "label": "พระวิษณุ / พระนารายณ์",
+   "wish_links": 1,
+   "deity_links": null,
+   "place_links": 3
+  },
+  {
+   "id": "D:D_WENCHANG",
+   "type": "D",
+   "label": "เทพบุ่นเชียง (บุ๋นเชียงตี่กุง)",
+   "wish_links": 1,
+   "deity_links": null,
+   "place_links": 1
+  },
+  {
+   "id": "D:D_WESSUWAN",
+   "type": "D",
+   "label": "ท้าวเวสสุวรรณ",
+   "wish_links": 3,
+   "deity_links": null,
+   "place_links": 3
+  },
+  {
+   "id": "D:D_YIKOHONG",
+   "type": "D",
+   "label": "พ่อปู่เจ้ายี่กอฮง",
+   "wish_links": 2,
+   "deity_links": null,
+   "place_links": 1
+  },
+  {
+   "id": "P:P001",
+   "type": "P",
+   "label": "วัดพระศรีมหาอุมาเทวี (วัดแขก สีลม)",
+   "wish_links": null,
+   "deity_links": 10,
+   "place_links": null
+  },
+  {
+   "id": "P:P002",
+   "type": "P",
+   "label": "วัดวิษณุ (สมาคมฮินดูธรรมสภา)",
+   "wish_links": null,
+   "deity_links": 9,
+   "place_links": null
+  },
+  {
+   "id": "P:P003",
+   "type": "P",
+   "label": "วัดอาวุธวิกสิตาราม",
+   "wish_links": null,
+   "deity_links": 1,
+   "place_links": null
+  },
+  {
+   "id": "P:P004",
+   "type": "P",
+   "label": "วัดสุวรรณารามราชวรวิหาร",
+   "wish_links": null,
+   "deity_links": 0,
+   "place_links": null
+  },
+  {
+   "id": "P:P005",
+   "type": "P",
+   "label": "วัดระฆังโฆสิตารามวรมหาวิหาร",
+   "wish_links": null,
+   "deity_links": 1,
+   "place_links": null
+  },
+  {
+   "id": "P:P006",
+   "type": "P",
+   "label": "วัดอรุณราชวรารามราชวรมหาวิหาร",
+   "wish_links": null,
+   "deity_links": 0,
+   "place_links": null
+  },
+  {
+   "id": "P:P007",
+   "type": "P",
+   "label": "ศาลเจ้ากวนอู (คลองสาน)",
+   "wish_links": null,
+   "deity_links": 1,
+   "place_links": null
+  },
+  {
+   "id": "P:P008",
+   "type": "P",
+   "label": "วัดปากน้ํา ภาษีเจริญ",
+   "wish_links": null,
+   "deity_links": 1,
+   "place_links": null
+  },
+  {
+   "id": "P:P009",
+   "type": "P",
+   "label": "วัดราชโอรสารามราชวรวิหาร",
+   "wish_links": null,
+   "deity_links": 0,
+   "place_links": null
+  },
+  {
+   "id": "P:P010",
+   "type": "P",
+   "label": "วัดหลวงพ่อโอภาสี",
+   "wish_links": null,
+   "deity_links": 0,
+   "place_links": null
+  },
+  {
+   "id": "P:P011",
+   "type": "P",
+   "label": "วัดมหาธาตุยุวราชรังสฤษฎิ์ราชวรมหาวิหาร",
+   "wish_links": null,
+   "deity_links": 0,
+   "place_links": null
+  },
+  {
+   "id": "P:P012",
+   "type": "P",
+   "label": "ศาลหลักเมืองกรุงเทพมหานคร",
+   "wish_links": null,
+   "deity_links": 1,
+   "place_links": null
+  },
+  {
+   "id": "P:P013",
+   "type": "P",
+   "label": "ศาลเจ้าพ่อเสือ (เสาชิงช้า)",
+   "wish_links": null,
+   "deity_links": 1,
+   "place_links": null
+  },
+  {
+   "id": "P:P014",
+   "type": "P",
+   "label": "เทวสถานโบสถ์พราหมณ์",
+   "wish_links": null,
+   "deity_links": 7,
+   "place_links": null
+  },
+  {
+   "id": "P:P015",
+   "type": "P",
+   "label": "วัดสุทัศนเทพวรารามราชวรมหาวิหาร",
+   "wish_links": null,
+   "deity_links": 2,
+   "place_links": null
+  },
+  {
+   "id": "P:P016",
+   "type": "P",
+   "label": "ศาลพ่อปู่เจ้ายี่กอฮง",
+   "wish_links": null,
+   "deity_links": 1,
+   "place_links": null
+  },
+  {
+   "id": "P:P017",
+   "type": "P",
+   "label": "วัดมังกรกมลาวาส (วัดเล่งเน่ยยี่)",
+   "wish_links": null,
+   "deity_links": 4,
+   "place_links": null
+  },
+  {
+   "id": "P:P018",
+   "type": "P",
+   "label": "วัดไตรมิตรวิทยารามวรวิหาร",
+   "wish_links": null,
+   "deity_links": 1,
+   "place_links": null
+  },
+  {
+   "id": "P:P019",
+   "type": "P",
+   "label": "วัดมหาบุศย์ (แม่นาคพระโขนง)",
+   "wish_links": null,
+   "deity_links": 1,
+   "place_links": null
+  },
+  {
+   "id": "P:P020",
+   "type": "P",
+   "label": "วัดกระทุ่มเสือปลา",
+   "wish_links": null,
+   "deity_links": 0,
+   "place_links": null
+  },
+  {
+   "id": "P:P021",
+   "type": "P",
+   "label": "เทวาลัยพระพิฆเนศ สี่แยกห้วยขวาง",
+   "wish_links": null,
+   "deity_links": 2,
+   "place_links": null
+  },
+  {
+   "id": "P:P022",
+   "type": "P",
+   "label": "ศาลท้าวมหาพรหม แยกราชประสงค์ (เอราวัณ)",
+   "wish_links": null,
+   "deity_links": 1,
+   "place_links": null
+  },
+  {
+   "id": "P:P023",
+   "type": "P",
+   "label": "พระแม่ลักษมี เกษรวิลเลจ",
+   "wish_links": null,
+   "deity_links": 1,
+   "place_links": null
+  },
+  {
+   "id": "P:P024",
+   "type": "P",
+   "label": "วัดบวรนิเวศราชวรวิหาร",
+   "wish_links": null,
+   "deity_links": 0,
+   "place_links": null
+  },
+  {
+   "id": "P:P025",
+   "type": "P",
+   "label": "พระบรมรูปทรงม้า (ลานพระราชวังดุสิต)",
+   "wish_links": null,
+   "deity_links": 1,
+   "place_links": null
+  },
+  {
+   "id": "P:P026",
+   "type": "P",
+   "label": "ศาลเจ้าพ่อเห้งเจีย (สามย่าน)",
+   "wish_links": null,
+   "deity_links": 1,
+   "place_links": null
+  },
+  {
+   "id": "P:P027",
+   "type": "P",
+   "label": "วัดสระเกศราชวรมหาวิหาร (ภูเขาทอง)",
+   "wish_links": null,
+   "deity_links": 0,
+   "place_links": null
+  },
+  {
+   "id": "P:P028",
+   "type": "P",
+   "label": "วัดราชบพิธสถิตมหาสีมารามราชวรวิหาร",
+   "wish_links": null,
+   "deity_links": 0,
+   "place_links": null
+  },
+  {
+   "id": "P:P029",
+   "type": "P",
+   "label": "ศาลเจ้าแม่ทับทิม (สะพานซังฮี้)",
+   "wish_links": null,
+   "deity_links": 1,
+   "place_links": null
+  },
+  {
+   "id": "P:P030",
+   "type": "P",
+   "label": "ศาลพระตรีมูรติ ลานเซ็นทรัลเวิลด์",
+   "wish_links": null,
+   "deity_links": 1,
+   "place_links": null
+  },
+  {
+   "id": "P:P031",
+   "type": "P",
+   "label": "วัดอินทรวิหาร (บางขุนพรหม)",
+   "wish_links": null,
+   "deity_links": 1,
+   "place_links": null
+  },
+  {
+   "id": "P:P032",
+   "type": "P",
+   "label": "พระบรมราชานุสาวรีย์สมเด็จพระเจ้าตากสินมหาราช (วงเวียนใหญ่)",
+   "wish_links": null,
+   "deity_links": 1,
+   "place_links": null
+  },
+  {
+   "id": "P:P033",
+   "type": "P",
+   "label": "วัดยานนาวา",
+   "wish_links": null,
+   "deity_links": 0,
+   "place_links": null
+  },
+  {
+   "id": "P:P034",
+   "type": "P",
+   "label": "วัดประยุรวงศาวาสวรวิหาร",
+   "wish_links": null,
+   "deity_links": 0,
+   "place_links": null
+  },
+  {
+   "id": "P:P035",
+   "type": "P",
+   "label": "โรงพยาบาลสงฆ์ (จุดทําบุญ)",
+   "wish_links": null,
+   "deity_links": 1,
+   "place_links": null
+  },
+  {
+   "id": "P:P036",
+   "type": "P",
+   "label": "ศาลพระพิฆเนศ ลานเซ็นทรัลเวิลด์",
+   "wish_links": null,
+   "deity_links": 1,
+   "place_links": null
+  },
+  {
+   "id": "P:P037",
+   "type": "P",
+   "label": "องค์พ่อพระพิฆเนศ ยูเนี่ยนมอลล์",
+   "wish_links": null,
+   "deity_links": 1,
+   "place_links": null
+  },
+  {
+   "id": "P:P038",
+   "type": "P",
+   "label": "วัดราษฎร์ศรัทธาธรรม (วัดบางชัน)",
+   "wish_links": null,
+   "deity_links": 1,
+   "place_links": null
+  },
+  {
+   "id": "P:P039",
+   "type": "P",
+   "label": "วัดไผ่เงินโชตนาราม",
+   "wish_links": null,
+   "deity_links": 2,
+   "place_links": null
+  },
+  {
+   "id": "P:P040",
+   "type": "P",
+   "label": "โบสถ์เทพมณเฑียร (Dev Mandir)",
+   "wish_links": null,
+   "deity_links": 1,
+   "place_links": null
+  },
+  {
+   "id": "P:P041",
+   "type": "P",
+   "label": "วัดกัลยาณมิตรวรมหาวิหาร",
+   "wish_links": null,
+   "deity_links": 1,
+   "place_links": null
+  },
+  {
+   "id": "P:P042",
+   "type": "P",
+   "label": "วัดทิพยวารีวิหาร (กัมโล่วยี่)",
+   "wish_links": null,
+   "deity_links": 2,
+   "place_links": null
+  },
+  {
+   "id": "P:P043",
+   "type": "P",
+   "label": "ศาลเจ้าโจวซือกง (ตลาดน้อย)",
+   "wish_links": null,
+   "deity_links": 1,
+   "place_links": null
+  },
+  {
+   "id": "P:P044",
+   "type": "P",
+   "label": "มูลนิธิโรงพยาบาลเทียนฟ้า (ศาลเจ้าแม่กวนอิม)",
+   "wish_links": null,
+   "deity_links": 1,
+   "place_links": null
+  },
+  {
+   "id": "P:P045",
+   "type": "P",
+   "label": "วัดพระศรีรัตนศาสดาราม (วัดพระแก้ว)",
+   "wish_links": null,
+   "deity_links": 1,
+   "place_links": null
+  },
+  {
+   "id": "P:P046",
+   "type": "P",
+   "label": "วัดสุทธาราม",
+   "wish_links": null,
+   "deity_links": 0,
+   "place_links": null
+  },
+  {
+   "id": "P:P047",
+   "type": "P",
+   "label": "วัดคณิกาผล (ย่าแฟง)",
+   "wish_links": null,
+   "deity_links": 1,
+   "place_links": null
+  },
+  {
+   "id": "P:P048",
+   "type": "P",
+   "label": "ศาลเจ้ากวางตุ้ง",
+   "wish_links": null,
+   "deity_links": 0,
+   "place_links": null
+  },
+  {
+   "id": "P:P049",
+   "type": "P",
+   "label": "ศาลเจ้าหลีตี๊เมี๊ยว",
+   "wish_links": null,
+   "deity_links": 0,
+   "place_links": null
+  },
+  {
+   "id": "P:P050",
+   "type": "P",
+   "label": "ศาลเจ้าไต้ฮงกง (มูลนิธิป่อเต็กตึ๊ง)",
+   "wish_links": null,
+   "deity_links": 0,
+   "place_links": null
+  },
+  {
+   "id": "P:P051",
+   "type": "P",
+   "label": "ศาลพระแม่ธรณีบีบมวยผม",
+   "wish_links": null,
+   "deity_links": 1,
+   "place_links": null
+  },
+  {
+   "id": "P:P052",
+   "type": "P",
+   "label": "ศาลสิงห์โตทอง มหาวิทยาลัยธรรมศาสตร์ ท่าพระจันทร์",
+   "wish_links": null,
+   "deity_links": 0,
+   "place_links": null
+  },
+  {
+   "id": "W:W01",
+   "type": "W",
+   "label": "ความรัก",
+   "wish_links": null,
+   "deity_links": 8,
+   "place_links": null
+  },
+  {
+   "id": "W:W02",
+   "type": "W",
+   "label": "การงาน",
+   "wish_links": null,
+   "deity_links": 12,
+   "place_links": null
+  },
+  {
+   "id": "W:W03",
+   "type": "W",
+   "label": "การเงิน/โชคลาภ",
+   "wish_links": null,
+   "deity_links": 11,
+   "place_links": null
+  },
+  {
+   "id": "W:W04",
+   "type": "W",
+   "label": "การเรียน/สอบ",
+   "wish_links": null,
+   "deity_links": 3,
+   "place_links": null
+  },
+  {
+   "id": "W:W05",
+   "type": "W",
+   "label": "บัตรคอน/กิจกรรมติ่ง",
+   "wish_links": null,
+   "deity_links": 1,
+   "place_links": null
+  },
+  {
+   "id": "W:W06",
+   "type": "W",
+   "label": "สุขภาพ/แคล้วคลาด",
+   "wish_links": null,
+   "deity_links": 6,
+   "place_links": null
+  },
+  {
+   "id": "W:W07",
+   "type": "W",
+   "label": "บ้าน/ที่ดิน/คดีความ",
+   "wish_links": null,
+   "deity_links": 2,
+   "place_links": null
+  },
+  {
+   "id": "W:W08",
+   "type": "W",
+   "label": "แก้ชง/สะเดาะเคราะห์",
+   "wish_links": null,
+   "deity_links": 2,
+   "place_links": null
+  },
+  {
+   "id": "W:W09",
+   "type": "W",
+   "label": "เสี่ยงโชค",
+   "wish_links": null,
+   "deity_links": 1,
+   "place_links": null
+  },
+  {
+   "id": "W:W10",
+   "type": "W",
+   "label": "ปลดหนี้",
+   "wish_links": null,
+   "deity_links": 2,
+   "place_links": null
+  }
+ ]
+}

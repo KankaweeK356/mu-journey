@@ -40,8 +40,10 @@ class StationNames(unittest.TestCase):
         self.assertEqual([p["place_id"] for p in E.recommend(PROFILE)["top5"]], ref)
 
     def test_pages_show_the_name_and_fall_back_to_the_code(self):
-        self.assertIn("p.station_name || p.station_id", DEMO)
-        self.assertIn("P.station.name_th || P.station.id", DEMO)
+        self.assertIn("stationText(p.station_name, p.station_system, p.station_id, 'สถานีใกล้สุด')", DEMO)
+        self.assertIn("stationText(P.station.name_th, P.station.system, P.station.id)", DEMO)
+        text = (ROOT / "public" / "js" / "usertext.js").read_text(encoding="utf-8")
+        self.assertIn("name || id", text)                                          # the fallback itself; behaviour in tests/js/usertext.test.mjs
 
 
 class WordingAndLegend(unittest.TestCase):

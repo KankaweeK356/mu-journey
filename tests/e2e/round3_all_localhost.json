@@ -2,7 +2,7 @@
  {
   "name": "T2 explorer: opens, content loaded, no spinner/error",
   "ok": true,
-  "info": "{\"visible\":true,\"len\":3940,\"spinners\":0,\"errors\":[]}"
+  "info": "{\"visible\":true,\"len\":6836,\"spinners\":0,\"errors\":[]}"
  },
  {
   "name": "T2 lab: opens, content loaded, no spinner/error",
@@ -12,7 +12,7 @@
  {
   "name": "T2 designer: opens, content loaded, no spinner/error",
   "ok": true,
-  "info": "{\"visible\":true,\"len\":1424,\"spinners\":0,\"errors\":[]}"
+  "info": "{\"visible\":true,\"len\":1572,\"spinners\":0,\"errors\":[]}"
  },
  {
   "name": "T2 matching: opens, content loaded, no spinner/error",
@@ -272,7 +272,7 @@
  {
   "name": "UI stations: Tab 1 shows names, not codes",
   "ok": true,
-  "info": "สถานีใกล้สุด อิสรภาพ · เข้าถึงประมาณ 15 นาที (ประมาณการ) · เปิด 08:00–17:00 | สถานีใกล้สุด สนามไชย · เข้าถึงประมาณ 5 นาที (ประมาณการ) · เปิด 06:30–18:30"
+  "info": "สถานีใกล้สุด MRT อิสรภาพ · เข้าถึงสถานที่จากสถานีประมาณ 15 นาที (ประมาณการ) · เปิด 08:00–17:00 | สถานีใกล้สุด MRT สนามไชย · เข้าถึงสถานที่จากสถานีประมาณ 5 นาที (ประมาณการ) · เปิด 06:30–18:30"
  },
  {
   "name": "UI stations: Tab 2 designer shows \"name (CODE)\"",

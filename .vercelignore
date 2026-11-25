@@ -10,3 +10,7 @@ model/calendar_v3/
 
 # Anchored on purpose: an unanchored "data/" also matches public/data/ (the JSON the pages load) and made them 404 in production.
 /data/
+
+# Analysis evidence only (no function reads it); kept in git, not bundled into every function.
+/model/results/birthday_impact_profiles.csv
+/model/results/network_analysis/

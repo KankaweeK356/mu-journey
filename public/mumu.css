@@ -205,8 +205,6 @@ dialog::backdrop { background: rgba(43, 31, 63, .55); }
 .legend { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 12.5px; color: var(--ink-2); align-items: center; }
 .legend i { display: inline-block; width: 11px; height: 11px; border-radius: 50%; margin-right: 5px; vertical-align: -1px; }
 .legend s { display: inline-block; width: 26px; height: 0; border-top: 2px solid; margin-right: 5px; vertical-align: 3px; text-decoration: none; }
-.donut { display: flex; gap: 16px; align-items: center; flex-wrap: wrap; } .donut svg { width: 150px; height: 150px; flex: none; }
-.donut ul { list-style: none; margin: 0; padding: 0; font-size: 13px; flex: 1; min-width: 160px; } .donut li { display: flex; gap: 8px; align-items: center; padding: 2px 0; } .donut li i { width: 10px; height: 10px; border-radius: 50%; flex: none; }
 .insights { list-style: none; margin: 0; padding: 0; } .insights li { display: flex; gap: 8px; padding: 5px 0; font-size: 14px; } .insights li::before { content: "✓"; color: var(--purple-2); font-weight: 700; }
 .flow { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; counter-reset: s; }
 .flow > div { background: #fff; border: 1px solid var(--lav-line); border-radius: var(--r); padding: 18px 14px 14px; position: relative; box-shadow: var(--shadow); }

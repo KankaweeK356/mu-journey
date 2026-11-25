@@ -17,6 +17,8 @@ export function h(tag, attrs, ...kids) {
 }
 
 export const clear = (el) => { while (el.firstChild) el.removeChild(el.firstChild); return el; };
+/** el.append() that skips null / undefined / false. The native append() prints them as the words "null" / "undefined" / "false". */
+export const put = (el, ...kids) => { el.append(...kids.flat(Infinity).filter((k) => k != null && k !== false)); return el; };
 export const f = (x, d = 3) => (x == null ? '–' : Number(x).toFixed(d));
 export const pct = (x, d = 1) => (x == null ? '–' : (Number(x) * 100).toFixed(d) + '%');
 
@@ -39,11 +41,15 @@ export async function postJSON(url, body) {
 }
 
 export const STATUS = {
-  SOURCE: { th: 'มีแหล่งอ้างอิงทางการ', cls: 'st-source', mark: '✓' },
-  CANDIDATE: { th: 'ผู้สมัคร รอตรวจ', cls: 'st-cand', mark: '◐' },
-  SYNTHETIC: { th: 'ข้อมูลจำลอง', cls: 'st-syn', mark: '◇' },
-  UNVERIFIED: { th: 'ยังไม่ยืนยัน', cls: 'st-unv', mark: '!' },
+  SOURCE: { th: 'มีแหล่งอ้างอิง', cls: 'st-source', mark: '✓', explain: 'มีแหล่งอ้างอิงจากหน่วยงานรัฐบันทึกไว้ แต่ทีมยังตรวจทานไม่เสร็จ' },
+  CANDIDATE: { th: 'รอตรวจสอบ', cls: 'st-cand', mark: '◐', explain: 'มาจากแหล่งอื่น เช่น บทความ เว็บไซต์ หรือชุดข้อมูลที่รวบรวมไว้ ยังรอตรวจสอบ' },
+  SYNTHETIC: { th: 'ข้อมูลจำลอง', cls: 'st-syn', mark: '◇', explain: 'ข้อมูลที่สร้างขึ้นเพื่อสาธิต ไม่ใช่ข้อมูลจริง' },
+  UNVERIFIED: { th: 'ยังไม่ยืนยัน', cls: 'st-unv', mark: '!', explain: 'เป็นความเชื่อที่บันทึกไว้ ยังไม่มีใครยืนยัน' },
 };
+/** Plain-language meaning of the status words, shown next to wherever the words appear. */
+export const statusLegend = (codes = Object.keys(STATUS)) => h('details', { class: 'small', 'data-status-legend': 'true' }, h('summary', {}, 'สถานะข้อมูลหมายถึงอะไร'),
+  h('div', { class: 'inner stack' }, codes.map((c) => h('div', {}, statusChip(c), ' ', STATUS[c].th, ' — ', STATUS[c].explain)),
+    h('div', { class: 'faint' }, 'ไม่มีสถานะใดเป็นการรับรองความเชื่อหรือผลของการขอพร')));
 export function statusChip(code, label) {
   const s = STATUS[code] || STATUS.UNVERIFIED;
   return h('span', { class: 'chip ' + s.cls, title: code + ' — ' + s.th }, s.mark + ' ', label ? label + ': ' : '', code);

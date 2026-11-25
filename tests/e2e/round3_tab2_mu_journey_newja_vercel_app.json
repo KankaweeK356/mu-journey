@@ -48,25 +48,5 @@
   "name": "Lab Output equals the production recommendation endpoint for the same input",
   "ok": true,
   "info": "P001,P002,P014,P019,P029 vs P001,P002,P014,P019,P029"
- },
- {
-  "name": "Matching Input: uses the profile from the Lab (the trip shown is computed from the same input)",
-  "ok": true,
-  "info": "matched=TRIP_LOVE"
- },
- {
-  "name": "Matching Output: matched trip equals the production recommendation endpoint",
-  "ok": true,
-  "info": "page/trace=TRIP_LOVE endpoint=TRIP_LOVE"
- },
- {
-  "name": "Matching Output: result is rendered without error",
-  "ok": true,
-  "info": "len=2240"
- },
- {
-  "name": "Matching Output: the matched trip id is shown",
-  "ok": true,
-  "info": ""
  }
 ]

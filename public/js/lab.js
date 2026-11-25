@@ -5,6 +5,7 @@ import { S, profile, keyOf, hasProfile } from './state.js';
 import { mountGraph, graphLegend } from './graphview.js';
 import { PERSONAS, compare } from './crosstab.js';
 import { wishIcon } from './icons.js';
+import { birthText, BIRTH_STATUS_TH } from './usertext.js';
 import { eventTrace } from './eventlab.js';
 import { reminderSimulation } from './calendarlab.js';
 
@@ -78,7 +79,7 @@ export function renderLab(p, ctx) {
     const cands = T.step3_pagerank.candidates;
     const chk = h('div', { class: 'card stack' }, h('h3', {}, 'ตรวจความสอดคล้องกับ Tab 1'), h('p', { class: 'small muted', style: 'margin:0' }, 'กำลังเรียก API ของ Tab 1 ด้วยโปรไฟล์เดียวกัน…'));
 
-    const A = step('A', 'Input Profile', h('div', { class: 'row' }, pf.wish_names.map((w) => h('span', { class: 'chip' }, w)), pf.weekday ? h('span', { class: 'chip gold' }, 'เกิด' + pf.weekday + ' (ใช้เป็นสัญญาณรอง)') : h('span', { class: 'chip' }, 'ไม่ระบุวันเกิด'),
+    const A = step('A', 'Input Profile', h('div', { class: 'row' }, pf.wish_names.map((w) => h('span', { class: 'chip' }, w)), pf.weekday ? h('span', { class: T.birth_signal.status === 'APPLIED' ? 'chip gold' : 'chip' }, 'เกิด' + pf.weekday + (T.birth_signal.status === 'APPLIED' ? ' (ใช้เป็นสัญญาณรอง)' : ' (ไม่ได้ใช้)')) : h('span', { class: 'chip' }, 'ไม่ระบุวันเกิด'),
       pf.blocked_deity_ids.length || pf.blocked_place_ids.length || pr.exclusions.tradition_groups.length ? h('span', { class: 'chip pink' }, `Exclusions: ${pr.exclusions.tradition_groups.length} กลุ่มความเชื่อ · ${pf.blocked_deity_ids.length} สิ่งศักดิ์สิทธิ์ · ${pf.blocked_place_ids.length} สถานที่`) : h('span', { class: 'chip' }, 'ไม่มีข้อจำกัด')),
       h('div', { class: 'small faint' }, 'Wish IDs: ' + pf.wish_ids.join(', ') + ' · ข้อมูลที่ส่งเข้าโมเดลมีแค่ wish_ids, birthdate และ exclusions (focus ไม่ใช่ข้อมูลของโมเดล)'));
     const B = step('B', 'Graph Filtering', h('p', { class: 'small muted', style: 'margin:0' }, `โหนดก่อนตัด ${rm.nodes_before} → หลังตัด ${rm.nodes_after} · ผู้สมัครที่มีเส้นทางครบ ${re.candidates_before} → ${re.candidates_after} แห่ง (ตัดออกจากกราฟจริงก่อนคำนวณ)`),
@@ -87,9 +88,14 @@ export function renderLab(p, ctx) {
       re.examples.length ? h('div', { class: 'small muted' }, 'ตัวอย่าง: ' + re.examples.join(' · ')) : null,
       re.places_losing_all_paths.length ? h('div', {}, h('div', { class: 'small', style: 'font-weight:600' }, `สถานที่ที่ไม่เหลือเส้นทางแนะนำ (${re.places_losing_all_paths.length})`), h('div', { class: 'row' }, re.places_losing_all_paths.slice(0, 8).map((x) => h('span', { class: 'chip' }, x.name)))) : null,
       re.places_with_fewer_paths.length ? h('div', { class: 'small muted' }, `สถานที่ที่ยังแนะนำได้แต่เหลือเส้นทางน้อยลง ${re.places_with_fewer_paths.length} แห่ง (เช่น ${re.places_with_fewer_paths.slice(0, 2).map((x) => `${x.name} ${x.before}→${x.after}`).join(', ')})`) : null);
-    const C = step('C', 'Personalization Seeds', h('table', {}, h('thead', {}, h('tr', {}, h('th', {}, 'โหนดเริ่ม'), h('th', {}, 'ชนิด'), h('th', { class: 'n' }, 'น้ำหนักก่อนปรับรวมเป็น 1'))),
-      h('tbody', {}, Object.entries(T.step2_seeds.seeds).map(([id, v]) => h('tr', {}, h('td', {}, nm(id)), h('td', {}, id.startsWith('W') ? 'Wish seed' : 'Birth-related seed'), h('td', { class: 'n' }, f(v, 4)))))),
-      h('div', { class: 'small faint' }, T.step2_seeds.note + (T.step2_seeds.birth_deity_ids.length ? ` · ใช้ ${T.step2_seeds.birth_claim_ids.length} ข้อความอ้างอิง` : ' · ไม่มีสัญญาณวันเกิดที่โมเดลรองรับ')));
+    const bs = T.birth_signal, S2 = T.step2_seeds;
+    const C = step('C', 'Personalization Seeds',
+      h('div', { class: 'callout small', 'data-birth-status': bs.status }, h('b', {}, `birth_signal: ${bs.status}`), ` · ${BIRTH_STATUS_TH[bs.status]}`, h('div', {}, birthText(bs)),
+        bs.claim_ids.length ? h('div', { class: 'faint' }, 'ข้อความอ้างอิง: ' + bs.claim_ids.join(', ')) : null),
+      h('table', { 'data-seed-table': 'true' }, h('thead', {}, h('tr', {}, h('th', {}, 'โหนดเริ่ม'), h('th', {}, 'ชนิด'), h('th', { class: 'n' }, 'ก่อน Normalize'), h('th', { class: 'n' }, 'หลัง Normalize'))),
+        h('tbody', {}, Object.entries(S2.seeds).map(([id, v]) => h('tr', {}, h('td', {}, nm(id)), h('td', {}, id.startsWith('W') ? 'Wish seed' : 'Birth seed'), h('td', { class: 'n' }, f(v, 4)), h('td', { class: 'n' }, f(S2.seeds_normalized[id], 4))))),
+        h('tfoot', {}, h('tr', {}, h('td', { colspan: '2' }, 'รวม'), h('td', { class: 'n' }, f(S2.seeds_sum, 4)), h('td', { class: 'n' }, f(Object.values(S2.seeds_normalized).reduce((a, b) => a + b, 0), 4))))),
+      h('div', { class: 'small faint' }, S2.note));
     const D = step('D', `Personalized PageRank (ผู้สมัคร ${T.step3_pagerank.candidate_count} แห่ง)`,
       h('div', { class: 'formula' }, 'PPR = ', h('b', {}, 'α'), '·M·PPR + (1−', h('b', {}, 'α'), ')·p , α = ', par.alpha, h('br'), 'คะแนน(p) = PPR(p) ÷ ', h('b', {}, '√(degree(p)+1)'), ' แล้วหารด้วยค่าสูงสุดของผู้สมัคร'),
       cands.length ? h('div', { class: 'scroll-x' }, h('table', {}, h('thead', {}, h('tr', {}, ['สถานที่', 'เส้นทาง', 'PPR ดิบ', 'degree', 'หลังปรับ degree', 'คะแนน 0–1', ''].map((t, i) => h('th', { class: i > 1 && i < 6 ? 'n' : '' }, t)))),

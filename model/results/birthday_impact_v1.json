@@ -1,0 +1,898 @@
+{
+ "analysis_version": "BIRTHDAY_IMPACT_V1",
+ "model_version": "NETWORK_PHASE1_V2_2026-11-21",
+ "versions": {
+  "model": "NETWORK_PHASE1_V2_2026-11-21",
+  "dataset_title": "MU Journey DEMO BASELINE v2",
+  "data_as_of": "2026-11-21",
+  "snapshot_sha256": "44f01c2b5ac6",
+  "trip_design": "OFFLINE_SIGNATURE_V1_2026-11-21"
+ },
+ "design": {
+  "wish_combinations": 175,
+  "weekday_dates": [
+   "2000-01-03",
+   "2000-01-04",
+   "2000-01-05",
+   "2000-01-06",
+   "2000-01-07",
+   "2000-01-08",
+   "2000-01-09"
+  ],
+  "second_dates_for_same_weekday_check": [
+   "1985-06-03",
+   "1985-06-04",
+   "1985-06-05",
+   "1985-06-06",
+   "1985-06-07",
+   "1985-06-08",
+   "1985-06-09"
+  ],
+  "scenarios": [
+   "none",
+   "exclude:ฮินดู",
+   "exclude:จีนและกลุ่มผสมจีน",
+   "exclude:พุทธและความเชื่อไทย",
+   "exclude:พราหมณ์/โหราศาสตร์"
+  ],
+  "compared_with": "the same wishes and exclusions without a birth date",
+  "thresholds": {
+   "any_change": 1e-09,
+   "visible_change": 0.01,
+   "note": "analysis thresholds, not accuracy"
+  }
+ },
+ "status_by_weekday_and_scenario": {
+  "วันจันทร์|none": "APPLIED",
+  "วันจันทร์|exclude:ฮินดู": "EXCLUDED",
+  "วันจันทร์|exclude:จีนและกลุ่มผสมจีน": "APPLIED",
+  "วันจันทร์|exclude:พุทธและความเชื่อไทย": "APPLIED",
+  "วันจันทร์|exclude:พราหมณ์/โหราศาสตร์": "APPLIED",
+  "วันอังคาร|none": "APPLIED",
+  "วันอังคาร|exclude:ฮินดู": "EXCLUDED",
+  "วันอังคาร|exclude:จีนและกลุ่มผสมจีน": "APPLIED",
+  "วันอังคาร|exclude:พุทธและความเชื่อไทย": "APPLIED",
+  "วันอังคาร|exclude:พราหมณ์/โหราศาสตร์": "APPLIED",
+  "วันพุธ|none": "NO_ELIGIBLE_DATA",
+  "วันพุธ|exclude:ฮินดู": "NO_ELIGIBLE_DATA",
+  "วันพุธ|exclude:จีนและกลุ่มผสมจีน": "NO_ELIGIBLE_DATA",
+  "วันพุธ|exclude:พุทธและความเชื่อไทย": "NO_ELIGIBLE_DATA",
+  "วันพุธ|exclude:พราหมณ์/โหราศาสตร์": "NO_ELIGIBLE_DATA",
+  "วันพฤหัสบดี|none": "APPLIED",
+  "วันพฤหัสบดี|exclude:ฮินดู": "EXCLUDED",
+  "วันพฤหัสบดี|exclude:จีนและกลุ่มผสมจีน": "APPLIED",
+  "วันพฤหัสบดี|exclude:พุทธและความเชื่อไทย": "APPLIED",
+  "วันพฤหัสบดี|exclude:พราหมณ์/โหราศาสตร์": "APPLIED",
+  "วันศุกร์|none": "APPLIED",
+  "วันศุกร์|exclude:ฮินดู": "EXCLUDED",
+  "วันศุกร์|exclude:จีนและกลุ่มผสมจีน": "APPLIED",
+  "วันศุกร์|exclude:พุทธและความเชื่อไทย": "APPLIED",
+  "วันศุกร์|exclude:พราหมณ์/โหราศาสตร์": "APPLIED",
+  "วันเสาร์|none": "APPLIED",
+  "วันเสาร์|exclude:ฮินดู": "EXCLUDED",
+  "วันเสาร์|exclude:จีนและกลุ่มผสมจีน": "APPLIED",
+  "วันเสาร์|exclude:พุทธและความเชื่อไทย": "APPLIED",
+  "วันเสาร์|exclude:พราหมณ์/โหราศาสตร์": "APPLIED",
+  "วันอาทิตย์|none": "NO_ELIGIBLE_DATA",
+  "วันอาทิตย์|exclude:ฮินดู": "NO_ELIGIBLE_DATA",
+  "วันอาทิตย์|exclude:จีนและกลุ่มผสมจีน": "NO_ELIGIBLE_DATA",
+  "วันอาทิตย์|exclude:พุทธและความเชื่อไทย": "NO_ELIGIBLE_DATA",
+  "วันอาทิตย์|exclude:พราหมณ์/โหราศาสตร์": "NO_ELIGIBLE_DATA"
+ },
+ "overall": {
+  "unconstrained": {
+   "profiles": 1225,
+   "NO_SIGNAL": 350,
+   "SIGNAL_NO_RANKING_CHANGE": 452,
+   "SIGNAL_RANKING_CHANGED": 423,
+   "top5_members_changed": 199,
+   "top5_order_only_changed": 224,
+   "score_diff_gt_1e-9": 869,
+   "score_diff_ge_0.01": 823,
+   "trip_match_changed": 25
+  },
+  "constrained": {
+   "profiles": 4900,
+   "NO_SIGNAL": 2275,
+   "SIGNAL_NO_RANKING_CHANGE": 1537,
+   "SIGNAL_RANKING_CHANGED": 1088,
+   "top5_members_changed": 481,
+   "top5_order_only_changed": 607,
+   "score_diff_gt_1e-9": 2553,
+   "score_diff_ge_0.01": 2453,
+   "trip_match_changed": 20
+  }
+ },
+ "seed_days_only": {
+  "unconstrained": {
+   "profiles": 875,
+   "NO_SIGNAL": 0,
+   "SIGNAL_NO_RANKING_CHANGE": 452,
+   "SIGNAL_RANKING_CHANGED": 423,
+   "top5_members_changed": 199,
+   "top5_order_only_changed": 224,
+   "score_diff_gt_1e-9": 869,
+   "score_diff_ge_0.01": 823,
+   "trip_match_changed": 25
+  },
+  "constrained": {
+   "profiles": 2625,
+   "NO_SIGNAL": 0,
+   "SIGNAL_NO_RANKING_CHANGE": 1537,
+   "SIGNAL_RANKING_CHANGED": 1088,
+   "top5_members_changed": 481,
+   "top5_order_only_changed": 607,
+   "score_diff_gt_1e-9": 2553,
+   "score_diff_ge_0.01": 2453,
+   "trip_match_changed": 20
+  }
+ },
+ "per_day": [
+  {
+   "group": "unconstrained",
+   "scenario": "none",
+   "weekday": "วันจันทร์",
+   "profiles": 175,
+   "NO_SIGNAL": 0,
+   "SIGNAL_NO_RANKING_CHANGE": 98,
+   "SIGNAL_RANKING_CHANGED": 77,
+   "top5_members_changed": 36,
+   "top5_order_only_changed": 41,
+   "score_diff_gt_1e-9": 174,
+   "score_diff_ge_0.01": 162,
+   "trip_match_changed": 5
+  },
+  {
+   "group": "constrained",
+   "scenario": "exclude:ฮินดู",
+   "weekday": "วันจันทร์",
+   "profiles": 175,
+   "NO_SIGNAL": 175,
+   "SIGNAL_NO_RANKING_CHANGE": 0,
+   "SIGNAL_RANKING_CHANGED": 0,
+   "top5_members_changed": 0,
+   "top5_order_only_changed": 0,
+   "score_diff_gt_1e-9": 0,
+   "score_diff_ge_0.01": 0,
+   "trip_match_changed": 0
+  },
+  {
+   "group": "constrained",
+   "scenario": "exclude:จีนและกลุ่มผสมจีน",
+   "weekday": "วันจันทร์",
+   "profiles": 175,
+   "NO_SIGNAL": 0,
+   "SIGNAL_NO_RANKING_CHANGE": 112,
+   "SIGNAL_RANKING_CHANGED": 63,
+   "top5_members_changed": 35,
+   "top5_order_only_changed": 28,
+   "score_diff_gt_1e-9": 168,
+   "score_diff_ge_0.01": 164,
+   "trip_match_changed": 0
+  },
+  {
+   "group": "constrained",
+   "scenario": "exclude:พุทธและความเชื่อไทย",
+   "weekday": "วันจันทร์",
+   "profiles": 175,
+   "NO_SIGNAL": 0,
+   "SIGNAL_NO_RANKING_CHANGE": 127,
+   "SIGNAL_RANKING_CHANGED": 48,
+   "top5_members_changed": 14,
+   "top5_order_only_changed": 34,
+   "score_diff_gt_1e-9": 170,
+   "score_diff_ge_0.01": 161,
+   "trip_match_changed": 0
+  },
+  {
+   "group": "constrained",
+   "scenario": "exclude:พราหมณ์/โหราศาสตร์",
+   "weekday": "วันจันทร์",
+   "profiles": 175,
+   "NO_SIGNAL": 0,
+   "SIGNAL_NO_RANKING_CHANGE": 97,
+   "SIGNAL_RANKING_CHANGED": 78,
+   "top5_members_changed": 36,
+   "top5_order_only_changed": 42,
+   "score_diff_gt_1e-9": 174,
+   "score_diff_ge_0.01": 162,
+   "trip_match_changed": 4
+  },
+  {
+   "group": "unconstrained",
+   "scenario": "none",
+   "weekday": "วันอังคาร",
+   "profiles": 175,
+   "NO_SIGNAL": 0,
+   "SIGNAL_NO_RANKING_CHANGE": 74,
+   "SIGNAL_RANKING_CHANGED": 101,
+   "top5_members_changed": 46,
+   "top5_order_only_changed": 55,
+   "score_diff_gt_1e-9": 174,
+   "score_diff_ge_0.01": 162,
+   "trip_match_changed": 7
+  },
+  {
+   "group": "constrained",
+   "scenario": "exclude:ฮินดู",
+   "weekday": "วันอังคาร",
+   "profiles": 175,
+   "NO_SIGNAL": 175,
+   "SIGNAL_NO_RANKING_CHANGE": 0,
+   "SIGNAL_RANKING_CHANGED": 0,
+   "top5_members_changed": 0,
+   "top5_order_only_changed": 0,
+   "score_diff_gt_1e-9": 0,
+   "score_diff_ge_0.01": 0,
+   "trip_match_changed": 0
+  },
+  {
+   "group": "constrained",
+   "scenario": "exclude:จีนและกลุ่มผสมจีน",
+   "weekday": "วันอังคาร",
+   "profiles": 175,
+   "NO_SIGNAL": 0,
+   "SIGNAL_NO_RANKING_CHANGE": 96,
+   "SIGNAL_RANKING_CHANGED": 79,
+   "top5_members_changed": 35,
+   "top5_order_only_changed": 44,
+   "score_diff_gt_1e-9": 168,
+   "score_diff_ge_0.01": 164,
+   "trip_match_changed": 0
+  },
+  {
+   "group": "constrained",
+   "scenario": "exclude:พุทธและความเชื่อไทย",
+   "weekday": "วันอังคาร",
+   "profiles": 175,
+   "NO_SIGNAL": 0,
+   "SIGNAL_NO_RANKING_CHANGE": 99,
+   "SIGNAL_RANKING_CHANGED": 76,
+   "top5_members_changed": 19,
+   "top5_order_only_changed": 57,
+   "score_diff_gt_1e-9": 170,
+   "score_diff_ge_0.01": 161,
+   "trip_match_changed": 0
+  },
+  {
+   "group": "constrained",
+   "scenario": "exclude:พราหมณ์/โหราศาสตร์",
+   "weekday": "วันอังคาร",
+   "profiles": 175,
+   "NO_SIGNAL": 0,
+   "SIGNAL_NO_RANKING_CHANGE": 76,
+   "SIGNAL_RANKING_CHANGED": 99,
+   "top5_members_changed": 47,
+   "top5_order_only_changed": 52,
+   "score_diff_gt_1e-9": 174,
+   "score_diff_ge_0.01": 162,
+   "trip_match_changed": 6
+  },
+  {
+   "group": "unconstrained",
+   "scenario": "none",
+   "weekday": "วันพุธ",
+   "profiles": 175,
+   "NO_SIGNAL": 175,
+   "SIGNAL_NO_RANKING_CHANGE": 0,
+   "SIGNAL_RANKING_CHANGED": 0,
+   "top5_members_changed": 0,
+   "top5_order_only_changed": 0,
+   "score_diff_gt_1e-9": 0,
+   "score_diff_ge_0.01": 0,
+   "trip_match_changed": 0
+  },
+  {
+   "group": "constrained",
+   "scenario": "exclude:ฮินดู",
+   "weekday": "วันพุธ",
+   "profiles": 175,
+   "NO_SIGNAL": 175,
+   "SIGNAL_NO_RANKING_CHANGE": 0,
+   "SIGNAL_RANKING_CHANGED": 0,
+   "top5_members_changed": 0,
+   "top5_order_only_changed": 0,
+   "score_diff_gt_1e-9": 0,
+   "score_diff_ge_0.01": 0,
+   "trip_match_changed": 0
+  },
+  {
+   "group": "constrained",
+   "scenario": "exclude:จีนและกลุ่มผสมจีน",
+   "weekday": "วันพุธ",
+   "profiles": 175,
+   "NO_SIGNAL": 175,
+   "SIGNAL_NO_RANKING_CHANGE": 0,
+   "SIGNAL_RANKING_CHANGED": 0,
+   "top5_members_changed": 0,
+   "top5_order_only_changed": 0,
+   "score_diff_gt_1e-9": 0,
+   "score_diff_ge_0.01": 0,
+   "trip_match_changed": 0
+  },
+  {
+   "group": "constrained",
+   "scenario": "exclude:พุทธและความเชื่อไทย",
+   "weekday": "วันพุธ",
+   "profiles": 175,
+   "NO_SIGNAL": 175,
+   "SIGNAL_NO_RANKING_CHANGE": 0,
+   "SIGNAL_RANKING_CHANGED": 0,
+   "top5_members_changed": 0,
+   "top5_order_only_changed": 0,
+   "score_diff_gt_1e-9": 0,
+   "score_diff_ge_0.01": 0,
+   "trip_match_changed": 0
+  },
+  {
+   "group": "constrained",
+   "scenario": "exclude:พราหมณ์/โหราศาสตร์",
+   "weekday": "วันพุธ",
+   "profiles": 175,
+   "NO_SIGNAL": 175,
+   "SIGNAL_NO_RANKING_CHANGE": 0,
+   "SIGNAL_RANKING_CHANGED": 0,
+   "top5_members_changed": 0,
+   "top5_order_only_changed": 0,
+   "score_diff_gt_1e-9": 0,
+   "score_diff_ge_0.01": 0,
+   "trip_match_changed": 0
+  },
+  {
+   "group": "unconstrained",
+   "scenario": "none",
+   "weekday": "วันพฤหัสบดี",
+   "profiles": 175,
+   "NO_SIGNAL": 0,
+   "SIGNAL_NO_RANKING_CHANGE": 91,
+   "SIGNAL_RANKING_CHANGED": 84,
+   "top5_members_changed": 45,
+   "top5_order_only_changed": 39,
+   "score_diff_gt_1e-9": 174,
+   "score_diff_ge_0.01": 167,
+   "trip_match_changed": 5
+  },
+  {
+   "group": "constrained",
+   "scenario": "exclude:ฮินดู",
+   "weekday": "วันพฤหัสบดี",
+   "profiles": 175,
+   "NO_SIGNAL": 175,
+   "SIGNAL_NO_RANKING_CHANGE": 0,
+   "SIGNAL_RANKING_CHANGED": 0,
+   "top5_members_changed": 0,
+   "top5_order_only_changed": 0,
+   "score_diff_gt_1e-9": 0,
+   "score_diff_ge_0.01": 0,
+   "trip_match_changed": 0
+  },
+  {
+   "group": "constrained",
+   "scenario": "exclude:จีนและกลุ่มผสมจีน",
+   "weekday": "วันพฤหัสบดี",
+   "profiles": 175,
+   "NO_SIGNAL": 0,
+   "SIGNAL_NO_RANKING_CHANGE": 107,
+   "SIGNAL_RANKING_CHANGED": 68,
+   "top5_members_changed": 38,
+   "top5_order_only_changed": 30,
+   "score_diff_gt_1e-9": 168,
+   "score_diff_ge_0.01": 164,
+   "trip_match_changed": 0
+  },
+  {
+   "group": "constrained",
+   "scenario": "exclude:พุทธและความเชื่อไทย",
+   "weekday": "วันพฤหัสบดี",
+   "profiles": 175,
+   "NO_SIGNAL": 0,
+   "SIGNAL_NO_RANKING_CHANGE": 122,
+   "SIGNAL_RANKING_CHANGED": 53,
+   "top5_members_changed": 18,
+   "top5_order_only_changed": 35,
+   "score_diff_gt_1e-9": 170,
+   "score_diff_ge_0.01": 167,
+   "trip_match_changed": 0
+  },
+  {
+   "group": "constrained",
+   "scenario": "exclude:พราหมณ์/โหราศาสตร์",
+   "weekday": "วันพฤหัสบดี",
+   "profiles": 175,
+   "NO_SIGNAL": 0,
+   "SIGNAL_NO_RANKING_CHANGE": 93,
+   "SIGNAL_RANKING_CHANGED": 82,
+   "top5_members_changed": 44,
+   "top5_order_only_changed": 38,
+   "score_diff_gt_1e-9": 174,
+   "score_diff_ge_0.01": 167,
+   "trip_match_changed": 4
+  },
+  {
+   "group": "unconstrained",
+   "scenario": "none",
+   "weekday": "วันศุกร์",
+   "profiles": 175,
+   "NO_SIGNAL": 0,
+   "SIGNAL_NO_RANKING_CHANGE": 87,
+   "SIGNAL_RANKING_CHANGED": 88,
+   "top5_members_changed": 36,
+   "top5_order_only_changed": 52,
+   "score_diff_gt_1e-9": 174,
+   "score_diff_ge_0.01": 168,
+   "trip_match_changed": 4
+  },
+  {
+   "group": "constrained",
+   "scenario": "exclude:ฮินดู",
+   "weekday": "วันศุกร์",
+   "profiles": 175,
+   "NO_SIGNAL": 175,
+   "SIGNAL_NO_RANKING_CHANGE": 0,
+   "SIGNAL_RANKING_CHANGED": 0,
+   "top5_members_changed": 0,
+   "top5_order_only_changed": 0,
+   "score_diff_gt_1e-9": 0,
+   "score_diff_ge_0.01": 0,
+   "trip_match_changed": 0
+  },
+  {
+   "group": "constrained",
+   "scenario": "exclude:จีนและกลุ่มผสมจีน",
+   "weekday": "วันศุกร์",
+   "profiles": 175,
+   "NO_SIGNAL": 0,
+   "SIGNAL_NO_RANKING_CHANGE": 74,
+   "SIGNAL_RANKING_CHANGED": 101,
+   "top5_members_changed": 51,
+   "top5_order_only_changed": 50,
+   "score_diff_gt_1e-9": 168,
+   "score_diff_ge_0.01": 168,
+   "trip_match_changed": 0
+  },
+  {
+   "group": "constrained",
+   "scenario": "exclude:พุทธและความเชื่อไทย",
+   "weekday": "วันศุกร์",
+   "profiles": 175,
+   "NO_SIGNAL": 0,
+   "SIGNAL_NO_RANKING_CHANGE": 113,
+   "SIGNAL_RANKING_CHANGED": 62,
+   "top5_members_changed": 11,
+   "top5_order_only_changed": 51,
+   "score_diff_gt_1e-9": 170,
+   "score_diff_ge_0.01": 162,
+   "trip_match_changed": 0
+  },
+  {
+   "group": "constrained",
+   "scenario": "exclude:พราหมณ์/โหราศาสตร์",
+   "weekday": "วันศุกร์",
+   "profiles": 175,
+   "NO_SIGNAL": 0,
+   "SIGNAL_NO_RANKING_CHANGE": 83,
+   "SIGNAL_RANKING_CHANGED": 92,
+   "top5_members_changed": 37,
+   "top5_order_only_changed": 55,
+   "score_diff_gt_1e-9": 174,
+   "score_diff_ge_0.01": 168,
+   "trip_match_changed": 3
+  },
+  {
+   "group": "unconstrained",
+   "scenario": "none",
+   "weekday": "วันเสาร์",
+   "profiles": 175,
+   "NO_SIGNAL": 0,
+   "SIGNAL_NO_RANKING_CHANGE": 102,
+   "SIGNAL_RANKING_CHANGED": 73,
+   "top5_members_changed": 36,
+   "top5_order_only_changed": 37,
+   "score_diff_gt_1e-9": 173,
+   "score_diff_ge_0.01": 164,
+   "trip_match_changed": 4
+  },
+  {
+   "group": "constrained",
+   "scenario": "exclude:ฮินดู",
+   "weekday": "วันเสาร์",
+   "profiles": 175,
+   "NO_SIGNAL": 175,
+   "SIGNAL_NO_RANKING_CHANGE": 0,
+   "SIGNAL_RANKING_CHANGED": 0,
+   "top5_members_changed": 0,
+   "top5_order_only_changed": 0,
+   "score_diff_gt_1e-9": 0,
+   "score_diff_ge_0.01": 0,
+   "trip_match_changed": 0
+  },
+  {
+   "group": "constrained",
+   "scenario": "exclude:จีนและกลุ่มผสมจีน",
+   "weekday": "วันเสาร์",
+   "profiles": 175,
+   "NO_SIGNAL": 0,
+   "SIGNAL_NO_RANKING_CHANGE": 105,
+   "SIGNAL_RANKING_CHANGED": 70,
+   "top5_members_changed": 43,
+   "top5_order_only_changed": 27,
+   "score_diff_gt_1e-9": 164,
+   "score_diff_ge_0.01": 158,
+   "trip_match_changed": 0
+  },
+  {
+   "group": "constrained",
+   "scenario": "exclude:พุทธและความเชื่อไทย",
+   "weekday": "วันเสาร์",
+   "profiles": 175,
+   "NO_SIGNAL": 0,
+   "SIGNAL_NO_RANKING_CHANGE": 132,
+   "SIGNAL_RANKING_CHANGED": 43,
+   "top5_members_changed": 17,
+   "top5_order_only_changed": 26,
+   "score_diff_gt_1e-9": 168,
+   "score_diff_ge_0.01": 161,
+   "trip_match_changed": 0
+  },
+  {
+   "group": "constrained",
+   "scenario": "exclude:พราหมณ์/โหราศาสตร์",
+   "weekday": "วันเสาร์",
+   "profiles": 175,
+   "NO_SIGNAL": 0,
+   "SIGNAL_NO_RANKING_CHANGE": 101,
+   "SIGNAL_RANKING_CHANGED": 74,
+   "top5_members_changed": 36,
+   "top5_order_only_changed": 38,
+   "score_diff_gt_1e-9": 173,
+   "score_diff_ge_0.01": 164,
+   "trip_match_changed": 3
+  },
+  {
+   "group": "unconstrained",
+   "scenario": "none",
+   "weekday": "วันอาทิตย์",
+   "profiles": 175,
+   "NO_SIGNAL": 175,
+   "SIGNAL_NO_RANKING_CHANGE": 0,
+   "SIGNAL_RANKING_CHANGED": 0,
+   "top5_members_changed": 0,
+   "top5_order_only_changed": 0,
+   "score_diff_gt_1e-9": 0,
+   "score_diff_ge_0.01": 0,
+   "trip_match_changed": 0
+  },
+  {
+   "group": "constrained",
+   "scenario": "exclude:ฮินดู",
+   "weekday": "วันอาทิตย์",
+   "profiles": 175,
+   "NO_SIGNAL": 175,
+   "SIGNAL_NO_RANKING_CHANGE": 0,
+   "SIGNAL_RANKING_CHANGED": 0,
+   "top5_members_changed": 0,
+   "top5_order_only_changed": 0,
+   "score_diff_gt_1e-9": 0,
+   "score_diff_ge_0.01": 0,
+   "trip_match_changed": 0
+  },
+  {
+   "group": "constrained",
+   "scenario": "exclude:จีนและกลุ่มผสมจีน",
+   "weekday": "วันอาทิตย์",
+   "profiles": 175,
+   "NO_SIGNAL": 175,
+   "SIGNAL_NO_RANKING_CHANGE": 0,
+   "SIGNAL_RANKING_CHANGED": 0,
+   "top5_members_changed": 0,
+   "top5_order_only_changed": 0,
+   "score_diff_gt_1e-9": 0,
+   "score_diff_ge_0.01": 0,
+   "trip_match_changed": 0
+  },
+  {
+   "group": "constrained",
+   "scenario": "exclude:พุทธและความเชื่อไทย",
+   "weekday": "วันอาทิตย์",
+   "profiles": 175,
+   "NO_SIGNAL": 175,
+   "SIGNAL_NO_RANKING_CHANGE": 0,
+   "SIGNAL_RANKING_CHANGED": 0,
+   "top5_members_changed": 0,
+   "top5_order_only_changed": 0,
+   "score_diff_gt_1e-9": 0,
+   "score_diff_ge_0.01": 0,
+   "trip_match_changed": 0
+  },
+  {
+   "group": "constrained",
+   "scenario": "exclude:พราหมณ์/โหราศาสตร์",
+   "weekday": "วันอาทิตย์",
+   "profiles": 175,
+   "NO_SIGNAL": 175,
+   "SIGNAL_NO_RANKING_CHANGE": 0,
+   "SIGNAL_RANKING_CHANGED": 0,
+   "top5_members_changed": 0,
+   "top5_order_only_changed": 0,
+   "score_diff_gt_1e-9": 0,
+   "score_diff_ge_0.01": 0,
+   "trip_match_changed": 0
+  }
+ ],
+ "seeds": [
+  {
+   "weekday": "วันจันทร์",
+   "wishes": 1,
+   "status": "APPLIED",
+   "birth_seed_nodes": [
+    "D_UMA"
+   ],
+   "claim_ids": [
+    "BD002"
+   ],
+   "sum_before": 1.05,
+   "birth_before": 0.05,
+   "birth_share_after": 0.047619048
+  },
+  {
+   "weekday": "วันจันทร์",
+   "wishes": 2,
+   "status": "APPLIED",
+   "birth_seed_nodes": [
+    "D_UMA"
+   ],
+   "claim_ids": [
+    "BD002"
+   ],
+   "sum_before": 1.05,
+   "birth_before": 0.05,
+   "birth_share_after": 0.047619048
+  },
+  {
+   "weekday": "วันจันทร์",
+   "wishes": 3,
+   "status": "APPLIED",
+   "birth_seed_nodes": [
+    "D_UMA"
+   ],
+   "claim_ids": [
+    "BD002"
+   ],
+   "sum_before": 1.05,
+   "birth_before": 0.05,
+   "birth_share_after": 0.047619048
+  },
+  {
+   "weekday": "วันอังคาร",
+   "wishes": 1,
+   "status": "APPLIED",
+   "birth_seed_nodes": [
+    "D_SKANDA"
+   ],
+   "claim_ids": [
+    "BD003"
+   ],
+   "sum_before": 1.05,
+   "birth_before": 0.05,
+   "birth_share_after": 0.047619048
+  },
+  {
+   "weekday": "วันอังคาร",
+   "wishes": 2,
+   "status": "APPLIED",
+   "birth_seed_nodes": [
+    "D_SKANDA"
+   ],
+   "claim_ids": [
+    "BD003"
+   ],
+   "sum_before": 1.05,
+   "birth_before": 0.05,
+   "birth_share_after": 0.047619048
+  },
+  {
+   "weekday": "วันอังคาร",
+   "wishes": 3,
+   "status": "APPLIED",
+   "birth_seed_nodes": [
+    "D_SKANDA"
+   ],
+   "claim_ids": [
+    "BD003"
+   ],
+   "sum_before": 1.05,
+   "birth_before": 0.05,
+   "birth_share_after": 0.047619048
+  },
+  {
+   "weekday": "วันพุธ",
+   "wishes": 1,
+   "status": "NO_ELIGIBLE_DATA",
+   "birth_seed_nodes": [],
+   "claim_ids": [],
+   "sum_before": 1.0,
+   "birth_before": 0,
+   "birth_share_after": 0.0
+  },
+  {
+   "weekday": "วันพุธ",
+   "wishes": 2,
+   "status": "NO_ELIGIBLE_DATA",
+   "birth_seed_nodes": [],
+   "claim_ids": [],
+   "sum_before": 1.0,
+   "birth_before": 0,
+   "birth_share_after": 0.0
+  },
+  {
+   "weekday": "วันพุธ",
+   "wishes": 3,
+   "status": "NO_ELIGIBLE_DATA",
+   "birth_seed_nodes": [],
+   "claim_ids": [],
+   "sum_before": 1.0,
+   "birth_before": 0,
+   "birth_share_after": 0.0
+  },
+  {
+   "weekday": "วันพฤหัสบดี",
+   "wishes": 1,
+   "status": "APPLIED",
+   "birth_seed_nodes": [
+    "D_SARASWATI"
+   ],
+   "claim_ids": [
+    "BD005"
+   ],
+   "sum_before": 1.05,
+   "birth_before": 0.05,
+   "birth_share_after": 0.047619048
+  },
+  {
+   "weekday": "วันพฤหัสบดี",
+   "wishes": 2,
+   "status": "APPLIED",
+   "birth_seed_nodes": [
+    "D_SARASWATI"
+   ],
+   "claim_ids": [
+    "BD005"
+   ],
+   "sum_before": 1.05,
+   "birth_before": 0.05,
+   "birth_share_after": 0.047619048
+  },
+  {
+   "weekday": "วันพฤหัสบดี",
+   "wishes": 3,
+   "status": "APPLIED",
+   "birth_seed_nodes": [
+    "D_SARASWATI"
+   ],
+   "claim_ids": [
+    "BD005"
+   ],
+   "sum_before": 1.05,
+   "birth_before": 0.05,
+   "birth_share_after": 0.047619048
+  },
+  {
+   "weekday": "วันศุกร์",
+   "wishes": 1,
+   "status": "APPLIED",
+   "birth_seed_nodes": [
+    "D_LAKSHMI"
+   ],
+   "claim_ids": [
+    "BD006"
+   ],
+   "sum_before": 1.05,
+   "birth_before": 0.05,
+   "birth_share_after": 0.047619048
+  },
+  {
+   "weekday": "วันศุกร์",
+   "wishes": 2,
+   "status": "APPLIED",
+   "birth_seed_nodes": [
+    "D_LAKSHMI"
+   ],
+   "claim_ids": [
+    "BD006"
+   ],
+   "sum_before": 1.05,
+   "birth_before": 0.05,
+   "birth_share_after": 0.047619048
+  },
+  {
+   "weekday": "วันศุกร์",
+   "wishes": 3,
+   "status": "APPLIED",
+   "birth_seed_nodes": [
+    "D_LAKSHMI"
+   ],
+   "claim_ids": [
+    "BD006"
+   ],
+   "sum_before": 1.05,
+   "birth_before": 0.05,
+   "birth_share_after": 0.047619048
+  },
+  {
+   "weekday": "วันเสาร์",
+   "wishes": 1,
+   "status": "APPLIED",
+   "birth_seed_nodes": [
+    "D_GANESHA"
+   ],
+   "claim_ids": [
+    "BD007"
+   ],
+   "sum_before": 1.05,
+   "birth_before": 0.05,
+   "birth_share_after": 0.047619048
+  },
+  {
+   "weekday": "วันเสาร์",
+   "wishes": 2,
+   "status": "APPLIED",
+   "birth_seed_nodes": [
+    "D_GANESHA"
+   ],
+   "claim_ids": [
+    "BD007"
+   ],
+   "sum_before": 1.05,
+   "birth_before": 0.05,
+   "birth_share_after": 0.047619048
+  },
+  {
+   "weekday": "วันเสาร์",
+   "wishes": 3,
+   "status": "APPLIED",
+   "birth_seed_nodes": [
+    "D_GANESHA"
+   ],
+   "claim_ids": [
+    "BD007"
+   ],
+   "sum_before": 1.05,
+   "birth_before": 0.05,
+   "birth_share_after": 0.047619048
+  },
+  {
+   "weekday": "วันอาทิตย์",
+   "wishes": 1,
+   "status": "NO_ELIGIBLE_DATA",
+   "birth_seed_nodes": [],
+   "claim_ids": [],
+   "sum_before": 1.0,
+   "birth_before": 0,
+   "birth_share_after": 0.0
+  },
+  {
+   "weekday": "วันอาทิตย์",
+   "wishes": 2,
+   "status": "NO_ELIGIBLE_DATA",
+   "birth_seed_nodes": [],
+   "claim_ids": [],
+   "sum_before": 1.0,
+   "birth_before": 0,
+   "birth_share_after": 0.0
+  },
+  {
+   "weekday": "วันอาทิตย์",
+   "wishes": 3,
+   "status": "NO_ELIGIBLE_DATA",
+   "birth_seed_nodes": [],
+   "claim_ids": [],
+   "sum_before": 1.0,
+   "birth_before": 0,
+   "birth_share_after": 0.0
+  }
+ ],
+ "same_weekday_different_date_identical": {
+  "checked": 1225,
+  "identical": 1225
+ }
+}

@@ -69,8 +69,17 @@ STATUS_TH = {
 STATION_NAME_TH = {s["station_id"]: s["name_th"] for s in m.D["stations"]}   # display only: the model's routing is untouched
 
 
+STATION_SYSTEM = {s["station_id"]: s["system"] for s in m.D["stations"]}   # display only (BTS / MRT / ARL)
+
+
 def station_name(station_id) -> str | None:
     return STATION_NAME_TH.get(station_id)
+
+
+def leg_view(leg: dict) -> dict:
+    """A fixed-trip leg exactly as stored, plus station names and the rail systems along its stored path. No new time is computed."""
+    return dict(leg, from_name=station_name(leg["from"]), to_name=station_name(leg["to"]),
+                systems=list(dict.fromkeys(STATION_SYSTEM[s] for s in leg["station_path"] if s in STATION_SYSTEM)))
 
 
 def place_hours_status(place: dict) -> str:
@@ -138,7 +147,7 @@ def place_detail(place_id: str) -> dict:
     trips_here = [t["trip_id"] for t in m.CATALOG.values() if place_id in t["place_ids"]]
     return {
         "place_id": place_id, "name": p["place_name"], "district": p["district"], "address": p["address"],
-        "station": {"id": p["routing_station_id"], "name_th": station_name(p["routing_station_id"]), "access_min_candidate": p["access_min_candidate"],
+        "station": {"id": p["routing_station_id"], "name_th": station_name(p["routing_station_id"]), "system": STATION_SYSTEM.get(p["routing_station_id"]), "access_min_candidate": p["access_min_candidate"],
                     "lat": p["station_anchor_lat"], "lon": p["station_anchor_lon"],
                     "coordinate_type": p["coordinate_type"],
                     "note": "พิกัดนี้คือสถานีที่ใกล้ที่สุด ไม่ใช่พิกัดสถานที่จริง"},
@@ -175,7 +184,7 @@ def trip_detail(trip_id: str) -> dict:
     return {
         "trip_id": trip_id, "title": cat["title"], "theme_weights": cat["wish_weights"],
         "theme_weight_names": {m.W[w]["wish_th"]: v for w, v in cat["wish_weights"].items()},
-        "stops": stops, "legs": route["legs"],
+        "stops": stops, "legs": [leg_view(x) for x in route["legs"]],
         "start": {"station_id": "CEN", "clock": "09:00", "note": "จุดนัดพบสยาม (สมมติ)"},
         "finish_clock": route["finish_clock"], "duration_min": route["duration_min"],
         "rail_min": route["rail_min_est"], "walk_min": route["station_walk_min_est"],
@@ -187,6 +196,34 @@ def trip_detail(trip_id: str) -> dict:
         "constraints": ["BTS/MRT + เดินหรือ Skywalk เท่านั้น", "4 จุดแวะ", "รวมไม่เกิน 6 ชั่วโมง", "ไม่มีสถานที่ซ้ำข้ามทริป"],
         "commercial_status": "PRICE_AND_CAPACITY_TBD",
     }
+
+
+# ---------------------------------------------------------------- birth-weekday signal (explanation only)
+BIRTH_STATUSES = ("NOT_PROVIDED", "APPLIED", "NO_ELIGIBLE_DATA", "EXCLUDED")
+
+
+def birth_signal(prof: dict) -> dict:
+    """Says what happened to the birth-weekday signal for a NORMALISED profile. It never chooses a deity itself:
+    the reference model's birth_seed() decides, both for the real profile and for a probe copy without deity exclusions
+    (used only to tell "the user excluded it" apart from "there is no eligible data")."""
+    weekday = prof["weekday"]
+    out = {"status": "NOT_PROVIDED", "weekday": weekday, "deities": [], "claim_ids": [], "excluded": [], "strength": BIRTH_STRENGTH}
+    if not weekday:
+        return out
+    named = lambda ids: [{"id": d, "name": m.E[d]["name_th"]} for d in ids]
+    ids, refs = m.birth_seed(prof)
+    if ids:
+        return dict(out, status="APPLIED", deities=named(ids), claim_ids=refs)
+    would, _ = m.birth_seed(dict(prof, blocked_deity_ids=set()))
+    if not would:
+        return dict(out, status="NO_ELIGIBLE_DATA")
+    exc = prof["exclusions"]
+    excluded = []
+    for item in named(would):
+        d = item["id"]
+        groups = [g for g in exc.get("tradition_groups", []) if m.TRADITION_GROUPS[g](m.E[d]["tradition"])]
+        excluded.append(dict(item, by_deity_choice=d in exc.get("deity_ids", []), by_groups=groups))
+    return dict(out, status="EXCLUDED", excluded=excluded)
 
 
 # ---------------------------------------------------------------- recommendations
@@ -233,7 +270,8 @@ def recommend(profile: dict) -> dict:
             "matched_wishes": [m.W[w]["wish_th"] for w in item["matched_wish_ids"]],
             "paths": paths, "deity_ids": deity_ids,
             "hours": {"open": pl["demo_open"], "close": pl["demo_close"], "status": place_hours_status(pl)},
-            "station_id": pl["routing_station_id"], "station_name": station_name(pl["routing_station_id"]), "access_min": pl["access_min_candidate"],
+            "station_id": pl["routing_station_id"], "station_name": station_name(pl["routing_station_id"]),
+            "station_system": STATION_SYSTEM.get(pl["routing_station_id"]), "access_min": pl["access_min_candidate"],
             "rituals": _rituals_for(pid, deity_ids),
             "note": item["note"],
         })
@@ -250,6 +288,7 @@ def recommend(profile: dict) -> dict:
         "profile": {"wish_ids": places["wish_ids"], "weekday": places["weekday_from_dob"],
                     "applied_exclusions": places["applied_exclusions"],
                     "birth_claim_ids_used": places["birth_claim_ids_used"]},
+        "birth_signal": birth_signal(m.normalize_profile(profile)),
         "candidate_places": places["candidate_places"], "limited_results": places["limited_results"],
         "limited_reason": places["limited_reason"],
         "top5": view,
@@ -388,7 +427,9 @@ def trace(profile: dict) -> dict:
                         "removed_deities": [{"id": d, "name": m.E[d]["name_th"], "tradition": m.E[d]["tradition"]}
                                             for d in sorted(prof["blocked_deity_ids"])],
                         "removed_places": [{"id": p, "name": m.P[p]["place_name"]} for p in sorted(prof["blocked_place_ids"])]},
-        "step2_seeds": {"seeds": seeds, "birth_deity_ids": birth_ids, "birth_claim_ids": birth_refs,
+        "birth_signal": birth_signal(prof),
+        "step2_seeds": {"seeds": seeds, "seeds_sum": norm, "seeds_normalized": {x: v / norm for x, v in seeds.items()},
+                        "birth_deity_ids": birth_ids, "birth_claim_ids": birth_refs,
                         "note": "วันเกิดใช้เป็นสัญญาณรองเท่านั้น (น้ำหนัก 0.05) และต้องผูกกับ Master ID ที่มีอยู่จริง"},
         "step3_pagerank": {"candidates": candidates[:15], "candidate_count": len(candidates), "node_scores": node_scores},
         "step4_coverage": {"steps": steps},

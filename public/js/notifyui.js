@@ -11,6 +11,8 @@ const SHORT = ['ม.ค.', 'ก.พ.', 'มี.ค.', 'เม.ย.', 'พ.ค.',
 export const thaiDate = (iso) => { const [y, m, d] = iso.split('-').map(Number); return `${d} ${SHORT[m - 1]} ${y + 543}`; };
 export const thaiRange = (a, b) => (a === b ? thaiDate(a) : `${thaiDate(a)} – ${thaiDate(b)}`);
 export const thaiMinute = (min) => `${thaiDate(dateBkk(min))} ${fmtBkk(min).slice(11)} น.`;
+/** The day a reminder falls due (Bangkok). A day already behind us is said so instead of looking like a future alert. */
+export const remindDateText = (target, offset, now) => (dateBkk(target - offset) < dateBkk(now) ? `ครบกำหนดแล้วเมื่อ ${thaiDate(dateBkk(target - offset))}` : `เตือนวันที่ ${thaiDate(dateBkk(target - offset))}`);
 export const offsetLabel = (o) => (o === 0 ? 'ตอนเริ่ม' : o % 1440 === 0 ? `${o / 1440} วัน` : o % 60 === 0 ? `${o / 60} ชั่วโมง` : `${o} นาที`);
 
 const hooks = { continueWith: () => {}, showBar: () => S.step >= 4 };
@@ -44,12 +46,14 @@ export function offsetControls(pid, sid) {
   if (!child) return null;
   const block = reminderBlock(child, 'NORMAL');
   // Cannot remind: no checkboxes at all, only the reason (a checkbox the user cannot tick is a broken promise).
-  if (block) return h('div', { class: 'small muted', 'data-no-reminder': block }, `บันทึกไว้ดูเท่านั้น ไม่มีการแจ้งเตือน เพราะ${BLOCK_TEXT[block]}`);
+  if (block) return h('div', { class: 'small muted', 'data-no-reminder': block }, `บันทึกไว้ดูเท่านั้น ไม่มีการแจ้งเตือน เพราะ${BLOCK_TEXT[block]} จึงไม่มีวันแจ้งเตือน`);
+  const now = nowMinute(), occ = (st.explain(pid, sid, now) || {}).occurrence;
   const boxes = child.offsets_available.map((o) => h('label', { class: 'row', style: 'flex-wrap:nowrap;align-items:center;gap:4px' },
     h('input', { type: 'checkbox', checked: child.offsets_enabled.includes(o), onchange: (e) => {
       const next = e.target.checked ? [...child.offsets_enabled, o] : child.offsets_enabled.filter((x) => x !== o);
-      st.setOffsets(pid, sid, next, nowMinute()); changed(); } }), `ก่อน ${offsetLabel(o)}`));
-  return h('div', { class: 'stack small', style: 'gap:4px' }, h('div', { class: 'row' }, h('span', {}, 'เตือนล่วงหน้า:'), ...boxes));
+      st.setOffsets(pid, sid, next, nowMinute()); changed(); } }), h('span', {}, `ก่อน ${offsetLabel(o)}`, occ ? h('span', { class: 'faint', 'data-remind-date': dateBkk(occ.target_min - o) }, ` · ${remindDateText(occ.target_min, o, now)}`) : null)));
+  return h('div', { class: 'stack small', style: 'gap:4px' }, h('div', { class: 'row' }, h('span', {}, 'เตือนล่วงหน้า:'), ...boxes),
+    h('div', { class: 'faint' }, occ ? 'ระบบตรวจการเตือนตอนเปิดหน้าเว็บนี้เท่านั้น ถ้าไม่ได้เปิดในวันนั้นจะเห็นเมื่อเปิดครั้งถัดไปก่อนหมดช่วงวันกิจกรรม' : 'ยังคำนวณวันแจ้งเตือนไม่ได้ เพราะไม่มีรอบวันที่ที่กำลังจะมาถึง'));
 }
 
 /** Words follow what the app can really do: "ติดตาม" only where a reminder can be raised, otherwise "บันทึกไว้". */

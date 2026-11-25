@@ -1,5 +1,7 @@
 // Tab 1 — MUMU user demo: 7 steps. Every number and every place comes from the engine (via /api/mumu/*).
-import { h, clear, f, pct, statusChip, TRIP_TH, MONTHS_TH, bar, toast } from './util.js';
+import { h, clear, put, f, pct, statusChip, statusLegend, TRIP_TH, MONTHS_TH, bar, toast } from './util.js';
+import { userNote, userSourceName, userVerification, userCaution, userLimitedReason, stationText, accessText, legLines, birthText } from './usertext.js';
+import { osmCredit } from './osm.js';
 import { API } from './api.js';
 import { S, subscribe, invalidate, ensureResult, profile, birthdateISO, activeWishes, catalogNames, todayISO } from './state.js';
 import { displayLayer } from './calendar.js';
@@ -65,7 +67,7 @@ export async function renderDemo(root) {
 
   function draw() {
     const hasData = S.step > 1 || S.wishes.length || S.d || S.m || S.y;
-    clear(host).append(progress(), hasData ? h('div', { class: 'row', style: 'justify-content:flex-end;margin:-8px 0 8px' }, h('button', { type: 'button', class: 'btn sm ghost', title: 'ลบวันเกิดและตัวเลือกทั้งหมดออกจากหน้านี้', onclick: resetAll }, '🗑 ล้างข้อมูลของฉัน')) : null, ({ 1: step1, 2: step2, 3: step3, 4: step4, 5: step5, 6: step6, 7: step7 })[S.step]());
+    put(clear(host), progress(), hasData ? h('div', { class: 'row', style: 'justify-content:flex-end;margin:-8px 0 8px' }, h('button', { type: 'button', class: 'btn sm ghost', title: 'ลบวันเกิดและตัวเลือกทั้งหมดออกจากหน้านี้', onclick: resetAll }, '🗑 ล้างข้อมูลของฉัน')) : null, ({ 1: step1, 2: step2, 3: step3, 4: step4, 5: step5, 6: step6, 7: step7 })[S.step]());
     refreshNotify();
   }
 
@@ -166,8 +168,10 @@ export async function renderDemo(root) {
       h('div', {}, h('span', { class: 'chip gold' }, 'ป้ายทอง "เกิดวัน…"'), ' วันเกิดในสัปดาห์ที่ใช้เป็นสัญญาณรอง รอบนี้ระบบใช้เฉพาะวันเกิดในสัปดาห์ ยังไม่ใช้เดือนเกิด ราศี หรือปีนักษัตร'),
       h('div', {}, 'ลูกศร เรื่อง → สิ่งศักดิ์สิทธิ์ → สถานที่ คือเส้นทางในเครือข่ายที่ทำให้ระบบแนะนำสถานที่นั้น')));
   const summary = (R) => h('div', { class: 'row', style: 'margin-bottom:12px' }, activeWishes().map((w) => h('span', { class: 'chip' }, wishIcon(w).e + ' ' + wishName[w])),
-    R.profile.weekday ? h('span', { class: 'chip gold', title: 'วันเกิดใช้เป็นสัญญาณรอง' }, 'เกิด' + R.profile.weekday) : null,
+    R.profile.weekday ? (R.birth_signal.status === 'APPLIED' ? h('span', { class: 'chip gold', title: 'วันเกิดใช้เป็นสัญญาณรอง' }, 'เกิด' + R.profile.weekday) : h('span', { class: 'chip', title: 'รอบนี้ไม่ได้ใช้สัญญาณวันเกิด' }, 'เกิด' + R.profile.weekday + ' (ไม่ได้ใช้)')) : null,
     R.profile.applied_exclusions.deity_ids.length || R.profile.applied_exclusions.place_ids.length ? h('span', { class: 'chip pink' }, `ตัดสิ่งศักดิ์สิทธิ์ ${R.profile.applied_exclusions.deity_ids.length} · สถานที่ ${R.profile.applied_exclusions.place_ids.length}`) : null);
+
+  const birthNote = (R) => h('div', { class: 'callout small', 'data-birth-status': R.birth_signal.status }, '🎂 ', birthText(R.birth_signal));
 
   /* ------------------------------------------------ 04 focus + network preview */
   function step4() {
@@ -211,7 +215,7 @@ export async function renderDemo(root) {
           missing.length ? h('p', { class: 'small faint', style: 'margin:0', 'data-missing-wishes': missing.join(',') }, `เรื่อง ${missing.map((w) => wishName[w]).join(', ')} ยังไม่มีสถานที่ใน Top 5 ที่คำนวณไว้ (ไม่ได้แปลว่าเครือข่ายไม่มีเลย)`) : null,
           focus !== 'ALL' && list.length === 1 ? h('p', { class: 'small faint', style: 'margin:0' }, 'นี่คือรายการที่เกี่ยวข้องกับเรื่องที่โฟกัส จากสถานที่ที่คำนวณไว้ ไม่ได้แปลว่าเครือข่ายพบได้เพียงแห่งเดียว') : null);
       }
-      return h('div', { class: 'fade-in stack' }, title(4, 'สำรวจความเชื่อมโยงของเรื่องที่คุณสนใจ', 'เลือกการ์ดเพื่อดูคำแนะนำเบื้องต้นแต่ละเรื่อง โดยสถานที่ Top 5 ในขั้นตอนถัดไปจะพิจารณาจากทุกเรื่องที่คุณเลือกไว้'), modeBanner(), summary(R),
+      return h('div', { class: 'fade-in stack' }, title(4, 'สำรวจความเชื่อมโยงของเรื่องที่คุณสนใจ', 'เลือกการ์ดเพื่อดูคำแนะนำเบื้องต้นแต่ละเรื่อง โดยสถานที่ Top 5 ในขั้นตอนถัดไปจะพิจารณาจากทุกเรื่องที่คุณเลือกไว้'), modeBanner(), summary(R), birthNote(R),
         mode ? null : h('div', { class: 'card stack' }, h('h3', {}, 'ความสนใจของคุณ'),
           S.wishes.length > 1 ? h('p', { class: 'small muted', style: 'margin:0' }, 'เลือกการ์ดเพื่อดูคำแนะนำเบื้องต้นแต่ละเรื่อง โดยสถานที่ Top 5 ในขั้นตอนถัดไปจะพิจารณาจากทุกเรื่องที่คุณเลือกไว้') : h('p', { class: 'small muted', style: 'margin:0' }, 'คุณเลือกไว้เรื่องเดียว ระบบใช้เรื่องนี้เป็นโฟกัสให้อัตโนมัติ'),
           h('div', { class: 'wish-grid', style: 'grid-template-columns:repeat(auto-fill,minmax(180px,1fr))' }, cards)),
@@ -257,9 +261,9 @@ export async function renderDemo(root) {
             h('div', { class: 'row' }, h('button', { type: 'button', class: 'btn sm', onclick: () => openPlace(p.place_id) }, 'ดูรายละเอียด'),
               h('button', { type: 'button', class: 'btn sm' + (on ? ' primary' : ''), onclick: () => { on ? S.picked.delete(p.place_id) : S.picked.add(p.place_id); draw(); } }, on ? '✓ สนใจสถานที่นี้' : 'สนใจสถานที่นี้'))));
       });
-      return h('div', { class: 'fade-in stack' }, title(5, 'สถานที่ที่เหมาะกับคุณ', 'คำแนะนำสูงสุด 5 แห่ง จากความสนใจของคุณ'), modeBanner(), summary(R),
+      return h('div', { class: 'fade-in stack' }, title(5, 'สถานที่ที่เหมาะกับคุณ', 'คำแนะนำสูงสุด 5 แห่ง จากความสนใจของคุณ'), modeBanner(), summary(R), birthNote(R),
         !R.top5.length ? h('div', { class: 'callout warn' }, h('b', {}, 'ไม่พบสถานที่ที่ผ่านเงื่อนไข'), h('p', { class: 'small', style: 'margin:.3em 0 0' }, 'ระบบไม่แนะนำสิ่งที่ขัดกับที่คุณไม่ต้องการ และไม่เติมรายการให้ครบ ลองแก้ข้อจำกัดหรือความสนใจ')) :
-          R.limited_results ? h('div', { class: 'callout' }, `แสดง ${R.top5.length} แห่ง (น้อยกว่า 5) — ${R.limited_reason || 'ไม่มีเส้นทางที่มีแหล่งอ้างอิงเพิ่ม'} ระบบไม่เติมรายการให้ครบ`) : null,
+          R.limited_results ? h('div', { class: 'callout' }, `แสดง ${R.top5.length} แห่ง (น้อยกว่า 5) — ${userLimitedReason(R.limited_reason)} ระบบไม่เติมรายการให้ครบ`) : null,
         ...cardsOut, legend(), eventsBlock(R),
         h('div', { class: 'callout small' }, 'ผลลัพธ์มาจากความสัมพันธ์ในฐานข้อมูล ไม่ใช่การรับรองความศักดิ์สิทธิ์หรือผลของการขอพร การเลือก "สนใจ" ไม่เปลี่ยนอันดับ บางความสัมพันธ์ยังรอตรวจสอบ ดูสถานะรายเส้นทางได้ใน "ดูรายละเอียด"'),
         foot({ fn: () => go(4) }, { label: 'ดูทริปที่เหมาะกับฉัน', fn: () => go(6) }));
@@ -273,6 +277,10 @@ export async function renderDemo(root) {
       h('tbody', {}, T.all_scores.map((s) => h('tr', { class: s.eligible ? '' : 'out' }, h('td', {}, TRIP_TH[s.trip_id], h('div', { class: 'small faint' }, s.trip_name)),
         h('td', { class: 'small' }, s.eligible ? 'ผ่านเกณฑ์' : s.reason_codes.map(reasonText).join(' · ')), h('td', { class: 'n' }, pct(s.coverage_fraction, 0)), h('td', { class: 'n' }, f(s.graph_relevance)), h('td', { class: 'n' }, f(s.matching_score)))))));
   }
+  /* Totals as stored with the fixed trip: travel, access, waiting and time at the stops are shown apart. */
+  const tripTimes = (D) => h('div', { class: 'small', 'data-trip-times': 'true' },
+    h('div', {}, `เดินทางด้วยรถไฟฟ้าประมาณ ${Math.round(D.rail_min)} นาที · เดินเข้าถึงสถานที่ประมาณ ${Math.round(D.walk_min)} นาที`),
+    h('div', { class: 'faint' }, `ในเวลารวมประมาณ ${Math.round(D.duration_min)} นาที ยังมีเวลารอรถ ${Math.round(D.train_wait_min)} (สมมติ) รอสถานที่เปิด ${Math.round(D.opening_wait_min)} บรีฟกลุ่ม ${Math.round(D.group_briefing_min)} พัก ${Math.round(D.midday_break_min)} และเวลาที่จุดแวะ ${Math.round(D.dwell_min)} นาที ทุกค่าเป็นค่าประมาณ`));
   function step6() {
     return gate(6, 'ทริปที่ใช่สำหรับคุณ', 'MUMU เลือกทริปที่เหมาะจาก 3 ทริปของบริษัท', () => {
       const R = S.result, T = R.trip;
@@ -289,8 +297,9 @@ export async function renderDemo(root) {
             h('div', { class: 'stops' }, D.stops.map((s) => h('div', { class: 'stop' }, h('i', {}, s.order), h('div', {}, s.name)))),
             h('div', { class: 'row', style: 'margin-top:12px' }, h('span', { class: 'tag' }, '🚆 BTS/MRT + เดิน'), h('span', { class: 'tag' }, `⏱ ประมาณ ${Math.round(D.duration_min)} นาที · จบ ~${D.finish_clock}`), h('span', { class: 'tag' }, `คะแนนจับคู่ ${f(M.matching_score, 2)}`), h('span', { class: 'tag' }, 'Demo · ยังไม่เปิดจองจริง'), h('span', { class: 'tag' }, 'ราคา/วันเดินทาง: ยังไม่กำหนด'))),
           h('div', { class: 'card' }, h('h3', {}, 'จุดแวะตามลำดับ'), h('ol', { class: 'timeline', style: 'margin-top:10px' }, D.stops.map((s) => h('li', {},
-            h('div', { class: 't' }, `${s.arrival}–${s.finish} · ${s.station_name} (${s.station_id}) · ${s.access_mode === 'skywalk' ? 'Skywalk' : 'เดิน'}`),
-            h('div', {}, h('b', {}, s.name)), h('div', { class: 'small muted' }, 'พิธีเด่น: ' + s.featured_deity))))),
+            h('div', { class: 't' }, `${s.arrival}–${s.finish}`),
+            h('div', {}, h('b', {}, s.name)), h('div', { class: 'small', 'data-leg': String(s.order) }, legLines(D.legs[s.order - 1], s.access_mode).map((t) => h('div', {}, t))), h('div', { class: 'small muted' }, 'พิธีเด่น: ' + s.featured_deity)))),
+            tripTimes(D), osmCredit()),
           h('div', { class: 'callout small' }, 'เวลาเปิดของบางแห่งเป็นข้อมูลจำลองหรือรอตรวจ ควรตรวจกับสถานที่ก่อนเดินทาง'),
           h('div', { class: 'callout info small' }, 'นี่คือ "ทริปคงที่" ที่บริษัทออกแบบไว้ล่วงหน้า ระบบแค่เลือกจาก 3 ทริป ไม่ปรับหรือสร้างเส้นทางใหม่ตามผู้ใช้ และยังไม่ยืนยันที่นั่ง ราคา หรือวันเดินทาง'),
           h('details', {}, h('summary', {}, 'ดูเหตุผลและคะแนนเทียบทั้ง 3 ทริป'), h('div', { class: 'inner' }, scoreTable(T))),
@@ -309,13 +318,14 @@ export async function renderDemo(root) {
       if (svc === 'self') {
         const ids = S.picked.size ? [...S.picked] : R.top5.map((p) => p.place_id);
         panel.append(h('h3', {}, 'ไปมูเอง'), h('p', { class: 'sub' }, S.picked.size ? 'สถานที่ที่คุณสนใจ' : 'คุณยังไม่ได้เลือกสถานที่ แสดงทั้งหมดที่ระบบเสนอ'),
-          ...ids.map((id) => { const p = R.top5.find((x) => x.place_id === id); return h('div', { class: 'path' }, h('b', {}, p.name), h('div', { class: 'small muted' }, `สถานีใกล้สุด ${p.station_name || p.station_id} · เข้าถึงประมาณ ${p.access_min} นาที (ประมาณการ) · เปิด ${p.hours.open}–${p.hours.close}`), h('div', { class: 'row', style: 'margin-top:4px' }, h('button', { class: 'btn sm', onclick: () => openPlace(id) }, 'ข้อมูลสถานที่และวิธีมู'))); }),
+          ...ids.map((id) => { const p = R.top5.find((x) => x.place_id === id); return h('div', { class: 'path' }, h('b', {}, p.name), h('div', { class: 'small muted' }, `${stationText(p.station_name, p.station_system, p.station_id, 'สถานีใกล้สุด')} · ${accessText(p.access_min)} · เปิด ${p.hours.open}–${p.hours.close}`), h('div', { class: 'row', style: 'margin-top:4px' }, h('button', { class: 'btn sm', onclick: () => openPlace(id) }, 'ข้อมูลสถานที่และวิธีมู'))); }),
           h('div', { class: 'callout small' }, 'ยังไม่มีการจองจริง เวลาเปิดบางแห่งเป็นข้อมูลจำลองหรือรอตรวจ ควรตรวจกับสถานที่ก่อนเดินทาง'),
           h('div', { class: 'row' }, h('button', { class: 'btn primary', onclick: () => openFeedback({ service: 'self' }) }, 'ให้ความคิดเห็นต่อ Demo')));
       } else if (svc === 'trip') {
         const T = R.trip;
         panel.append(h('h3', {}, 'ทริปบริษัท (Demo)'), T.matched ? h('div', { class: 'stack' }, h('p', { class: 'sub' }, `${TRIP_TH[T.matched.trip_id]} · ${T.detail.title}`),
-          h('ol', { class: 'timeline' }, T.detail.stops.map((s) => h('li', {}, h('div', { class: 't' }, `${s.arrival}–${s.finish} · ${s.station_name}`), h('div', {}, s.name)))),
+          h('ol', { class: 'timeline' }, T.detail.stops.map((s) => h('li', {}, h('div', { class: 't' }, `${s.arrival}–${s.finish}`), h('div', {}, s.name), h('div', { class: 'small muted', 'data-leg': String(s.order) }, legLines(T.detail.legs[s.order - 1], s.access_mode).map((t) => h('div', {}, t)))))),
+          tripTimes(T.detail), osmCredit(),
           h('div', { class: 'callout small', 'data-trip-tbd': 'true' }, h('b', {}, 'รายละเอียดการจอง (Demo)'),
             h('div', {}, 'ราคา: ยังไม่กำหนด · วันเดินทาง: ยังไม่กำหนด · การจองล่วงหน้า: ยังไม่เปิดจอง'),
             h('div', {}, 'ปุ่มด้านล่างเป็นการแสดงความสนใจเพื่อทดสอบระบบ ไม่ใช่การลงทะเบียนหรือการจอง ไม่รับชำระเงินจริง ไม่มีที่นั่งถูกสำรอง')),
@@ -455,8 +465,8 @@ export async function renderDemo(root) {
   }
 
   /* ------------------------------------------------ place details modal */
-  const ritualBlock = (ttl, rows) => !rows.length ? null : h('div', {}, h('h4', {}, ttl), rows.map((r) => h('div', { class: 'ritual' }, h('b', {}, r.category_th + ': '), r.detail,
-    h('div', { class: 'src' }, 'แหล่ง: ' + r.source_name + ' · ' + r.verification + ' · ', r.quality_status === 'SOURCE_MISSING' ? 'ยังไม่มีแหล่งยืนยัน' : 'ข้อมูลอ้างอิง ไม่ใช่การรับรองทางการ',
+  const ritualBlock = (ttl, rows) => !rows.length ? null : h('div', {}, h('h4', {}, ttl), rows.map((r) => h('div', { class: 'ritual' }, h('b', {}, r.category_th + ': '), userNote(r.detail),
+    h('div', { class: 'src' }, 'แหล่ง: ' + userSourceName(r.source_name) + ' · ' + userVerification(r.verification) + ' · ', r.quality_status === 'SOURCE_MISSING' ? 'ยังไม่มีแหล่งยืนยัน' : 'ข้อมูลอ้างอิง ไม่ใช่การรับรองทางการ',
       r.source_urls.filter((u) => /^https?:\/\//.test(u)).map((u, i) => [' · ', h('a', { href: u, target: '_blank', rel: 'noopener noreferrer' }, 'แหล่ง ' + (i + 1))])))));
   async function openPlace(id) {
     clear(dlg).append(h('div', { class: 'dlg-b' }, h('div', { class: 'spinner' })));
@@ -465,8 +475,9 @@ export async function renderDemo(root) {
       const P = await API.place(id);
       clear(dlg).append(h('div', { class: 'dlg-h' }, h('div', {}, h('h3', {}, P.name), h('div', { class: 'small muted' }, P.district + ' · ' + P.address)), h('button', { class: 'btn sm', onclick: () => dlg.close() }, 'ปิด')),
         h('div', { class: 'dlg-b stack' },
-          h('div', { class: 'row' }, h('span', { class: 'chip' }, `เปิด ${P.hours.open}–${P.hours.close}`), statusChip(P.hours.status, 'เวลาเปิด'), h('span', { class: 'chip st-unv' }, 'พิกัด: สถานี ' + (P.station.name_th || P.station.id) + ' ไม่ใช่ตำแหน่งสถานที่จริง'), h('span', { class: 'chip' }, `เดินทางประมาณ ${P.station.access_min_candidate} นาทีจากสถานี (ประมาณการ)`)),
-          P.caution ? h('div', { class: 'callout warn small' }, P.caution) : null,
+          h('div', { class: 'row' }, h('span', { class: 'chip' }, `เปิด ${P.hours.open}–${P.hours.close}`), statusChip(P.hours.status, 'เวลาเปิด'), h('span', { class: 'chip st-unv' }, P.station.id ? `พิกัด: ${stationText(P.station.name_th, P.station.system, P.station.id)} ไม่ใช่ตำแหน่งสถานที่จริง` : 'ยังไม่มีข้อมูลสถานีรถไฟฟ้า'), h('span', { class: 'chip' }, accessText(P.station.access_min_candidate))),
+          P.caution ? h('div', { class: 'callout warn small', 'data-caution': 'true' }, userCaution(P.caution)) : null,
+          statusLegend(),
           h('div', {}, h('h4', {}, 'สิ่งศักดิ์สิทธิ์และเรื่องมูที่เชื่อมโยง'), h('div', { class: 'scroll-x' }, h('table', {}, h('thead', {}, h('tr', {}, ['สิ่งศักดิ์สิทธิ์', 'ความเชื่อ', 'เรื่องที่ขอ', 'สถานะ'].map((t) => h('th', {}, t)))),
             h('tbody', {}, P.sacred_entities.map((e) => h('tr', {}, h('td', {}, e.deity_name), h('td', {}, e.tradition), h('td', {}, e.wish_names.join(', ')), h('td', {}, statusChip(e.place_link_status, 'เทพ–สถานที่')))))))),
           ritualBlock('วิธีมู/ของไหว้ของสถานที่นี้', P.rituals.place), ...Object.entries(P.rituals.deity).map(([d, rows]) => ritualBlock('ของ' + nameOf(d), rows)),

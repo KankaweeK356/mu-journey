@@ -41,12 +41,12 @@
  },
  {
   "name": "Persona A (Lab -> Matching) Output TRIP_LOVE: Graph Relevance / Wish Coverage / score on the page equal the model (page rounding)",
-  "ok": false,
-  "info": "page={\"graph\":\"0.513\",\"cover\":\"100%\",\"eqGraph\":\"0.513\",\"eqCover\":\"1.00\",\"score\":\"0.645\"} model={\"graph\":\"0.513\",\"cover\":\"100%\",\"eqGraph\":\"0.513\",\"eqCover\":\"1.00\",\"score\":\"0.635\"}"
+  "ok": true,
+  "info": "page={\"graph\":\"0.513\",\"cover\":\"100%\",\"eqGraph\":\"0.513\",\"eqCover\":\"1.00\",\"score\":\"0.635\"} model={\"graph\":\"0.513\",\"cover\":\"100%\",\"eqGraph\":\"0.513\",\"eqCover\":\"1.00\",\"score\":\"0.635\"}"
  },
  {
   "name": "Persona A (Lab -> Matching) Output TRIP_LOVE: displayed values are within the rounding step of the unrounded model value",
-  "ok": false,
+  "ok": true,
   "info": ""
  },
  {
@@ -66,12 +66,12 @@
  },
  {
   "name": "Persona A (Lab -> Matching) Output TRIP_CAREER: Graph Relevance / Wish Coverage / score on the page equal the model (page rounding)",
-  "ok": false,
-  "info": "page={\"graph\":\"0.462\",\"cover\":\"100%\",\"eqGraph\":\"0.462\",\"eqCover\":\"1.00\",\"score\":\"0.607\"} model={\"graph\":\"0.462\",\"cover\":\"100%\",\"eqGraph\":\"0.462\",\"eqCover\":\"1.00\",\"score\":\"0.597\"}"
+  "ok": true,
+  "info": "page={\"graph\":\"0.462\",\"cover\":\"100%\",\"eqGraph\":\"0.462\",\"eqCover\":\"1.00\",\"score\":\"0.597\"} model={\"graph\":\"0.462\",\"cover\":\"100%\",\"eqGraph\":\"0.462\",\"eqCover\":\"1.00\",\"score\":\"0.597\"}"
  },
  {
   "name": "Persona A (Lab -> Matching) Output TRIP_CAREER: displayed values are within the rounding step of the unrounded model value",
-  "ok": false,
+  "ok": true,
   "info": ""
  },
  {
@@ -91,12 +91,12 @@
  },
  {
   "name": "Persona A (Lab -> Matching) Output TRIP_WEALTH: Graph Relevance / Wish Coverage / score on the page equal the model (page rounding)",
-  "ok": false,
-  "info": "page={\"graph\":\"0.236\",\"cover\":\"33%\",\"eqGraph\":\"0.236\",\"eqCover\":\"0.33\",\"score\":\"0.270\"} model={\"graph\":\"0.236\",\"cover\":\"33%\",\"eqGraph\":\"0.236\",\"eqCover\":\"0.33\",\"score\":\"0.260\"}"
+  "ok": true,
+  "info": "page={\"graph\":\"0.236\",\"cover\":\"33%\",\"eqGraph\":\"0.236\",\"eqCover\":\"0.33\",\"score\":\"0.260\"} model={\"graph\":\"0.236\",\"cover\":\"33%\",\"eqGraph\":\"0.236\",\"eqCover\":\"0.33\",\"score\":\"0.260\"}"
  },
  {
   "name": "Persona A (Lab -> Matching) Output TRIP_WEALTH: displayed values are within the rounding step of the unrounded model value",
-  "ok": false,
+  "ok": true,
   "info": ""
  },
  {
@@ -161,12 +161,12 @@
  },
  {
   "name": "Persona C (Lab -> Matching) Output TRIP_CAREER: Graph Relevance / Wish Coverage / score on the page equal the model (page rounding)",
-  "ok": false,
-  "info": "page={\"graph\":\"0.000\",\"cover\":\"0%\",\"eqGraph\":\"0.000\",\"eqCover\":\"0.00\",\"score\":\"0.010\"} model={\"graph\":\"0.000\",\"cover\":\"0%\",\"eqGraph\":\"0.000\",\"eqCover\":\"0.00\",\"score\":\"0.000\"}"
+  "ok": true,
+  "info": "page={\"graph\":\"0.000\",\"cover\":\"0%\",\"eqGraph\":\"0.000\",\"eqCover\":\"0.00\",\"score\":\"0.000\"} model={\"graph\":\"0.000\",\"cover\":\"0%\",\"eqGraph\":\"0.000\",\"eqCover\":\"0.00\",\"score\":\"0.000\"}"
  },
  {
   "name": "Persona C (Lab -> Matching) Output TRIP_CAREER: displayed values are within the rounding step of the unrounded model value",
-  "ok": false,
+  "ok": true,
   "info": ""
  },
  {
@@ -186,12 +186,12 @@
  },
  {
   "name": "Persona C (Lab -> Matching) Output TRIP_LOVE: Graph Relevance / Wish Coverage / score on the page equal the model (page rounding)",
-  "ok": false,
-  "info": "page={\"graph\":\"0.000\",\"cover\":\"0%\",\"eqGraph\":\"0.000\",\"eqCover\":\"0.00\",\"score\":\"0.010\"} model={\"graph\":\"0.000\",\"cover\":\"0%\",\"eqGraph\":\"0.000\",\"eqCover\":\"0.00\",\"score\":\"0.000\"}"
+  "ok": true,
+  "info": "page={\"graph\":\"0.000\",\"cover\":\"0%\",\"eqGraph\":\"0.000\",\"eqCover\":\"0.00\",\"score\":\"0.000\"} model={\"graph\":\"0.000\",\"cover\":\"0%\",\"eqGraph\":\"0.000\",\"eqCover\":\"0.00\",\"score\":\"0.000\"}"
  },
  {
   "name": "Persona C (Lab -> Matching) Output TRIP_LOVE: displayed values are within the rounding step of the unrounded model value",
-  "ok": false,
+  "ok": true,
   "info": ""
  },
  {
@@ -211,12 +211,12 @@
  },
  {
   "name": "Persona C (Lab -> Matching) Output TRIP_WEALTH: Graph Relevance / Wish Coverage / score on the page equal the model (page rounding)",
-  "ok": false,
-  "info": "page={\"graph\":\"0.000\",\"cover\":\"0%\",\"eqGraph\":\"0.000\",\"eqCover\":\"0.00\",\"score\":\"0.010\"} model={\"graph\":\"0.000\",\"cover\":\"0%\",\"eqGraph\":\"0.000\",\"eqCover\":\"0.00\",\"score\":\"0.000\"}"
+  "ok": true,
+  "info": "page={\"graph\":\"0.000\",\"cover\":\"0%\",\"eqGraph\":\"0.000\",\"eqCover\":\"0.00\",\"score\":\"0.000\"} model={\"graph\":\"0.000\",\"cover\":\"0%\",\"eqGraph\":\"0.000\",\"eqCover\":\"0.00\",\"score\":\"0.000\"}"
  },
  {
   "name": "Persona C (Lab -> Matching) Output TRIP_WEALTH: displayed values are within the rounding step of the unrounded model value",
-  "ok": false,
+  "ok": true,
   "info": ""
  },
  {
@@ -281,12 +281,12 @@
  },
  {
   "name": "Persona A (Matching button) Output TRIP_LOVE: Graph Relevance / Wish Coverage / score on the page equal the model (page rounding)",
-  "ok": false,
-  "info": "page={\"graph\":\"0.513\",\"cover\":\"100%\",\"eqGraph\":\"0.513\",\"eqCover\":\"1.00\",\"score\":\"0.645\"} model={\"graph\":\"0.513\",\"cover\":\"100%\",\"eqGraph\":\"0.513\",\"eqCover\":\"1.00\",\"score\":\"0.635\"}"
+  "ok": true,
+  "info": "page={\"graph\":\"0.513\",\"cover\":\"100%\",\"eqGraph\":\"0.513\",\"eqCover\":\"1.00\",\"score\":\"0.635\"} model={\"graph\":\"0.513\",\"cover\":\"100%\",\"eqGraph\":\"0.513\",\"eqCover\":\"1.00\",\"score\":\"0.635\"}"
  },
  {
   "name": "Persona A (Matching button) Output TRIP_LOVE: displayed values are within the rounding step of the unrounded model value",
-  "ok": false,
+  "ok": true,
   "info": ""
  },
  {
@@ -306,12 +306,12 @@
  },
  {
   "name": "Persona A (Matching button) Output TRIP_CAREER: Graph Relevance / Wish Coverage / score on the page equal the model (page rounding)",
-  "ok": false,
-  "info": "page={\"graph\":\"0.462\",\"cover\":\"100%\",\"eqGraph\":\"0.462\",\"eqCover\":\"1.00\",\"score\":\"0.607\"} model={\"graph\":\"0.462\",\"cover\":\"100%\",\"eqGraph\":\"0.462\",\"eqCover\":\"1.00\",\"score\":\"0.597\"}"
+  "ok": true,
+  "info": "page={\"graph\":\"0.462\",\"cover\":\"100%\",\"eqGraph\":\"0.462\",\"eqCover\":\"1.00\",\"score\":\"0.597\"} model={\"graph\":\"0.462\",\"cover\":\"100%\",\"eqGraph\":\"0.462\",\"eqCover\":\"1.00\",\"score\":\"0.597\"}"
  },
  {
   "name": "Persona A (Matching button) Output TRIP_CAREER: displayed values are within the rounding step of the unrounded model value",
-  "ok": false,
+  "ok": true,
   "info": ""
  },
  {
@@ -331,12 +331,12 @@
  },
  {
   "name": "Persona A (Matching button) Output TRIP_WEALTH: Graph Relevance / Wish Coverage / score on the page equal the model (page rounding)",
-  "ok": false,
-  "info": "page={\"graph\":\"0.236\",\"cover\":\"33%\",\"eqGraph\":\"0.236\",\"eqCover\":\"0.33\",\"score\":\"0.270\"} model={\"graph\":\"0.236\",\"cover\":\"33%\",\"eqGraph\":\"0.236\",\"eqCover\":\"0.33\",\"score\":\"0.260\"}"
+  "ok": true,
+  "info": "page={\"graph\":\"0.236\",\"cover\":\"33%\",\"eqGraph\":\"0.236\",\"eqCover\":\"0.33\",\"score\":\"0.260\"} model={\"graph\":\"0.236\",\"cover\":\"33%\",\"eqGraph\":\"0.236\",\"eqCover\":\"0.33\",\"score\":\"0.260\"}"
  },
  {
   "name": "Persona A (Matching button) Output TRIP_WEALTH: displayed values are within the rounding step of the unrounded model value",
-  "ok": false,
+  "ok": true,
   "info": ""
  },
  {

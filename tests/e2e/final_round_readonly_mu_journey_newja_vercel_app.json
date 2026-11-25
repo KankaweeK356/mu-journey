@@ -1,0 +1,447 @@
+{
+ "base": "https://mu-journey-newja.vercel.app/",
+ "passed": 82,
+ "total": 88,
+ "results": [
+  {
+   "name": "desktop 1366 step 01: no null / undefined text",
+   "ok": false,
+   "info": "null"
+  },
+  {
+   "name": "desktop 1366 step 01: no horizontal page scroll",
+   "ok": true,
+   "info": "0px"
+  },
+  {
+   "name": "desktop 1366 step 01: buttons, fields and images are named; ids unique",
+   "ok": true,
+   "info": "{\"u\":[],\"f\":[],\"alt\":0,\"d\":[]}"
+  },
+  {
+   "name": "desktop 1366 step 02: no null / undefined text",
+   "ok": true,
+   "info": ""
+  },
+  {
+   "name": "desktop 1366 step 02: no horizontal page scroll",
+   "ok": true,
+   "info": "0px"
+  },
+  {
+   "name": "desktop 1366 step 02: buttons, fields and images are named; ids unique",
+   "ok": true,
+   "info": "{\"u\":[],\"f\":[],\"alt\":0,\"d\":[]}"
+  },
+  {
+   "name": "desktop 1366 step 03: no null / undefined text",
+   "ok": true,
+   "info": ""
+  },
+  {
+   "name": "desktop 1366 step 03: no horizontal page scroll",
+   "ok": true,
+   "info": "0px"
+  },
+  {
+   "name": "desktop 1366 step 03: buttons, fields and images are named; ids unique",
+   "ok": true,
+   "info": "{\"u\":[],\"f\":[],\"alt\":0,\"d\":[]}"
+  },
+  {
+   "name": "desktop 1366 step 04: no null / undefined text",
+   "ok": true,
+   "info": ""
+  },
+  {
+   "name": "desktop 1366 step 04: no horizontal page scroll",
+   "ok": true,
+   "info": "0px"
+  },
+  {
+   "name": "desktop 1366 step 04: buttons, fields and images are named; ids unique",
+   "ok": true,
+   "info": "{\"u\":[],\"f\":[],\"alt\":0,\"d\":[]}"
+  },
+  {
+   "name": "desktop 1366 step 05: no null / undefined text",
+   "ok": true,
+   "info": ""
+  },
+  {
+   "name": "desktop 1366 step 05: no horizontal page scroll",
+   "ok": true,
+   "info": "0px"
+  },
+  {
+   "name": "desktop 1366 step 05: buttons, fields and images are named; ids unique",
+   "ok": true,
+   "info": "{\"u\":[],\"f\":[],\"alt\":0,\"d\":[]}"
+  },
+  {
+   "name": "desktop 1366 step 06: no null / undefined text",
+   "ok": true,
+   "info": ""
+  },
+  {
+   "name": "desktop 1366 step 06: no horizontal page scroll",
+   "ok": true,
+   "info": "0px"
+  },
+  {
+   "name": "desktop 1366 step 06: buttons, fields and images are named; ids unique",
+   "ok": true,
+   "info": "{\"u\":[],\"f\":[],\"alt\":0,\"d\":[]}"
+  },
+  {
+   "name": "desktop 1366 step 07 self: no null / undefined text",
+   "ok": true,
+   "info": ""
+  },
+  {
+   "name": "desktop 1366 step 07 self: no horizontal page scroll",
+   "ok": true,
+   "info": "0px"
+  },
+  {
+   "name": "desktop 1366 step 07 self: buttons, fields and images are named; ids unique",
+   "ok": true,
+   "info": "{\"u\":[],\"f\":[],\"alt\":0,\"d\":[]}"
+  },
+  {
+   "name": "desktop 1366 step 07 trip: no null / undefined text",
+   "ok": true,
+   "info": ""
+  },
+  {
+   "name": "desktop 1366 step 07 trip: no horizontal page scroll",
+   "ok": true,
+   "info": "0px"
+  },
+  {
+   "name": "desktop 1366 step 07 trip: buttons, fields and images are named; ids unique",
+   "ok": true,
+   "info": "{\"u\":[],\"f\":[],\"alt\":0,\"d\":[]}"
+  },
+  {
+   "name": "desktop 1366 step 07 proxy: no null / undefined text",
+   "ok": true,
+   "info": ""
+  },
+  {
+   "name": "desktop 1366 step 07 proxy: no horizontal page scroll",
+   "ok": true,
+   "info": "0px"
+  },
+  {
+   "name": "desktop 1366 step 07 proxy: buttons, fields and images are named; ids unique",
+   "ok": true,
+   "info": "{\"u\":[],\"f\":[],\"alt\":0,\"d\":[]}"
+  },
+  {
+   "name": "desktop 1366 Tab2 explorer: no null / undefined text",
+   "ok": true,
+   "info": ""
+  },
+  {
+   "name": "desktop 1366 Tab2 explorer: no horizontal page scroll",
+   "ok": true,
+   "info": "0px"
+  },
+  {
+   "name": "desktop 1366 Tab2 explorer: buttons, fields and images are named; ids unique",
+   "ok": true,
+   "info": "{\"u\":[],\"f\":[],\"alt\":0,\"d\":[]}"
+  },
+  {
+   "name": "desktop 1366 Tab2 lab: no null / undefined text",
+   "ok": true,
+   "info": ""
+  },
+  {
+   "name": "desktop 1366 Tab2 lab: no horizontal page scroll",
+   "ok": true,
+   "info": "0px"
+  },
+  {
+   "name": "desktop 1366 Tab2 lab: buttons, fields and images are named; ids unique",
+   "ok": true,
+   "info": "{\"u\":[],\"f\":[],\"alt\":0,\"d\":[]}"
+  },
+  {
+   "name": "desktop 1366 Tab2 designer: no null / undefined text",
+   "ok": true,
+   "info": ""
+  },
+  {
+   "name": "desktop 1366 Tab2 designer: no horizontal page scroll",
+   "ok": true,
+   "info": "0px"
+  },
+  {
+   "name": "desktop 1366 Tab2 designer: buttons, fields and images are named; ids unique",
+   "ok": true,
+   "info": "{\"u\":[],\"f\":[],\"alt\":0,\"d\":[]}"
+  },
+  {
+   "name": "desktop 1366 Tab2 matching: no null / undefined text",
+   "ok": false,
+   "info": "null"
+  },
+  {
+   "name": "desktop 1366 Tab2 matching: no horizontal page scroll",
+   "ok": true,
+   "info": "0px"
+  },
+  {
+   "name": "desktop 1366 Tab2 matching: buttons, fields and images are named; ids unique",
+   "ok": true,
+   "info": "{\"u\":[],\"f\":[],\"alt\":0,\"d\":[]}"
+  },
+  {
+   "name": "desktop 1366 Tab2 evaluation: no null / undefined text",
+   "ok": false,
+   "info": "null"
+  },
+  {
+   "name": "desktop 1366 Tab2 evaluation: no horizontal page scroll",
+   "ok": true,
+   "info": "0px"
+  },
+  {
+   "name": "desktop 1366 Tab2 evaluation: buttons, fields and images are named; ids unique",
+   "ok": true,
+   "info": "{\"u\":[],\"f\":[],\"alt\":0,\"d\":[]}"
+  },
+  {
+   "name": "phone 375 step 01: no null / undefined text",
+   "ok": false,
+   "info": "null"
+  },
+  {
+   "name": "phone 375 step 01: no horizontal page scroll",
+   "ok": true,
+   "info": "0px"
+  },
+  {
+   "name": "phone 375 step 01: buttons, fields and images are named; ids unique",
+   "ok": true,
+   "info": "{\"u\":[],\"f\":[],\"alt\":0,\"d\":[]}"
+  },
+  {
+   "name": "phone 375 step 02: no null / undefined text",
+   "ok": true,
+   "info": ""
+  },
+  {
+   "name": "phone 375 step 02: no horizontal page scroll",
+   "ok": true,
+   "info": "0px"
+  },
+  {
+   "name": "phone 375 step 02: buttons, fields and images are named; ids unique",
+   "ok": true,
+   "info": "{\"u\":[],\"f\":[],\"alt\":0,\"d\":[]}"
+  },
+  {
+   "name": "phone 375 step 03: no null / undefined text",
+   "ok": true,
+   "info": ""
+  },
+  {
+   "name": "phone 375 step 03: no horizontal page scroll",
+   "ok": true,
+   "info": "0px"
+  },
+  {
+   "name": "phone 375 step 03: buttons, fields and images are named; ids unique",
+   "ok": true,
+   "info": "{\"u\":[],\"f\":[],\"alt\":0,\"d\":[]}"
+  },
+  {
+   "name": "phone 375 step 04: no null / undefined text",
+   "ok": true,
+   "info": ""
+  },
+  {
+   "name": "phone 375 step 04: no horizontal page scroll",
+   "ok": true,
+   "info": "0px"
+  },
+  {
+   "name": "phone 375 step 04: buttons, fields and images are named; ids unique",
+   "ok": true,
+   "info": "{\"u\":[],\"f\":[],\"alt\":0,\"d\":[]}"
+  },
+  {
+   "name": "phone 375 step 05: no null / undefined text",
+   "ok": true,
+   "info": ""
+  },
+  {
+   "name": "phone 375 step 05: no horizontal page scroll",
+   "ok": true,
+   "info": "0px"
+  },
+  {
+   "name": "phone 375 step 05: buttons, fields and images are named; ids unique",
+   "ok": true,
+   "info": "{\"u\":[],\"f\":[],\"alt\":0,\"d\":[]}"
+  },
+  {
+   "name": "phone 375 step 06: no null / undefined text",
+   "ok": true,
+   "info": ""
+  },
+  {
+   "name": "phone 375 step 06: no horizontal page scroll",
+   "ok": true,
+   "info": "0px"
+  },
+  {
+   "name": "phone 375 step 06: buttons, fields and images are named; ids unique",
+   "ok": true,
+   "info": "{\"u\":[],\"f\":[],\"alt\":0,\"d\":[]}"
+  },
+  {
+   "name": "phone 375 step 07 self: no null / undefined text",
+   "ok": true,
+   "info": ""
+  },
+  {
+   "name": "phone 375 step 07 self: no horizontal page scroll",
+   "ok": true,
+   "info": "0px"
+  },
+  {
+   "name": "phone 375 step 07 self: buttons, fields and images are named; ids unique",
+   "ok": true,
+   "info": "{\"u\":[],\"f\":[],\"alt\":0,\"d\":[]}"
+  },
+  {
+   "name": "phone 375 step 07 trip: no null / undefined text",
+   "ok": true,
+   "info": ""
+  },
+  {
+   "name": "phone 375 step 07 trip: no horizontal page scroll",
+   "ok": true,
+   "info": "0px"
+  },
+  {
+   "name": "phone 375 step 07 trip: buttons, fields and images are named; ids unique",
+   "ok": true,
+   "info": "{\"u\":[],\"f\":[],\"alt\":0,\"d\":[]}"
+  },
+  {
+   "name": "phone 375 step 07 proxy: no null / undefined text",
+   "ok": true,
+   "info": ""
+  },
+  {
+   "name": "phone 375 step 07 proxy: no horizontal page scroll",
+   "ok": true,
+   "info": "0px"
+  },
+  {
+   "name": "phone 375 step 07 proxy: buttons, fields and images are named; ids unique",
+   "ok": true,
+   "info": "{\"u\":[],\"f\":[],\"alt\":0,\"d\":[]}"
+  },
+  {
+   "name": "phone 375 Tab2 explorer: no null / undefined text",
+   "ok": true,
+   "info": ""
+  },
+  {
+   "name": "phone 375 Tab2 explorer: no horizontal page scroll",
+   "ok": true,
+   "info": "0px"
+  },
+  {
+   "name": "phone 375 Tab2 explorer: buttons, fields and images are named; ids unique",
+   "ok": true,
+   "info": "{\"u\":[],\"f\":[],\"alt\":0,\"d\":[]}"
+  },
+  {
+   "name": "phone 375 Tab2 lab: no null / undefined text",
+   "ok": true,
+   "info": ""
+  },
+  {
+   "name": "phone 375 Tab2 lab: no horizontal page scroll",
+   "ok": true,
+   "info": "0px"
+  },
+  {
+   "name": "phone 375 Tab2 lab: buttons, fields and images are named; ids unique",
+   "ok": true,
+   "info": "{\"u\":[],\"f\":[],\"alt\":0,\"d\":[]}"
+  },
+  {
+   "name": "phone 375 Tab2 designer: no null / undefined text",
+   "ok": true,
+   "info": ""
+  },
+  {
+   "name": "phone 375 Tab2 designer: no horizontal page scroll",
+   "ok": true,
+   "info": "0px"
+  },
+  {
+   "name": "phone 375 Tab2 designer: buttons, fields and images are named; ids unique",
+   "ok": true,
+   "info": "{\"u\":[],\"f\":[],\"alt\":0,\"d\":[]}"
+  },
+  {
+   "name": "phone 375 Tab2 matching: no null / undefined text",
+   "ok": false,
+   "info": "null"
+  },
+  {
+   "name": "phone 375 Tab2 matching: no horizontal page scroll",
+   "ok": true,
+   "info": "0px"
+  },
+  {
+   "name": "phone 375 Tab2 matching: buttons, fields and images are named; ids unique",
+   "ok": true,
+   "info": "{\"u\":[],\"f\":[],\"alt\":0,\"d\":[]}"
+  },
+  {
+   "name": "phone 375 Tab2 evaluation: no null / undefined text",
+   "ok": false,
+   "info": "null"
+  },
+  {
+   "name": "phone 375 Tab2 evaluation: no horizontal page scroll",
+   "ok": true,
+   "info": "0px"
+  },
+  {
+   "name": "phone 375 Tab2 evaluation: buttons, fields and images are named; ids unique",
+   "ok": true,
+   "info": "{\"u\":[],\"f\":[],\"alt\":0,\"d\":[]}"
+  },
+  {
+   "name": "page declares its language",
+   "ok": true,
+   "info": "th"
+  },
+  {
+   "name": "no console errors",
+   "ok": true,
+   "info": ""
+  },
+  {
+   "name": "no failed requests",
+   "ok": true,
+   "info": ""
+  },
+  {
+   "name": "no feedback request left the browser",
+   "ok": true,
+   "info": "0"
+  }
+ ]
+}

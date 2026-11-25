@@ -27,7 +27,7 @@
  {
   "name": "T3b status chips still shown in the place detail modal",
   "ok": true,
-  "info": "{\"chips\":12}"
+  "info": "{\"chips\":16}"
  },
  {
   "name": "T4 network event: \"บันทึกไว้\" wording, no checkboxes, reason shown",
@@ -142,7 +142,7 @@
  {
   "name": "T3b status chips still shown in the place detail modal",
   "ok": true,
-  "info": "{\"chips\":12}"
+  "info": "{\"chips\":16}"
  },
  {
   "name": "T4 network event: \"บันทึกไว้\" wording, no checkboxes, reason shown",

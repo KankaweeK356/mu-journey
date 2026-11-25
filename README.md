@@ -5,6 +5,7 @@
 - **เว็บจริง:** https://mu-journey-newja.vercel.app
 - **Repo:** https://github.com/KankaweeK356/mu-journey
 - **รายงาน:** [`docs/REPORT_TH_Network_Phase1.md`](docs/REPORT_TH_Network_Phase1.md) · **ภาคผนวกสถิติ:** [`docs/RIGOR_ADDENDUM_TH.md`](docs/RIGOR_ADDENDUM_TH.md) · **เตรียม Defend:** [`docs/DEFEND_QA_TH.md`](docs/DEFEND_QA_TH.md) · **แหล่งข้อมูล:** [`docs/DATA_SOURCES.md`](docs/DATA_SOURCES.md)
+- **Network Analysis:** [Graph Design](docs/GRAPH_DESIGN_TH.md) · [วิธีคำนวณและผล](docs/NETWORK_ANALYSIS_METHOD_TH.md) · [ผลกระทบของวันเกิด 7 วัน](docs/BIRTHDAY_IMPACT_ANALYSIS_TH.md) · **ส่งมอบรอบ Final:** [`docs/DEV_FINAL_HANDOFF_TH.md`](docs/DEV_FINAL_HANDOFF_TH.md)
 
 > ระบบสาธิตเชิงวิเคราะห์ ไม่ใช่บริการจริง: ความเชื่อคือ claim จากแหล่งอ้างอิง ไม่ใช่การรับรองความศักดิ์สิทธิ์ · ทริป ราคา ฝากมู คอนเสิร์ต และรอบสอบเป็นข้อมูลจำลอง · ไม่มีการจองหรือชำระเงิน
 
@@ -23,7 +24,8 @@
 - ทุกคำแนะนำอธิบายด้วยเส้นทางจริงในกราฟ
 - กิจกรรมสายมูใช้โมเดลเดิมไม่แก้สูตร (`EVENT_RANKING_V1`) วันสำคัญ/คอนเสิร์ต/สอบ **ไม่ผ่านเครือข่าย** (จับคู่ตรงจากเรื่องที่ขอ)
 - แจ้งเตือนเป็นแบบ in-app เมื่อเปิดเว็บ ไม่เตือนขณะปิดเว็บ ([กติกา](docs/CALENDAR_V3_REMINDER_RULES.md))
-- วันเกิดอยู่ในหน่วยความจำของหน้าเท่านั้น ไม่บันทึกและไม่ส่งออก
+- วันเกิดไม่ถูกบันทึก อยู่ในหน่วยความจำของหน้าเว็บและส่งไปคำนวณคำแนะนำเท่านั้น
+- วันเกิดใช้เฉพาะ **วันในสัปดาห์** เป็นสัญญาณรอง (ไม่ใช้เดือนเกิด ราศี หรือปีนักษัตร) ระบบบอกสถานะ `birth_signal`: ไม่ได้ระบุ / ใช้ / ไม่มีข้อมูลที่ผ่านเกณฑ์ (พุธ อาทิตย์) / ถูกตัดด้วยข้อจำกัด
 
 ## ผลทดสอบและข้อจำกัด (ตัวเลขจริง)
 | เรื่อง | ผล |
@@ -33,6 +35,8 @@
 | Holdout เส้นเทพ–สถานที่ (ซ่อนทีละเส้น 28 เส้น) | PPR 78.6% เทียบ Degree 82.1% ต่างกันเส้นเดียว (p = 1.0) ไม่มีความต่างที่มีนัย |
 | Coverage re-ranking | เลือก 3 เรื่อง เพิ่มความครอบคลุม 8/120 ชุด ไม่เคยลดลง |
 | ชั้นกิจกรรม | เส้นทางใช้ได้จริง 1,040/1,040 · ละเมิด 0 · คะแนนเสมอกันมาก (อันดับ 1 เสมอใน 46/75 โปรไฟล์) |
+| Community เทียบกราฟสุ่ม 1,000 ชุด | Modularity อยู่ที่ขอบเกณฑ์ (กราฟสุ่มได้ ≥ กราฟจริง 4.2% แบบ Greedy, 5.4% แบบ Louvain) ยังไม่อ้างว่ามีโครงสร้างกลุ่มที่มีนัยสำคัญ จึงใช้หมายเลข Community ไม่ตั้งชื่อ |
+| ผลของวันเกิด (175 ชุดความสนใจ × 7 วัน, ไม่มีข้อจำกัด) | อันดับ Top 5 เปลี่ยน 423 จาก 875 กรณีที่มีสัญญาณ · พุธและอาทิตย์ไม่มีสัญญาณ · เป็นการวัดการเปลี่ยนแปลง ไม่ใช่ความแม่นยำ |
 
 **ต้องบอกเสมอ:** ป้ายผลลัพธ์ที่ใช้ทดสอบมาจากกราฟเดียวกัน ไม่ใช่ความแม่นยำกับผู้ใช้จริง · เส้นเรื่อง–เทพทั้ง 48 เส้น UNVERIFIED · สถานที่ 16 จาก 52 แห่งไม่มีเส้นเชื่อม · ยังไม่ตรวจสิทธิ์/ToS ของแหล่งข้อมูลภายนอกอย่างเป็นทางการ · กิจกรรมจริง 37 รายการยังไม่ยืนยันกำหนดการกับผู้จัด จึงติดตามได้แต่ไม่เตือน
 
@@ -42,7 +46,7 @@ model/     โมเดลอ้างอิง (network_phase1.py ไม่แ�
 data/      ไฟล์ต้นทางจาก Google Drive Baseline v2 (5 ไฟล์ .xlsx) — ดู docs/DATA_SOURCES.md
 api/       Vercel Python Functions: catalog, recommendations, place, trip, trace, offers, feedback
 public/    หน้าเว็บ (HTML/CSS/JS ล้วน ไม่มี build step) + data/ (JSON ที่หน้าเว็บโหลด)
-scripts/   dev_server.py, build_*.py (สร้างไฟล์ที่ได้มา), evaluate_rigor.py (ภาคผนวกสถิติ)
+scripts/   dev_server.py, build_*.py (สร้างไฟล์ที่ได้มา), evaluate_rigor.py (ภาคผนวกสถิติ), network_analysis.py, birthday_impact.py
 tests/     ทดสอบ Python + Node (รวมชุดทดสอบ Reminder 60 แถว)
 docs/      รายงาน เอกสารเตรียม Defend กติกาแจ้งเตือน แหล่งข้อมูล และตั้งค่า feedback → Google Sheet
 ```
@@ -54,6 +58,8 @@ pip install -r requirements.txt
 python scripts/dev_server.py          # http://localhost:3000
 python -m unittest discover -s tests -v
 node --test tests/js/*.test.mjs       # ต้องมี Node 20+
+python scripts/network_analysis.py --check   # คำนวณผล Network Analysis ซ้ำแล้วเทียบ
+python scripts/birthday_impact.py --check    # คำนวณผลกระทบวันเกิดซ้ำแล้วเทียบ
 ```
 ทดสอบอัตโนมัติ: ผลของโปรไฟล์ตรงกับ `model/results/network_phase1_results.json`, trace ตรงกับโมเดลบน 75 โปรไฟล์, ไม่ละเมิดข้อจำกัด, Tab 1 กับ Tab 2 ตรงกัน, ข้อมูลสมมติไม่รั่วเข้า Tab 1, ชุดทดสอบ Reminder 60/60 (ไม่แก้ค่าที่คาด), ย้ายข้อมูลเบราว์เซอร์ v1→v2
 
@@ -63,7 +69,7 @@ Tab 1 เรียก `/api/mumu/*` (alias ใน `vercel.json`) ทุก respo
 | Method | Path | หน้าที่ |
 |---|---|---|
 | GET | `/api/catalog` | 10 เรื่องที่ขอ, สิ่งศักดิ์สิทธิ์, กลุ่มความเชื่อ, สถานที่, ทริป |
-| POST | `/api/recommendations` | `wish_ids`, `birthdate`, `exclusions` → Top≤5 + ทริป + กิจกรรมจากเครือข่าย |
+| POST | `/api/recommendations` | `wish_ids`, `birthdate`, `exclusions` → Top≤5 + ทริป + กิจกรรมจากเครือข่าย + `birth_signal` |
 | GET | `/api/places/:id` | รายละเอียดสถานที่และข้อมูลวิธีมู (พร้อมแหล่งอ้างอิง) |
 | GET | `/api/trips/:id` | ทริปคงที่ จุดแวะ ลำดับ ข้อจำกัด |
 | POST | `/api/trace` | ค่ากลางทุกขั้นของการคำนวณ (Tab 2) |
@@ -81,5 +87,5 @@ Drive Baseline v2 → ส่งออก snapshot ใหม่ทับ `model/i
 ## แหล่งข้อมูลและความเป็นส่วนตัว
 - ข้อมูลทุกชุดที่ระบบใช้อยู่ใน repo นี้ พร้อมที่มา สถานะ (SOURCE/CANDIDATE/UNVERIFIED/SYNTHETIC) และรหัสตรวจไฟล์ใน [`docs/DATA_SOURCES.md`](docs/DATA_SOURCES.md)
 - ตารางผู้ใช้ feedback ออเดอร์ ฯลฯ ใน repo เป็นข้อมูลสมมติทั้งหมด **ไม่มีข้อมูลผู้ใช้จริง**
-- ที่มาของข้อมูลภายนอก: ปฏิทินจันทรคติจาก Hong Kong Observatory ผ่าน DATA.GOV.HK (ใช้ตามเงื่อนไขของ DATA.GOV.HK) ส่วนข้อมูลความเชื่อมาจากเว็บอ้างอิงที่ระบุ URL ในข้อมูล (repo เก็บเฉพาะข้อความอ้างอิงสั้น ๆ)
+- ที่มาของข้อมูลภายนอก: ปฏิทินจันทรคติจาก Hong Kong Observatory ผ่าน DATA.GOV.HK (ใช้ตามเงื่อนไขของ DATA.GOV.HK) · เวลาเดินทางรถไฟประมาณจากแนวเส้นทางของ [© OpenStreetMap contributors](https://www.openstreetmap.org/copyright) (ODbL) · ส่วนข้อมูลความเชื่อมาจากเว็บอ้างอิงที่ระบุ URL ในข้อมูล (repo เก็บเฉพาะข้อความอ้างอิงสั้น ๆ)
 - ยังไม่ได้ระบุใบอนุญาตของ repo (สงวนสิทธิ์ทั้งหมดโดยค่าเริ่มต้น) ดู `docs/DATA_SOURCES.md` ข้อ 8

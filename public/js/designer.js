@@ -1,6 +1,7 @@
 // Tab 2 · 03 Signature Trip Designer — how the 3 company trips were built OFFLINE. Not a real-time planner.
 import { h, clear, f, pct, TRIP_TH } from './util.js';
 import { API } from './api.js';
+import { osmCredit } from './osm.js';
 
 const hhmm = (min) => `${String(Math.floor(min / 60)).padStart(2, '0')}:${String(Math.round(min % 60)).padStart(2, '0')}`;
 
@@ -11,7 +12,7 @@ export function renderDesigner(p, { design, cat }) {
   p.append(h('div', { class: 'callout warn' }, h('b', {}, 'Offline Simulation: '), 'หน้านี้แสดงขั้นตอนที่ใช้สร้างทริปมาตรฐานครั้งเดียวล่วงหน้า ไม่ใช่การสร้างทริปตามความสนใจของผู้ใช้แบบ Real-time ' , 'เมื่อผู้ใช้เข้าแอป ระบบแค่จับคู่กับ 3 ทริปที่ล็อกไว้ (ดูแท็บ 04)'));
   p.append(h('div', { class: 'flow', style: 'margin-top:22px' },
     h('div', {}, h('h4', {}, 'ความเกี่ยวข้องในเครือข่าย'), h('p', {}, 'ให้น้ำหนักเรื่องที่ขอของแต่ละธีม แล้วรัน Personalized PageRank ได้ผู้สมัครสูงสุด 15 แห่งต่อธีม')),
-    h('div', {}, h('h4', {}, 'เส้นทางสั้นที่สุดบนรถไฟฟ้า'), h('p', {}, `กราฟ BTS/MRT ${tg.eligible_BTS_MRT_stations} สถานี ${tg.rail_edges} เส้นทาง + เดิน/Skywalk ใช้ Dijkstra · เข้าถึงได้ ${tg.eligible_places_with_rail_walk_access} แห่ง ตัดออก ${tg.excluded_places.length} แห่ง`)),
+    h('div', {}, h('h4', {}, 'เส้นทางสั้นที่สุดบนรถไฟฟ้า'), h('p', {}, `กราฟ BTS/MRT ${tg.eligible_BTS_MRT_stations} สถานี ${tg.rail_edges} เส้นทาง + เดิน/Skywalk ใช้ Dijkstra · เข้าถึงได้ ${tg.eligible_places_with_rail_walk_access} แห่ง ตัดออก ${tg.excluded_places.length} แห่ง`), osmCredit()),
     h('div', {}, h('h4', {}, 'ค้นหาเส้นทางที่ดีที่สุด'), h('p', {}, `ลองทุกลำดับของ ${bc.stops} จุดแวะในกลุ่มผู้สมัคร ภายใต้ข้อจำกัดเวลา แล้วให้คะแนนด้วย 4 ปัจจัย`)),
     h('div', {}, h('h4', {}, 'เลือก 3 ทริปที่ไม่ซ้ำกัน แล้วล็อก'), h('p', {}, `ประเมินชุดทริปที่ไม่ซ้ำสถานที่ ${design.portfolio_evaluated_combinations.toLocaleString('en-US')} ชุด เก็บผลไว้ในไฟล์ที่ล็อก`))));
   p.append(h('div', { class: 'grid g2', style: 'margin-top:14px' },
@@ -43,6 +44,7 @@ export function renderDesigner(p, { design, cat }) {
         h('div', { class: 'card stack' }, h('h3', {}, 'ข้อสมมติและข้อจำกัด'), h('ul', { class: 'small', style: 'margin:0;padding-left:18px' }, [
           'จุดนัดพบสยาม 09:00 เป็นข้อสมมติ ยังไม่ใช่การตัดสินใจทางธุรกิจ', 'เวลาเดินทางรถไฟเป็นค่าประมาณ ไม่ใช่ตารางเดินรถจริง', 'เวลาเดินจากสถานีถึงสถานที่เป็นค่าประมาณที่ยังไม่ยืนยัน',
           'เวลาเปิดสถานที่บางแห่งเป็นข้อมูลจำลองหรือรอตรวจ (ดูคุณภาพเวลาเปิดในแต่ละทริป)', ...design.limitations.slice(0, 4)].map((t) => h('li', {}, t))),
+        osmCredit(),
         h('div', { class: 'row small' }, h('span', { class: 'chip' }, 'ไฟล์ออกแบบ ' + design.version), h('span', { class: 'chip' }, 'Snapshot ' + cat.versions.snapshot_sha256)))),
     ];
     clear(result);
