@@ -140,7 +140,7 @@ export function reminderSimulation(T) {
       h('div', {}, h('b', {}, '① ระบบรู้จากความสนใจ: '), names || 'ยังไม่ได้เลือก'),
       h('div', {}, h('b', {}, '② ระบบเสนอเอง')),
       ...(matched.length ? matched.map(card) : [h('div', { class: 'callout small', 'data-suggest-empty': 'true' }, 'ความสนใจนี้ยังไม่มีรายการสาธิต เลือกดูตัวอย่างได้'),
-        h('div', { class: 'row' }, Object.values(SUGGEST).map((k) => h('button', { type: 'button', class: 'tchip', 'data-example': k, 'aria-pressed': String(asked.has('pick:' + k)), onclick: () => { asked.has('pick:' + k) ? asked.delete('pick:' + k) : asked.add('pick:' + k); drawSimple(); } }, SCENARIO_TH[k]))), ...extra.map(card)]),
+        h('div', { class: 'row' }, Object.values(SUGGEST).map((k) => h('button', { type: 'button', class: 'tchip pick', 'data-example': k, 'aria-pressed': String(asked.has('pick:' + k)), onclick: () => { asked.has('pick:' + k) ? asked.delete('pick:' + k) : asked.add('pick:' + k); drawSimple(); } }, SCENARIO_TH[k]))), ...extra.map(card)]),
       h('div', { class: 'small muted' }, '③ เมื่อกด "ให้เตือนฉัน" จะเห็นกำหนดวันเตือนและข้อความ ระบบไม่เปิดการเตือนเองถ้าผู้ใช้ไม่ได้กด'));
   }
 

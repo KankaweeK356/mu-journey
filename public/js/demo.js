@@ -301,9 +301,10 @@ export async function renderDemo(root) {
       rounds.length ? h('div', { class: 'stack' },
         h('div', { 'data-next-round': rounds[0].service_date }, h('b', {}, 'รอบถัดไป: '), roundLabel(rounds[0].service_date)),
         h('div', { class: 'small' }, 'เลือกวันที่ต้องการเข้าร่วม'),
-        h('div', { class: 'tchips', role: 'group', 'aria-label': 'เลือกวันเดินทาง' }, rounds.map((r) => h('button', { type: 'button', class: 'tchip', 'data-round': r.service_date, 'aria-pressed': String(!!picked && picked.service_date === r.service_date),
+        h('div', { class: 'tchips', role: 'group', 'aria-label': 'เลือกวันเดินทาง' }, rounds.map((r) => h('button', { type: 'button', class: 'tchip pick', 'data-round': r.service_date, 'aria-pressed': String(!!picked && picked.service_date === r.service_date),
           onclick: () => { S.tripDate = S.tripDate === r.service_date ? null : r.service_date; draw(); } }, roundLabel(r.service_date)))),
-        h('div', { class: 'small', role: 'status' }, picked ? `วันที่เลือก: ${roundLabel(picked.service_date)}` : 'ยังไม่ได้เลือกวันเดินทาง'))
+        h('div', { class: 'small', role: 'status' }, picked ? `วันที่เลือก: ${roundLabel(picked.service_date)}` : 'ยังไม่ได้เลือกวันเดินทาง'),
+        h('div', { class: 'row' }, bookTripButton(tripId, picked)))
         : h('div', { class: 'callout warn small', 'data-no-round': 'true' }, 'ตอนนี้ยังไม่มีรอบเดินทางในอนาคต กรุณารอประกาศรอบใหม่'),
       h('div', { class: 'small faint' }, `เวลาให้บริการรวมเวลาเผื่อ ${P.buffer_min} นาทีจากเวลาตามแบบจำลอง ${P.model_duration_min} นาที`),
       h('div', { class: 'callout warn small' }, NOT_BOOKABLE));
@@ -315,7 +316,7 @@ export async function renderDemo(root) {
       P ? h('div', {}, `ราคา ${priceText(P.price_thb)} / คน · เวลา ${P.start_time}–${P.end_time} น. · รับสูงสุด ${P.capacity} คน/รอบ`) : h('div', {}, 'ยังไม่มีข้อมูลราคาและรอบเดินทาง'),
       P ? h('div', { 'data-chosen-date': picked ? picked.service_date : '' }, picked ? `วันเดินทางที่เลือก: ${roundLabel(picked.service_date)} (อยู่ในหน้านี้เท่านั้น ไม่ถูกส่งหรือบันทึก)` : 'ยังไม่ได้เลือกวันเดินทาง เลือกได้ที่ขั้น 06') : null,
       h('div', {}, NOT_BOOKABLE + ' · การจองล่วงหน้า: ยังไม่เปิดจอง'),
-      h('div', {}, 'ปุ่มด้านล่างเป็นการแสดงความสนใจเพื่อทดสอบระบบ ไม่ใช่การลงทะเบียนหรือการจอง ไม่รับชำระเงินจริง ไม่มีที่นั่งถูกสำรอง'));
+      h('div', {}, 'ปุ่มด้านล่างเป็นการสาธิตขั้นตอนและการแสดงความสนใจเพื่อทดสอบระบบ ไม่ใช่การลงทะเบียนหรือการจองจริง ไม่รับชำระเงินจริง ไม่มีที่นั่งถูกสำรอง'));
   }
 
   /* No matching trip: why, what to do next, and the technical reasons folded away. */
@@ -378,13 +379,14 @@ export async function renderDemo(root) {
           h('ol', { class: 'timeline' }, T.detail.stops.map((s) => h('li', {}, h('div', { class: 't' }, `${s.arrival}–${s.finish}`), h('div', {}, s.name), h('div', { class: 'small muted', 'data-leg': String(s.order) }, legLines(T.detail.legs[s.order - 1], s.access_mode).map((t) => h('div', {}, t)))))),
           tripTimes(T.detail), osmCredit(),
           bookingNote(T.matched.trip_id),
-          h('div', { class: 'row' }, h('button', { class: 'btn primary', onclick: () => openFeedback({ service: 'trip' }) }, 'แสดงความสนใจทริป (Demo)'), h('button', { class: 'btn', onclick: () => go(6) }, 'ดูเหตุผลที่แนะนำทริปนี้'))) : null);
+          h('div', { class: 'row' }, bookTripButton(T.matched.trip_id, chosenRound(products, T.matched.trip_id, todayISO(), S.tripDate)),
+            h('button', { type: 'button', class: 'btn', onclick: () => openFeedback({ service: 'trip' }) }, 'แสดงความสนใจทริป (Demo)'), h('button', { type: 'button', class: 'btn', onclick: () => go(6) }, chosenRound(products, T.matched.trip_id, todayISO(), S.tripDate) ? 'ดูเหตุผลที่แนะนำทริปนี้' : 'เลือกวันเดินทาง / ดูเหตุผล'))) : null);
       } else if (svc === 'proxy') {
         const box = h('div', { class: 'stack' }, h('p', { class: 'muted' }, 'กำลังโหลดรายการ…'));
         panel.append(h('h3', {}, 'ฝากมู (Demo)'), box);
         API.offers(S.picked.size ? [...S.picked] : R.top5.map((p) => p.place_id), activeWishes()).then((O) => {
           clear(box).append(...(O.offers.length ? O.offers.slice(0, 6).map((o) => h('div', { class: 'path' }, h('b', {}, o.title), h('div', { class: 'small muted' }, `${o.place_name} · ${o.wish_name} · ${o.price_thb} บาท · ล่วงหน้า ${o.lead_time_days} วัน`),
-            h('div', { class: 'row', style: 'margin-top:4px' }, h('button', { class: 'btn sm', onclick: () => openProxyDemo(o) }, 'ลองกรอกคำขอ (Demo)'), h('button', { class: 'btn sm primary', onclick: () => openFeedback({ service: 'proxy', offer_id: o.offer_id }) }, 'แสดงความสนใจบริการ (Demo)')))) : [h('div', { class: 'callout' }, 'ไม่มีบริการฝากมูสำหรับสถานที่ที่เลือก')]),
+            h('div', { class: 'row', style: 'margin-top:4px' }, h('button', { type: 'button', class: 'btn sm primary', 'data-book-proxy': o.offer_id, onclick: () => openProxyDemo(o) }, 'จองฝากมู (จำลอง)'), h('button', { type: 'button', class: 'btn sm', onclick: () => openFeedback({ service: 'proxy', offer_id: o.offer_id }) }, 'แสดงความสนใจบริการ (Demo)')))) : [h('div', { class: 'callout' }, 'ไม่มีบริการฝากมูสำหรับสถานที่ที่เลือก')]),
             h('div', { class: 'callout warn small' }, 'ข้อมูลจำลอง ไม่มีการยืนยันผู้ให้บริการหรือการอนุญาตจากสถานที่จริง ไม่สร้างรายการจองหรือคำสั่งซื้อ'));
         }).catch((e) => clear(box).append(h('div', { class: 'callout bad' }, 'โหลดไม่สำเร็จ: ' + e.message)));
       }
@@ -440,25 +442,43 @@ export async function renderDemo(root) {
       h('button', { type: 'button', class: 'btn ghost', onclick: () => { dlg.close(); resetAll(); } }, 'กลับหน้าแรก (ล้างข้อมูลของฉัน)')));
   }
 
-  /* Demo-only sample request form for "ฝากมู". Values live only in these DOM nodes: nothing is sent (no API call), nothing is stored
-     (no database, no Google Sheet, no localStorage), and everything is dropped when the dialog closes. There is no real provider behind it. */
+  /* Mock booking journey: ① book (simulated) → ② service used (simulated) → ③ feedback. Nothing here is a booking: no request is
+     sent, nothing is stored, no reference number is issued. Only the feedback form (③) can send, and only after consent. */
+  function mockBooked(rows, warning, feedback) {
+    clear(dlg).append(h('div', { class: 'dlg-h' }, h('h3', {}, '✅ จองจำลองสำเร็จ'), h('button', { type: 'button', class: 'btn sm', 'aria-label': 'ปิด', onclick: () => dlg.close() }, '✕')),
+      h('div', { class: 'dlg-b stack', 'data-mock-booked': feedback.service },
+        h('div', { class: 'card flat stack' }, rows.map(([label, value]) => h('div', { class: 'small' }, h('b', {}, label + ': '), value))),
+        h('div', { class: 'callout warn small' }, warning),
+        h('div', { class: 'row', style: 'justify-content:flex-end' }, h('button', { type: 'button', class: 'btn', onclick: () => dlg.close() }, 'ปิด'),
+          h('button', { type: 'button', class: 'btn primary', 'data-mock-used': 'true', onclick: () => openFeedback(Object.assign({ afterUse: true }, feedback)) }, 'จำลองว่าใช้บริการเสร็จแล้ว'))));
+    if (!dlg.open) dlg.showModal();
+  }
+  /* Trip: only with a chosen upcoming round of this trip. */
+  function bookTripButton(tripId, picked) {
+    const P = productOf(products, tripId);
+    return h('button', { type: 'button', class: 'btn primary', 'data-book-trip': tripId, disabled: !picked, title: picked ? '' : 'เลือกวันเดินทางก่อน',
+      onclick: () => mockBooked([['ทริป', (S.result.trip.detail || {}).title || tripId], ['วันเดินทาง', roundLabel(picked.service_date)], ['เวลา', `${P.start_time}–${P.end_time} น.`], ['จุดนัดพบ', P.meeting_point], ['ราคา', `${priceText(P.price_thb)} / คน (ข้อมูลจำลอง)`]],
+        'ไม่มีการจองจริง ไม่มีที่นั่งถูกสำรอง ไม่ต้องชำระเงิน', { service: 'trip' }) }, picked ? 'จองทริป (จำลอง)' : 'จองทริป (จำลอง) · เลือกวันก่อน');
+  }
+
+  /* Demo-only sample request for "ฝากมู". Values live only in these DOM nodes: nothing is sent (no API call), nothing is stored
+     (no database, no Google Sheet, no localStorage), and everything is dropped when the dialog closes or moves on. There is no real provider behind it. */
   function openProxyDemo(offer) {
     const name = h('input', { type: 'text', maxlength: '40', autocomplete: 'off', 'aria-label': 'ชื่อผู้ฝาก (ชื่อสมมติ)', placeholder: 'ชื่อสมมติ เช่น "สมชาย ทดสอบ"' });
     const wish = h('textarea', { maxlength: '200', autocomplete: 'off', 'aria-label': 'คำขอพร (ตัวอย่าง)', placeholder: 'คำขอพรตัวอย่าง เช่น "ขอให้สอบผ่าน" (อย่าใส่เรื่องส่วนตัว)' });
-    const out = h('div', { role: 'status' });
-    const show = () => {
+    const close = () => { name.value = ''; wish.value = ''; dlg.close(); };
+    const book = () => {
       const n = name.value.trim(), w = wish.value.trim();
-      clear(out).append(h('div', { class: 'card flat stack', 'data-proxy-preview': 'true' }, h('b', {}, 'ตัวอย่างสรุปคำขอ (Demo)'),
-        h('div', { class: 'small' }, 'บริการ: ' + offer.title + ' · ' + offer.place_name), h('div', { class: 'small' }, 'ชื่อผู้ฝาก: ' + (n || '—') + ' (ชื่อสมมติ)'), h('div', { class: 'small' }, 'คำขอพร: ' + (w || '—')),
-        h('div', { class: 'small muted' }, 'ยังไม่มีผู้ให้บริการรับคำขอนี้จริง ข้อมูลไม่ถูกส่งหรือบันทึก และจะหายเมื่อปิดหน้าต่าง')));
+      name.value = ''; wish.value = '';
+      mockBooked([['บริการ', offer.title], ['สถานที่', offer.place_name], ['ราคา', `${offer.price_thb} บาท (ข้อมูลจำลอง)`], ['ล่วงหน้า', `${offer.lead_time_days} วัน (ข้อมูลจำลอง)`], ['ชื่อผู้ฝาก', (n || '—') + ' (ชื่อสมมติ)'], ['คำขอพร', w || '—']],
+        'ไม่มีผู้ให้บริการรับคำขอจริง ไม่ต้องชำระเงิน ชื่อและคำขอพรไม่ถูกส่งหรือบันทึก', { service: 'proxy', offer_id: offer.offer_id });
     };
-    const close = () => { name.value = ''; wish.value = ''; clear(out); dlg.close(); };
-    clear(dlg).append(h('div', { class: 'dlg-h' }, h('h3', {}, 'ตัวอย่างขั้นตอนฝากมู (Demo)'), h('button', { class: 'btn sm', 'aria-label': 'ปิด', onclick: close }, '✕')),
-      h('div', { class: 'dlg-b stack' }, h('div', { class: 'callout warn small' }, 'นี่คือแบบฟอร์มสาธิตเพื่อดูขั้นตอนเท่านั้น ไม่มีผู้ให้บริการรับคำขอจริง ไม่มีการจองหรือชำระเงิน ใช้ชื่อสมมติและอย่าใส่ข้อมูลส่วนตัว'),
+    clear(dlg).append(h('div', { class: 'dlg-h' }, h('h3', {}, 'จองฝากมู (จำลอง)'), h('button', { type: 'button', class: 'btn sm', 'aria-label': 'ปิด', onclick: close }, '✕')),
+      h('div', { class: 'dlg-b stack' }, h('div', { class: 'callout warn small' }, 'นี่คือแบบฟอร์มสาธิตเพื่อดูขั้นตอนเท่านั้น ไม่มีผู้ให้บริการรับคำขอจริง ไม่มีการจองหรือชำระเงินจริง ใช้ชื่อสมมติและอย่าใส่ข้อมูลส่วนตัว'),
         h('div', { class: 'small' }, offer.title + ' · ' + offer.place_name),
         h('label', { class: 'field' }, h('span', { class: 'lbl' }, 'ชื่อผู้ฝาก (ชื่อสมมติ)'), name),
-        h('label', { class: 'field' }, h('span', { class: 'lbl' }, 'คำขอพร (ตัวอย่าง)'), wish), out,
-        h('div', { class: 'row', style: 'justify-content:flex-end' }, h('button', { class: 'btn', onclick: close }, 'ปิดและล้างค่า'), h('button', { class: 'btn primary', onclick: show }, 'ดูตัวอย่างสรุป'))));
+        h('label', { class: 'field' }, h('span', { class: 'lbl' }, 'คำขอพร (ตัวอย่าง)'), wish),
+        h('div', { class: 'row', style: 'justify-content:flex-end' }, h('button', { type: 'button', class: 'btn', onclick: close }, 'ปิดและล้างค่า'), h('button', { type: 'button', class: 'btn primary', 'data-confirm-proxy': 'true', onclick: book }, 'จองฝากมู (จำลอง)'))));
     dlg.addEventListener('close', () => { name.value = ''; wish.value = ''; }, { once: true });
     dlg.showModal();
   }
@@ -506,7 +526,7 @@ export async function renderDemo(root) {
       } catch (e) { msg.replaceChildren(h('div', { class: 'callout bad', role: 'alert', 'data-send-status': 'request_failed' }, 'ส่งไม่สำเร็จ ยังไม่ได้บันทึกความคิดเห็น: ' + e.message)); send.disabled = false; }
     } }, '✈ ส่งความคิดเห็น');
     clear(dlg).append(h('div', { class: 'dlg-h' }, h('h3', {}, 'แสดงความสนใจและให้คะแนนคำแนะนำ (Demo)'), h('button', { class: 'btn sm', 'aria-label': 'ปิด', onclick: () => dlg.close() }, '✕')),
-      h('div', { class: 'dlg-b stack' }, h('div', { class: 'field' }, h('span', { class: 'lbl' }, 'ประเภทบริการที่สนใจ'), svcSeg), interestQ, interestSeg, question, stars, h('div', {}, ta, h('div', { style: 'text-align:right' }, cnt)),
+      h('div', { class: 'dlg-b stack' }, pre.afterUse ? h('div', { class: 'callout warn small', 'data-after-use': 'true' }, 'จำลองว่าใช้บริการเสร็จแล้ว · ความคิดเห็นนี้ประเมินคำแนะนำและขั้นตอนของ Demo ไม่ใช่บริการจริง') : null, h('div', { class: 'field' }, h('span', { class: 'lbl' }, 'ประเภทบริการที่สนใจ'), svcSeg), interestQ, interestSeg, question, stars, h('div', {}, ta, h('div', { style: 'text-align:right' }, cnt)),
         h('label', { class: 'row small', style: 'align-items:flex-start;flex-wrap:nowrap' }, consent, h('span', {}, 'ฉันยินยอมให้เก็บคะแนนและข้อความนี้ พร้อมเรื่องที่เลือกและสถานที่ที่ระบบเสนอ เพื่อประเมินความน่าใช้ของ Demo (ไม่เก็บวันเกิด และไม่ใช้ปรับโมเดลโดยอัตโนมัติ)')),
         h('div', { class: 'callout small' }, 'ปุ่ม "แสดงความสนใจ" คือการบอกว่าสนใจสิ่งที่แนะนำและให้ความคิดเห็นต่อ Demo ไม่ใช่การลงทะเบียน จอง หรือสั่งซื้อ ไม่ใช่การประเมินบริการจริง ไม่มีการจอง การชำระเงิน หรือพิธีกรรมเกิดขึ้น'), msg,
         h('div', { class: 'row', style: 'justify-content:flex-end' }, h('button', { class: 'btn', onclick: () => dlg.close() }, 'ยกเลิก'), send)));

@@ -54,6 +54,36 @@ const toStep6 = `await next('ดูสถานที่ที่เหมาะ
 const TRIPS = [['ความรัก', 'TRIP_LOVE', '899', '899 บาท', '09:00–13:15'], ['การงาน', 'TRIP_CAREER', '1099', '1,099 บาท', '09:00–14:00'], ['การเงิน', 'TRIP_WEALTH', '999', '999 บาท', '09:00–13:15']];
 const SIZES = [['desktop', 1366, 800], ['mobile', 375, 812]];
 
+/** ① book (simulated) → ② used (simulated) → ③ feedback. The feedback answer is given by the page itself: nothing leaves the browser. */
+async function bookingJourney(size, width, height) {
+  const snap = `JSON.stringify(Object.keys(localStorage).sort().map(k=>[k,localStorage.getItem(k)]))+'|'+document.cookie`;
+  const capture = `window.__bodies=[]; window.__net=0; const real=window.fetch; window.fetch=function(u,o){ if(String(u).includes('feedback')){ window.__bodies.push(JSON.parse(o.body)); return Promise.resolve(new Response(JSON.stringify({saved:false,mode:'not_configured',retryable:false,message:'x'}),{status:200,headers:{'content-type':'application/json'}})); } window.__net++; return real.apply(this,arguments); };`;
+  await load(width, height);
+  await W(`${toStep4('ความรัก')} ${toStep6} return 1;`);
+  const s1 = await W(`const b=q('[data-book-trip]'); const a={disabled:b.disabled, label:b.textContent}; q('[data-round="2026-12-06"]').click(); await w(400); const chip=q('[data-round="2026-12-06"]');
+    a.mark=getComputedStyle(chip,'::before').content; a.bg=getComputedStyle(chip).backgroundColor; a.enabled=!q('[data-book-trip]').disabled; return a;`);
+  check(`${size} booking: needs a date first; the chosen date shows a tick, not a cross`, s1.disabled && s1.label.includes('เลือกวันก่อน') && s1.mark.includes('✓') && !s1.mark.includes('✕') && s1.enabled, JSON.stringify(s1));
+  const before = await ev(snap);
+  const s2 = await W(`${capture} q('[data-book-trip]').click(); await w(400); const d=q('dialog[open]'); return { head:d.querySelector('h3').textContent, text:d.textContent, used:!!d.querySelector('[data-mock-used]'), net:window.__net, sent:window.__bodies.length };`);
+  check(`${size} booking: simulated success with date, time, meeting point, price and "no real booking"`, s2.head.includes('จองจำลองสำเร็จ') && ['6 ธ.ค. 2569', '09:00–13:15', 'BTS สยาม', '899 บาท', 'ไม่มีการจองจริง ไม่มีที่นั่งถูกสำรอง ไม่ต้องชำระเงิน'].every((t) => s2.text.includes(t)) && s2.used && s2.net === 0 && s2.sent === 0, JSON.stringify({ ...s2, text: s2.text.slice(0, 200) }));
+  await shot(`${size}_booking_trip_success`);
+  const s3 = await W(`q('[data-mock-used]').click(); await w(500); const d=q('dialog[open]'); const a={ note:q('[data-after-use]',d)?.textContent||'', service:qa('[aria-label="ประเภทบริการที่สนใจ"] button[aria-pressed=true]',d).map(txt), interest:qa('[data-interest][aria-pressed=true]',d).length, stars:qa('.stars .on',d).length, consent:q('#fb-consent',d).checked, sent:window.__bodies.length };
+    return a;`);
+  check(`${size} booking: feedback opens for the trip, says it rates the demo, nothing pre-answered or sent`, s3.note.includes('ไม่ใช่บริการจริง') && s3.service.join() === 'ทริปบริษัท' && s3.interest === 0 && s3.stars === 0 && !s3.consent && s3.sent === 0, JSON.stringify(s3));
+  await shot(`${size}_booking_feedback`);
+  await healthy(`${size} booking feedback`);
+  const body = await W(`const d=q('dialog[open]'); q('[data-interest=YES]',d).click(); await w(100); q('[aria-label="5 ดาว"]',d).click(); await w(100); q('#fb-consent',d).click(); btn('ส่งความคิดเห็น',d).click(); await w(600); const b=window.__bodies[0]; q('dialog[open]')?.close(); return b;`);
+  check(`${size} booking: only the usual feedback fields would be sent (no date, no booking data)`, body && body.kind === 'trip' && body.trip_id === 'TRIP_LOVE' && body.consent === true && !/2026-12|booking|date|name|คำขอ/.test(JSON.stringify(body)), JSON.stringify(body));
+  check(`${size} booking: nothing written to browser storage`, before === await ev(snap));
+  // proxy
+  const p = await W(`await next('ดูรายละเอียดทริปและบริการ'); q('[data-svc="proxy"]').click(); await until(()=>q('[data-book-proxy]')); const id=q('[data-book-proxy]').dataset.bookProxy; window.__bodies.length=0; q('[data-book-proxy]').click(); await w(300); const d=q('dialog[open]'); d.querySelector('input').value='สมมติ ทดสอบ'; d.querySelector('textarea').value='คำขอตัวอย่าง'; window.__net=0; q('[data-confirm-proxy]',d).click(); await w(400);
+    const s={head:q('dialog[open] h3').textContent, text:q('dialog[open]').textContent, net:window.__net}; await w(100); return {id, ...s};`);
+  check(`${size} proxy booking: simulated success, no provider, no payment, nothing sent`, p.head.includes('จองจำลองสำเร็จ') && p.text.includes('สมมติ ทดสอบ') && p.text.includes('ไม่มีผู้ให้บริการรับคำขอจริง') && p.net === 0, JSON.stringify({ ...p, text: p.text.slice(0, 200) }));
+  await shot(`${size}_booking_proxy_success`);
+  const pb = await W(`q('[data-mock-used]').click(); await w(400); const d=q('dialog[open]'); const service=qa('[aria-label="ประเภทบริการที่สนใจ"] button[aria-pressed=true]',d).map(txt); const comment=d.querySelector('textarea').value; q('[data-interest=MAYBE]',d).click(); await w(100); q('[aria-label="3 ดาว"]',d).click(); await w(100); q('#fb-consent',d).click(); btn('ส่งความคิดเห็น',d).click(); await w(600); const b=window.__bodies[0]; q('dialog[open]')?.close(); return {service, comment, b};`);
+  check(`${size} proxy booking: feedback for the offer, without the sample name or request`, pb.service.join() === 'ฝากมู' && pb.comment === '' && pb.b && pb.b.kind === 'proxy' && pb.b.offer_id === p.id && !/ทดสอบ|คำขอตัวอย่าง/.test(JSON.stringify(pb.b)), JSON.stringify(pb));
+}
+
 await setClock('2026-11-25T10:00:00+07:00');
 for (const [size, width, height] of SIZES) {
   console.log(`\n== ${size} on ${BASE}`);
@@ -72,6 +102,7 @@ for (const [size, width, height] of SIZES) {
     await shot(`${size}_step07_${trip}`, '[data-trip-tbd]');
     await healthy(`${size} ${trip} step 07`);
   }
+  await bookingJourney(size, width, height);
   // AC06: no eligible trip keeps behaving as before and shows no price
   await load(width, height);
   await W(`${toStep4('บ้าน/ที่ดิน')} ${toStep6} return 1;`);

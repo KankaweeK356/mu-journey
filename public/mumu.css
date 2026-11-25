@@ -130,6 +130,8 @@ dialog::backdrop { background: rgba(43, 31, 63, .55); }
 .tchip { border: 2px solid var(--lav-line); background: #fff; border-radius: 999px; padding: 8px 16px; cursor: pointer; font-weight: 600; color: var(--ink-2); }
 .tchip[aria-pressed="true"] { background: #fff0f6; border-color: #e879b4; color: #9d2a6b; }
 .tchip[aria-pressed="true"]::before { content: "✕ "; }
+.tchip.pick[aria-pressed="true"] { background: #f3ecff; border-color: var(--purple-2); color: var(--purple); }
+.tchip.pick[aria-pressed="true"]::before { content: "✓ "; }
 .ms { position: relative; }
 .ms input { width: 100%; }
 .ms-list { position: absolute; z-index: 5; left: 0; right: 0; top: 100%; margin-top: 4px; background: #fff; border: 1.5px solid var(--lav-line); border-radius: var(--r-sm); box-shadow: var(--shadow); max-height: 240px; overflow: auto; }

@@ -41,7 +41,7 @@ export function renderLab(p, ctx) {
     const pr = S.lab.profile, src = S.lab.source;
     const exc = pr.exclusions;
     const editor = h('details', {}, h('summary', {}, 'แก้โปรไฟล์เอง'), h('div', { class: 'inner stack' },
-      h('div', { class: 'chips row' }, cat.wishes.map((w) => { const on = pr.wish_ids.includes(w.id); return h('button', { type: 'button', class: 'tchip', style: on ? 'background:#f3ecff;border-color:#6d3fb0;color:#512b86' : '', 'aria-pressed': String(on), disabled: !on && pr.wish_ids.length >= 3,
+      h('div', { class: 'chips row' }, cat.wishes.map((w) => { const on = pr.wish_ids.includes(w.id); return h('button', { type: 'button', class: 'tchip pick', 'aria-pressed': String(on), disabled: !on && pr.wish_ids.length >= 3,
         onclick: () => { const next = clone(pr); next.wish_ids = on ? next.wish_ids.filter((x) => x !== w.id) : [...next.wish_ids, w.id]; if (next.wish_ids.length) { setProfile(next, 'manual'); } } }, wishIcon(w.id).e + ' ' + w.label); })),
       h('div', { class: 'row' }, cat.tradition_groups.map((g) => { const on = exc.tradition_groups.includes(g); return h('button', { type: 'button', class: 'tchip', 'aria-pressed': String(on), onclick: () => { const next = clone(pr); next.exclusions.tradition_groups = on ? exc.tradition_groups.filter((x) => x !== g) : [...exc.tradition_groups, g]; setProfile(next, 'manual'); } }, g); })),
       h('label', { class: 'row small' }, 'วันเกิด (ค.ศ., ไม่บังคับ): ', h('input', { type: 'date', value: pr.birthdate || '', max: new Date().toISOString().slice(0, 10), onchange: (e) => { const next = clone(pr); next.birthdate = e.target.value || null; setProfile(next, 'manual'); } }))));

@@ -1,7 +1,7 @@
 {
  "base": "http://localhost:3199/",
- "passed": 56,
- "total": 56,
+ "passed": 72,
+ "total": 72,
  "results": [
   {
    "name": "desktop AC01 TRIP_LOVE: price shown correctly and clearly",
@@ -21,7 +21,7 @@
   {
    "name": "desktop AC03 TRIP_LOVE: date can be chosen and follows to step 07 with price; interest button kept",
    "ok": true,
-   "info": "{\"pressed\":[\"2026-12-12\"],\"status\":\"วันที่เลือก: เสาร์ 12 ธ.ค. 2569\",\"s7\":\"2026-12-12\",\"note\":\"รายละเอียดการจอง (Demo)ราคา 899 บาท / คน · เวลา 09:00–13:15 น. · รับสูงสุด 10 คน/รอบวันเดินทางที่เลือก: เสาร์ 12 ธ.ค. 2569 (อยู่ในหน้านี้เท่านั้น ไม่ถูกส่งหรือบันทึก)ราคาและรอบเดินทางเป็นข้อมูลจำลอง ยังไม่เปิดรับจองจริง · การจองล่วงหน้า: ยังไม่เปิดจองปุ่มด้านล่างเป็นการแสดงความสนใจเพื่อทดสอบระบบ ไม่ใช่กา"
+   "info": "{\"pressed\":[\"2026-12-12\"],\"status\":\"วันที่เลือก: เสาร์ 12 ธ.ค. 2569\",\"s7\":\"2026-12-12\",\"note\":\"รายละเอียดการจอง (Demo)ราคา 899 บาท / คน · เวลา 09:00–13:15 น. · รับสูงสุด 10 คน/รอบวันเดินทางที่เลือก: เสาร์ 12 ธ.ค. 2569 (อยู่ในหน้านี้เท่านั้น ไม่ถูกส่งหรือบันทึก)ราคาและรอบเดินทางเป็นข้อมูลจำลอง ยังไม่เปิดรับจองจริง · การจองล่วงหน้า: ยังไม่เปิดจองปุ่มด้านล่างเป็นการสาธิตขั้นตอนและการแสดงความสนใจเพื่อ"
   },
   {
    "name": "desktop TRIP_LOVE step 07: no null text, no horizontal scroll, buttons named",
@@ -46,7 +46,7 @@
   {
    "name": "desktop AC03 TRIP_CAREER: date can be chosen and follows to step 07 with price; interest button kept",
    "ok": true,
-   "info": "{\"pressed\":[\"2026-12-12\"],\"status\":\"วันที่เลือก: เสาร์ 12 ธ.ค. 2569\",\"s7\":\"2026-12-12\",\"note\":\"รายละเอียดการจอง (Demo)ราคา 1,099 บาท / คน · เวลา 09:00–14:00 น. · รับสูงสุด 10 คน/รอบวันเดินทางที่เลือก: เสาร์ 12 ธ.ค. 2569 (อยู่ในหน้านี้เท่านั้น ไม่ถูกส่งหรือบันทึก)ราคาและรอบเดินทางเป็นข้อมูลจำลอง ยังไม่เปิดรับจองจริง · การจองล่วงหน้า: ยังไม่เปิดจองปุ่มด้านล่างเป็นการแสดงความสนใจเพื่อทดสอบระบบ ไม่ใช่"
+   "info": "{\"pressed\":[\"2026-12-12\"],\"status\":\"วันที่เลือก: เสาร์ 12 ธ.ค. 2569\",\"s7\":\"2026-12-12\",\"note\":\"รายละเอียดการจอง (Demo)ราคา 1,099 บาท / คน · เวลา 09:00–14:00 น. · รับสูงสุด 10 คน/รอบวันเดินทางที่เลือก: เสาร์ 12 ธ.ค. 2569 (อยู่ในหน้านี้เท่านั้น ไม่ถูกส่งหรือบันทึก)ราคาและรอบเดินทางเป็นข้อมูลจำลอง ยังไม่เปิดรับจองจริง · การจองล่วงหน้า: ยังไม่เปิดจองปุ่มด้านล่างเป็นการสาธิตขั้นตอนและการแสดงความสนใจเพื"
   },
   {
    "name": "desktop TRIP_CAREER step 07: no null text, no horizontal scroll, buttons named",
@@ -71,12 +71,52 @@
   {
    "name": "desktop AC03 TRIP_WEALTH: date can be chosen and follows to step 07 with price; interest button kept",
    "ok": true,
-   "info": "{\"pressed\":[\"2026-12-12\"],\"status\":\"วันที่เลือก: เสาร์ 12 ธ.ค. 2569\",\"s7\":\"2026-12-12\",\"note\":\"รายละเอียดการจอง (Demo)ราคา 999 บาท / คน · เวลา 09:00–13:15 น. · รับสูงสุด 10 คน/รอบวันเดินทางที่เลือก: เสาร์ 12 ธ.ค. 2569 (อยู่ในหน้านี้เท่านั้น ไม่ถูกส่งหรือบันทึก)ราคาและรอบเดินทางเป็นข้อมูลจำลอง ยังไม่เปิดรับจองจริง · การจองล่วงหน้า: ยังไม่เปิดจองปุ่มด้านล่างเป็นการแสดงความสนใจเพื่อทดสอบระบบ ไม่ใช่กา"
+   "info": "{\"pressed\":[\"2026-12-12\"],\"status\":\"วันที่เลือก: เสาร์ 12 ธ.ค. 2569\",\"s7\":\"2026-12-12\",\"note\":\"รายละเอียดการจอง (Demo)ราคา 999 บาท / คน · เวลา 09:00–13:15 น. · รับสูงสุด 10 คน/รอบวันเดินทางที่เลือก: เสาร์ 12 ธ.ค. 2569 (อยู่ในหน้านี้เท่านั้น ไม่ถูกส่งหรือบันทึก)ราคาและรอบเดินทางเป็นข้อมูลจำลอง ยังไม่เปิดรับจองจริง · การจองล่วงหน้า: ยังไม่เปิดจองปุ่มด้านล่างเป็นการสาธิตขั้นตอนและการแสดงความสนใจเพื่อ"
   },
   {
    "name": "desktop TRIP_WEALTH step 07: no null text, no horizontal scroll, buttons named",
    "ok": true,
    "info": "{\"bad\":[],\"overflow\":0,\"unnamed\":0}"
+  },
+  {
+   "name": "desktop booking: needs a date first; the chosen date shows a tick, not a cross",
+   "ok": true,
+   "info": "{\"disabled\":true,\"label\":\"จองทริป (จำลอง) · เลือกวันก่อน\",\"mark\":\"\\\"✓ \\\"\",\"bg\":\"rgb(243, 236, 255)\",\"enabled\":true}"
+  },
+  {
+   "name": "desktop booking: simulated success with date, time, meeting point, price and \"no real booking\"",
+   "ok": true,
+   "info": "{\"head\":\"✅ จองจำลองสำเร็จ\",\"text\":\"✅ จองจำลองสำเร็จ✕ทริป: Love & Blessingsวันเดินทาง: อาทิตย์ 6 ธ.ค. 2569เวลา: 09:00–13:15 น.จุดนัดพบ: BTS สยามราคา: 899 บาท / คน (ข้อมูลจำลอง)ไม่มีการจองจริง ไม่มีที่นั่งถูกสำรอง ไม่ต้องชำระเงินปิดจำลอง\",\"used\":true,\"net\":0,\"sent\":0}"
+  },
+  {
+   "name": "desktop booking: feedback opens for the trip, says it rates the demo, nothing pre-answered or sent",
+   "ok": true,
+   "info": "{\"note\":\"จำลองว่าใช้บริการเสร็จแล้ว · ความคิดเห็นนี้ประเมินคำแนะนำและขั้นตอนของ Demo ไม่ใช่บริการจริง\",\"service\":[\"ทริปบริษัท\"],\"interest\":0,\"stars\":0,\"consent\":false,\"sent\":0}"
+  },
+  {
+   "name": "desktop booking feedback: no null text, no horizontal scroll, buttons named",
+   "ok": true,
+   "info": "{\"bad\":[],\"overflow\":0,\"unnamed\":0}"
+  },
+  {
+   "name": "desktop booking: only the usual feedback fields would be sent (no date, no booking data)",
+   "ok": true,
+   "info": "{\"kind\":\"trip\",\"rating\":5,\"rating_question\":\"V2_RELEVANCE\",\"would_use_again\":\"YES\",\"interest_question\":\"V1_PREUSE_INTEREST\",\"comment\":\"\",\"consent\":true,\"wish_ids\":[\"W01\"],\"place_ids\":[\"P001\",\"P019\",\"P029\",\"P014\",\"P002\"],\"trip_id\":\"TRIP_LOVE\",\"offer_id\":\"\"}"
+  },
+  {
+   "name": "desktop booking: nothing written to browser storage",
+   "ok": true,
+   "info": ""
+  },
+  {
+   "name": "desktop proxy booking: simulated success, no provider, no payment, nothing sent",
+   "ok": true,
+   "info": "{\"id\":\"OFR_DEMO_001\",\"head\":\"✅ จองจำลองสำเร็จ\",\"text\":\"✅ จองจำลองสำเร็จ✕บริการ: แพ็กเกจฝากมูจำลอง ณ วัดพระศรีมหาอุมาเทวี (วัดแขก สีลม)สถานที่: วัดพระศรีมหาอุมาเทวี (วัดแขก สีลม)ราคา: 199 บาท (ข้อมูลจำลอง)ล่วงหน้า: 1 วัน (ข้อมูลจำลอง)ชื่อผู้ฝาก: สมมติ ทดสอ\",\"net\":0}"
+  },
+  {
+   "name": "desktop proxy booking: feedback for the offer, without the sample name or request",
+   "ok": true,
+   "info": "{\"service\":[\"ฝากมู\"],\"comment\":\"\",\"b\":{\"kind\":\"proxy\",\"rating\":3,\"rating_question\":\"V2_RELEVANCE\",\"would_use_again\":\"MAYBE\",\"interest_question\":\"V1_PREUSE_INTEREST\",\"comment\":\"\",\"consent\":true,\"wish_ids\":[\"W01\"],\"place_ids\":[\"P001\",\"P019\",\"P029\",\"P014\",\"P002\"],\"trip_id\":\"TRIP_LOVE\",\"offer_id\":\"OFR_DEMO_001\"}}"
   },
   {
    "name": "desktop AC06 no eligible trip: unchanged, no price or round",
@@ -151,7 +191,7 @@
   {
    "name": "mobile AC03 TRIP_LOVE: date can be chosen and follows to step 07 with price; interest button kept",
    "ok": true,
-   "info": "{\"pressed\":[\"2026-12-12\"],\"status\":\"วันที่เลือก: เสาร์ 12 ธ.ค. 2569\",\"s7\":\"2026-12-12\",\"note\":\"รายละเอียดการจอง (Demo)ราคา 899 บาท / คน · เวลา 09:00–13:15 น. · รับสูงสุด 10 คน/รอบวันเดินทางที่เลือก: เสาร์ 12 ธ.ค. 2569 (อยู่ในหน้านี้เท่านั้น ไม่ถูกส่งหรือบันทึก)ราคาและรอบเดินทางเป็นข้อมูลจำลอง ยังไม่เปิดรับจองจริง · การจองล่วงหน้า: ยังไม่เปิดจองปุ่มด้านล่างเป็นการแสดงความสนใจเพื่อทดสอบระบบ ไม่ใช่กา"
+   "info": "{\"pressed\":[\"2026-12-12\"],\"status\":\"วันที่เลือก: เสาร์ 12 ธ.ค. 2569\",\"s7\":\"2026-12-12\",\"note\":\"รายละเอียดการจอง (Demo)ราคา 899 บาท / คน · เวลา 09:00–13:15 น. · รับสูงสุด 10 คน/รอบวันเดินทางที่เลือก: เสาร์ 12 ธ.ค. 2569 (อยู่ในหน้านี้เท่านั้น ไม่ถูกส่งหรือบันทึก)ราคาและรอบเดินทางเป็นข้อมูลจำลอง ยังไม่เปิดรับจองจริง · การจองล่วงหน้า: ยังไม่เปิดจองปุ่มด้านล่างเป็นการสาธิตขั้นตอนและการแสดงความสนใจเพื่อ"
   },
   {
    "name": "mobile TRIP_LOVE step 07: no null text, no horizontal scroll, buttons named",
@@ -176,7 +216,7 @@
   {
    "name": "mobile AC03 TRIP_CAREER: date can be chosen and follows to step 07 with price; interest button kept",
    "ok": true,
-   "info": "{\"pressed\":[\"2026-12-12\"],\"status\":\"วันที่เลือก: เสาร์ 12 ธ.ค. 2569\",\"s7\":\"2026-12-12\",\"note\":\"รายละเอียดการจอง (Demo)ราคา 1,099 บาท / คน · เวลา 09:00–14:00 น. · รับสูงสุด 10 คน/รอบวันเดินทางที่เลือก: เสาร์ 12 ธ.ค. 2569 (อยู่ในหน้านี้เท่านั้น ไม่ถูกส่งหรือบันทึก)ราคาและรอบเดินทางเป็นข้อมูลจำลอง ยังไม่เปิดรับจองจริง · การจองล่วงหน้า: ยังไม่เปิดจองปุ่มด้านล่างเป็นการแสดงความสนใจเพื่อทดสอบระบบ ไม่ใช่"
+   "info": "{\"pressed\":[\"2026-12-12\"],\"status\":\"วันที่เลือก: เสาร์ 12 ธ.ค. 2569\",\"s7\":\"2026-12-12\",\"note\":\"รายละเอียดการจอง (Demo)ราคา 1,099 บาท / คน · เวลา 09:00–14:00 น. · รับสูงสุด 10 คน/รอบวันเดินทางที่เลือก: เสาร์ 12 ธ.ค. 2569 (อยู่ในหน้านี้เท่านั้น ไม่ถูกส่งหรือบันทึก)ราคาและรอบเดินทางเป็นข้อมูลจำลอง ยังไม่เปิดรับจองจริง · การจองล่วงหน้า: ยังไม่เปิดจองปุ่มด้านล่างเป็นการสาธิตขั้นตอนและการแสดงความสนใจเพื"
   },
   {
    "name": "mobile TRIP_CAREER step 07: no null text, no horizontal scroll, buttons named",
@@ -201,12 +241,52 @@
   {
    "name": "mobile AC03 TRIP_WEALTH: date can be chosen and follows to step 07 with price; interest button kept",
    "ok": true,
-   "info": "{\"pressed\":[\"2026-12-12\"],\"status\":\"วันที่เลือก: เสาร์ 12 ธ.ค. 2569\",\"s7\":\"2026-12-12\",\"note\":\"รายละเอียดการจอง (Demo)ราคา 999 บาท / คน · เวลา 09:00–13:15 น. · รับสูงสุด 10 คน/รอบวันเดินทางที่เลือก: เสาร์ 12 ธ.ค. 2569 (อยู่ในหน้านี้เท่านั้น ไม่ถูกส่งหรือบันทึก)ราคาและรอบเดินทางเป็นข้อมูลจำลอง ยังไม่เปิดรับจองจริง · การจองล่วงหน้า: ยังไม่เปิดจองปุ่มด้านล่างเป็นการแสดงความสนใจเพื่อทดสอบระบบ ไม่ใช่กา"
+   "info": "{\"pressed\":[\"2026-12-12\"],\"status\":\"วันที่เลือก: เสาร์ 12 ธ.ค. 2569\",\"s7\":\"2026-12-12\",\"note\":\"รายละเอียดการจอง (Demo)ราคา 999 บาท / คน · เวลา 09:00–13:15 น. · รับสูงสุด 10 คน/รอบวันเดินทางที่เลือก: เสาร์ 12 ธ.ค. 2569 (อยู่ในหน้านี้เท่านั้น ไม่ถูกส่งหรือบันทึก)ราคาและรอบเดินทางเป็นข้อมูลจำลอง ยังไม่เปิดรับจองจริง · การจองล่วงหน้า: ยังไม่เปิดจองปุ่มด้านล่างเป็นการสาธิตขั้นตอนและการแสดงความสนใจเพื่อ"
   },
   {
    "name": "mobile TRIP_WEALTH step 07: no null text, no horizontal scroll, buttons named",
    "ok": true,
    "info": "{\"bad\":[],\"overflow\":0,\"unnamed\":0}"
+  },
+  {
+   "name": "mobile booking: needs a date first; the chosen date shows a tick, not a cross",
+   "ok": true,
+   "info": "{\"disabled\":true,\"label\":\"จองทริป (จำลอง) · เลือกวันก่อน\",\"mark\":\"\\\"✓ \\\"\",\"bg\":\"rgb(243, 236, 255)\",\"enabled\":true}"
+  },
+  {
+   "name": "mobile booking: simulated success with date, time, meeting point, price and \"no real booking\"",
+   "ok": true,
+   "info": "{\"head\":\"✅ จองจำลองสำเร็จ\",\"text\":\"✅ จองจำลองสำเร็จ✕ทริป: Love & Blessingsวันเดินทาง: อาทิตย์ 6 ธ.ค. 2569เวลา: 09:00–13:15 น.จุดนัดพบ: BTS สยามราคา: 899 บาท / คน (ข้อมูลจำลอง)ไม่มีการจองจริง ไม่มีที่นั่งถูกสำรอง ไม่ต้องชำระเงินปิดจำลอง\",\"used\":true,\"net\":0,\"sent\":0}"
+  },
+  {
+   "name": "mobile booking: feedback opens for the trip, says it rates the demo, nothing pre-answered or sent",
+   "ok": true,
+   "info": "{\"note\":\"จำลองว่าใช้บริการเสร็จแล้ว · ความคิดเห็นนี้ประเมินคำแนะนำและขั้นตอนของ Demo ไม่ใช่บริการจริง\",\"service\":[\"ทริปบริษัท\"],\"interest\":0,\"stars\":0,\"consent\":false,\"sent\":0}"
+  },
+  {
+   "name": "mobile booking feedback: no null text, no horizontal scroll, buttons named",
+   "ok": true,
+   "info": "{\"bad\":[],\"overflow\":0,\"unnamed\":0}"
+  },
+  {
+   "name": "mobile booking: only the usual feedback fields would be sent (no date, no booking data)",
+   "ok": true,
+   "info": "{\"kind\":\"trip\",\"rating\":5,\"rating_question\":\"V2_RELEVANCE\",\"would_use_again\":\"YES\",\"interest_question\":\"V1_PREUSE_INTEREST\",\"comment\":\"\",\"consent\":true,\"wish_ids\":[\"W01\"],\"place_ids\":[\"P001\",\"P019\",\"P029\",\"P014\",\"P002\"],\"trip_id\":\"TRIP_LOVE\",\"offer_id\":\"\"}"
+  },
+  {
+   "name": "mobile booking: nothing written to browser storage",
+   "ok": true,
+   "info": ""
+  },
+  {
+   "name": "mobile proxy booking: simulated success, no provider, no payment, nothing sent",
+   "ok": true,
+   "info": "{\"id\":\"OFR_DEMO_001\",\"head\":\"✅ จองจำลองสำเร็จ\",\"text\":\"✅ จองจำลองสำเร็จ✕บริการ: แพ็กเกจฝากมูจำลอง ณ วัดพระศรีมหาอุมาเทวี (วัดแขก สีลม)สถานที่: วัดพระศรีมหาอุมาเทวี (วัดแขก สีลม)ราคา: 199 บาท (ข้อมูลจำลอง)ล่วงหน้า: 1 วัน (ข้อมูลจำลอง)ชื่อผู้ฝาก: สมมติ ทดสอ\",\"net\":0}"
+  },
+  {
+   "name": "mobile proxy booking: feedback for the offer, without the sample name or request",
+   "ok": true,
+   "info": "{\"service\":[\"ฝากมู\"],\"comment\":\"\",\"b\":{\"kind\":\"proxy\",\"rating\":3,\"rating_question\":\"V2_RELEVANCE\",\"would_use_again\":\"MAYBE\",\"interest_question\":\"V1_PREUSE_INTEREST\",\"comment\":\"\",\"consent\":true,\"wish_ids\":[\"W01\"],\"place_ids\":[\"P001\",\"P019\",\"P029\",\"P014\",\"P002\"],\"trip_id\":\"TRIP_LOVE\",\"offer_id\":\"OFR_DEMO_001\"}}"
   },
   {
    "name": "mobile AC06 no eligible trip: unchanged, no price or round",

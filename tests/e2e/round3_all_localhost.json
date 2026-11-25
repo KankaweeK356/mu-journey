@@ -50,17 +50,17 @@
   "info": "P001,P002,P014,P019,P029 vs P001,P002,P014,P019,P029"
  },
  {
-  "name": "UI proxy: \"ลองกรอกคำขอ (Demo)\" button exists",
+  "name": "UI proxy: \"จองฝากมู (จำลอง)\" button exists",
   "ok": true,
   "info": ""
  },
  {
-  "name": "UI proxy: preview shows the sample name/request and says no real provider",
+  "name": "UI proxy: simulated success shows the sample name/request and says no real provider",
   "ok": true,
-  "info": "ตัวอย่างสรุปคำขอ (Demo) บริการ: แพ็กเกจฝากมูจำลอง ณ วัดพระศรีมหาอุมาเทวี (วัดแขก สีลม) · ว"
+  "info": "บริการ: แพ็กเกจฝากมูจำลอง ณ วัดพระศรีมหาอุมาเทวี (วัดแขก สีลม) สถานที่: วัดพระศรีมหาอุมาเท"
  },
  {
-  "name": "UI proxy: no network request was made while using the form",
+  "name": "UI proxy: no network request was made while booking",
   "ok": true,
   "info": ""
  },
@@ -70,9 +70,9 @@
   "info": "[]| -> []|"
  },
  {
-  "name": "UI proxy: values are cleared after closing (reopen is empty)",
+  "name": "UI proxy: values are cleared afterwards (reopen is empty)",
   "ok": true,
-  "info": "{\"name\":\"\",\"wish\":\"\",\"preview\":false}"
+  "info": "{\"name\":\"\",\"wish\":\"\",\"booked\":false}"
  },
  {
   "name": "UI form: title is \"แสดงความสนใจและให้คะแนนคำแนะนำ (Demo)\"",
@@ -160,17 +160,17 @@
   "info": "แสดงความสนใจและให้คะแนนคำแนะนำ (Demo) ✕ ประเภทบริการที่สนใจ ไปมูเอง ทริปบริษัท ฝากมู คุณสนใจบริการฝากมูที่แนะนำนี้หรือไม"
  },
  {
-  "name": "UI proxy: \"ลองกรอกคำขอ (Demo)\" button exists",
+  "name": "UI proxy: \"จองฝากมู (จำลอง)\" button exists",
   "ok": true,
   "info": ""
  },
  {
-  "name": "UI proxy: preview shows the sample name/request and says no real provider",
+  "name": "UI proxy: simulated success shows the sample name/request and says no real provider",
   "ok": true,
-  "info": "ตัวอย่างสรุปคำขอ (Demo) บริการ: แพ็กเกจฝากมูจำลอง ณ วัดพระศรีมหาอุมาเทวี (วัดแขก สีลม) · ว"
+  "info": "บริการ: แพ็กเกจฝากมูจำลอง ณ วัดพระศรีมหาอุมาเทวี (วัดแขก สีลม) สถานที่: วัดพระศรีมหาอุมาเท"
  },
  {
-  "name": "UI proxy: no network request was made while using the form",
+  "name": "UI proxy: no network request was made while booking",
   "ok": true,
   "info": ""
  },
@@ -180,9 +180,9 @@
   "info": "[]| -> []|"
  },
  {
-  "name": "UI proxy: values are cleared after closing (reopen is empty)",
+  "name": "UI proxy: values are cleared afterwards (reopen is empty)",
   "ok": true,
-  "info": "{\"name\":\"\",\"wish\":\"\",\"preview\":false}"
+  "info": "{\"name\":\"\",\"wish\":\"\",\"booked\":false}"
  },
  {
   "name": "UI form: title is \"แสดงความสนใจและให้คะแนนคำแนะนำ (Demo)\"",
