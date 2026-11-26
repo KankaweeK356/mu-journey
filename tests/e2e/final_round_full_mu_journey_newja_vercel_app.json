@@ -1,7 +1,7 @@
 {
  "base": "https://mu-journey-newja.vercel.app/",
- "passed": 199,
- "total": 199,
+ "passed": 197,
+ "total": 197,
  "results": [
   {
    "name": "desktop 1366 step 01: no null / undefined text",
@@ -67,11 +67,6 @@
    "name": "desktop 1366 #13 step 04 says the birth signal was applied",
    "ok": true,
    "info": "{\"status\":\"APPLIED\",\"text\":\"🎂 เกิดวันจันทร์ — ใช้ความเชื่อประจำวันจันทร์ (พระแม่อุมาเทวี) เป็นสัญญาณรองน้ำหนักน้อย ความสนใจที่คุณเลือกยังเป็นหลัก อันดับอาจเปลี่ยนหรือไม่เปลี่ยนก็ได้\"}"
-  },
-  {
-   "name": "desktop 1366 #6 reminder choices show the date they fall due",
-   "ok": true,
-   "info": "{\"card\":true,\"dates\":[\"2027-02-07  · เตือนวันที่ 7 ก.พ. 2570\",\"2027-02-13  · เตือนวันที่ 13 ก.พ. 2570\"]}"
   },
   {
    "name": "desktop 1366 step 05: no null / undefined text",
@@ -422,11 +417,6 @@
    "name": "phone 375 #13 step 04 says the birth signal was applied",
    "ok": true,
    "info": "{\"status\":\"APPLIED\",\"text\":\"🎂 เกิดวันจันทร์ — ใช้ความเชื่อประจำวันจันทร์ (พระแม่อุมาเทวี) เป็นสัญญาณรองน้ำหนักน้อย ความสนใจที่คุณเลือกยังเป็นหลัก อันดับอาจเปลี่ยนหรือไม่เปลี่ยนก็ได้\"}"
-  },
-  {
-   "name": "phone 375 #6 reminder choices show the date they fall due",
-   "ok": true,
-   "info": "{\"card\":true,\"dates\":[\"2027-02-07  · เตือนวันที่ 7 ก.พ. 2570\",\"2027-02-13  · เตือนวันที่ 13 ก.พ. 2570\"]}"
   },
   {
    "name": "phone 375 step 05: no null / undefined text",
