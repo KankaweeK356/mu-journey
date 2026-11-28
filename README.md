@@ -76,6 +76,8 @@ model/     โมเดลอ้างอิง (network_phase1.py ไม่แ�
 data/      ไฟล์ต้นทางจาก Google Drive Baseline v2 (5 ไฟล์ .xlsx) — ดู docs/DATA_SOURCES.md
 api/       Vercel Python Functions: catalog, recommendations, place, trip, trace, offers, feedback
 public/    หน้าเว็บ (HTML/CSS/JS ล้วน ไม่มี build step) + data/ (JSON ที่หน้าเว็บโหลด)
+offline_design/ สคริปต์และข้อมูลที่ใช้ออกแบบ 3 ทริปคงที่
+neo4j/     CSV และตัวอย่าง Cypher (ยังไม่เคยรันบน Neo4j)
 scripts/   dev_server.py, build_*.py (สร้างไฟล์ที่ได้มา), evaluate_rigor.py (ภาคผนวกสถิติ), network_analysis.py, birthday_impact.py
 tests/     ทดสอบ Python + Node (รวมชุดทดสอบ Reminder 60 แถว)
 docs/      รายงาน เอกสารเตรียม Defend กติกาแจ้งเตือน แหล่งข้อมูล และตั้งค่า feedback → Google Sheet
@@ -137,7 +139,7 @@ Tab 1 เรียก `/api/mumu/*` (alias ใน `vercel.json`) ทุก respo
 
 ## Deploy บน Vercel
 1. Import repo เข้า Vercel (Framework: Other — `vercel.json` ตั้งค่าไว้แล้ว)
-2. (ไม่บังคับ) Environment Variables: `FEEDBACK_WEBHOOK_URL` (และ `FEEDBACK_TOKEN` ถ้า Apps Script ตรวจ token — ดู `docs/feedback_apps_script.gs`) ถ้าไม่ตั้ง ระบบรันโหมดสาธิตและไม่บันทึก
+2. (ไม่บังคับ) ถ้าต้องการบันทึก feedback ต้องตั้ง Environment Variables **ทั้งสองตัว** คือ `FEEDBACK_WEBHOOK_URL` (ขึ้นต้นด้วย `https://script.google.com/`) และ `FEEDBACK_TOKEN` (ต้องตรงกับใน Apps Script — ดู `docs/feedback_apps_script.gs`) ถ้าขาดตัวใดตัวหนึ่ง ระบบรันโหมดสาธิตและไม่บันทึก
 3. หมายเหตุ: ฟังก์ชัน Python แต่ละตัวแพ็กไลบรารีวิทยาศาสตร์ซ้ำ จึงกินพื้นที่ Functions Storage มาก ควรลบ deployment เก่าเป็นระยะ
 
 ## อัปเดตข้อมูล

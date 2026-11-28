@@ -1,7 +1,7 @@
 // Tab 2 · 01 Network Explorer — structure of the Wish → Deity → Place graph, filters, node details, insights.
 import { h, clear, put, f, statusChip, getJSON } from './util.js';
 import { mountGraph, graphLegend, hue } from './graphview.js';
-import { degreeByType, degreeRankings, communityVerdict, randomGraphRows } from './netstats.js';
+import { degreeByType, degreeRankings, degreeLeaders, communityVerdict, randomGraphRows } from './netstats.js';
 
 const kpi = (ic, val, lab, foot) => h('div', { class: 'card kpi' }, h('div', { class: 'ic' }, ic), h('div', {}, h('div', { class: 'val' }, val), h('div', { class: 'lab' }, lab), foot ? h('div', { class: 'small faint' }, foot) : null));
 
@@ -64,7 +64,7 @@ export function renderExplorer(p, { graph, results, names }) {
   function communityCards(A) {
     const groups = A.communities.filter((c) => c.size > 1), singles = A.communities.length - groups.length;
     const verdict = communityVerdict(A);
-    const hubs = degreeRankings(degrees).map((r) => `${r.title}: ${r.rows[0].label} (${r.rows[0].value})`);
+    const hubs = degreeLeaders(degrees);
     return [
       h('div', { class: 'card stack' }, h('h3', {}, 'Community คืออะไร และเชื่อได้แค่ไหน'),
         h('p', { class: 'small', style: 'margin:0' }, 'Community คือกลุ่มโหนดที่มีเส้นเชื่อมกันภายในกลุ่มมากกว่าที่เชื่อมออกนอกกลุ่ม คำนวณด้วยวิธี Greedy Modularity จากโครงสร้างกราฟเท่านั้น หมายเลขกลุ่มไม่ได้บอกความหมาย ไม่ใช่กลุ่มผู้ใช้ และไม่ใช่ทริป ระบบแนะนำสถานที่ไม่ได้ใช้ Community ในการให้คะแนน'),
@@ -80,7 +80,7 @@ export function renderExplorer(p, { graph, results, names }) {
         h('div', { class: 'scroll-x' }, h('table', { 'data-null-table': 'true' }, h('thead', {}, h('tr', {}, ['ค่าที่เทียบ', 'กราฟจริง', 'กราฟสุ่ม (เฉลี่ย)', 'ช่วง 95% ของกราฟสุ่ม', 'สุ่มได้ ≥ กราฟจริง'].map((t, i) => h('th', { class: i ? 'n' : '' }, t)))),
           h('tbody', {}, randomGraphRows(A).map((r) => h('tr', {}, h('td', {}, r.label), h('td', { class: 'n' }, r.observed), h('td', { class: 'n' }, r.mean), h('td', { class: 'n' }, r.range), h('td', { class: 'n' }, r.atLeast)))))),
         h('div', { class: 'small faint' }, 'กราฟสุ่มสลับปลายเส้นภายในความสัมพันธ์ชนิดเดียวกัน (เรื่อง–เทพ และ เทพ–สถานที่) ทุกโหนดจึงมีจำนวนเส้นเท่าเดิม และไม่เกิดความสัมพันธ์ชนิดใหม่ ผลนี้เป็นการวิเคราะห์โครงสร้างของข้อมูลชุดนี้เท่านั้น')),
-      h('div', { class: 'card' }, h('h3', {}, 'สรุปที่ข้อมูลรองรับ (ร่าง รอเจ้าของงานยืนยัน)'), h('ul', { class: 'insights', style: 'margin-top:8px' },
+      h('div', { class: 'card' }, h('h3', {}, 'สรุปที่ข้อมูลรองรับ'), h('ul', { class: 'insights', style: 'margin-top:8px' },
         ...hubs.map((t) => h('li', {}, t)),
         h('li', {}, `มี ${g.components} Components กลุ่มใหญ่สุด ${g.component_sizes[0]} จาก ${g.nodes} โหนด`),
         h('li', {}, `ช่องว่างข้อมูล: สถานที่ ${g.isolated_place_ids.length} แห่งยังไม่มีเส้นเชื่อม เรื่อง–เทพ–สถานที่ จึงไม่ถูกแนะนำ`),

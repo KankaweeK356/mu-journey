@@ -2,7 +2,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { degreeByType, degreeRankings, communityVerdict, randomGraphRows } from '../../public/js/netstats.js';
+import { degreeByType, degreeRankings, degreeLeaders, communityVerdict, randomGraphRows } from '../../public/js/netstats.js';
 import { wishNetwork } from '../../public/js/graphview.js';
 import { put } from '../../public/js/util.js';
 
@@ -41,6 +41,12 @@ test('rankings never mix node types, and ties left out are reported', () => {
     assert.ok(r.rows.every((x, i) => !i || r.rows[i - 1].value >= x.value));
   }
   assert.ok(R.some((r) => r.moreTied > 0));
+  // the summary box names every node that shares first place
+  const lines = degreeLeaders(degreeByType(graph));
+  assert.equal(lines.length, 4);
+  for (const name of ['คุณแม่บุญเรือน', 'พระพิฆเนศ', 'ท้าวมหาพรหม', 'ท้าวเวสสุวรรณ']) assert.ok(lines[2].includes(name), name);
+  assert.ok(lines[2].endsWith('(องค์ละ 3 เรื่อง เสมอกัน 4 องค์)'), lines[2]);
+  for (const i of [0, 1, 3]) assert.ok(!lines[i].includes('เสมอกัน') && /\(\d+\)$/.test(lines[i]), lines[i]);
 });
 
 test('community verdict says "cannot conclude" when the random-graph check fails and no group is named', () => {

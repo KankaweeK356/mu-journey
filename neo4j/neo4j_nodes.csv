@@ -1,0 +1,102 @@
+﻿node_id,node_type,label,data_status,tradition
+W:W01,Wish,ความรัก,SOURCE_CANDIDATE,
+W:W02,Wish,การงาน,SOURCE_CANDIDATE,
+W:W03,Wish,การเงิน/โชคลาภ,SOURCE_CANDIDATE,
+W:W04,Wish,การเรียน/สอบ,SOURCE_CANDIDATE,
+W:W05,Wish,บัตรคอน/กิจกรรมติ่ง,SOURCE_CANDIDATE,
+W:W06,Wish,สุขภาพ/แคล้วคลาด,SOURCE_CANDIDATE,
+W:W07,Wish,บ้าน/ที่ดิน/คดีความ,SOURCE_CANDIDATE,
+W:W08,Wish,แก้ชง/สะเดาะเคราะห์,SOURCE_CANDIDATE,
+W:W09,Wish,เสี่ยงโชค,SOURCE_CANDIDATE,
+W:W10,Wish,ปลดหนี้,SOURCE_CANDIDATE,
+D:D_GANESHA,SacredEntity,พระพิฆเนศ,SOURCE_CANDIDATE,ฮินดู
+D:D_LAKSHMI,SacredEntity,พระแม่ลักษมี,SOURCE_CANDIDATE,ฮินดู
+D:D_BRAHMA,SacredEntity,ท้าวมหาพรหม / พระพรหม,SOURCE_CANDIDATE,ฮินดู
+D:D_TRIMURTI,SacredEntity,พระตรีมูรติ,SOURCE_CANDIDATE,ฮินดู
+D:D_UMA,SacredEntity,พระแม่อุมาเทวี,SOURCE_CANDIDATE,ฮินดู
+D:D_SHIVA,SacredEntity,พระศิวะ / พระอิศวร,SOURCE_CANDIDATE,ฮินดู
+D:D_VISHNU,SacredEntity,พระวิษณุ / พระนารายณ์,SOURCE_CANDIDATE,ฮินดู
+D:D_KRISHNA,SacredEntity,พระกฤษณะ,SOURCE_CANDIDATE,ฮินดู
+D:D_SARASWATI,SacredEntity,พระแม่สุรัสวดี,SOURCE_CANDIDATE,ฮินดู
+D:D_SKANDA,SacredEntity,พระขันธกุมาร,SOURCE_CANDIDATE,ฮินดู
+D:D_KALI,SacredEntity,พระแม่กาลี,SOURCE_CANDIDATE,ฮินดู
+D:D_DURGA,SacredEntity,พระแม่ทุรคา,SOURCE_CANDIDATE,ฮินดู
+D:D_WESSUWAN,SacredEntity,ท้าวเวสสุวรรณ,SOURCE_CANDIDATE,พุทธ/ไทย
+D:D_CITYPILLAR,SacredEntity,เจ้าพ่อหลักเมือง / เทพารักษ์ 5 องค์,SOURCE_CANDIDATE,ไทย
+D:D_TIGERGOD,SacredEntity,เจ้าพ่อเสือ (ตั่วเหล่าเอี๊ย),SOURCE_CANDIDATE,จีน
+D:D_GUANYU,SacredEntity,เทพเจ้ากวนอู,SOURCE_CANDIDATE,จีน
+D:D_TAISUI,SacredEntity,ไท้ส่วยเอี๊ย,SOURCE_CANDIDATE,จีน
+D:D_CAISHEN,SacredEntity,ไฉ่ซิงเอี๊ย,SOURCE_CANDIDATE,จีน
+D:D_WENCHANG,SacredEntity,เทพบุ่นเชียง (บุ๋นเชียงตี่กุง),SOURCE_CANDIDATE,จีน
+D:D_YIKOHONG,SacredEntity,พ่อปู่เจ้ายี่กอฮง,SOURCE_CANDIDATE,จีน/ไทย
+D:D_GUANYIN,SacredEntity,เจ้าแม่กวนอิม,SOURCE_CANDIDATE,จีน/มหายาน
+D:D_TUBTIM,SacredEntity,เจ้าแม่ทับทิม,SOURCE_CANDIDATE,จีน
+D:D_HANUMAN_MONKEY,SacredEntity,เจ้าพ่อเห้งเจีย (ไต่เสี่ยฮุดโจ้ว),SOURCE_CANDIDATE,จีน
+D:D_LP_THONGKHAM,SacredEntity,หลวงพ่อทองคํา (พระพุทธมหาสุวรรณปฏิมากร),SOURCE_CANDIDATE,พุทธ
+D:D_LP_TO,SacredEntity,หลวงพ่อโต,SOURCE_CANDIDATE,พุทธ
+D:D_SOMDET_TO,SacredEntity,สมเด็จพระพุฒาจารย์ (โต พรหมรังสี),SOURCE_CANDIDATE,พุทธ
+D:D_MAE_BOONRUEAN,SacredEntity,คุณแม่บุญเรือน โตงบุญเติม,SOURCE_CANDIDATE,พุทธ/ไทย
+D:D_MAE_NAK,SacredEntity,แม่นาคพระโขนง,SOURCE_CANDIDATE,ไทย
+D:D_TAKSIN,SacredEntity,สมเด็จพระเจ้าตากสินมหาราช,SOURCE_CANDIDATE,ไทย
+D:D_RAMA5,SacredEntity,พระบาทสมเด็จพระจุลจอมเกล้าเจ้าอยู่หัว (ร.5),SOURCE_CANDIDATE,ไทย
+D:D_MAE_THORANI,SacredEntity,พระแม่ธรณีบีบมวยผม,SOURCE_CANDIDATE,พุทธ/ไทย
+D:D_PHRAKAEW,SacredEntity,พระแก้วมรกต,SOURCE_CANDIDATE,พุทธ
+D:D_LP_SOTHORN_PAKNAM,SacredEntity,หลวงพ่อสด (วัดปากน้ํา),SOURCE_CANDIDATE,พุทธ
+D:D_MAE_FAENG,SacredEntity,ย่าแฟง (วัดคณิกาผล),SOURCE_CANDIDATE,ไทย
+D:D_RAHU,SacredEntity,พระราหู,SOURCE_CANDIDATE,พราหมณ์/โหราศาสตร์
+D:D_PAEKONG,SacredEntity,องค์แป๊ะกง / เทพกังหัน,SOURCE_CANDIDATE,จีน
+D:D_HUATUO,SacredEntity,ฮั่วท้อเซียนซือ (หมอเทวดา),SOURCE_CANDIDATE,จีน
+D:D_SUNTHAREE,SacredEntity,พระสุนทรีวาณี,SOURCE_CANDIDATE,พุทธ/ไทย
+D:D_HIRAN,SacredEntity,ท้าวหิรัญพนาสูร (ท้าวหิรัญพนาสูร รพ.พระมงกุฎเกล้า),SOURCE_CANDIDATE,ไทย
+P:P001,Place,วัดพระศรีมหาอุมาเทวี (วัดแขก สีลม),SOURCE_CANDIDATE,
+P:P002,Place,วัดวิษณุ (สมาคมฮินดูธรรมสภา),SOURCE_CANDIDATE,
+P:P003,Place,วัดอาวุธวิกสิตาราม,SOURCE_CANDIDATE,
+P:P004,Place,วัดสุวรรณารามราชวรวิหาร,SOURCE_CANDIDATE,
+P:P005,Place,วัดระฆังโฆสิตารามวรมหาวิหาร,SOURCE_CANDIDATE,
+P:P006,Place,วัดอรุณราชวรารามราชวรมหาวิหาร,SOURCE_CANDIDATE,
+P:P007,Place,ศาลเจ้ากวนอู (คลองสาน),SOURCE_CANDIDATE,
+P:P008,Place,วัดปากน้ํา ภาษีเจริญ,SOURCE_CANDIDATE,
+P:P009,Place,วัดราชโอรสารามราชวรวิหาร,SOURCE_CANDIDATE,
+P:P010,Place,วัดหลวงพ่อโอภาสี,SOURCE_CANDIDATE,
+P:P011,Place,วัดมหาธาตุยุวราชรังสฤษฎิ์ราชวรมหาวิหาร,SOURCE_CANDIDATE,
+P:P012,Place,ศาลหลักเมืองกรุงเทพมหานคร,SOURCE_CANDIDATE,
+P:P013,Place,ศาลเจ้าพ่อเสือ (เสาชิงช้า),SOURCE_CANDIDATE,
+P:P014,Place,เทวสถานโบสถ์พราหมณ์,SOURCE_CANDIDATE,
+P:P015,Place,วัดสุทัศนเทพวรารามราชวรมหาวิหาร,SOURCE_CANDIDATE,
+P:P016,Place,ศาลพ่อปู่เจ้ายี่กอฮง,SOURCE_CANDIDATE,
+P:P017,Place,วัดมังกรกมลาวาส (วัดเล่งเน่ยยี่),SOURCE_CANDIDATE,
+P:P018,Place,วัดไตรมิตรวิทยารามวรวิหาร,SOURCE_CANDIDATE,
+P:P019,Place,วัดมหาบุศย์ (แม่นาคพระโขนง),SOURCE_CANDIDATE,
+P:P020,Place,วัดกระทุ่มเสือปลา,SOURCE_CANDIDATE,
+P:P021,Place,เทวาลัยพระพิฆเนศ สี่แยกห้วยขวาง,SOURCE_CANDIDATE,
+P:P022,Place,ศาลท้าวมหาพรหม แยกราชประสงค์ (เอราวัณ),SOURCE_CANDIDATE,
+P:P023,Place,พระแม่ลักษมี เกษรวิลเลจ,SOURCE_CANDIDATE,
+P:P024,Place,วัดบวรนิเวศราชวรวิหาร,SOURCE_CANDIDATE,
+P:P025,Place,พระบรมรูปทรงม้า (ลานพระราชวังดุสิต),SOURCE_CANDIDATE,
+P:P026,Place,ศาลเจ้าพ่อเห้งเจีย (สามย่าน),SOURCE_CANDIDATE,
+P:P027,Place,วัดสระเกศราชวรมหาวิหาร (ภูเขาทอง),SOURCE_CANDIDATE,
+P:P028,Place,วัดราชบพิธสถิตมหาสีมารามราชวรวิหาร,SOURCE_CANDIDATE,
+P:P029,Place,ศาลเจ้าแม่ทับทิม (สะพานซังฮี้),SOURCE_CANDIDATE,
+P:P030,Place,ศาลพระตรีมูรติ ลานเซ็นทรัลเวิลด์,SOURCE_CANDIDATE,
+P:P031,Place,วัดอินทรวิหาร (บางขุนพรหม),SOURCE_CANDIDATE,
+P:P032,Place,พระบรมราชานุสาวรีย์สมเด็จพระเจ้าตากสินมหาราช (วงเวียนใหญ่),SOURCE_CANDIDATE,
+P:P033,Place,วัดยานนาวา,SOURCE_CANDIDATE,
+P:P034,Place,วัดประยุรวงศาวาสวรวิหาร,SOURCE_CANDIDATE,
+P:P035,Place,โรงพยาบาลสงฆ์ (จุดทําบุญ),SOURCE_CANDIDATE,
+P:P036,Place,ศาลพระพิฆเนศ ลานเซ็นทรัลเวิลด์,SOURCE_CANDIDATE,
+P:P037,Place,องค์พ่อพระพิฆเนศ ยูเนี่ยนมอลล์,SOURCE_CANDIDATE,
+P:P038,Place,วัดราษฎร์ศรัทธาธรรม (วัดบางชัน),SOURCE_CANDIDATE,
+P:P039,Place,วัดไผ่เงินโชตนาราม,SOURCE_CANDIDATE,
+P:P040,Place,โบสถ์เทพมณเฑียร (Dev Mandir),SOURCE_CANDIDATE,
+P:P041,Place,วัดกัลยาณมิตรวรมหาวิหาร,SOURCE_CANDIDATE,
+P:P042,Place,วัดทิพยวารีวิหาร (กัมโล่วยี่),SOURCE_CANDIDATE,
+P:P043,Place,ศาลเจ้าโจวซือกง (ตลาดน้อย),SOURCE_CANDIDATE,
+P:P044,Place,มูลนิธิโรงพยาบาลเทียนฟ้า (ศาลเจ้าแม่กวนอิม),SOURCE_CANDIDATE,
+P:P045,Place,วัดพระศรีรัตนศาสดาราม (วัดพระแก้ว),SOURCE_CANDIDATE,
+P:P046,Place,วัดสุทธาราม,SOURCE_CANDIDATE,
+P:P047,Place,วัดคณิกาผล (ย่าแฟง),SOURCE_CANDIDATE,
+P:P048,Place,ศาลเจ้ากวางตุ้ง,SOURCE_CANDIDATE,
+P:P049,Place,ศาลเจ้าหลีตี๊เมี๊ยว,SOURCE_CANDIDATE,
+P:P050,Place,ศาลเจ้าไต้ฮงกง (มูลนิธิป่อเต็กตึ๊ง),SOURCE_CANDIDATE,
+P:P051,Place,ศาลพระแม่ธรณีบีบมวยผม,SOURCE_CANDIDATE,
+P:P052,Place,ศาลสิงห์โตทอง มหาวิทยาลัยธรรมศาสตร์ ท่าพระจันทร์,SOURCE_CANDIDATE,

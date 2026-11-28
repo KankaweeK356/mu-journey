@@ -23,6 +23,15 @@ export function degreeRankings(degrees, k = 5) {
   });
 }
 
+/** One summary line per question. A shared first place names every node that has it, never just the first by name. */
+const COUNT_WORDS = { 'wish-deity': ['เรื่อง', 'องค์'], 'place-deity': ['แห่ง', 'องค์'], 'deity-wish': ['องค์', 'เรื่อง'], 'deity-place': ['องค์', 'แห่ง'] };
+export function degreeLeaders(degrees) {
+  return degreeRankings(degrees, degrees.length).map((r) => {
+    const value = r.rows[0].value, names = r.rows.filter((x) => x.value === value).map((x) => x.label), [item, unit] = COUNT_WORDS[r.key];
+    return `${r.title}: ${names.join(', ')} (${names.length > 1 ? `${item}ละ ${value} ${unit} เสมอกัน ${names.length} ${item}` : value})`;
+  });
+}
+
 const fix = (x, d) => Number(x).toFixed(d);
 export function communityVerdict(A) {
   const m = A.null_model.metrics, a = m.modularity_greedy, b = m.modularity_louvain_best10, pass = A.null_model.modularity_above_chance;

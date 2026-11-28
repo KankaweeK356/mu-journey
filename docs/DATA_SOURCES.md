@@ -43,6 +43,12 @@
 | `results/network_phase1_results.json` | ผลของโมเดลอ้างอิง (ไม่ทับ) | — |
 | `results/rigor_addendum_v1.json` | ภาคผนวกสถิติ (CI, leave-one-edge-out, Coverage) สร้างโดย `scripts/evaluate_rigor.py` | — |
 
+### 4.1 การออกแบบทริปและไฟล์ Neo4j (เพิ่มเมื่อ 2026-11-28)
+| โฟลเดอร์ | ที่มา | หมายเหตุ |
+|---|---|---|
+| `offline_design/` | ชุดไฟล์ Phase 1 (ข้อมูลนำเข้า sha `60aa9984217a`) | รันซ้ำได้ผลตรงกับ `offline_signature_trip_v1.json` · ตารางผู้ใช้/feedback/ออเดอร์เป็น SYNTHETIC |
+| `neo4j/` | ชุดไฟล์ Phase 1 | โหนดและเส้นตรงกับกราฟของโมเดล · ยังไม่เคยรันบน Neo4j |
+
 ## 5. แหล่งภายนอกที่อ้างอิงในข้อมูล
 ชีต `CL_RITUAL_CLAIMS`, `CL_OFFERING_SOURCES`, `GD_PLACES`, `CL_HOURS_CANDIDATES` มี URL ของเว็บภายนอก (ประมาณ 125 ลิงก์ในไฟล์ 01 และ 120 ในไฟล์ 02) เช่น เว็บมูลนิธิ พจนานุกรม และเว็บท่องเที่ยว
 - repo เก็บเฉพาะ **ข้อความอ้างอิงสั้น ๆ (claim) พร้อมลิงก์ที่มา** ไม่เก็บบทความหรือเนื้อหาของเว็บเหล่านั้น
@@ -55,7 +61,7 @@
 | ชีต feedback จริงจากผู้ใช้ (Google Sheet ที่รับข้อความผ่านเว็บ) | เป็นข้อมูลส่วนบุคคลของผู้ตอบ ผู้ตอบยินยอมให้เก็บเพื่อประเมิน Demo เท่านั้น ไม่ใช่เพื่อเผยแพร่สาธารณะ |
 | `FEEDBACK_WEBHOOK_URL`, `FEEDBACK_TOKEN` และไฟล์ `.env` | ความลับ อยู่ใน Environment Variables ของ Vercel (repo มีเฉพาะ `.env.example` ที่เป็นค่าว่าง) |
 | วันเกิดของผู้ใช้ | ไม่เก็บที่ใดเลย อยู่ในหน่วยความจำของหน้าเว็บเท่านั้น |
-| ไฟล์ zip ต้นฉบับ Phase 1 (`MU_Journey_Network_Phase1_Complete.zip`) | เนื้อหาในนั้น (โมเดล รายงาน รูป) มีใน repo แล้ว |
+| ไฟล์ zip ต้นฉบับ Phase 1 (`MU_Journey_Network_Phase1_Complete.zip`) | โมเดล รายงาน รูป สคริปต์ออกแบบทริป (`offline_design/`) และไฟล์ Neo4j (`neo4j/`) อยู่ใน repo แล้ว · ไม่ได้นำ Notebook, `make_deliverables.py` และสำเนาไฟล์ผลของรอบนั้นเข้ามาเพิ่ม |
 
 ### 6.1 เวอร์ชันของคำถามคะแนนดาว (rating) ในฟอร์ม feedback
 | เวอร์ชัน | ใช้ตั้งแต่ | คำถาม | ค่าใน sheet (คอลัมน์ `scope`) |

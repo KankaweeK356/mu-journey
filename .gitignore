@@ -21,5 +21,8 @@ Thumbs.db
 # local tool config (contains machine paths)
 .claude/
 
+# output of re-running the offline trip design
+/offline_design/MU_Journey_Signature_Trip_Design_v1.json
+
 # accidental nested clone created by GitHub Desktop
 /mu-journey/

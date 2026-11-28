@@ -12,7 +12,7 @@
 - วิเคราะห์ Degree/Betweenness/Closeness เพื่อระบุจุดเชื่อมและโหนดที่เครือข่ายพึ่งพา แต่จะไม่ตีความจำนวนเส้นเชื่อมเป็นความนิยมจริง
 - สถานที่ทั้ง 52 แห่งไม่มีพิกัดสถานที่ที่ยืนยันแล้ว; ชั่วโมงเปิดบางแห่งเป็น Synthetic/Candidate; ความเชื่อเป็น Candidate Claims ไม่ใช่หลักฐานว่าคำขอพรสัมฤทธิ์ผล
 
-![Graph](figures/01_knowledge_graph.png)
+![Graph](../public/figures/01_knowledge_graph.png)
 
 ## 3. Core Algorithm
 **3.1 MU Place Recommendation.** ลบ Deity/Place ที่ไม่ผ่าน Hard Constraints ออกจาก Knowledge Graph; restart Personalized PageRank จาก Wish ที่เลือก (น้ำหนักเท่ากัน); ใช้ birthday-to-deity เพียงรายการที่มีรหัส master ยืนยันใน source mapping เป็นสัญญาณรอง; จำกัด Candidate ให้มีเส้นทางจริง Wish→Deity→Place แล้ว greedy re-rank ให้ครอบคลุม 1–3 เรื่องที่เลือก (75% PPR normalized +25% ความสนใจที่ยังไม่ถูกครอบคลุม) ส่งกลับได้ไม่เกิน 5 แห่งโดยไม่แต่งเพิ่มหากมีน้อยกว่า 5
@@ -32,7 +32,7 @@
 - **Sensitivity:** ลองเปลี่ยนสัดส่วน PPR 0.50/0.75/0.90 สำหรับ fixture 15 ราย ผล Top-1 ยังเหมือนเดิมในชุดนี้; ไม่สามารถอ้าง robustness ทั่วไปจากตัวอย่างเล็กได้
 - **Trip transport scenario:** จำลองเวลาเดินทางเพิ่ม 0/15/30/50% จากเวลาองค์ประกอบ rail/walk/wait ในตาราง โดยยังไม่เปลี่ยนเส้นทาง; ใช้ประเมินความเสี่ยงเบื้องต้นเท่านั้น
 
-![Baseline](figures/02_structural_baseline.png)
+![Baseline](../public/figures/02_structural_baseline.png)
 
 ## 6. Three fixed company trips
 | Trip | Stops | Finish estimate | Duration | Source path |
@@ -41,7 +41,7 @@
 | TRIP_CAREER | P026 → P014 → P012 → P005 | 13:40 | 279.9 min | Source Claims + Rail Estimate |
 | TRIP_WEALTH | P018 → P017 → P044 → P015 | 13:00 | 239.6 min | Source Claims + Rail Estimate |
 
-![Trip duration](figures/03_fixed_trip_duration.png)
+![Trip duration](../public/figures/03_fixed_trip_duration.png)
 เปิดขายไม่ได้จนกว่าจะยืนยันเวลาเข้า, ตำแหน่งทางเดิน, สถานที่อนุญาต, ความจุกรุ๊ป, ราคาและกำไรจริง
 
 ## 7. Scope & Study-Rubric Evidence
@@ -50,11 +50,11 @@
 | Problem Framing & Business Relevance | User→Wish→Deity→Place; Fixed-trip top-1 decision; no rerouting | สาธิตและยืนยัน business ownership |
 | Data Collection & Graph Construction | Master IDs, 114 source edges, QA, provenance, alias links | Audit source rights/ToS, sample-check unsupported claims and venue info |
 | Network Analysis & Analytical Rigor | Degree, Betweenness, Closeness, Density, Components, Community, PPR, routing, baselines, sensitivity; **ภาคผนวก: bootstrap CI, leave-one-edge-out 28 เส้น, วัดผล Coverage 175 ชุด (ภาคผนวก §11)** | Independent expert/real-user labels |
-| Technology & AI Integration | NetworkX runnable; Neo4j-compatible CSV and sample Cypher included | Neo4j code not yet executed on a running DB; no real LLM GraphRAG deployed |
+| Technology & AI Integration | NetworkX runnable; Neo4j-compatible CSV and sample Cypher included (`neo4j/`) | Neo4j code not yet executed on a running DB; no real LLM GraphRAG deployed |
 | Business Impact & Responsible Use | 3 fixed mock products, Top-5/Top-1 rules, exclusion zero in tests, abstention | Paid-tour operations, actual prices, cost savings/conversion validation |
 
 ## 8. ชัดเจนว่าอะไรคือ “สมบูรณ์”
-**สมบูรณ์ระดับ Phase 1 analytical demo:** Network model, baseline comparison, 3 fixed products, user input 1–3 wishes, forbidden deity/place, explainable output, deterministic acceptance tests และ repeatable Python/Notebook พร้อมแล้ว
+**สมบูรณ์ระดับ Phase 1 analytical demo:** Network model, baseline comparison, 3 fixed products, user input 1–3 wishes, forbidden deity/place, explainable output, deterministic acceptance tests และ Python ที่รันซ้ำได้ พร้อมแล้ว (Notebook อยู่ในชุดไฟล์ Phase 1 ไม่ได้อยู่ใน repo)
 **ยังไม่สมบูรณ์สำหรับการอ้างความแม่นยำกับผู้ใช้จริงหรือเปิดขาย:** ต้องมีคำตัดสินจากผู้ใช้/ผู้เชี่ยวชาญที่ไม่อิงชุด Graph เดิม, แหล่งจริงตรวจสอบ, ตำแหน่งและเวลาเดินจริง, ราคา/จำนวนคน/นโยบายการจอง และการ deploy app
 
 ## 9. คำตอบสำหรับ Defend อาจารย์
@@ -66,11 +66,12 @@
 
 ## 10. Reproducibility
 ```bash
-pip install networkx matplotlib nbformat
-python network_phase1.py
-python -m unittest -v test_network_phase1.py
-python make_deliverables.py
+pip install -r requirements.txt
+python model/network_phase1.py                         # สร้างผลโมเดลใหม่ (เขียนทับ model/results/)
+cd model && python -m unittest -v test_network_phase1.py && cd ..
+python offline_design/mu_trip_design_bts_mrt_v1.py     # ออกแบบ 3 ทริปซ้ำ (ดู offline_design/README.md)
 ```
+สคริปต์สร้างรูปและรายงานรอบ Phase 1 (`make_deliverables.py`) อยู่ในชุดไฟล์ Phase 1 ไม่ได้อยู่ใน repo รูปที่ใช้เก็บใน `public/figures/`
 ใช้ JSON Snapshot ที่ export จาก Drive Baseline v2 และ file offline_signature_trip_v1.json ที่บันทึกเมื่อ 21 พฤศจิกายน 2569; ไม่ดึงข้อมูลออนไลน์ระหว่างรัน. Model “birth signal” ใช้เพียงบาง Claim ที่ match existing deity master เท่านั้น
 
 **Data origin:**
@@ -89,6 +90,6 @@ python make_deliverables.py
 ## 12. ส่วนขยายหลัง Phase 1 (เว็บแอปที่ deploy)
 - **เว็บแอป 2 แท็บ** (Vercel + Google Sheets): Tab 1 เดินสาธิต 7 ขั้น, Tab 2 Network Analytics 5 หัวข้อ ใช้เอนจินเดียวกัน ตรวจความตรงกันอัตโนมัติ
 - **ชั้นกิจกรรม (EVENT_RANKING_V1):** จัดอันดับกิจกรรมสายมู 37 รายการจากเครือข่ายเดิมโดยไม่แก้สูตร ทุกกิจกรรมมีเส้นทางจริง เรื่อง→เทพ→สถานที่→กิจกรรม รายงานความเสถียรของอันดับและความเสมอกันอย่างเปิดเผย
-- **Calendar v3:** วันสำคัญที่ตรวจตามปฏิทิน (วาเลนไทน์) เตือนได้ ส่วนกิจกรรมจริงที่ยังไม่ยืนยันกำหนดการ ติดตามได้แต่ไม่เตือน ข้อมูลคอนเสิร์ต/สอบเป็นข้อมูลสมมติ ใช้เฉพาะโหมดจำลองใน Tab 2 ระบบเตือนเป็น in-app on-open (ดู `docs/CALENDAR_V3_REMINDER_RULES.md`)
-- **ทดสอบอัตโนมัติ:** Python + Node รวมกว่า 120 ข้อ และชุดทดสอบ Reminder 60 แถว (ไม่แก้ค่าที่คาด)
+- **Calendar v3 และกระดิ่ง:** Tab 1 แสดงรายการที่เกี่ยวข้องภายใน 90 วัน ไม่เกิน 5 รายการ โดยผู้ใช้ไม่ต้องตั้งค่า วันสำคัญที่ตรวจตามปฏิทิน (วาเลนไทน์) ติดป้าย "ใกล้ถึง" เมื่อเหลือ 7 และ 1 วัน ส่วนกิจกรรมจริงที่ยังไม่ยืนยันกำหนดการบันทึกไว้ได้แต่ไม่มีวันเตือนล่วงหน้า ข้อมูลคอนเสิร์ต/สอบเป็นข้อมูลสมมติ ใช้เฉพาะโหมดจำลองใน Tab 2 ระบบเตือนเป็น in-app on-open (ดู `docs/CALENDAR_V3_REMINDER_RULES.md`)
+- **ทดสอบอัตโนมัติ (ณ 2026-11-26):** Python 182 ข้อ, Node 77 ข้อ, ทดสอบในเบราว์เซอร์ 5 ชุด และชุดทดสอบ Reminder 60 แถว (ไม่แก้ค่าที่คาด)
 - **ข้อมูลส่วนบุคคล:** วันเกิดอยู่ในหน่วยความจำของหน้าเท่านั้น feedback ต้องยินยอมก่อนส่ง
