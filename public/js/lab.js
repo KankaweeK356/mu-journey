@@ -37,7 +37,9 @@ export function renderLab(p, ctx) {
 
   function setProfile(pr, source) { S.lab.profile = clone(pr); S.lab.source = source; S.lab.trace = null; S.lab.key = null; labListeners.forEach((fn) => fn()); drawProfile(); clear(out); }
 
+  let drawnWithProfile = null;
   function drawProfile() {
+    drawnWithProfile = hasProfile();
     const pr = S.lab.profile, src = S.lab.source;
     const exc = pr.exclusions;
     const editor = h('details', {}, h('summary', {}, 'แก้โปรไฟล์เอง'), h('div', { class: 'inner stack' },
@@ -137,4 +139,9 @@ export function renderLab(p, ctx) {
   }
 
   drawProfile();
+  // Tabs are rendered once, but interests chosen in Tab 1 can appear (or be cleared) afterwards. When the card comes back
+  // into view, redraw it only if that changed, so the "use my Demo profile" button is never stale.
+  if (window.IntersectionObserver) new IntersectionObserver((seen) => {
+    if (seen.some((x) => x.isIntersecting) && drawnWithProfile !== hasProfile()) drawProfile();
+  }).observe(profCard);
 }
