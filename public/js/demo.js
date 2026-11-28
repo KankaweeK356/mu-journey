@@ -596,6 +596,17 @@ export async function renderDemo(root) {
   const ritualBlock = (ttl, rows) => !rows.length ? null : h('div', {}, h('h4', {}, ttl), rows.map((r) => h('div', { class: 'ritual' }, h('b', {}, r.category_th + ': '), userNote(r.detail),
     h('div', { class: 'src' }, 'แหล่ง: ' + userSourceName(r.source_name) + ' · ' + userVerification(r.verification) + ' · ', r.quality_status === 'SOURCE_MISSING' ? 'ยังไม่มีแหล่งยืนยัน' : 'ข้อมูลอ้างอิง ไม่ใช่การรับรองทางการ',
       r.source_urls.filter((u) => /^https?:\/\//.test(u)).map((u, i) => [' · ', h('a', { href: u, target: '_blank', rel: 'noopener noreferrer' }, 'แหล่ง ' + (i + 1))])))));
+  /* Rituals: the place's own and those of the entities behind THIS recommendation come first (the recommendation's paths already
+     follow the chosen wishes and exclusions). Entities of other topics stay one press away; nothing is removed or rewritten. */
+  function ritualSections(P) {
+    const hit = S.result && S.result.top5.find((x) => x.place_id === P.place_id);
+    const mine = new Set(hit ? hit.deity_ids : []);
+    const all = Object.entries(P.rituals.deity);
+    const first = mine.size ? all.filter(([d]) => mine.has(d)) : all, other = mine.size ? all.filter(([d]) => !mine.has(d)) : [];
+    const blocks = (list) => list.map(([d, rows]) => ritualBlock('ของ' + nameOf(d), rows));
+    return [ritualBlock('วิธีมู/ของไหว้ของสถานที่นี้', P.rituals.place), ...blocks(first),
+      other.length ? h('details', { 'data-other-rituals': String(other.length) }, h('summary', {}, `สิ่งศักดิ์สิทธิ์อื่นในสถานที่นี้ (${other.length} องค์ · ${other.reduce((n, [, rows]) => n + rows.length, 0)} รายการ)`), h('div', { class: 'inner stack' }, blocks(other))) : null];
+  }
   async function openPlace(id) {
     clear(dlg).append(h('div', { class: 'dlg-b' }, h('div', { class: 'spinner' })));
     dlg.showModal();
@@ -603,12 +614,13 @@ export async function renderDemo(root) {
       const P = await API.place(id);
       clear(dlg).append(h('div', { class: 'dlg-h' }, h('div', {}, h('h3', {}, P.name), h('div', { class: 'small muted' }, P.district + ' · ' + P.address)), h('button', { class: 'btn sm', onclick: () => dlg.close() }, 'ปิด')),
         h('div', { class: 'dlg-b stack' },
+          P.rituals.place.length || Object.keys(P.rituals.deity).length ? h('div', { class: 'callout info small', 'data-check-first': 'true' }, 'ข้อห้ามและวิธีมูเป็นข้อมูลอ้างอิง ควรตรวจกับสถานที่ก่อนเดินทาง') : null,
           h('div', { class: 'row' }, h('span', { class: 'chip' }, `เปิด ${P.hours.open}–${P.hours.close}`), statusChip(P.hours.status, 'เวลาเปิด'), h('span', { class: 'chip st-unv' }, P.station.id ? `พิกัด: ${stationText(P.station.name_th, P.station.system, P.station.id)} ไม่ใช่ตำแหน่งสถานที่จริง` : 'ยังไม่มีข้อมูลสถานีรถไฟฟ้า'), h('span', { class: 'chip' }, accessText(P.station.access_min_candidate))),
           P.caution ? h('div', { class: 'callout warn small', 'data-caution': 'true' }, userCaution(P.caution)) : null,
           statusLegend(),
           h('div', {}, h('h4', {}, 'สิ่งศักดิ์สิทธิ์และเรื่องมูที่เชื่อมโยง'), h('div', { class: 'scroll-x' }, h('table', {}, h('thead', {}, h('tr', {}, ['สิ่งศักดิ์สิทธิ์', 'ความเชื่อ', 'เรื่องที่ขอ', 'สถานะ'].map((t) => h('th', {}, t)))),
             h('tbody', {}, P.sacred_entities.map((e) => h('tr', {}, h('td', {}, e.deity_name), h('td', {}, e.tradition), h('td', {}, e.wish_names.join(', ')), h('td', {}, statusChip(e.place_link_status, 'เทพ–สถานที่')))))))),
-          ritualBlock('วิธีมู/ของไหว้ของสถานที่นี้', P.rituals.place), ...Object.entries(P.rituals.deity).map(([d, rows]) => ritualBlock('ของ' + nameOf(d), rows)),
+          ritualSections(P),
           !P.rituals.place.length && !Object.keys(P.rituals.deity).length ? h('div', { class: 'callout' }, 'ยังไม่มีข้อมูลวิธีมูที่มีแหล่งอ้างอิงสำหรับสถานที่นี้') : null,
           h('div', { class: 'callout small' }, P.disclaimer)));
     } catch (e) { clear(dlg).append(h('div', { class: 'dlg-b' }, h('div', { class: 'callout bad' }, 'โหลดไม่สำเร็จ: ' + e.message), h('button', { class: 'btn', onclick: () => dlg.close() }, 'ปิด'))); }

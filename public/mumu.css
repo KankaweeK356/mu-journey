@@ -203,7 +203,7 @@ dialog::backdrop { background: rgba(43, 31, 63, .55); }
 .graph svg { display: block; width: 100%; height: auto; min-width: 640px; }
 .graph .edge { stroke-width: 1.2; fill: none; opacity: .5; }
 .graph .edge.st-source { stroke: #2f8f4b; } .graph .edge.st-cand { stroke: #c58a12; stroke-dasharray: 5 3; } .graph .edge.st-unv { stroke: #b0a6c4; stroke-dasharray: 1.5 3; }
-.graph .edge.dim { opacity: .05; } .graph .edge.hi { opacity: 1; stroke-width: 2.4; } .graph .edge.live { opacity: .95; stroke-width: 2.2; }
+.graph .edge.dim { opacity: .05; } .graph .edge.hi { opacity: 1; stroke-width: 2.4; } .graph .edge.live { opacity: .95; stroke-width: 2.2; } .graph .edge.live.dim { opacity: .05; } .graph .edge.live.hi { opacity: 1; stroke-width: 2.6; }
 .graph .node { cursor: pointer; } .graph .node circle { stroke: #fff; stroke-width: 1.5; } .graph .node.dim { opacity: .15; }
 .graph .node.gone circle { fill: #d9d4c8 !important; } .graph .node.gone text { fill: #b2ab9c; text-decoration: line-through; }
 .graph text { font-size: 11px; fill: var(--ink); paint-order: stroke; stroke: #fff; stroke-width: 3px; stroke-linejoin: round; } .graph .colhead { font-size: 12.5px; font-weight: 700; fill: var(--ink-2); stroke: none; }

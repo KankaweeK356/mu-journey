@@ -15,11 +15,18 @@ export function wishNetwork(graph, wishId) {
   return new Set([wishId, ...deities, ...graph.edges.filter((e) => deities.has(e.s)).map((e) => e.t)]);
 }
 
+/** What lights up when a node is pointed at or selected: the whole chain it belongs to, not only its direct neighbours.
+ *  A wish reaches its entities and their places; a place reaches its entities and their wishes; an entity reaches both sides.
+ *  It never turns back (a wish does not lead to other wishes, a place does not lead to other places). */
+export function relatedNetwork(graph, id) {
+  if (graph.edges.some((e) => e.s === id) && !graph.edges.some((e) => e.t === id)) return wishNetwork(graph, id);      // a wish
+  const near = new Set([id, ...graph.edges.filter((e) => e.s === id || e.t === id).map((e) => (e.s === id ? e.t : e.s))]);
+  if (id.startsWith('P:')) graph.edges.filter((e) => near.has(e.t) && e.t !== id).forEach((e) => near.add(e.s));
+  return near;
+}
+
 /** mountGraph(container, graph, {onSelect}) → {setFilter, setMode, setScores, setGone, setLive, setRanks, select} */
 export function mountGraph(container, graph, { onSelect } = {}) {
-  const adj = {};
-  graph.nodes.forEach((n) => { adj[n.id] = new Set(); });
-  graph.edges.forEach((e) => { adj[e.s].add(e.t); adj[e.t].add(e.s); });
   const byId = Object.fromEntries(graph.nodes.map((n) => [n.id, n]));
 
   let filter = { types: new Set(['W', 'D', 'P']), wish: null, community: null, labels: true, connectedOnly: false };
@@ -83,8 +90,12 @@ export function mountGraph(container, graph, { onSelect } = {}) {
   }
 
   function focusNode(id) {
-    const near = id ? new Set([id, ...adj[id]]) : null;
-    for (const { el, e } of edgeEl) { el.classList.toggle('dim', !!near && !(e.s === id || e.t === id)); el.classList.toggle('hi', !!near && (e.s === id || e.t === id)); }
+    const near = id ? relatedNetwork(graph, id) : null;
+    for (const { el, e } of edgeEl) {
+      const on = !!near && near.has(e.s) && near.has(e.t);
+      el.classList.toggle('dim', !!near && !on); el.classList.toggle('hi', on);
+      el.style.opacity = !near && live && !live.has(e.s + '>' + e.t) ? '.1' : '';      // while a node is in focus, its chain wins over the Top-5 fading
+    }
     for (const [nid, o] of Object.entries(nodeEl)) o.g.classList.toggle('dim', !!near && !near.has(nid));
   }
   function select(id) {
@@ -107,8 +118,9 @@ export function mountGraph(container, graph, { onSelect } = {}) {
     }
     for (const { el, e } of edgeEl) {
       const dead = gone.has(e.s) || gone.has(e.t), isLive = !!live && live.has(e.s + '>' + e.t);
-      el.style.display = dead ? 'none' : ''; el.classList.toggle('live', isLive); el.style.opacity = live && !isLive ? '.1' : '';
+      el.style.display = dead ? 'none' : ''; el.classList.toggle('live', isLive);
     }
+    focusNode(selected);
   }
   build();
 

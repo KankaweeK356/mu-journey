@@ -3,7 +3,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { degreeByType, degreeRankings, degreeLeaders, communityVerdict, randomGraphRows } from '../../public/js/netstats.js';
-import { wishNetwork } from '../../public/js/graphview.js';
+import { wishNetwork, relatedNetwork } from '../../public/js/graphview.js';
 import { put } from '../../public/js/util.js';
 
 const read = (p) => readFileSync(new URL('../../' + p, import.meta.url), 'utf-8');
@@ -20,6 +20,16 @@ test('wish filter keeps only the chosen wish, its entities and their places (all
     const deities = graph.edges.filter((e) => e.s === w.id).map((e) => e.t);
     assert.deepEqual([...keep].filter((id) => id.startsWith('D:')).sort(), [...deities].sort(), w.label);
     for (const p of [...keep].filter((id) => id.startsWith('P:'))) assert.ok(graph.edges.some((e) => e.t === p && deities.includes(e.s)), `${w.label} ${p}`);
+  }
+  // pointing at a node lights its whole chain: every node, against an independent two-step walk
+  const into = (id) => graph.edges.filter((e) => e.t === id).map((e) => e.s);
+  const out = (id) => graph.edges.filter((e) => e.s === id).map((e) => e.t);
+  for (const n of graph.nodes) {
+    const want = new Set([n.id]);
+    if (n.type === 'W') out(n.id).forEach((d) => { want.add(d); out(d).forEach((p) => want.add(p)); });
+    if (n.type === 'D') [...into(n.id), ...out(n.id)].forEach((x) => want.add(x));
+    if (n.type === 'P') into(n.id).forEach((d) => { want.add(d); into(d).forEach((x) => want.add(x)); });
+    assert.deepEqual([...relatedNetwork(graph, n.id)].sort(), [...want].sort(), n.id);
   }
 });
 
